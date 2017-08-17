@@ -1,0 +1,28 @@
+
+@LOG_DIR@/kaltura_red5.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ sharedscripts
+ postrotate
+ service red5 restart
+ endscript
+ su root kaltura
+}
+
+@LOG_DIR@/kaltura_red5_error.log{
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ sharedscripts
+ postrotate
+ service red5 restart
+ endscript
+ su root kaltura
+}

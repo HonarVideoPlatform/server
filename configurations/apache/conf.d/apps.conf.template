@@ -1,0 +1,37 @@
+Alias /hosted_pages "@BASE_DIR@/apps/hosted_pages/web"
+<Directory "@BASE_DIR@/apps/hosted_pages/web">
+    DirectoryIndex index.php
+    Options Indexes FollowSymLinks Includes
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+    <IfVersion >= 2.4>
+	Require all granted
+    </IfVersion>
+</Directory>
+
+Alias /html5 "@WEB_DIR@/html5"
+<Directory "@WEB_DIR@/html5">
+    ExpiresActive On
+    DirectoryIndex index.php
+    Options -Indexes +FollowSymLinks +Includes
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+    <IfVersion >= 2.4>
+	Require all granted
+    </IfVersion>
+</Directory>
+
+Alias /apps "@BASE_DIR@/apps"
+<Directory "@BASE_DIR@/apps">
+    DirectoryIndex index.php
+    Options -Indexes +FollowSymLinks +Includes
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+    <IfVersion >= 2.4>
+	Require all granted
+    </IfVersion>
+</Directory>
+

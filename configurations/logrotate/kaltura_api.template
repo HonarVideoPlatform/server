@@ -1,0 +1,40 @@
+
+@LOG_DIR@/kaltura_api_v3.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ su root kaltura
+}
+
+@LOG_DIR@/kaltura_api_v3_analytics.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ su root kaltura
+}
+
+@LOG_DIR@/kaltura_api_v3_tests.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ su root kaltura
+}
+
+@LOG_DIR@/kaltura_prod.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ su root kaltura
+}

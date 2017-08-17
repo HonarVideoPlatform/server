@@ -1,0 +1,44 @@
+
+@LOG_DIR@/cron.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ su root kaltura
+}
+
+@LOG_DIR@/kaltura_monit.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ sharedscripts
+ postrotate
+ service kaltura-monit restart
+ endscript
+ su root kaltura
+}
+
+@LOG_DIR@/kaltura_deploy.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ su root kaltura
+}
+
+@LOG_DIR@/kaltura_scripts.log {
+ rotate 5
+ daily
+ missingok
+ compress
+ dateext
+ notifempty
+ su root kaltura
+}
