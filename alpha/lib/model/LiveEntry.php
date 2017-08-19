@@ -231,7 +231,7 @@ abstract class LiveEntry extends entry
 	
 	public function setRecordedEntryId($v)
 	{
-		if($v)
+		if($v && $v != $this->getRecordedEntryId())
 			$this->incInCustomData("recorded_entry_index");
 		
 		$this->putInCustomData("recorded_entry_id", $v);
@@ -345,7 +345,7 @@ abstract class LiveEntry extends entry
 			$configurations = $this->getFromCustomData('live_stream_configurations', null, array());
 			if($configurations && $this->getPushPublishEnabled())
 			{
-				$pushPublishConfigurations = $this->getPushPublishConfigurations();
+				$pushPublishConfigurations = $this->getPushPublishPlaybackConfigurations();
 				$configurations = array_merge($configurations, $pushPublishConfigurations);
 			}
 			
@@ -901,4 +901,15 @@ abstract class LiveEntry extends entry
 		
 		return $currentDuration;
 	}
+
+	public function getObjectParams($params = null)
+	{
+		$body = array(
+			'recorded_entry_id' => $this->getRecordedEntryId(),
+			'push_publish' => $this->getPushPublishEnabled(),
+		);
+		return array_merge(parent::getObjectParams($params), $body);
+	}
+
+
 }

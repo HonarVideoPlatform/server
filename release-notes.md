@@ -1,3 +1,146 @@
+# Mercury 13.1.0 #
+
+## Add new Search plugin ##
+
+- Issue Type: Feature
+- Issue ID: PLAT-7410
+
+### configuration ###
+Add the following to plugins.ini file: "Search"
+
+### Deployment scripts ###
+    1. php /opt/kaltura/app/deployment/base/scripts/installPlugins.php
+    2. mysql -h{HOSTNAME} -u{USER} -p{PASSWORD} kaltura_sphinx_log < /opt/kaltura/app/deployment/updates/sql/2017_05_15_add_type_column_sphinx_log.sql
+
+## Preserve Aspect Ratio accurately  ##
+
+- Issue Type: Feature
+- Issue ID: SUP-11599
+
+### configuration ###
+New mode (5) for flavorParams::AspectRatioMode field
+
+# Mercury 13.0.0 #
+
+## Fix deleting users on KMS ##
+
+- Issue Type: Bug
+- Issue ID: KMS-14633
+
+### configuration ###
+None
+
+### Deployment scripts ###
+Re-index Kuser sphinx table (php deployment/base/scripts/populateSphinxKusers.php)
+
+## Update Apache headers to support Kea Access-Control-Allow-Origin ##
+ - Issue type: Feature
+ - Issue ID : PLAT-7758
+ 
+### configuration ###
+Need to add the following section to apache config files /etc/apache2/sites-enabled/kaltura & /etc/apache2/sites-enabled/kaltura-ssl
+
+	Alias /apps/kea "/opt/kaltura/apps/kea"
+	<Directory "/opt/kaltura/apps/kea">
+	    DirectoryIndex index.php
+	    Options ExecCGI -Indexes FollowSymLinks Includes
+	    Order allow,deny
+	    Allow from all
+	    AllowOverride all
+	</Directory>
+
+### Deployment scripts ###
+None 
+ 
+#### Known Issues & Limitations ####
+None
+
+## Add Data addContent action ##
+
+- Issue Type: Feature
+- Issue ID: PLAT-7669
+
+### configuration ###
+None
+
+### Deployment scripts ###
+
+	php /opt/kaltura/app/deployment/updates/scripts/add_permissions/2017_07_11_addContent_data_permissions.php
+
+## Add support for Thumbnail and Thumbnail Stripes for Stitched Playlist ##
+
+- Issue Type: Feature
+- Issue ID: PLAT-7571
+
+### configuration ###
+- You will need to have the nginx-vod-module correctly installed and configured with all the relevant dependencies to support mapped thumbnail capture.
+
+- Add the following to local.ini and replace with the tokens with the correct values:
+
+    packager_mapped_thumb_capture_url = @VOD_PACKAGER_HOST@:@VOD_PACKAGER_PORT@/mappedthumb/{url}/thumb-{offset}.jpg
+
+### Deployment scripts ###
+None
+
+
+# Lynx 12.20.0 #
+
+## Add live packager delivery profiles ##
+
+- Issue Type: Feature
+- Issue ID: PLAT-7725
+
+### Configuration ###
+First replcae all tokens from the XML files below and remove ".template" from the fle name:
+
+	/opt/kaltura/app/deployment/base/scripts/init_data/07.DeliveryProfileLivePackagerDash.template.ini
+	/opt/kaltura/app/deployment/base/scripts/init_data/07.DeliveryProfileLivePackagerHds.template.ini
+	/opt/kaltura/app/deployment/base/scripts/init_data/07.DeliveryProfileLivePackagerHls.template.ini
+	/opt/kaltura/app/deployment/base/scripts/init_data/07.DeliveryProfileLivePackagerMss.template.ini
+
+### Deployment scripts ###
+
+	php /opt/kaltura/app/deployment/updates/scripts/2017_07_11_create_live_packager_delivery_profiles.php
+
+#### Known Issues & Limitations ####
+The followign modules need to be insatlled and correctly configured for this to work:
+
+- Please note that for live packaging to work you need to have the  [nginx-vod-module](https://github.com/kaltura/nginx-vod-module) correctly installed and configured to support live packaging.
+- This also requires your Kaltura live platform to work with Kaltura's [liveDvr](https://github.com/kaltura/liveDVR) 
+
+
+## Add Media-Entry ready email template ##
+
+- Issue Type: Support
+- Issue ID: SUP-8655
+
+### Configuration ###
+First replcae all tokens from the XML files below and remove ".template" from the fle name:
+	/opt/kaltura/app/deployment/updates/scripts/xml/2017_06_20_AddMediaEntryReadyTemplate.template.xml
+
+### Deployment scripts ###
+
+	  php /opt/kaltura/app/deployment/updates/scripts/2017_06_20_deploy_new_event_notification_template.php
+
+#### Known Issues & Limitations ####
+None.
+
+## Add capture space to addFromImage and cuePoint add ##
+
+- Issue Type: Feature
+- Issue ID: PLAT-7682
+
+### configuration ###
+
+	None
+### Deployment scripts ###
+
+	php /opt/kaltura/app/deployment/updates/scripts/add_permissions/2017_07_09_allow_capture_space_to_add_cue_points_and_thumbs.php
+
+#### Known Issues & Limitations ####
+
+        None.
+
 # Lynx 12.19.0 #
 
 
@@ -14,24 +157,11 @@
 
         None.
 
-## Add Media-Entry ready email template ##
-
-- Issue Type: Support
-- Issue ID: SUP-8655
-
-### Configuration ###
-script will ask for your: IP, userId and password (of your admin-console account), partner (insert -2 for partner)
-
-### Deployment scripts ###
-
-	  php /opt/kaltura/app/deployment/updates/scripts/2017_06_20_deploy_new_event_notification_template.php
-
-#### Known Issues & Limitations ####
-None.
 
 ## WaterMarking - functionality extension ##
 
-- Issue Type: Feature
+- 
+: Feature
 - Issue ID: PS-3118
 
 Added abilities -
@@ -2403,12 +2533,12 @@ None.
 - Issue Type: optimization
 
 ### Couchbase Deployment Instructions ###
-Download Couchbase server and install according to [official instructions](http://www.couchbase.com/nosql-databases/downloads#Couchbase_Server "http://www.couchbase.com/").
+Download Couchbase server and install according to [official instructions](http://www.couchbase.com/nosql-databases/downloads#Couchbase_Server "http://www.couchbase.com/") (Minimal version Couchbase server 4.0.0).
 
 #### Server Setup ####
 
- - Install Couchbase PHP extension: `pecl install couchbase`
-     - Required `php-devel` and `libcouchbase-devel`.
+ - Install Couchbase PHP extension: `pecl install couchbase-2.0.7`
+     - Required `php-devel` `gcc` `gcc-c++` `libcouchbase-devel` `libcouchbase-bin`
  - Add couchbase extension in your php.ini file.
  - Setup Couchbase server [http://@WWW_HOST@:8091](http://@WWW_HOST@:8091 "").
  - Define username and password to be used later in cache.ini configuration.

@@ -10,9 +10,30 @@ class serveFlavorAction extends kalturaAction
 	
 	const JSON_CONTENT_TYPE = 'application/json';
 	
+	protected $pathOnly = false;
+	
+	public function getFileSyncFullPath(FileSync $fileSync)
+	{
+		$fullPath = $fileSync->getFullPath();
+
+		$pathPrefix = kConf::get('serve_flavor_path_search_prefix', 'local', '');
+		if ($pathPrefix &&
+			kString::beginsWith($fullPath, $pathPrefix) &&
+			$this->pathOnly)
+		{
+			$pathReplace = kConf::get('serve_flavor_path_replace');
+			$newPrefix = $pathReplace[mt_rand(0, count($pathReplace) - 1)];
+			$fullPath = $newPrefix . substr($fullPath, strlen($pathPrefix));
+		}
+
+		return $fullPath;
+	}
+
 	protected function storeCache($renderer, $partnerId)
 	{
-		if (!function_exists('apc_store') || $_SERVER["REQUEST_METHOD"] != "GET")
+		if (!function_exists('apc_store') || 
+			$_SERVER["REQUEST_METHOD"] != "GET" || 
+			$renderer instanceof kRendererString)
 		{
 			return;
 		}
@@ -24,14 +45,14 @@ class serveFlavorAction extends kalturaAction
 		header("X-Kaltura:cache-key");
 	}
 	
-	protected function getSimpleMappingRenderer($path, asset $asset)
+	protected function getSimpleMappingRenderer($path, asset $asset = null)
 	{
 		$source = array(
 			'type' => 'source',
 			'path' => $path,
 		);
 
-		if ($asset->getEncryptionKey())
+		if ($asset && $asset->getEncryptionKey())
 		{
 			$source['encryptionKey'] = $asset->getEncryptionKey();
 		}
@@ -40,7 +61,7 @@ class serveFlavorAction extends kalturaAction
 			'clips' => array($source)
 		);
 
-		if (method_exists($asset, 'getLanguage') && $asset->getLanguage())
+		if ($asset && method_exists($asset, 'getLanguage') && $asset->getLanguage())
 		{
 			$language = languageCodeManager::getObjectFromKalturaName($asset->getLanguage());
 			$language = $language[1];
@@ -57,7 +78,7 @@ class serveFlavorAction extends kalturaAction
 			}
 		}
 
-		if (method_exists($asset, 'getLabel') && $asset->getLabel())
+		if ($asset && method_exists($asset, 'getLabel') && $asset->getLabel())
 		{
 			$sequence['label'] = $asset->getLabel();
 		}
@@ -71,6 +92,18 @@ class serveFlavorAction extends kalturaAction
 		return new kRendererString(
 				$json,
 				self::JSON_CONTENT_TYPE);
+	}
+
+	/**
+	 * This will make nginx-vod dump the request to the remote dc
+	 */
+	protected function renderEmptySimpleMapping()
+	{
+		if (!$this->pathOnly || !kIpAddressUtils::isInternalIp($_SERVER['REMOTE_ADDR']))
+			return;
+
+		$renderer = $this->getSimpleMappingRenderer('', null);
+		$renderer->output();
 	}
 	
 	protected function serveLivePlaylist($durations, $sequences)
@@ -134,7 +167,7 @@ class serveFlavorAction extends kalturaAction
 		
 		list($entryIds, $durations, $referenceEntry, $captionFiles) =
 			myPlaylistUtils::executeStitchedPlaylist($entry);
-		$this->serveEntriesAsPlaylist($entryIds, $durations, $referenceEntry, $entry, null);
+		$this->serveEntriesAsPlaylist($entryIds, $durations, $referenceEntry, $entry, null, null, null);
 	}
 
 	protected function serveEntriesAsPlaylist($entryIds, $durations, $referenceEntry, $origEntry, $flavorParamIds, $captionFiles, $captionLanguages)
@@ -212,7 +245,7 @@ class serveFlavorAction extends kalturaAction
 		foreach ($flavorParamIds as $flavorParamsId)
 		{
 			$referenceFlavor = $groupedFlavors[$referenceEntry->getId()][$flavorParamsId];
-
+			$origEntryFlavor = $referenceFlavor;
 			// build the clips of the current sequence
 			$clips = array();
 			foreach ($entryIds as $entryId)
@@ -254,13 +287,17 @@ class serveFlavorAction extends kalturaAction
 					}
 				}
 
+				if ($flavor->getEntryId() == $origEntry->getId())
+				{
+					$origEntryFlavor = $flavor;
+				}
 				// get the file path of the flavor
 				$syncKey = $flavor->getSyncKey(flavorAsset::FILE_SYNC_FLAVOR_ASSET_SUB_TYPE_ASSET);
 				list($fileSync, $local) = kFileSyncUtils::getReadyFileSyncForKey($syncKey , false, false);
 				if ($fileSync)
 				{
 					$resolvedFileSync = kFileSyncUtils::resolve($fileSync);
-					$path = $resolvedFileSync->getFullPath();
+					$path = $this->getFileSyncFullPath($resolvedFileSync);
 				}
 				else
 				{
@@ -271,10 +308,11 @@ class serveFlavorAction extends kalturaAction
 
 				$clips[] = array('type' => 'source', 'path' => $path);
 			}
-			$sequences[] = array('clips' => $clips);
+			$sequences[] = array('clips' => $clips, 'id' => $this->getServeUrlForFlavor($origEntryFlavor->getId(), $origEntry->getId()));
 		}
 
-		$this->addCaptionSequences($entryIds, $captionFiles, $captionLanguages, $sequences);
+		if ($captionFiles)
+			$this->addCaptionSequences($entryIds, $captionFiles, $captionLanguages, $sequences, $origEntry);
 
 		// build the media set
 		if ($isLive)
@@ -299,41 +337,33 @@ class serveFlavorAction extends kalturaAction
 	}
 
 
-	protected function serveEntryWithSequence($entry, $sequenceEntries, $flavorId, $captionLanguages)
+	protected function serveEntryWithSequence($entry, $sequenceEntries, $asset, $flavorParamId, $captionLanguages)
 	{
-		$flavorParamsIdsArr = array();
-		$asset = null;
-		if ($flavorId)
-		{
-			$asset = assetPeer::retrieveById($flavorId);
-			if (is_null($asset))
-			{
-				KExternalErrors::dieError(KExternalErrors::FLAVOR_NOT_FOUND);
-			}
-			$flavorParamsIdsArr = array($asset->getFlavorParamsId());
-		}
 		/* @var asset $asset */
 		$allEntries = $sequenceEntries;
 		$allEntries[] = $entry;
 		if (empty($captionLanguages) && $asset && $asset->getType() == CaptionPlugin::getAssetTypeCoreValue(CaptionAssetType::CAPTION))
 			$captionLanguages = $asset->getLanguage();
+		$flavorParamsIdsArr = null;
+		if ($flavorParamId)
+			$flavorParamsIdsArr = array($flavorParamId);
 		list($entryIds, $durations, $referenceEntry, $captionFiles ) =
 			myPlaylistUtils::getPlaylistDataFromEntries($allEntries, $flavorParamsIdsArr, $captionLanguages);
 
 		if ($asset && $asset->getType() == CaptionPlugin::getAssetTypeCoreValue(CaptionAssetType::CAPTION))
 		{
-			$this->serveCaptionsWithSequence($entryIds, $captionFiles, $durations, $captionLanguages, $entry->getPartnerId());
+			$this->serveCaptionsWithSequence($entryIds, $captionFiles, $durations, $captionLanguages, $entry->getPartnerId(), $entry);
 		}
 
 
 		$this->serveEntriesAsPlaylist($entryIds, $durations, $referenceEntry, $entry, $flavorParamsIdsArr, $captionFiles, $captionLanguages);
 	}
 
-	protected function serveCaptionsWithSequence($entryIds, $captionFiles, $durations, $captionLangauges, $partnerId)
+	protected function serveCaptionsWithSequence($entryIds, $captionFiles, $durations, $captionLangauges, $partnerId, $mainEntry)
 	{
 		$sequences = array();
 
-		$this->addCaptionSequences($entryIds, $captionFiles, $captionLangauges, $sequences);
+		$this->addCaptionSequences($entryIds, $captionFiles, $captionLangauges, $sequences, $mainEntry);
 
 		$mediaSet = array('durations' => $durations, 'sequences' => $sequences);
 		// build the json
@@ -369,17 +399,27 @@ class serveFlavorAction extends kalturaAction
 		$entryId = $this->getRequestParameter("entryId");
 		$sequence = $this->getRequestParameter('sequence');
 		$captionLanguages = $this->getRequestParameter('captions', '');
+		$this->pathOnly = $this->getRequestParameter('pathOnly', false);
 
 		if ($entryId)
 		{
-			$entry = entryPeer::retrieveByPK($entryId);
+			$entry = entryPeer::retrieveByPKNoFilter($entryId);
 			if (!$entry)
 			{
+				// rendering empty response in case entry was not replicated yet
+				$this->renderEmptySimpleMapping();
 				KExternalErrors::dieError(KExternalErrors::ENTRY_NOT_FOUND);
 			}
+
+			if ($entry->getStatus() == entryStatus::DELETED) {
+				KExternalErrors::dieError(KExternalErrors::ENTRY_NOT_FOUND);
+			}
+
 			$isInternalIp = kIpAddressUtils::isInternalIp($_SERVER['REMOTE_ADDR']);
 			if ($entry->getType() == entryType::PLAYLIST && $isInternalIp)
 			{
+				list($flavorParamId, $asset) = $this->getFlavorAssetAndParamIds($flavorId);
+				myPartnerUtils::enforceDelivery($entry, $asset);
 				$this->servePlaylist($entry);
 			}
 			if ($sequence  && $isInternalIp)
@@ -388,8 +428,10 @@ class serveFlavorAction extends kalturaAction
 				$sequenceEntries = entryPeer::retrieveByPKs($sequenceArr);
 				if (count($sequenceEntries))
 				{
+					list($flavorParamId, $asset) = $this->getFlavorAssetAndParamIds($flavorId);
+					myPartnerUtils::enforceDelivery($entry, $asset);
 					$this->verifySequenceEntries($sequenceEntries);
-					$this->serveEntryWithSequence($entry, $sequenceEntries, $flavorId, $captionLanguages);
+					$this->serveEntryWithSequence($entry, $sequenceEntries, $asset, $flavorParamId, $captionLanguages);
 				}
 			}
 		}
@@ -398,14 +440,20 @@ class serveFlavorAction extends kalturaAction
 		$fileName = $this->getRequestParameter( "fileName" );
 		$fileParam = $this->getRequestParameter( "file" );
 		$fileParam = basename($fileParam);
-		$pathOnly = $this->getRequestParameter( "pathOnly", false );
 		$referrer = base64_decode($this->getRequestParameter("referrer"));
 		if (!is_string($referrer)) // base64_decode can return binary data
 			$referrer = '';
 		
-		$flavorAsset = assetPeer::retrieveById($flavorId);
-		if (is_null($flavorAsset))
+		$flavorAsset = assetPeer::retrieveByIdNoFilter($flavorId);
+		if (is_null($flavorAsset)) {
+			// rendering empty response in case flavor asset was not replicated yet
+			$this->renderEmptySimpleMapping();
 			KExternalErrors::dieError(KExternalErrors::FLAVOR_NOT_FOUND);
+		}
+
+		if ($flavorAsset->getStatus() == asset::ASSET_STATUS_DELETED) {
+			KExternalErrors::dieError(KExternalErrors::FLAVOR_NOT_FOUND);
+		}
 
 		if (!is_null($entryId) && $flavorAsset->getEntryId() != $entryId)
 			KExternalErrors::dieError(KExternalErrors::FLAVOR_NOT_FOUND);
@@ -435,14 +483,14 @@ class serveFlavorAction extends kalturaAction
 		
 		$syncKey = $flavorAsset->getSyncKey(flavorAsset::FILE_SYNC_FLAVOR_ASSET_SUB_TYPE_ASSET, $version);
 
-		if ($pathOnly && kIpAddressUtils::isInternalIp($_SERVER['REMOTE_ADDR']))
+		if ($this->pathOnly && kIpAddressUtils::isInternalIp($_SERVER['REMOTE_ADDR']))
 		{
 			$path = '';
 			list ( $file_sync , $local )= kFileSyncUtils::getReadyFileSyncForKey( $syncKey , false, false );
 			if ( $file_sync )
 			{
 				$parent_file_sync = kFileSyncUtils::resolve($file_sync);
-				$path = $parent_file_sync->getFullPath();
+				$path = $this->getFileSyncFullPath($parent_file_sync);
 				if ($fileParam && is_dir($path)) 
 				{
 					$path .= "/$fileParam";
@@ -620,7 +668,7 @@ class serveFlavorAction extends kalturaAction
 	 * @param $sequences
 	 * @return array
 	 */
-	protected function addCaptionSequences($entryIds, $captionFiles, $captionLangauges, &$sequences)
+	protected function addCaptionSequences($entryIds, $captionFiles, $captionLangauges, &$sequences, $mainEntry)
 	{
 		$captionLangaugesArr = explode(',', $captionLangauges);
 		foreach ($captionLangaugesArr as $captionLang)
@@ -632,7 +680,7 @@ class serveFlavorAction extends kalturaAction
 				if (isset($captionFiles[$entryId][$captionLang]))
 				{
 					$hasCaptions = true;
-					$captionClips[] = array('type' => 'source', 'path' => $captionFiles[$entryId][$captionLang][1]);
+					$captionClips[] = array('type' => 'source', 'path' => $captionFiles[$entryId][$captionLang][myPlaylistUtils::CAPTION_FILES_PATH]);
 				}
 				else
 				{
@@ -645,12 +693,43 @@ class serveFlavorAction extends kalturaAction
 				if (isset(CaptionPlugin::$captionsFormatMap[$langString]))
 					$langString = CaptionPlugin::$captionsFormatMap[$langString];
 				$currSequence = array('clips' => $captionClips, 'language' => $langString);
-				if (!is_null($captionFiles[$entryId][$captionLang][0]))
-					$currSequence['label'] = $captionFiles[$entryId][$captionLang][0];
+				if (!is_null($captionFiles[$entryId][$captionLang][myPlaylistUtils::CAPTION_FILES_LABEL]))
+					$currSequence['label'] = $captionFiles[$entryId][$captionLang][myPlaylistUtils::CAPTION_FILES_LABEL];
+				$currSequence['id'] = $this->getServeUrlForFlavor($captionFiles[$entryId][$captionLang][myPlaylistUtils::CAPTION_FILES_ID], $mainEntry->getId());
 				$sequences[] = $currSequence;
 			}
 		}
 
 		return true;
 	}
+
+	protected function getServeUrlForFlavor($flavorId, $entryId)
+	{
+		$url = $_SERVER['REQUEST_URI'];
+		$prefix = substr($url, 0, strpos($url, 'serveFlavor/') + 12);
+		$postfix = 'entryId/' . $entryId . "/flavorId/" . $flavorId . "/";
+		$outUrl = $prefix . $postfix;
+		return $outUrl;
+	}
+
+	/**
+	 * @param $flavorId
+	 * @return array
+	 */
+	protected function getFlavorAssetAndParamIds($flavorId)
+	{
+		$flavorParamId = null;
+		$asset = null;
+		if ($flavorId)
+		{
+			$asset = assetPeer::retrieveById($flavorId);
+			if (is_null($asset))
+			{
+				KExternalErrors::dieError(KExternalErrors::FLAVOR_NOT_FOUND);
+			}
+			$flavorParamId = $asset->getFlavorParamsId();
+		}
+		return array($flavorParamId, $asset);
+	}
+
 }
