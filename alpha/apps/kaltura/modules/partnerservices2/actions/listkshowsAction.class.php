@@ -3,17 +3,17 @@
  * @package api
  * @subpackage ps2
  */
-class listkshowsAction extends defPartnerservices2Action
+class listhshowsAction extends defPartnerservices2Action
 {
 	public function describe()
 	{
 		return 	
 			array (
-				"display_name" => "listKShows",
+				"display_name" => "listHShows",
 				"desc" => "" ,
 				"in" => array (
 					"mandatory" => array ( 
-						"filter" => array ("type" => "kshowFilter", "desc" => "")
+						"filter" => array ("type" => "hshowFilter", "desc" => "")
 						),
 					"optional" => array (
 						"detailed" => array ("type" => "boolean", "desc" => ""),
@@ -26,7 +26,7 @@ class listkshowsAction extends defPartnerservices2Action
 					"count" => array ("type" => "integer", "desc" => ""),
 					"page_size" => array ("type" => "integer", "desc" => ""),
 					"page" => array ("type" => "integer", "desc" => ""),
-					"kshows" => array ("type" => "*kshow", "desc" => ""),
+					"hshows" => array ("type" => "*hshow", "desc" => ""),
 					"user" => array ("type" => "kuser", "desc" => ""),
 					),
 				"errors" => array (
@@ -38,7 +38,7 @@ class listkshowsAction extends defPartnerservices2Action
 		
 	protected function needKuserFromPuser ( )	{		return self::KUSER_DATA_KUSER_DATA;	}
 		
-	protected function setExtraFilters ( kshowFilter &$fields_set )
+	protected function setExtraFilters ( hshowFilter &$fields_set )
 	{
 		
 	}
@@ -69,7 +69,7 @@ class listkshowsAction extends defPartnerservices2Action
 		$c = new Criteria();
 				
 		// filter		
-		$filter = new kshowFilter(  );
+		$filter = new hshowFilter(  );
 		$fields_set = $filter->fillObjectFromRequest( $this->getInputParams() , "filter_" , null );
 		
 		$this->setExtraFilters ( $filter );
@@ -92,8 +92,8 @@ class listkshowsAction extends defPartnerservices2Action
 		}		
 		
 		$filter->attachToCriteria( $c );
-		//if ($order_by != -1) kshowPeer::setOrder( $c , $order_by );
-		$count = kshowPeer::doCount( $c );
+		//if ($order_by != -1) hshowPeer::setOrder( $c , $order_by );
+		$count = hshowPeer::doCount( $c );
 
 		$offset = ($page-1)* $limit;
 		
@@ -107,14 +107,14 @@ class listkshowsAction extends defPartnerservices2Action
 				
 		if ( $detailed )
 		{
-			$list = kshowPeer::doSelectJoinAll( $c );
+			$list = hshowPeer::doSelectJoinAll( $c );
 			$level = objectWrapperBase::DETAIL_LEVEL_DETAILED ;
 			// will have to populate the show_entry before according to the ids
 			fdb::populateObjects( $list , new entryPeer() , "showentryid" , "showentry" , false ); 
 		}
 		else
 		{
-			$list = kshowPeer::doSelect( $c );
+			$list = hshowPeer::doSelect( $c );
 			$level = objectWrapperBase::DETAIL_LEVEL_REGULAR ;
 			// will have to populate the show_entry before according to the ids - we display the thumbnail from the showentry			
 			fdb::populateObjects( $list , new entryPeer() , "showentryid" , "showentry" , false );
@@ -125,7 +125,7 @@ class listkshowsAction extends defPartnerservices2Action
 		$this->addMsg ( "page" , $page );
 
 		$wrapper =  objectWrapperBase::getWrapperClass( $list  , $level );
-		$this->addMsg ( "kshows" , $wrapper ) ;
+		$this->addMsg ( "hshows" , $wrapper ) ;
 		if ( $use_filter_puser_id )
 		{
 			$this->addMsg ( "user" , objectWrapperBase::getWrapperClass( $puser_kuser  , objectWrapperBase::DETAIL_LEVEL_REGULAR ) );
@@ -134,11 +134,11 @@ class listkshowsAction extends defPartnerservices2Action
 
 /*
 		$i=0;
-		foreach ( $list as $kshow )
+		foreach ( $list as $hshow )
 		{
 			$i++;
-			$wrapper =  objectWrapperBase::getWrapperClass( $kshow  , $level );
-			$this->addMsg ( "kshow$i" , $wrapper ) ;
+			$wrapper =  objectWrapperBase::getWrapperClass( $hshow  , $level );
+			$this->addMsg ( "hshow$i" , $wrapper ) ;
 		}
 */
 
@@ -147,7 +147,7 @@ class listkshowsAction extends defPartnerservices2Action
 		
 //		echo "ccc";
 		
-		//$this->addMsg ( "kshows" , $wrapper ) ;
+		//$this->addMsg ( "hshows" , $wrapper ) ;
 		
 
 	}

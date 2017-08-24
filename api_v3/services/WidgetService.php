@@ -20,7 +20,7 @@ class WidgetService extends KalturaBaseService
 	}
 
 	/**
-	 * Add new widget, can be attached to entry or kshow
+	 * Add new widget, can be attached to entry or hshow
 	 * SourceWidget is ignored.
 	 * 
 	 * @action add
@@ -170,10 +170,10 @@ class WidgetService extends KalturaBaseService
 		if ( ! $dbWidget )
 			throw new KalturaAPIException ( APIErrors::INVALID_WIDGET_ID , $widget->sourceWidgetId );
 
-		$newWidget = widget::createWidgetFromWidget( $dbWidget , $widget->kshowId, $widget->entryId, $widget->uiConfId ,
+		$newWidget = widget::createWidgetFromWidget( $dbWidget , $widget->hshowId, $widget->entryId, $widget->uiConfId ,
 			null , $widget->partnerData , $widget->securityType );
 		if ( !$newWidget )
-			throw new KalturaAPIException ( APIErrors::INVALID_KSHOW_AND_ENTRY_PAIR , $widget->kshowId, $widget->entryId );
+			throw new KalturaAPIException ( APIErrors::INVALID_HSHOW_AND_ENTRY_PAIR , $widget->hshowId, $widget->entryId );
 
 		$widget = new KalturaWidget;
 		$widget->fromObject($newWidget, $this->getResponseProfile());

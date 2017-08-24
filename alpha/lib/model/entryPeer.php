@@ -102,10 +102,10 @@ class entryPeer extends BaseentryPeer
 		}
 	}
 
-	public static function getOrderedCriteria($kshowId, $order, $limit, $introId = null, $entryId = null)
+	public static function getOrderedCriteria($hshowId, $order, $limit, $introId = null, $entryId = null)
 	{
 		$c = new Criteria();
-		$c->add(entryPeer::KSHOW_ID, $kshowId);
+		$c->add(entryPeer::HSHOW_ID, $hshowId);
 		$c->add(entryPeer::TYPE, entryType::MEDIA_CLIP);
 
 		if ($introId)
@@ -123,22 +123,22 @@ class entryPeer extends BaseentryPeer
 	}
 
 	/**
-	 * This function returns a pager object holding the specified kshows' entries
+	 * This function returns a pager object holding the specified hshows' entries
 	 * sorted by a given sort order.
 	 * each entry holds the kuser object of its host.
 	 *
-	 * @param int $kshowId = the requested sort order
+	 * @param int $hshowId = the requested sort order
 	 * @param int $order = the requested sort order
-	 * @param int $pageSize = number of kshows in each page
+	 * @param int $pageSize = number of hshows in each page
 	 * @param int $page = the requested page
 	 * @param int $firstEntries = an array of entries to be picked first (show entry, show intro,
 	 *	or an arbitrary entry that was pointed to by the url)
 	 * @return the pager object
 	 */
-	public static function getOrderedPager($kshowId, $order, $pageSize, $page, $firstEntries = null)
+	public static function getOrderedPager($hshowId, $order, $pageSize, $page, $firstEntries = null)
 	{
 		$c = new Criteria();
-		$c->add(entryPeer::KSHOW_ID, $kshowId);
+		$c->add(entryPeer::HSHOW_ID, $hshowId);
 		$c->add(entryPeer::TYPE, entryType::MEDIA_CLIP);
 
 		if ($firstEntries)
@@ -160,13 +160,13 @@ class entryPeer extends BaseentryPeer
 
 
 		/**
-	 * This function returns a pager object holding the specified kshows' entries
+	 * This function returns a pager object holding the specified hshows' entries
 	 * sorted by a given sort order.
 	 * each entry holds the kuser object of its host.
 	 *
-	 * @param int $kshowId = the requested sort order
+	 * @param int $hshowId = the requested sort order
 	 * @param int $order = the requested sort order
-	 * @param int $pageSize = number of kshows in each page
+	 * @param int $pageSize = number of hshows in each page
 	 * @param int $page = the requested page
 	 * @param int $firstEntries = an array of entries to be picked first (show entry, show intro,
 	 *	or an arbitrary entry that was pointed to by the url)
@@ -200,7 +200,7 @@ class entryPeer extends BaseentryPeer
 	 * @param int $kuserId = the requested user
 	 * @param int $type = the favorite type (currently only SUBJECT_TYPE_ENTRY will match)
 	 * @param int $privacy = the privacy filter
-	 * @param int $pageSize = number of kshows in each page
+	 * @param int $pageSize = number of hshows in each page
 	 * @param int $page = the requested page
 	 * @return the pager object
 	 */

@@ -30,8 +30,8 @@ abstract class defPartnerservices2Action //extends kalturaBaseWebserviceAction
 	const __TOTAL_TIME__ = "__TOTAL_TIME__";
 
 	const DEFAULT_FORMAT  = 2; // XML ?
-	//	protected $kshow_id;
-	//	protected $kshow;
+	//	protected $hshow_id;
+	//	protected $hshow;
 	private $msg;
 	private $error;
 	private $debug;
@@ -700,9 +700,9 @@ $this->benchmarkStart( "beforeImpl" );
 		return $this->service_config;
 	}
 	
-	protected function  securityViolation( $kshow_id )
+	protected function  securityViolation( $hshow_id )
 	{
-		$xml = "<xml><kshow id=\"$kshow_id\" securityViolation=\"true\"/></xml>";
+		$xml = "<xml><hshow id=\"$hshow_id\" securityViolation=\"true\"/></xml>";
 		$this->getResponse()->setHttpHeader ( "Content-Type" , "text/xml; charset=utf-8" );
 		$this->getController()->setRenderMode ( sfView::RENDER_NONE );
 		return $this->renderText( $xml );
@@ -770,19 +770,19 @@ $this->benchmarkStart( "beforeImpl" );
 	}
 
 	/**
-	 * Fetch data about the kuser puser (kuser) and the relevant kshow_id.
-	 * $verify_producer_only - set to true if want to make ssre the kuser is indeed the producer of the kshow
+	 * Fetch data about the kuser puser (kuser) and the relevant hshow_id.
+	 * $verify_producer_only - set to true if want to make ssre the kuser is indeed the producer of the hshow
 	 */
-	protected function getKshowAndKuser ( $partner_id , $puser_id , $verify_producer_only = false )
+	protected function getHshowAndKuser ( $partner_id , $puser_id , $verify_producer_only = false )
 	{
-		$kshow_id = $this->getP ( "kshow_id" );
+		$hshow_id = $this->getP ( "hshow_id" );
 
-		$kshow = kshowPeer::retrieveByPK( $kshow_id );
-		if ( !$kshow )
+		$hshow = hshowPeer::retrieveByPK( $hshow_id );
+		if ( !$hshow )
 		{
 			// TODO - error
-//			$this->addError ( "No such kshow [$kshow_id]" );
-			throw new Exception ( "No such kshow [$kshow_id]" );
+//			$this->addError ( "No such hshow [$hshow_id]" );
+			throw new Exception ( "No such hshow [$hshow_id]" );
 		}
 
 		$kuser = kuserPeer::getKuserByPartnerAndUid( $partner_id , $puser_id );
@@ -795,29 +795,29 @@ $this->benchmarkStart( "beforeImpl" );
 		$kuser_id = $kuser->getId();
 		if ( $verify_producer_only )
 		{
-			// make sure the puser (kuser) is the producer of the kshow
-			if ( $kshow->getProducerId() != $kuser_id )
+			// make sure the puser (kuser) is the producer of the hshow
+			if ( $hshow->getProducerId() != $kuser_id )
 			{
-//				$this->addError ( "puser ($partner_id,$puser_id) cannot publish kshow [$kshow_id]" );
-				throw new Exception ( "puser ($partner_id,$puser_id) cannot publish kshow [$kshow_id]" );
+//				$this->addError ( "puser ($partner_id,$puser_id) cannot publish hshow [$hshow_id]" );
+				throw new Exception ( "puser ($partner_id,$puser_id) cannot publish hshow [$hshow_id]" );
 			}
 		}
-		return array ( $kshow , $kuser );
+		return array ( $hshow , $kuser );
 	}
 
 
-	protected function forceProducerOnly ( $partner_id , $puser_id , $kshow_id )
+	protected function forceProducerOnly ( $partner_id , $puser_id , $hshow_id )
 	{
-		$kshow = kshowPeer::retrieveByPK( $kshow_id );
-		if ( ! $kshow )
+		$hshow = hshowPeer::retrieveByPK( $hshow_id );
+		if ( ! $hshow )
 		{
-			$this->addError ( APIErrors::INVALID_KSHOW_ID, $kshow_id );
+			$this->addError ( APIErrors::INVALID_HSHOW_ID, $hshow_id );
 			throw new Exception();
 		}
 
-		if ( $kshow->getProducerId() != $kshow_id )
+		if ( $hshow->getProducerId() != $hshow_id )
 		{
-			$this->addError ( APIErrors::INVALID_KSHOW_ID, $kshow_id );
+			$this->addError ( APIErrors::INVALID_HSHOW_ID, $hshow_id );
 			throw new Exception();
 		}
 	}
@@ -1031,7 +1031,7 @@ $this->benchmarkStart( "beforeImpl" );
 		{
 			return ( $obj->getKuserId() == $kuser_id );
 		}
-		elseif ( $obj instanceof kshow )
+		elseif ( $obj instanceof hshow )
 		{
 			return ( $obj->getProducerId() == $kuser_id );
 		}

@@ -13,7 +13,7 @@ class addroughcutentryAction extends defPartnerservices2Action
 				"desc" => "Create a new roughcut entry" ,
 				"in" => array (
 					"mandatory" => array (
-						"kshow_id" => array ("type" => "integer"), 
+						"hshow_id" => array ("type" => "integer"), 
 						"entry" => array ("type" => "entry", "desc" => "Entry of type ENTRY_TYPE_SHOW"),
 						),
 					"optional" => array (
@@ -23,7 +23,7 @@ class addroughcutentryAction extends defPartnerservices2Action
 					"entry" => array ("type" => "entry", "desc" => "Entry of type ENTRY_TYPE_SHOW")
 					),
 				"errors" => array (
-					APIErrors::INVALID_KSHOW_ID
+					APIErrors::INVALID_HSHOW_ID
 				)
 			); 
 	}
@@ -36,40 +36,40 @@ class addroughcutentryAction extends defPartnerservices2Action
 
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
-		$kshow_id = $this->getP ( "kshow_id" , kshow::KSHOW_ID_USE_DEFAULT );
+		$hshow_id = $this->getP ( "hshow_id" , hshow::HSHOW_ID_USE_DEFAULT );
 
 		$entry = null;
-       	if ( $kshow_id == kshow::KSHOW_ID_USE_DEFAULT )
+       	if ( $hshow_id == hshow::HSHOW_ID_USE_DEFAULT )
         {
-            // see if the partner has some default kshow to add to
-            $kshow = myPartnerUtils::getDefaultKshow ( $partner_id, $subp_id , $puser_kuser  );
-            if ( $kshow ) $kshow_id = $kshow->getId();
+// see if the partner has some default hshow to add to
+            $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser  );
+if ( $hshow ) $hshow_id = $hshow->getId();
         }
-		elseif ( $kshow_id == kshow::KSHOW_ID_CREATE_NEW )
+		elseif ( $hshow_id == hshow::HSHOW_ID_CREATE_NEW )
         {
-            // if the partner allows - create a new kshow 
-            $kshow = myPartnerUtils::getDefaultKshow ( $partner_id, $subp_id , $puser_kuser , null , true );
-            if ( $kshow )
+// if the partner allows - create a new hshow 
+            $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser , null , true );
+if ( $hshow )
             {
-            	$kshow_id = $kshow->getId();
-       	        $entry = $kshow->getShowEntry(); // use the newly created kshow's roughcut
+            	$hshow_id = $hshow->getId();
+       	        $entry = $hshow->getShowEntry(); // use the newly created hshow's roughcut
             }
         }   
 		else
         {
-            $kshow = kshowPeer::retrieveByPK( $kshow_id );
+$hshow = hshowPeer::retrieveByPK( $hshow_id );
         }
 
-        if ( ! $kshow )
+if ( ! $hshow )
         {
             // the partner is attempting to add an entry to some invalid or non-existing kwho
-            $this->addError( APIErrors::INVALID_KSHOW_ID, $kshow_id );
+            $this->addError( APIErrors::INVALID_HSHOW_ID, $hshow_id );
             return;
         }
         
 		if (!$entry)
 		{
-			$entry = $kshow->createEntry( entry::ENTRY_MEDIA_TYPE_SHOW , $kshow->getProducerId() , "&auto_edit.jpg" , "" ); 
+			$entry = $hshow->createEntry( entry::ENTRY_MEDIA_TYPE_SHOW , $hshow->getProducerId() , "&auto_edit.jpg" , "" ); 
 		}
            
         $obj_wrapper = objectWrapperBase::getWrapperClass( $entry , 0 );

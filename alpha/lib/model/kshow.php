@@ -1,21 +1,21 @@
 <?php
 // TODO - add the skinContainer !
 /**
- * Subclass for representing a row from the 'kshow' table.
+* Subclass for representing a row from the 'hshow' table.
  *
  *
  *
  * @package Core
  * @subpackage model
  */
-class kshow extends Basekshow implements IBaseObject
+class hshow extends Basehshow implements IBaseObject
 {
 	const SANDBOX_ID = "2";//301599;
 	
-	const KSHOW_ID_USE_DEFAULT = -1;
-	const KSHOW_ID_CREATE_NEW = -2;
+	const HSHOW_ID_USE_DEFAULT = -1;
+	const HSHOW_ID_CREATE_NEW = -2;
 	
-	const DUMMY_KSHOW_NAME = "DUMMY KSHOW FOR API V3";
+	const DUMMY_HSHOW_NAME = "DUMMY HSHOW FOR API V3";
 	
 	private $skin_container = null;
 	private $m_show_entry = null;
@@ -26,64 +26,64 @@ class kshow extends Basekshow implements IBaseObject
 	const MINIMUM_ID_TO_DISPLAY = 8999;
 
 	// different sort orders for browsing kswhos
-	const KSHOW_SORT_MOST_VIEWED = 0;
-	const KSHOW_SORT_MOST_RECENT = 1;
-	const KSHOW_SORT_MOST_COMMENTS = 2;
-	const KSHOW_SORT_MOST_FAVORITES = 3;
-	const KSHOW_SORT_PRIZE = 4;
-	const KSHOW_SORT_END_DATE = 5;
-	const KSHOW_SORT_MOST_ENTRIES = 6;
-	const KSHOW_SORT_NAME = 7;
-	const KSHOW_SORT_RANK = 8;
-	const KSHOW_SORT_MOST_UPDATED = 9;
-	const KSHOW_SORT_MOST_CONTRIBUTORS = 10;
+	const HSHOW_SORT_MOST_VIEWED = 0;
+	const HSHOW_SORT_MOST_RECENT = 1;
+	const HSHOW_SORT_MOST_COMMENTS = 2;
+	const HSHOW_SORT_MOST_FAVORITES = 3;
+	const HSHOW_SORT_PRIZE = 4;
+	const HSHOW_SORT_END_DATE = 5;
+	const HSHOW_SORT_MOST_ENTRIES = 6;
+	const HSHOW_SORT_NAME = 7;
+	const HSHOW_SORT_RANK = 8;
+	const HSHOW_SORT_MOST_UPDATED = 9;
+	const HSHOW_SORT_MOST_CONTRIBUTORS = 10;
 
 	// enum for different status
 	// status bit 1,2
-	const KSHOW_STATUS_DRAFT = 0;
-	const KSHOW_STATUS_TEST = 1;
-	const KSHOW_STATUS_FINAL = 2;
-	const KSHOW_STATUS_TEMPLATE = 3;
+	const HSHOW_STATUS_DRAFT = 0;
+	const HSHOW_STATUS_TEST = 1;
+	const HSHOW_STATUS_FINAL = 2;
+	const HSHOW_STATUS_TEMPLATE = 3;
 
 	// status bit 4
-	const KSHOW_STATUS_HAS_ROUGHCUT = 8;
+	const HSHOW_STATUS_HAS_ROUGHCUT = 8;
 
 	// status bit 6
-	const KSHOW_STATUS_PLAY_ROUGHCUT = 32;
+	const HSHOW_STATUS_PLAY_ROUGHCUT = 32;
 
 	// status bit 7
-	const KSHOW_STATUS_HAS_TEAM_IMAGE = 64;
+	const HSHOW_STATUS_HAS_TEAM_IMAGE = 64;
 
 	// status bit 8
-	const KSHOW_STATUS_DISABLE_PUBLISH = 128;
+	const HSHOW_STATUS_DISABLE_PUBLISH = 128;
 
 	// status bit 9
-	const KSHOW_STATUS_VISIBLE_TO_RECIPIENT = 256;
+	const HSHOW_STATUS_VISIBLE_TO_RECIPIENT = 256;
 
-	// enum for kshow permissions
-	const KSHOW_PERMISSION_NONE = -1;
-	const KSHOW_PERMISSION_EVERYONE = 1;
-	const KSHOW_PERMISSION_JUST_ME = 2;
-	const KSHOW_PERMISSION_INVITE_ONLY = 3;
-	const KSHOW_PERMISSION_REGISTERED = 4;
+	// enum for hshow permissions
+	const HSHOW_PERMISSION_NONE = -1;
+	const HSHOW_PERMISSION_EVERYONE = 1;
+	const HSHOW_PERMISSION_JUST_ME = 2;
+	const HSHOW_PERMISSION_INVITE_ONLY = 3;
+	const HSHOW_PERMISSION_REGISTERED = 4;
 
 	const MAX_NORMALIZED_RANK = 5;
 
-	const KSHOW_TYPE_GROUP_GREETING = 1;
-	const KSHOW_TYPE_MUSIC_VIDEO = 2;
-	const KSHOW_TYPE_PODCAST = 3;
-	const KSHOW_TYPE_GROUP_TRAVELOGUE = 4;
-	const KSHOW_TYPE_CONTEST = 5;
-	const KSHOW_TYPE_FAN_SCRAPBOOK = 6;
-	const KSHOW_TYPE_SPORTS = 7;
-	const KSHOW_TYPE_DOCUMENTARY = 8;
-	const KSHOW_TYPE_NEWSCAST = 9;
-	const KSHOW_TYPE_DIGITAL_STORY = 10;
-	const KSHOW_TYPE_CALL_FOR_ACTION = 11;
-	const KSHOW_TYPE_MASHUP = 12;
-	const KSHOW_TYPE_SLIDESHOW = 13;
-	const KSHOW_TYPE_HOWTO = 14;
-	const KSHOW_TYPE_OTHER = 0;
+	const HSHOW_TYPE_GROUP_GREETING = 1;
+	const HSHOW_TYPE_MUSIC_VIDEO = 2;
+	const HSHOW_TYPE_PODCAST = 3;
+	const HSHOW_TYPE_GROUP_TRAVELOGUE = 4;
+	const HSHOW_TYPE_CONTEST = 5;
+	const HSHOW_TYPE_FAN_SCRAPBOOK = 6;
+	const HSHOW_TYPE_SPORTS = 7;
+	const HSHOW_TYPE_DOCUMENTARY = 8;
+	const HSHOW_TYPE_NEWSCAST = 9;
+	const HSHOW_TYPE_DIGITAL_STORY = 10;
+	const HSHOW_TYPE_CALL_FOR_ACTION = 11;
+	const HSHOW_TYPE_MASHUP = 12;
+	const HSHOW_TYPE_SLIDESHOW = 13;
+	const HSHOW_TYPE_HOWTO = 14;
+	const HSHOW_TYPE_OTHER = 0;
 
 	const PERMISSIONS_PUBLIC 	= 1;
 	const PERMISSIONS_PRIVATE 	= 2;
@@ -99,21 +99,21 @@ class kshow extends Basekshow implements IBaseObject
 	// for now we'll have it hard-coded and not read from DB
 	private static $s_type_text = array
 		(
-		kshow::KSHOW_TYPE_GROUP_GREETING => "Group Greeting" ,
-		kshow::KSHOW_TYPE_MUSIC_VIDEO => "Music video" ,
-		kshow::KSHOW_TYPE_PODCAST => "Podcast" ,
-		kshow::KSHOW_TYPE_GROUP_TRAVELOGUE => "Group travelogue" ,
-		kshow::KSHOW_TYPE_CONTEST => "Contest" ,
-		kshow::KSHOW_TYPE_FAN_SCRAPBOOK => "Fan scrapbook" ,
-		kshow::KSHOW_TYPE_SPORTS => "Sports coverage" ,
-		kshow::KSHOW_TYPE_DOCUMENTARY => "Documentary" ,
-		kshow::KSHOW_TYPE_NEWSCAST => "Newscast & Events" ,
-		kshow::KSHOW_TYPE_DIGITAL_STORY => "Digital story" ,
-		kshow::KSHOW_TYPE_CALL_FOR_ACTION => "Call for action (activism)" ,
-		kshow::KSHOW_TYPE_MASHUP => "Mashup" ,
-		kshow::KSHOW_TYPE_SLIDESHOW => "Slideshow" ,
-		kshow::KSHOW_TYPE_HOWTO => "Howto and advice",
-		kshow::KSHOW_TYPE_OTHER => "Other" ,
+		hshow::HSHOW_TYPE_GROUP_GREETING => "Group Greeting" ,
+		hshow::HSHOW_TYPE_MUSIC_VIDEO => "Music video" ,
+		hshow::HSHOW_TYPE_PODCAST => "Podcast" ,
+		hshow::HSHOW_TYPE_GROUP_TRAVELOGUE => "Group travelogue" ,
+		hshow::HSHOW_TYPE_CONTEST => "Contest" ,
+		hshow::HSHOW_TYPE_FAN_SCRAPBOOK => "Fan scrapbook" ,
+		hshow::HSHOW_TYPE_SPORTS => "Sports coverage" ,
+		hshow::HSHOW_TYPE_DOCUMENTARY => "Documentary" ,
+		hshow::HSHOW_TYPE_NEWSCAST => "Newscast & Events" ,
+		hshow::HSHOW_TYPE_DIGITAL_STORY => "Digital story" ,
+		hshow::HSHOW_TYPE_CALL_FOR_ACTION => "Call for action (activism)" ,
+		hshow::HSHOW_TYPE_MASHUP => "Mashup" ,
+		hshow::HSHOW_TYPE_SLIDESHOW => "Slideshow" ,
+		hshow::HSHOW_TYPE_HOWTO => "Howto and advice",
+		hshow::HSHOW_TYPE_OTHER => "Other" ,
 
 		);
 		/*
@@ -153,18 +153,18 @@ class kshow extends Basekshow implements IBaseObject
 		array('#ec9898', '#fff0f3', '#ffddd9', '#ffffff', '#c84a4b', '#e2807f', '#f2b7b7', '#f2b7b7')	// 14. nice pink
 		);
 
-	public static function create ( $partner_id , $subp_id , $producer_id , $kshow_type )
+	public static function create ( $partner_id , $subp_id , $producer_id , $hshow_type )
 	{
-		$kshow = new kshow();
-		$kshow->setPartnerId( $partner_id );
-		$kshow->setSubpId ( $subp_id ) ;
-		$kshow->setProducerId( $producer_id );
-		$kshow->setType( $kshow_type ); // will make sure the intro will have a good default
-		$kshow->save();  // to create a new kshow in the DB and use its ID for the entries creation
-		$kshow->createEntry ( entry::ENTRY_MEDIA_TYPE_SHOW , $producer_id  ); // roughcut
-		$kshow->createEntry ( entry::ENTRY_MEDIA_TYPE_VIDEO , $producer_id  ); // intro
-		$kshow->save(); // to finally save
-		return $kshow;
+		$hshow = new hshow();
+		$hshow->setPartnerId( $partner_id );
+		$hshow->setSubpId ( $subp_id ) ;
+		$hshow->setProducerId( $producer_id );
+		$hshow->setType( $hshow_type ); // will make sure the intro will have a good default
+		$hshow->save();  // to create a new hshow in the DB and use its ID for the entries creation
+		$hshow->createEntry ( entry::ENTRY_MEDIA_TYPE_SHOW , $producer_id  ); // roughcut
+		$hshow->createEntry ( entry::ENTRY_MEDIA_TYPE_VIDEO , $producer_id  ); // intro
+		$hshow->save(); // to finally save
+		return $hshow;
 	}
 
 	public function setRoughcutCount ( $count )
@@ -173,14 +173,14 @@ class kshow extends Basekshow implements IBaseObject
 	}
 
 
-	// TODO - move implementation to kshowPeer - i'm not doing so now because there are changes i don't want to commit
+	// TODO - move implementation to hshowPeer - i'm not doing so now because there are changes i don't want to commit
 	public function getRoughcutCount ()
 	{
 		if ( $this->roughcut_count == -1 )
 		{
 			$c = new Criteria();
 			$c->add ( entryPeer::TYPE , entryType::MIX );
-			$c->add ( entryPeer::KSHOW_ID , $this->getId() );
+			$c->add ( entryPeer::HSHOW_ID , $this->getId() );
 			$this->roughcut_count = entryPeer::doCount( $c );
 		}
 		return $this->roughcut_count;
@@ -221,7 +221,7 @@ class kshow extends Basekshow implements IBaseObject
 		for ( $i = 0 ; $i < 10 ; ++$i)
 		{
 			$id = $dc["id"].'_'.kString::generateStringId();
-			$existing_object = kshowPeer::retrieveByPKNoFilter( $id );
+			$existing_object = hshowPeer::retrieveByPKNoFilter( $id );
 			
 			if ( ! $existing_object ) return $id;
 		}
@@ -237,8 +237,8 @@ class kshow extends Basekshow implements IBaseObject
 			$is_new = true;
 			$this->setId(self::calculateId());
 			
-			if ($this->getName() != self::DUMMY_KSHOW_NAME)
-				myStatisticsMgr::addKshow( $this );
+			if ($this->getName() != self::DUMMY_HSHOW_NAME)
+				myStatisticsMgr::addHshow( $this );
 		}
 
 		myPartnerUtils::setPartnerIdForObj( $this );
@@ -248,7 +248,7 @@ class kshow extends Basekshow implements IBaseObject
 		$res =  parent::save( $con );
 		if ($is_new)
 		{
-			$obj = kshowPeer::retrieveByPk($this->getId());
+			$obj = hshowPeer::retrieveByPk($this->getId());
 			$this->setIntId($obj->getIntId());
 		}
 		
@@ -258,8 +258,8 @@ class kshow extends Basekshow implements IBaseObject
 
 	public function delete(PropelPDO $con = null)
 	{
-		if ($this->getName() != self::DUMMY_KSHOW_NAME)
-			myStatisticsMgr::deleteKshow( $this );
+		if ($this->getName() != self::DUMMY_HSHOW_NAME)
+			myStatisticsMgr::deleteHshow( $this );
 
 		parent::delete( $con );
 	}
@@ -269,7 +269,7 @@ class kshow extends Basekshow implements IBaseObject
 	// will increment the views by 1
 	public function incViews ( $should_save = true )
 	{
-		myStatisticsMgr::incKshowViews( $this );
+		myStatisticsMgr::incHshowViews( $this );
 /*
 		$v = $this->getViews ( );
 		if ( ! is_numeric( $v ) ) $v=0;
@@ -294,7 +294,7 @@ class kshow extends Basekshow implements IBaseObject
 
 	public function incPlays( )
 	{
-		myStatisticsMgr::incKshowPlays( $this );
+		myStatisticsMgr::incHshowPlays( $this );
 	}
 
 	/**
@@ -305,7 +305,7 @@ class kshow extends Basekshow implements IBaseObject
 	{
 		if ( $this->getThumbnail() == NULL )
 			return "";
-		return myContentStorage::getGeneralEntityPath("kshow/thumbnail", $this->getIntId(), $this->getId(), $this->getThumbnail());
+		return myContentStorage::getGeneralEntityPath("hshow/thumbnail", $this->getIntId(), $this->getId(), $this->getThumbnail());
 	}
 
 	/**
@@ -334,7 +334,7 @@ class kshow extends Basekshow implements IBaseObject
 	 */
 	public function setThumbnail($filename)
 	{
-		Basekshow::SetThumbnail(myContentStorage::generateRandomFileName($filename, $this->getThumbnail()));
+		Basehshow::SetThumbnail(myContentStorage::generateRandomFileName($filename, $this->getThumbnail()));
 		return $this->getThumbnail();
 	}
 
@@ -345,7 +345,7 @@ class kshow extends Basekshow implements IBaseObject
 	 */
 	public function getIntroPath()
 	{
-		return myContentStorage::getGeneralEntityPath("kshow/intro", $this->getIntId(), $this->getId(), $this->getIntro());
+		return myContentStorage::getGeneralEntityPath("hshow/intro", $this->getIntId(), $this->getId(), $this->getIntro());
 	}
 
 	/**
@@ -355,22 +355,22 @@ class kshow extends Basekshow implements IBaseObject
 	 */
 	public function setIntro($filename)
 	{
-		Basekshow::SetIntro(myContentStorage::generateRandomFileName($filename, $this->getIntro()));
+		Basehshow::SetIntro(myContentStorage::generateRandomFileName($filename, $this->getIntro()));
 		return $this->getIntro();
 	}
 
 	public function getTeamPicturePath()
 	{
-		return myContentStorage::getGeneralEntityPath("kshow/team", $this->getIntId(), $this->getId(), ".png" );
+		return myContentStorage::getGeneralEntityPath("hshow/team", $this->getIntId(), $this->getId(), ".png" );
 	}
 
 	public function getTeam2PicturePath()
 	{
-		return myContentStorage::getGeneralEntityPath("kshow/team2", $this->getIntId(), $this->getId(), ".png" );
+		return myContentStorage::getGeneralEntityPath("hshow/team2", $this->getIntId(), $this->getId(), ".png" );
 	}
 
 	// TODO - IMPROVE - this is actually methods that partially belong to the skinContainer.
-	// the only part that belongs to the kshow is the beginning of the path : /kshow.
+	// the only part that belongs to the hshow is the beginning of the path : /hshow.
 	// consider moving...
 	/* This function returns the file system path for a requested content entity that is a property of the skin.
 	 * @return string the content path
@@ -394,7 +394,7 @@ class kshow extends Basekshow implements IBaseObject
 			// - Eran ?
 			$param_value = myContentStorage::MIN_OBFUSCATOR_VALUE;
 		}
-		return myContentStorage::getGeneralEntityPath("kshow/skin/" . $prop_name ,
+		return myContentStorage::getGeneralEntityPath("hshow/skin/" . $prop_name ,
 			$this->getIntId(), $this->getId(),
 			$param_value );
 	}
@@ -416,7 +416,7 @@ class kshow extends Basekshow implements IBaseObject
 
 
 	/**
-	 * This helps create special entries in a kshow - the show_entry & intro
+	 * This helps create special entries in a hshow - the show_entry & intro
 	 * $type can be either entry::ENTRY_MEDIA_TYPE_SHOW (for the show_entry) or  entry::ENTRY_MEDIA_TYPE_VIDEO  (for the intro)
 	 */
 	public function createEntry ( $type , $kuser_id, $thumbnail = null , $entry_name = null)
@@ -424,22 +424,22 @@ class kshow extends Basekshow implements IBaseObject
 		// for invites we use the default invites from the kaltura gallery show
 		if ( $type != entry::ENTRY_MEDIA_TYPE_SHOW )
 		{
-			$kshow_type = $this->getType();
+			$hshow_type = $this->getType();
 
-			$intros = array(kshow::KSHOW_TYPE_MASHUP,
-				kshow::KSHOW_TYPE_MUSIC_VIDEO,
-				kshow::KSHOW_TYPE_HOWTO,
-				kshow::KSHOW_TYPE_CALL_FOR_ACTION,
-				kshow::KSHOW_TYPE_CONTEST,
-				kshow::KSHOW_TYPE_GROUP_GREETING,
-				kshow::KSHOW_TYPE_SPORTS,
-				kshow::KSHOW_TYPE_DIGITAL_STORY,
-				kshow::KSHOW_TYPE_GROUP_TRAVELOGUE);
+			$intros = array(hshow::HSHOW_TYPE_MASHUP,
+				hshow::HSHOW_TYPE_MUSIC_VIDEO,
+				hshow::HSHOW_TYPE_HOWTO,
+				hshow::HSHOW_TYPE_CALL_FOR_ACTION,
+				hshow::HSHOW_TYPE_CONTEST,
+				hshow::HSHOW_TYPE_GROUP_GREETING,
+				hshow::HSHOW_TYPE_SPORTS,
+				hshow::HSHOW_TYPE_DIGITAL_STORY,
+				hshow::HSHOW_TYPE_GROUP_TRAVELOGUE);
 
 			$id = 0;
-			if (in_array($kshow_type, $intros))
+			if (in_array($hshow_type, $intros))
 			{
-				$id = $kshow_type;
+				$id = $hshow_type;
 			}
 
 			$id = 120 + $id;
@@ -455,17 +455,17 @@ class kshow extends Basekshow implements IBaseObject
 			return $entry;
 		}
 
-		$kshow = $this;
+		$hshow = $this;
 
 		$entry = new entry();
 
-		$entry->setKshowId($kshow->getId () );
+		$entry->setHshowId($hshow->getId () );
 		$entry->setKuserId($kuser_id);
 		$entry->setCreatorKuserId($kuser_id);
 		if ( $this->getPartnerId() !== null )
-			$entry->setPartnerId( $this->getPartnerId() ); // inherit partner_id from kshow
+			$entry->setPartnerId( $this->getPartnerId() ); // inherit partner_id from hshow
 		if ( $this->getSubpId() !== null )
-			$entry->setSubpId( $this->getSubpId() ); // inherit subp_id from kshow
+			$entry->setSubpId( $this->getSubpId() ); // inherit subp_id from hshow
 		$entry->setStatus(entryStatus::READY);
 
 		if ( $entry_name )
@@ -484,7 +484,7 @@ class kshow extends Basekshow implements IBaseObject
 		$entry->setEditorType ( myMetadataUtils::METADATA_EDITOR_SIMPLE );
 
 		$entry->setName($type_text);
-		$entry->setTags($type_text . "," . $kshow->getTags() );
+		$entry->setTags($type_text . "," . $hshow->getTags() );
 
 		$entry->save();
 		$this->setShowEntryId ( $entry->getId());
@@ -599,14 +599,14 @@ class kshow extends Basekshow implements IBaseObject
 	 */
 	public function getHasRoughcut ( )
 	{
-		return (  $this->getStatus() & self::KSHOW_STATUS_HAS_ROUGHCUT ) ;
+		return (  $this->getStatus() & self::HSHOW_STATUS_HAS_ROUGHCUT ) ;
 	}
 
 	public function setHasRoughcut ( $has )
 	{
 		$new_val = $has ?
-			$this->getStatus() | self::KSHOW_STATUS_HAS_ROUGHCUT  :
-			$this->getStatus() & ~self::KSHOW_STATUS_HAS_ROUGHCUT;
+			$this->getStatus() | self::HSHOW_STATUS_HAS_ROUGHCUT  :
+			$this->getStatus() & ~self::HSHOW_STATUS_HAS_ROUGHCUT;
 		$this->setStatus ( $new_val );
 	}
 
@@ -615,14 +615,14 @@ class kshow extends Basekshow implements IBaseObject
 	 */
 	public function getPlayRoughcut ( )
 	{
-		return ( $this->getStatus() & self::KSHOW_STATUS_PLAY_ROUGHCUT );
+		return ( $this->getStatus() & self::HSHOW_STATUS_PLAY_ROUGHCUT );
 	}
 
 	public function setPlayRoughcut ( $play )
 	{
 		$new_val = $play ?
-			$this->getStatus() | self::KSHOW_STATUS_PLAY_ROUGHCUT  :
-			$this->getStatus() & ~self::KSHOW_STATUS_PLAY_ROUGHCUT;
+			$this->getStatus() | self::HSHOW_STATUS_PLAY_ROUGHCUT  :
+			$this->getStatus() & ~self::HSHOW_STATUS_PLAY_ROUGHCUT;
 		$this->setStatus ( $new_val );
 	}
 
@@ -631,14 +631,14 @@ class kshow extends Basekshow implements IBaseObject
 	 */
 	public function getHasTeamImage ( )
 	{
-		return ( ( $this->getStatus() & self::KSHOW_STATUS_HAS_TEAM_IMAGE ) > 0);
+		return ( ( $this->getStatus() & self::HSHOW_STATUS_HAS_TEAM_IMAGE ) > 0);
 	}
 
 	public function setHasTeamImage ( $has )
 	{
 		$new_val = $has ?
-			$this->getStatus() | self::KSHOW_STATUS_HAS_TEAM_IMAGE  :
-			$this->getStatus() & ~self::KSHOW_STATUS_HAS_TEAM_IMAGE;
+			$this->getStatus() | self::HSHOW_STATUS_HAS_TEAM_IMAGE  :
+			$this->getStatus() & ~self::HSHOW_STATUS_HAS_TEAM_IMAGE;
 		$this->setStatus ( $new_val );
 	}
 
@@ -648,15 +648,15 @@ class kshow extends Basekshow implements IBaseObject
 	 */
 	public function getCanPublish ( )
 	{
-		return ( self::KSHOW_STATUS_DISABLE_PUBLISH - ( $this->getStatus() & self::KSHOW_STATUS_DISABLE_PUBLISH ) ) ;
+		return ( self::HSHOW_STATUS_DISABLE_PUBLISH - ( $this->getStatus() & self::HSHOW_STATUS_DISABLE_PUBLISH ) ) ;
 	}
 
 	public function setCanPublish ( $can_publish )
 	{
 		$has = !$can_publish;
 		$new_val = $has ?
-			$this->getStatus() | self::KSHOW_STATUS_DISABLE_PUBLISH  :
-			$this->getStatus() & ~self::KSHOW_STATUS_DISABLE_PUBLISH;
+			$this->getStatus() | self::HSHOW_STATUS_DISABLE_PUBLISH  :
+			$this->getStatus() & ~self::HSHOW_STATUS_DISABLE_PUBLISH;
 		$this->setStatus ( $new_val );
 	}
 
@@ -666,14 +666,14 @@ class kshow extends Basekshow implements IBaseObject
 	 */
 	public function getVisibleToRecipient ( )
 	{
-		return (  $this->getStatus() & self::KSHOW_STATUS_VISIBLE_TO_RECIPIENT ) ;
+		return (  $this->getStatus() & self::HSHOW_STATUS_VISIBLE_TO_RECIPIENT ) ;
 	}
 
 	public function setVisibleToRecipient ( $visible )
 	{
 		$new_val = $visible ?
-			$this->getStatus() | self::KSHOW_STATUS_VISIBLE_TO_RECIPIENT  :
-			$this->getStatus() & ~self::KSHOW_STATUS_VISIBLE_TO_RECIPIENT;
+			$this->getStatus() | self::HSHOW_STATUS_VISIBLE_TO_RECIPIENT  :
+			$this->getStatus() & ~self::HSHOW_STATUS_VISIBLE_TO_RECIPIENT;
 		$this->setStatus ( $new_val );
 	}
 
@@ -735,7 +735,7 @@ class kshow extends Basekshow implements IBaseObject
 			$show_entry = $this->getShowEntry();
 			if ( !$show_entry )
 			{
-				// have to save the kshow before creating the default entries
+				// have to save the hshow before creating the default entries
 				$show_entry =  $this->createEntry( entry::ENTRY_MEDIA_TYPE_SHOW , $kuser_id , null , $this->getName() ); // roughcut
 			}
 
@@ -765,7 +765,7 @@ class kshow extends Basekshow implements IBaseObject
 
 	public function moderate ($new_moderation_status)
 	{
-		$error_msg = "Moderation status not supported by kshow";
+		$error_msg = "Moderation status not supported by hshow";
 		switch($new_moderation_status)
 		{
 			case moderation::MODERATION_STATUS_APPROVED:
@@ -817,14 +817,14 @@ class kshow extends Basekshow implements IBaseObject
 		}		
 	
 		if ($criteria === null) {		
-			$criteria = new Criteria(kshowPeer::DATABASE_NAME);		
+			$criteria = new Criteria(hshowPeer::DATABASE_NAME);		
 		}		
 		elseif ($criteria instanceof Criteria)		
 		{		
 			$criteria = clone $criteria;		
 		}		
 		
-		$criteria->add(entryPeer::KSHOW_ID, $this->id);		
+		$criteria->add(entryPeer::HSHOW_ID, $this->id);		
 		entryPeer::addSelectColumns($criteria);		
 		return entryPeer::doSelect($criteria, $con);		
 	}

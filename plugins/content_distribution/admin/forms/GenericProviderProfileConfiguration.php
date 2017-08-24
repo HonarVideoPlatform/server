@@ -123,7 +123,7 @@ class Form_GenericProviderProfileConfiguration extends Form_ProviderProfileConfi
 	protected function getEntryFields()
 	{
 		return array(
-			'entry.KSHOW_ID' => 'Kaltura Show',
+			'entry.HSHOW_ID' => 'Kaltura Show',
 			'entry.KUSER_ID' => 'Kaltura User',
 			'entry.NAME' => 'Name',
 			'entry.DATA' => 'Data',
@@ -148,7 +148,7 @@ class Form_GenericProviderProfileConfiguration extends Form_ProviderProfileConfi
 			'entry.START_DATE' => 'Start Date',
 			'entry.END_DATE' => 'End Date',
 			'moderate' => 'Moderate',
-			'current_kshow_version' => 'Current Show Version',
+			'current_hshow_version' => 'Current Show Version',
 			'hasDownload' => 'Has Download',
 			'encodingIP1' => 'Encoding IP 1',
 			'encodingIP2' => 'Encoding IP 2',

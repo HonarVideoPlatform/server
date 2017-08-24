@@ -33,13 +33,13 @@ class updateentryAction extends defPartnerservices2Action
 	// ask to fetch the kuser from puser_kuser 
 	public function needKuserFromPuser ( )	{		return self::KUSER_DATA_KUSER_ID_ONLY;	}
 	
-	public function requiredPrivileges () { return "edit:<kshow_id>" ; }
+	public function requiredPrivileges () { return "edit:<hshow_id>" ; }
 
 	public function verifyEntryPrivileges ( $entry ) 
 	{
-		if($entry->getKshowId())
+		if($entry->getHshowId())
 		{
-			$priv_id = $entry->getKshowId();
+			$priv_id = $entry->getHshowId();
 		}
 		else
 		{

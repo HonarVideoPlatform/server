@@ -2,7 +2,7 @@
 
 
 /**
- * This class defines the structure of the 'kshow' table.
+* This class defines the structure of the 'hshow' table.
  *
  *
  *
@@ -14,12 +14,12 @@
  * @package Core
  * @subpackage model.map
  */
-class kshowTableMap extends TableMap {
+class hshowTableMap extends TableMap {
 
 	/**
 	 * The (dot-path) name of this class
 	 */
-	const CLASS_NAME = 'Core.kshowTableMap';
+	const CLASS_NAME = 'Core.hshowTableMap';
 
 	/**
 	 * Initialize the table attributes, columns and validators
@@ -31,9 +31,9 @@ class kshowTableMap extends TableMap {
 	public function initialize()
 	{
 	  // attributes
-		$this->setName('kshow');
-		$this->setPhpName('kshow');
-		$this->setClassname('kshow');
+		$this->setName('hshow');
+		$this->setPhpName('hshow');
+		$this->setClassname('hshow');
 		$this->setPackage('Core');
 		$this->setUseIdGenerator(true);
 		// columns
@@ -97,12 +97,12 @@ class kshowTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('kuser', 'kuser', RelationMap::MANY_TO_ONE, array('producer_id' => 'id', ), null, null);
-    $this->addRelation('kvoteRelatedByKshowId', 'kvote', RelationMap::ONE_TO_MANY, array('id' => 'kshow_id', ), null, null);
+    $this->addRelation('kvoteRelatedByHshowId', 'kvote', RelationMap::ONE_TO_MANY, array('id' => 'hshow_id', ), null, null);
     $this->addRelation('kvoteRelatedByKuserId', 'kvote', RelationMap::ONE_TO_MANY, array('id' => 'kuser_id', ), null, null);
-    $this->addRelation('KshowKuser', 'KshowKuser', RelationMap::ONE_TO_MANY, array('id' => 'kshow_id', ), null, null);
-    $this->addRelation('PuserRole', 'PuserRole', RelationMap::ONE_TO_MANY, array('id' => 'kshow_id', ), null, null);
-    $this->addRelation('roughcutEntry', 'roughcutEntry', RelationMap::ONE_TO_MANY, array('id' => 'roughcut_kshow_id', ), null, null);
-    $this->addRelation('widget', 'widget', RelationMap::ONE_TO_MANY, array('id' => 'kshow_id', ), null, null);
+    $this->addRelation('HshowKuser', 'HshowKuser', RelationMap::ONE_TO_MANY, array('id' => 'hshow_id', ), null, null);
+    $this->addRelation('PuserRole', 'PuserRole', RelationMap::ONE_TO_MANY, array('id' => 'hshow_id', ), null, null);
+    $this->addRelation('roughcutEntry', 'roughcutEntry', RelationMap::ONE_TO_MANY, array('id' => 'roughcut_hshow_id', ), null, null);
+    $this->addRelation('widget', 'widget', RelationMap::ONE_TO_MANY, array('id' => 'hshow_id', ), null, null);
 	} // buildRelations()
 
-} // kshowTableMap
+} // hshowTableMap

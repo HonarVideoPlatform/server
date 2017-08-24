@@ -4,7 +4,7 @@ class myInsertEntryHelper
 	private $action = null;
 	private $paramsArray = null;
 	private $kuser_id = 0;
-	private $kshow_id = 0;
+	private $hshow_id = 0;
 	private $entry_id = 0;
 	private $error_msg = null;
 	private $entry = null;
@@ -12,12 +12,12 @@ class myInsertEntryHelper
 	
 	private $partner_id = null;
 	
-	public function __construct($action, $kuser_id, $kshow_id, $paramsArray = null)
+	public function __construct($action, $kuser_id, $hshow_id, $paramsArray = null)
 	{
 		$this->paramsArray = $paramsArray;
 		$this->action = $action;
 		$this->kuser_id = $kuser_id;
-		$this->kshow_id = $kshow_id;
+		$this->hshow_id = $hshow_id;
 	}
 	
 	public function getEntry() { return $this->entry; }
@@ -389,7 +389,7 @@ class myInsertEntryHelper
 			}
 		}
 			
-		$entry->setkshowId($this->kshow_id);
+		$entry->sethshowId($this->hshow_id);
 		$entry->setKuserId($kuser_id);
 		$entry->setCreatorKuserId($kuser_id);
 		

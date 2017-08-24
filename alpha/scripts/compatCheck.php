@@ -25,11 +25,11 @@ $PS2_TESTED_XML_ACTIONS = array(
 		'partnerservices2.getallentries',
 		'partnerservices2.getentry',
 		'partnerservices2.getentryroughcuts',
-		'partnerservices2.getkshow',
+		'partnerservices2.gethshow',
 		'partnerservices2.getuiconf',
 		'partnerservices2.getwidget',
 		'partnerservices2.listentries',
-		'partnerservices2.listkshows',
+		'partnerservices2.listhshows',
 		'partnerservices2.listplaylists',
 		'extwidget.embediframejs',
 		);

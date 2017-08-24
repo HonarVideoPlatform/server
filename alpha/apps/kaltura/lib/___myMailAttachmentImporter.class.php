@@ -80,8 +80,8 @@ class myMailAttachmentImporter
 		{	
 			if( $importedMessageData["attachment"] )
 			{
-				$kshowinsertid = $importedMessageData["subject"];
-				if ( $kshowinsertid == "" ) $kshowinsertid = 1;
+				$hshowinsertid = $importedMessageData["subject"];
+				if ( $hshowinsertid == "" ) $hshowinsertid = 1;
 				$insertype = $importedMessageData["attachment"]["type"];
 				if ($insertype == "video")
 					{ $mediatypecode = 1; }
@@ -109,7 +109,7 @@ class myMailAttachmentImporter
 				
 				$serveraddr = $_SERVER && $_SERVER["SERVER_ADDR"] ? $_SERVER["SERVER_ADDR"] : "localhost";
 
-				$urlstring = $serveraddr.'/'.$prefix.'/contribute/insertMobileEntry?kshow_id='.$kshowinsertid.'&entry_name=MobileEntry&entry_description=Entry_from_mobile_phone&entry_media_type='.$mediatypecode.'&entry_thumbnail='.$filethumbnail.'&entry_data='.$fileforupload.'&mobile_id='.$mobileid;
+				$urlstring = $serveraddr.'/'.$prefix.'/contribute/insertMobileEntry?hshow_id='.$hshowinsertid.'&entry_name=MobileEntry&entry_description=Entry_from_mobile_phone&entry_media_type='.$mediatypecode.'&entry_thumbnail='.$filethumbnail.'&entry_data='.$fileforupload.'&mobile_id='.$mobileid;
 				
 				//echo $urlstring;
 				

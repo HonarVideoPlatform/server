@@ -14,7 +14,7 @@ class setmetadataAction extends defPartnerservices2Action
 				"in" => array (
 					"mandatory" => array ( 
 						"entry_id" => array ("type" => "string", "desc" => ""),
-						"kshow_id" => array ("type" => "string", "desc" => ""),
+						"hshow_id" => array ("type" => "string", "desc" => ""),
 						"HasRoughCut" => array ("type" => "boolean", "desc" => ""),
 						"xml" => array ("type" => "xml", "desc" => "")
 						),
@@ -26,7 +26,7 @@ class setmetadataAction extends defPartnerservices2Action
 					"xml" => array ("type" => "xml", "desc" => "")
 					),
 				"errors" => array (
-					APIErrors::INVALID_KSHOW_ID , 
+					APIErrors::INVALID_HSHOW_ID , 
 					APIErrors::INVALID_ENTRY_ID ,				
 				)
 			); 
@@ -34,14 +34,14 @@ class setmetadataAction extends defPartnerservices2Action
 	
 	public function addUserOnDemand ( )		{	return self::CREATE_USER_FORCE;	}
 	public function needKuserFromPuser ( )	{	return self::KUSER_DATA_KUSER_ID_ONLY;	}
-	public function requiredPrivileges () 	{ 	return "edit:<kshow_id>" ; }
+	public function requiredPrivileges () 	{ 	return "edit:<hshow_id>" ; }
 
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
 		$entry_id = $this->getP ( "entry_id" );
-		$kshow_id =  $this->getP ( "kshow_id" );
+		$hshow_id =  $this->getP ( "hshow_id" );
 		
-		list ( $kshow , $entry , $error , $error_obj ) = myKshowUtils::getKshowAndEntry( $kshow_id  , $entry_id );
+		list ( $hshow , $entry , $error , $error_obj ) = myHshowUtils::getHshowAndEntry( $hshow_id  , $entry_id );
 
 		if ( $error_obj )
 		{
@@ -49,9 +49,9 @@ class setmetadataAction extends defPartnerservices2Action
 			return ;
 		}
 
-		$kshow_id = $kshow->getId();
+		$hshow_id = $hshow->getId();
 
-		if ($kshow_id === kshow::SANDBOX_ID)
+		if ($hshow_id === hshow::SANDBOX_ID)
 		{
 			$this->addError ( APIErrors::SANDBOX_ALERT );
 			return ;
@@ -59,14 +59,14 @@ class setmetadataAction extends defPartnerservices2Action
 		
 		// TODO -  think what is the best way to verify the privileges - names and parameters that are initially set by the partner at
 		// startsession time
-		if ( ! $this->isOwnedBy ( $kshow , $puser_kuser->getKuserId() ) )
-			$this->verifyPrivileges ( "edit" , $kshow_id ); // user was granted explicit permissions when initiatd the ks
+		if ( ! $this->isOwnedBy ( $hshow , $puser_kuser->getKuserId() ) )
+			$this->verifyPrivileges ( "edit" , $hshow_id ); // user was granted explicit permissions when initiatd the ks
 
 		// this part overhere should be in a more generic place - part of the services
 		$multiple_roghcuts = Partner::allowMultipleRoughcuts( $partner_id );
 		$likuser_id = $puser_kuser->getKuserId();
 
-		$isIntro = $kshow->getIntroId() == $entry->getId();
+		$isIntro = $hshow->getIntroId() == $entry->getId();
 
 		if ( $multiple_roghcuts )
 		{
@@ -78,7 +78,7 @@ class setmetadataAction extends defPartnerservices2Action
 				// TODO: add security check to whether multiple roughcuts are allowed
 
 				// create a new roughcut entry by cloning the original entry
-				$entry = myEntryUtils::deepClone($entry, $kshow_id, false);
+				$entry = myEntryUtils::deepClone($entry, $hshow_id, false);
 				$entry->setKuserId($likuser_id);
 				$entry->setCreatorKuserId($puser_kuser->getKuserId() );
 				$entry->setCreatedAt(time());
@@ -91,23 +91,23 @@ class setmetadataAction extends defPartnerservices2Action
 
 		if ($isIntro)
 		{
-			$kshow->setIntroId($entry->getId());
+			$hshow->setIntroId($entry->getId());
 		}
 		else
 		{
-			$kshow->setShowEntryId($entry->getId());
+			$hshow->setShowEntryId($entry->getId());
 			$has_roughcut = $this->getP ( "HasRoughCut" , "1" , true );
 			if ( $has_roughcut === "0" )
 			{
-				$kshow->setHasRoughcut( false) ;
-				$kshow->save();
+				$hshow->setHasRoughcut( false) ;
+				$hshow->save();
 				$this->addMsg ( "saved_entry" , $entry->getId() );
 				return ;
 			}
 		}
 
 		$content = $this->getP ( "xml" );
-		$update_kshow = false;
+		$update_hshow = false;
 
 		if ( $content != NULL )
 		{
@@ -116,7 +116,7 @@ class setmetadataAction extends defPartnerservices2Action
 			$version_info["PuserId"] = $puser_id;
 			$version_info["ScreenName"] = $puser_kuser->getPuserName();
 
-			list($xml_content, $comments, $update_kshow) = myMetadataUtils::setMetadata($content, $kshow, $entry, false, $version_info);
+			list($xml_content, $comments, $update_hshow) = myMetadataUtils::setMetadata($content, $hshow, $entry, false, $version_info);
 		}
 		else
 		{

@@ -34,7 +34,7 @@ function createSelect ( $id , $name , $default_value , $list_name , $pid_str = n
 	//global $arrays;
 	$download_file_formats = array ( "avi" => "avi" , "mp4" => "mp4", "mov" => "mov" , "flv" => "flv" , "mp3" => "mp3" , "3gp" => "3gp" , "original" => "original" );
 	$media_type_list = array ( "1" => "Video" , "2" => "Image" , "5" => "Audio", "11" => "Document", "12" => "Swf" , "-1" => "Automatic" );
-	$media_source_list = array ( "20" => "Kaltura" , "21" => "MyClips" , "23" => "KalturaPartner" , "26" => "KalturaKshow" , "27" => "KalturaPartnerKshow" , 
+	$media_source_list = array ( "20" => "Kaltura" , "21" => "MyClips" , "23" => "KalturaPartner" , "26" => "KalturaHshow" , "27" => "KalturaPartnerHshow" , 
 									"1" => "* File" , "2" => "* Webcam" , "3" => "Flickr" , "4" => "YouTube" , "5" => "* URL" , "7" => "MySpace" , "8" =>
 									"PhotoBucket" , "9" => "Jamendo" , "10" => "CCMixter" , "11" => "NYPL" , "13" => "MediaCommons" , "22" => "Archive.org" ,
 									"24"  => "MetaCafe" );
@@ -72,8 +72,8 @@ function createSelect ( $id , $name , $default_value , $list_name , $pid_str = n
 		
 	}
 
-	$clazz_list = array ( "kshow" => "kshow" , "kuser" => "kuser" , "entry" => "entry" , "PuserKuser" => "PuserKuser" ) ;
-	$moderation_object_type = array ( "1" => "kshow" , "2" => "entry" , "3" => "kuser" , "" => "none");
+	$clazz_list = array ( "hshow" => "hshow" , "kuser" => "kuser" , "entry" => "entry" , "PuserKuser" => "PuserKuser" ) ;
+	$moderation_object_type = array ( "1" => "hshow" , "2" => "entry" , "3" => "kuser" , "" => "none");
 	$moderation_status = array ( "1" => "pending" , "2" => "allow" , "3" => "block" , "4" => "delete", "5" => "review");
 	$notification_status = array ( "" => "All" , "1" => "Pending" , "2" => "Sent" , "3" => "Error" , "4" => "Should Resend" );
 	$entry_status = array ( "" => "All" , 
@@ -91,7 +91,7 @@ function createSelect ( $id , $name , $default_value , $list_name , $pid_str = n
 	$entry_media_type_filter = array( "" => "All" ,"1" => "Video" , "2" => "Image" , "5" => "Audio" , "6" => "Roughcut" , "10" => "XML", "11" => "Document", "-1" => "Automatic");
 	
 	$widget_security_type = array ( "1" => "none" , "2" => "timehash" );
-	$entries_list_type = array ( "15" => "All" , "1" => "Kshow" , "2" => "Kuser" , "4" => "Roughcut" , "8" => "Episode" );
+	$entries_list_type = array ( "15" => "All" , "1" => "Hshow" , "2" => "Kuser" , "4" => "Roughcut" , "8" => "Episode" );
 
 	$boolean_type = array ( "true" => "true" , "false" => "false"  );
 	$boolean_int_type = array ( "" => "" , "1" => "true" , "0" => "false"  );
@@ -111,7 +111,7 @@ function createSelect ( $id , $name , $default_value , $list_name , $pid_str = n
 		"11" => "11", 
 		"12" => "12" );
 
-	$obj_type_list = array ( "kshow" => "kshow" , "entry" => "entry" );
+	$obj_type_list = array ( "hshow" => "hshow" , "entry" => "entry" );
 	
 	// TODO - fix list for moderation_status
 	$entry_moderation_status = array ( "1" => "PENDING" , "2" => "ALLOW" , "3" => "BLOCK");
@@ -419,16 +419,16 @@ $limited = getLimited();
 		<option value="deletedataentry">delete data entry</option>
 	</optgroup>
 
-	<optgroup label="kshow">
-		<option value="addkshow">add kshow</option>
-		<option value="clonekshow">clone kshow</option>
-		<option value="updatekshow">update kshow</option>
-		<option value="getkshow">get kshow</option>
-		<option value="listkshows">list kshows</option>
-		<option value="rankkshow">rank kshow</option>
-		<option value="deletekshow">delete kshow</option>
-		<option value="listmykshows">list MY kshows</option>
-		<option value="updatekshowowner">update kshow owner</option>
+	<optgroup label="hshow">
+		<option value="addhshow">add hshow</option>
+		<option value="clonehshow">clone hshow</option>
+		<option value="updatehshow">update hshow</option>
+		<option value="gethshow">get hshow</option>
+		<option value="listhshows">list hshows</option>
+		<option value="rankhshow">rank hshow</option>
+		<option value="deletehshow">delete hshow</option>
+		<option value="listmyhshows">list MY hshows</option>
+		<option value="updatehshowowner">update hshow owner</option>
 		<option value="getlastversionsinfo">get last versions info</option>
 	</optgroup>
 
@@ -445,7 +445,7 @@ $limited = getLimited();
 	<optgroup label="moderation">
 		<option value="addmoderation">add moderation</option>
 		<option value="reportentry">report entry</option>
-<?php // 		<option value="reportkshow">report kshow</option> ?>
+<?php // 		<option value="reporthshow">report hshow</option> ?>
 		<option value="listmoderations">list moderations</option>
 		<option value="handlemoderation">handle moderation</option>
 	</optgroup>
@@ -718,7 +718,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 		),
 
 		"addentry|1" => array (
-			array ( "kshow_id" ),
+			array ( "hshow_id" ),
 			array ( "entry1_name" ),
 			array ( "entry1_type" , "select" , "1" , "1" , "entry_type" ) ,
 			array ( "entry1_source" , "select" , "2" , "20" , "media_source" ) ,
@@ -745,7 +745,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 		) ,
 		
 		"addroughcutentry|1" => array (
-			array ( "kshow_id" ),
+			array ( "hshow_id" ),
 			array ( "entry_name" ),
 			array ( "entry_tags" , "" , "20" ),
 			array ( "entry_description" , "" , "20" ),
@@ -766,8 +766,8 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 		"getadmintags|2" => array (
 		),
 		
-		"getkshow|1" => array (
-			array ( "kshow_id" ),
+		"gethshow|1" => array (
+			array ( "hshow_id" ),
 			array ( "detailed" , "" , "1" ),
 		),
 
@@ -796,72 +796,72 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 		),
 		
 		
-		"clonekshow|2" => array (
-			array ( "kshow_id" ),
+		"clonehshow|2" => array (
+			array ( "hshow_id" ),
 			array ( "detailed" , "" , "1" ),
 		),
 
-		"addkshow|1" => array (
-			array ( "kshow_name" ),
-			array ( "kshow_description" , null , "20"  ) ,
-			array ( "kshow_tags" ),
-//			array ( "kshow_mediaType" , "select" , "2" , "" , "media_type" ) ,
-			array ( "kshow_indexedCustomData3" , null , 20 ) ,
-			array ( "kshow_customData" , null , 20 ) ,
-			array ( "kshow_groupId" , null , 20 ) ,
-			array ( "kshow_permissions" , "" , 20  ) ,
-			array ( "kshow_partnerData" , "" , 20  ) ,
-			array ( "kshow_allowQuickEdit" , "select" , "" , "1" , "boolean_int_type" ) ,
+		"addhshow|1" => array (
+			array ( "hshow_name" ),
+			array ( "hshow_description" , null , "20"  ) ,
+			array ( "hshow_tags" ),
+//			array ( "hshow_mediaType" , "select" , "2" , "" , "media_type" ) ,
+			array ( "hshow_indexedCustomData3" , null , 20 ) ,
+			array ( "hshow_customData" , null , 20 ) ,
+			array ( "hshow_groupId" , null , 20 ) ,
+			array ( "hshow_permissions" , "" , 20  ) ,
+			array ( "hshow_partnerData" , "" , 20  ) ,
+			array ( "hshow_allowQuickEdit" , "select" , "" , "1" , "boolean_int_type" ) ,
 			array ( "allow_duplicate_names" , null , 1  ) ,
 //			array ( "metadata" , null , 1  ) ,
 			array ( "detailed" , null , 1  ) ,
 		) ,
 
 
-		"updatekshow|1" => array (
-			array ( "kshow_id" ),
-			array ( "kshow_name" ),
-			array ( "kshow_description" , null , "20"  ) ,
-			array ( "kshow_tags" ),
-			array ( "kshow_mediaType" , "select" , "2" , "" , "media_type" ) ,
-//			array ( "kshow_indexedCustomData3" , null , 20 ) ,
-			array ( "kshow_customData" , null , 20 ) ,
-			array ( "kshow_groupId" , null , 20 ) ,
-			array ( "kshow_permissions" , "" , 20  ) ,
-			array ( "kshow_partnerData" , "" , 20  ) ,
+		"updatehshow|1" => array (
+			array ( "hshow_id" ),
+			array ( "hshow_name" ),
+			array ( "hshow_description" , null , "20"  ) ,
+			array ( "hshow_tags" ),
+			array ( "hshow_mediaType" , "select" , "2" , "" , "media_type" ) ,
+//			array ( "hshow_indexedCustomData3" , null , 20 ) ,
+			array ( "hshow_customData" , null , 20 ) ,
+			array ( "hshow_groupId" , null , 20 ) ,
+			array ( "hshow_permissions" , "" , 20  ) ,
+			array ( "hshow_partnerData" , "" , 20  ) ,
 			array ( "allow_duplicate_names" , null , 1  ) ,
 			array ( "detailed" , null , 1  ) ,
 		) ,
 
-		"updatekshowowner|2" => array (
-			array ( "kshow_id" ),
+		"updatehshowowner|2" => array (
+			array ( "hshow_id" ),
 			array ( "user_id" ),
 			array ( "detailed" , null , 1  ) ,
 		) , 
 				
-		"deletekshow|2" => array (
-			array ( "kshow_id" ),
+		"deletehshow|2" => array (
+			array ( "hshow_id" ),
 		),
 
-		"rankkshow|1" => array (
-			array ( "kshow_id" ),
+		"rankhshow|1" => array (
+			array ( "hshow_id" ),
 			array ( "rank" , null , 1),
 		),
 
 		"getlastversionsinfo|1" => array (
-			array ( "kshow_id" ),
+			array ( "hshow_id" ),
 			array ( "number_of_versions" , null , 1),
 		),
 		
 /*
 		"generatewidget|2" => array (
-			array ( "kshow_id" ),
-			array ( "kshow_name" ),
-			array ( "kshow_description" , null , "20"  ) ,
+			array ( "hshow_id" ),
+			array ( "hshow_name" ),
+			array ( "hshow_description" , null , "20"  ) ,
 		),
 */
 		"viewwidget|2" => array (
-			array ( "kshow_id" ),
+			array ( "hshow_id" ),
 			array ( "entry_id" ),
 			array ( "widget_id" , null , "20"  ) ,
 			array ( "host" , "select" , "" , "" , "service_urls1" ),
@@ -873,13 +873,13 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 			array ( "secret" ,null , 34),
 			array ( "admin" ,null , 1),
 			array ( "expiry" ,null , 6 , "86400" , "Expiry in seconds"),
-			array ( "privileges" ,null , 34 , "edit:*" , null , " '*' = Will have edit privileges for all kshows"),
+			array ( "privileges" ,null , 34 , "edit:*" , null , " '*' = Will have edit privileges for all hshows"),
 		),
 
 		"startwidgetsession|9" => array (
 			array ( "widget_id" ,null , 34),
 			array ( "expiry" ,null , 6 , "86400" , "Expiry in seconds"),
-//			array ( "privileges" ,null , 34 , "edit:*" , null , " '*' = Will have edit privileges for all kshows"),
+//			array ( "privileges" ,null , 34 , "edit:*" , null , " '*' = Will have edit privileges for all hshows"),
 		),
 
 
@@ -943,11 +943,11 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 			array ( "filename" , "" , null , "data" , null , "Same as addentry:filename1" ),
 		),
 
-		"listkshows|2" => array (
+		"listhshows|2" => array (
 			array ( "detailed" , "" , "1" ),
 			array ( "page" , "" , "2" , "1"),
 			array ( "page_size" , "" , "2" , "10" ),
-//			array ( "filter__eq_type", "select" , "2" , "1" , "kshow_type" ) ,
+//			array ( "filter__eq_type", "select" , "2" , "1" , "hshow_type" ) ,
 			array ( "filter__eq_id", null , "6" ),
 			array ( "filter__eq_producer_id", null , "6" ),
 			array ( "filter__like_tags", null , "20" ),
@@ -960,7 +960,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 			array ( "use_filter_puser_id" , "select" , "true" , "" , "boolean_type" ) ,
 		) ,
 
-		"listmykshows|1" => array (
+		"listmyhshows|1" => array (
 			array ( "detailed" , "" , "1" ),
 			array ( "page" , "" , "2" , "1"),
 			array ( "page_size" , "" , "2" , "10" ),
@@ -982,7 +982,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 			array ( "filter__eq_media_type", "select" , "2" , "1" , "entry_media_type_filter" ) ,
 			array ( "filter__in_media_type", "" , 10 ) ,			
 			array ( "filter__eq_user_id", null , "6" ),
-			array ( "filter__eq_kshow_id", null , "6" ),
+			array ( "filter__eq_hshow_id", null , "6" ),
 			array ( "filter__like_tags", null , "20" ),
 			array ( "filter__mlikeor_tags", null , "20" ),			
 			array ( "filter__mlikeand_tags", null , "20" ),
@@ -1048,7 +1048,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 		) ,
 		
 		"addpartnerentry|2" => array (
-			array ( "kshow_id" ),
+			array ( "hshow_id" ),
 			array ( "entry1_name" ),
 			array ( "entry1_source" , "select" , "2" , "20" , "media_source" ) ,
 			array ( "entry1_mediaType" , "select" , "2" , "" , "media_type" ) ,
@@ -1102,7 +1102,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 		),
 
 /*
-		"reportkshow|1" => array (
+		"reporthshow|1" => array (
 			array ( "moderation_objectId" , "" , "7" ),
 			array ( "moderation_comments" , "" , "20" ),
 		),
@@ -1138,7 +1138,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 
 		"addwidget|1" => array (
 			array ( "widget_sourceWidgetId" ),
-			array ( "widget_kshowId" ),
+			array ( "widget_hshowId" ),
 			array ( "widget_entryId" ),
 			array ( "widget_uiConfId" ),
 //			array ( "widget_customData" ),
@@ -1160,7 +1160,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 		"getuiconf|1" => $getuiconf,
 
 		"getallentries|1" => array (
-			array ( "kshow_id" ),
+			array ( "hshow_id" ),
 			array ( "entry_id" ),
 			array ( "version" ),
 			array ( "list_type", "select" , "1" , " " , "entries_list_type" ) ,
@@ -1168,13 +1168,13 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 		),
 
 		"getmetadata|1" => array (
-			array ( "kshow_id" ),
+			array ( "hshow_id" ),
 			array ( "entry_id" ),
 			array ( "version" ),
 		),
 
 		"setmetadata|1" => array (
-			array ( "kshow_id" ),
+			array ( "hshow_id" ),
 			array ( "entry_id" ),
 			array ( "xml" , "textarea"  , "4,30" ),
 			array ( "HasRoughCut" , "" , "1" ),
@@ -1182,7 +1182,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 		
 		"appendentrytoroughcut|1" => array (
 			array ( "entry_id" ),
-			array ( "kshow_id" ),
+			array ( "hshow_id" ),
 			array ( "show_entry_id" ),
 		),
 
@@ -1289,7 +1289,7 @@ require_once ( __DIR__ . "/testme_dataentries.php" );
 			array ( "filter__eq_media_type", "select" , "2" , "1" , "entry_media_type_filter" ) ,
 			array ( "filter__eq_id", null , "6" ),
 			array ( "filter__eq_user_id", null , "6" ),
-			array ( "filter__eq_kshow_id", null , "6" ),
+			array ( "filter__eq_hshow_id", null , "6" ),
 //			array ( "filter__like_name", null , "20" ),
 			array ( "filter__eq_indexed_custom_data_1", null , "20" ),
 			array ( "filter__gte_created_at", null , "20" ),

@@ -147,7 +147,7 @@ class kuserPeer extends BasekuserPeer implements IRelatedObjectPeer
 	 *
 	 * @param int $kuserId = the requested user
 	 * @param int $privacy = the privacy filter
-	 * @param int $pageSize = number of kshows in each page
+	 * @param int $pageSize = number of hshows in each page
 	 * @param int $page = the requested page
 	 * @return the pager object
 	 */
@@ -182,7 +182,7 @@ class kuserPeer extends BasekuserPeer implements IRelatedObjectPeer
 	 *
 	 * @param int $kuserId = the requested user
 	 * @param int $privacy = the privacy filter
-	 * @param int $pageSize = number of kshows in each page
+	 * @param int $pageSize = number of hshows in each page
 	 * @param int $page = the requested page
 	 * @return the pager object
 	 */
@@ -253,7 +253,7 @@ class kuserPeer extends BasekuserPeer implements IRelatedObjectPeer
 			case kuser::KUSER_SORT_COUNTRY: $c->addAscendingOrderByColumn(kuserPeer::COUNTRY); break;
 			case kuser::KUSER_SORT_CITY: $c->addAscendingOrderByColumn(kuserPeer::CITY); break;
 			case kuser::KUSER_SORT_GENDER: $c->addAscendingOrderByColumn(kuserPeer::GENDER); break;		
-			case kuser::KUSER_SORT_PRODUCED_KSHOWS: $c->addDescendingOrderByColumn(kuserPeer::PRODUCED_KSHOWS); break;
+			case kuser::KUSER_SORT_PRODUCED_HSHOWS: $c->addDescendingOrderByColumn(kuserPeer::PRODUCED_HSHOWS); break;
 			
 			default: $c->addAscendingOrderByColumn(kuserPeer::SCREEN_NAME);
 		}

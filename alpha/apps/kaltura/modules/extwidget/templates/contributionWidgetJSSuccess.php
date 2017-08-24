@@ -13,7 +13,7 @@
 						'&sessionId=' . $ks. 
 						'&partnerId=' . $partner_id .
 						'&subPartnerId=' . $subp_id . 
-						'&kshow_id=' . $kshow_id . 
+						'&hshow_id=' . $hshow_id . 
 						'&host=' . $host . //$domain; it's an enum
 						'&afterAddentry=Kaltura.onAfterAddEntry' .
 						'&close=Kaltura.onClose' .

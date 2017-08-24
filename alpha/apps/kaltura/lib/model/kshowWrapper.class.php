@@ -3,7 +3,7 @@
  * @package Core
  * @subpackage model.wrappers
  */
-class kshowWrapper extends objectWrapperBase
+class hshowWrapper extends objectWrapperBase
 {
 	protected $basic_fields = array ( "id" , "name" , "partnerId" , "subpId" );
 	
@@ -30,7 +30,7 @@ class kshowWrapper extends objectWrapperBase
 	{
 		return 
 			array (
-				"display_name" => "KShow",
+				"display_name" => "HShow",
 				"desc" => ""
 			);
 	}

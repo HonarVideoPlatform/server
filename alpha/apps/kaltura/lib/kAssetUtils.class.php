@@ -31,7 +31,7 @@ class kAssetUtils
 				if ($source_link == null)
 					$source_link = '';
 			}
-			echo "\t" .  baseObjectUtils::objToXml ( $entry , array ( 'id' , 'name' , 'media_type' , 'kshow_id' ) ,
+			echo "\t" .  baseObjectUtils::objToXml ( $entry , array ( 'id' , 'name' , 'media_type' , 'hshow_id' ) ,
 			'asset' , true ,
 			array ( 'url' => $data , 'ready' => $is_ready , 'thumbnail_path' => $entry->getThumbnailPath() ,
 			'credit' => $credit, 'source_link' => $source_link,

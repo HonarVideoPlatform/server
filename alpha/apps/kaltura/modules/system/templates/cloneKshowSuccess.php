@@ -4,8 +4,8 @@
 <div style='padding:0;margin:0;font-family:arial;font-size: 11px'>
 <form id='form1' method='post'>
 <table >
-	<tr><td>Source kshow id <input name="source_kshow_id" value="<?php echo $source_kshow_id ?>"></td>
-		<td>Target kshow id <input name="target_kshow_id" value="<?php echo $target_kshow_id ?>"></td></tr>
+	<tr><td>Source hshow id <input name="source_hshow_id" value="<?php echo $source_hshow_id ?>"></td>
+		<td>Target hshow id <input name="target_hshow_id" value="<?php echo $target_hshow_id ?>"></td></tr>
 	<tr><td colspan='2'>Kuser names  <input size='100' name="kuser_names" value="<?php echo $kuser_names ?>"></td></tr>
 	<tr><td colspan='2'>
 	<?php if ( $mode != 2 ) { ?> <input type='submit' id='submit' name='submit' value='submit'> <?php } ?>
@@ -18,15 +18,15 @@
 	<input type='hidden' id='clone' name='clone' value='false'>
 </form>
 <br>
-Will clone kshow
+Will clone hshow
 <?php flush(); ?>
 
 <table border='1px'  style='padding:0;margin:0;font-family:arial;font-size: 11px'>
-<?php echo investigate::printKshowHeader () ;flush();?>
-<tr><td colspan=20 style='color:blue;'>Source (From partner_id [<?php echo $source_kshow->getPartnerId() ?>])</td></tr>
-<?php echo investigate::printKshow ( $source_kshow ) ;flush();?>
-<tr><td colspan=20 style='color:green;'>Target  (To partner_id [<?php echo $target_kshow->getPartnerId() ?>])</td></tr>
-<?php echo investigate::printKshow ( $target_kshow) ;flush();?>
+<?php echo investigate::printHshowHeader () ;flush();?>
+<tr><td colspan=20 style='color:blue;'>Source (From partner_id [<?php echo $source_hshow->getPartnerId() ?>])</td></tr>
+<?php echo investigate::printHshow ( $source_hshow ) ;flush();?>
+<tr><td colspan=20 style='color:green;'>Target  (To partner_id [<?php echo $target_hshow->getPartnerId() ?>])</td></tr>
+<?php echo investigate::printHshow ( $target_hshow) ;flush();?>
 </table>
 
 <br>
@@ -57,7 +57,7 @@ Kusers:
 <?php foreach ( $entries as $entry ) {
 	$text = null; 
 	if ( $mode != 2 ) $text = "Assigned to " . @$entry_kusers[$entry->getId()];
-	echo investigate::printEntry( $entry , false , $source_kshow  , $text );
+	echo investigate::printEntry( $entry , false , $source_hshow  , $text );
 } ?>	 
 <?php } ?>
 </table>

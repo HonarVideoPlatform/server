@@ -1,7 +1,7 @@
 <?php
 /**
- * 1. Will create a kshow with name and summary for a specific partner.
- * 2. Will generate widget-html for this kshow.
+* 1. Will create a hshow with name and summary for a specific partner.
+* 2. Will generate widget-html for this hshow.
  * 
  * @package api
  * @subpackage ps2
