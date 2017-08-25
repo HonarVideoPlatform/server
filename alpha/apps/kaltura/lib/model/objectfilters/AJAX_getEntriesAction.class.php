@@ -46,7 +46,7 @@ class AJAX_getEntriesAction extends AJAX_getObjectsAction
 	{
 //		entryPeer::setUseCriteriaFilter( false );
 		
-//		$c->addJoin( entryPeer::HSHOW_ID , hshowPeer::ID , Criteria::LEFT_JOIN);
+//		$c->addJoin( entryPeer::KSHOW_ID , kshowPeer::ID , Criteria::LEFT_JOIN);
 //		$c->addJoin( entryPeer::KUSER_ID , kuserPeer::ID , Criteria::LEFT_JOIN);
 
 		if ( $this->kuser_id  )

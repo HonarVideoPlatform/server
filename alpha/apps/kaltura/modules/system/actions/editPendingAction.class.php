@@ -18,28 +18,28 @@ class editPendingAction extends kalturaSystemAction
 	{
 		$this->forceSystemAuthentication();
 		
-		$hshow_id = @$_REQUEST["hshow_id"];
-		$this->hshow_id = $hshow_id;
-		$this->hshow = NULL;
+		$kshow_id = @$_REQUEST["kshow_id"];
+		$this->kshow_id = $kshow_id;
+		$this->kshow = NULL;
 		
 		$entry_id = @$_REQUEST["entry_id"];
 		$this->entry_id = $entry_id;
 		$this->entry = NULL;
 		
 		$this->message =  "";
-		if ( !empty ( $hshow_id ))
+		if ( !empty ( $kshow_id ))
 		{
-			$this->hshow = hshowPeer::retrieveByPK( $hshow_id );
-			if (  ! $this->hshow )
+			$this->kshow = kshowPeer::retrieveByPK( $kshow_id );
+			if (  ! $this->kshow )
 			{
-				$this->message = "Cannot find hshow [$hshow_id]";
+				$this->message = "Cannot find kshow [$kshow_id]";
 			}
 			else
 			{
-				$this->entry = $this->hshow->getShowEntry();
+				$this->entry = $this->kshow->getShowEntry();
 			} 
 		}
-		elseif ( !empty ( $hshow_id ))
+		elseif ( !empty ( $kshow_id ))
 		{
 			$this->entry = entryPeer::retrieveByPK( $entry_id );
 			if ( ! $this->entry )
@@ -48,13 +48,13 @@ class editPendingAction extends kalturaSystemAction
 			}
 			else
 			{
-				$this->hshow = $this->$this->entry->getHshow();
+				$this->kshow = $this->$this->entry->getKshow();
 			}
 		}
 		
-		if ( $this->hshow )
+		if ( $this->kshow )
 		{
-			$this->metadata = $this->hshow->getMetadata();
+			$this->metadata = $this->kshow->getMetadata();
 		}
 		else
 		{
@@ -90,7 +90,7 @@ class editPendingAction extends kalturaSystemAction
 		
 		$this->pending = $pending_str;
 		
-		$this->hshow_id = $hshow_id;
+		$this->kshow_id = $kshow_id;
 		$this->entry_id = $entry_id;
 	}
 }

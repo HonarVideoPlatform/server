@@ -89,7 +89,7 @@ class SyndicationDistributionProfile extends DistributionProfile
 		$playlist->setDisplayInSearch(mySearchUtils::DISPLAY_IN_SEARCH_SYSTEM);
 		$playlist->setPartnerId($this->getPartnerId());
 		$playlist->setStatus(entryStatus::READY);
-		$playlist->setHshowId(null);
+		$playlist->setKshowId(null);
 		$playlist->setType(entryType::PLAYLIST);
 		$playlist->setMediaType(entry::ENTRY_MEDIA_TYPE_XML);
 		$playlist->setDataContent($playlistContent);

@@ -11,13 +11,13 @@ require_once ( __DIR__ . "/kalturaSystemAction.class.php" );
  * @subpackage system
  * @deprecated
  */
-class deleteHshowAction extends kalturaSystemAction
+class deleteKshowAction extends kalturaSystemAction
 {
 	/**
 	 * 
-select hshow.id,concat('http://www.kaltura.com/index.php/browse/bands?band_id=',indexed_custom_data_1),concat('http://profile.myspace.com/index.cfm?fuseaction=user.viewpr
-ofile&friendID=',indexed_custom_data_1) ,  kuser.screen_name , indexed_custom_data_1  from hshow ,kuser where hshow.partner_id=5 AND kuser.id=hshow.producer_id AND hshow.
-id>=10815  order by hshow.id ;
+select kshow.id,concat('http://www.kaltura.com/index.php/browse/bands?band_id=',indexed_custom_data_1),concat('http://profile.myspace.com/index.cfm?fuseaction=user.viewpr
+ofile&friendID=',indexed_custom_data_1) ,  kuser.screen_name , indexed_custom_data_1  from kshow ,kuser where kshow.partner_id=5 AND kuser.id=kshow.producer_id AND kshow.
+id>=10815  order by kshow.id ;
 ~
 
 	 */
@@ -25,15 +25,15 @@ id>=10815  order by hshow.id ;
 	{
 		$this->forceSystemAuthentication();
 		
-		$hshow_id = $this->getRequestParameter( "hshow_id" , null );
+		$kshow_id = $this->getRequestParameter( "kshow_id" , null );
 		$band_id = $this->getRequestParameter( "band_id" , null );
 		$kuser_name = $this->getRequestParameter( "kuser_name" , null );
 		
-		$this->other_hshows_by_producer = null;
+		$this->other_kshows_by_producer = null;
 		
 		$error = "";
 		
-		$hshow = null;
+		$kshow = null;
 		$kuser = null;
 		$entries = null;
 		
@@ -49,62 +49,62 @@ id>=10815  order by hshow.id ;
 			
 			if ( $kuser )
 			{
-				$this->other_hshows_by_producer = $this->getHshowsForKuser ( $kuser , null );
+				$this->other_kshows_by_producer = $this->getKshowsForKuser ( $kuser , null );
 			}
 			else
 			{
 				$error .= "Cannot find kuser with name [$kuser_name]<br>";
 			}
 			
-			$other_hshow_count = count ( $this->other_hshows_by_producer );
-			if (  $other_hshow_count < 1 )
+			$other_kshow_count = count ( $this->other_kshows_by_producer );
+			if (  $other_kshow_count < 1 )
 			{
-				// kuser has no hshow - delete him !
+				// kuser has no kshow - delete him !
 				if ( $should_delete )
 				{
 					$kuser->delete();
 				}
 			}
-			else if ( $other_hshow_count == 1 )
+			else if ( $other_kshow_count == 1 )
 			{
-				$hshow_id = $this->other_hshows_by_producer[0]->getId();
+				$kshow_id = $this->other_kshows_by_producer[0]->getId();
 			}
 			else
 			{
-				// kuser has more than one hshow - let user choose 
-				$error .= "[$kuser_name] has ($other_hshow_count) shows.<br>";
+				// kuser has more than one kshow - let user choose 
+				$error .= "[$kuser_name] has ($other_kshow_count) shows.<br>";
 			}
 		}
 		
 		if ( $band_id )
 		{
 			$c = new Criteria();
-			$c->add ( hshowPeer::INDEXED_CUSTOM_DATA_1 , $band_id );
-			$c->add ( hshowPeer::PARTNER_ID , 5 );
-			$hshow = hshowPeer::doSelectOne( $c );
+			$c->add ( kshowPeer::INDEXED_CUSTOM_DATA_1 , $band_id );
+			$c->add ( kshowPeer::PARTNER_ID , 5 );
+			$kshow = kshowPeer::doSelectOne( $c );
 		}
-		else if ( $hshow_id )
+		else if ( $kshow_id )
 		{
-			$hshow = hshowPeer::retrieveByPK( $hshow_id ); 
+			$kshow = kshowPeer::retrieveByPK( $kshow_id ); 
 		}
 		
-		if ( $hshow )
+		if ( $kshow )
 		{
-			if ( ! $kuser )		$kuser = kuserPeer::retrieveByPK( $hshow->getProducerId() );
+			if ( ! $kuser )		$kuser = kuserPeer::retrieveByPK( $kshow->getProducerId() );
 			if ( $kuser )
 			{
-				$this->other_hshows_by_producer = $this->getHshowsForKuser ( $kuser , $hshow );
+				$this->other_kshows_by_producer = $this->getKshowsForKuser ( $kuser , $kshow );
 				
 				if ( $should_delete )
 				{
-					if ( count ( $this->other_hshows_by_producer ) == 0 )
+					if ( count ( $this->other_kshows_by_producer ) == 0 )
 					{
 						$kuser->delete();
 					}
 				}
 			}
 			
-			$entries = $hshow->getEntrys ();
+			$entries = $kshow->getEntrys ();
 			
 			if ( $should_delete )
 			{
@@ -124,19 +124,19 @@ id>=10815  order by hshow.id ;
 			
 			if ( $should_delete )
 			{
-				$hshow->delete();
+				$kshow->delete();
 			}
 			
 		}
 		else
 		{
-			$error .= "Cannot find hshow [$hshow_id]<br>";
+			$error .= "Cannot find kshow [$kshow_id]<br>";
 		}
 		
 		
-		$this->hshow_id = $hshow_id;
+		$this->kshow_id = $kshow_id;
 		$this->kuser_name = $kuser_name;
-		$this->hshow = $hshow;
+		$this->kshow = $kshow;
 		$this->kuser = $kuser;
 		$this->entries = $entries; 	
 		$this->should_delete = $should_delete;	
@@ -144,15 +144,15 @@ id>=10815  order by hshow.id ;
 		$this->error = $error; 
 	}
 	
-	private function getHshowsForKuser ( $kuser , $hshow )
+	private function getKshowsForKuser ( $kuser , $kshow )
 	{
 		
 		$c = new Criteria();
-		$c->add ( hshowPeer::PRODUCER_ID , $kuser->getId() );
-		if ( $hshow ) $c->add ( hshowPeer::ID , $hshow->getId(), Criteria::NOT_EQUAL );
-		$other_hshows_by_producer = hshowPeer::doSelect( $c );
+		$c->add ( kshowPeer::PRODUCER_ID , $kuser->getId() );
+		if ( $kshow ) $c->add ( kshowPeer::ID , $kshow->getId(), Criteria::NOT_EQUAL );
+		$other_kshows_by_producer = kshowPeer::doSelect( $c );
 		
-		return $other_hshows_by_producer;
+		return $other_kshows_by_producer;
 						
 	}
 }

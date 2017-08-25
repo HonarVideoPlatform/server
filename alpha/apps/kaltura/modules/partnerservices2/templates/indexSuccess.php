@@ -18,22 +18,22 @@ http://localhost/kaltura_dev.php/partnerservices/creategreeting?
 	contributors=5555;6666;7777
 	
 
-http://localhost/kaltura_dev.php/partnerservices/getgreetingdata?partner_id=100&uid=1234&format=1&hshow_id=10150
+http://localhost/kaltura_dev.php/partnerservices/getgreetingdata?partner_id=100&uid=1234&format=1&kshow_id=10150
 
 http://localhost/kaltura_dev.php/partnerservices/getgreetingdata?
 	partner_id=100&
 	uid=1234&
 	format=1&
-	hshow_id=10150
+	kshow_id=10150
 
 
-http://localhost/kaltura_dev.php/partnerservices/getuploadhash?partner_id=100&uid=1234&format=2&hshow_id=10150
+http://localhost/kaltura_dev.php/partnerservices/getuploadhash?partner_id=100&uid=1234&format=2&kshow_id=10150
 		
 http://localhost/kaltura_dev.php/partnerservices/getuploadhash?
 	partner_id=100&
 	uid=1234&
 	format=2&
-	hshow_id=10150
+	kshow_id=10150
 	
 http://localhost/index.php/partnerservices/getgreetings?partner_id=100&uid=1234&format=3
 	

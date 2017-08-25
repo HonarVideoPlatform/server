@@ -78,11 +78,11 @@ class myMediaSourceFactory
 			case entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER:
 				$result =  new myKalturaPartnerServices();
 				break;
-			case entry::ENTRY_MEDIA_SOURCE_KALTURA_HSHOW:
-				$result =  new myKalturaHshowServices();
+			case entry::ENTRY_MEDIA_SOURCE_KALTURA_KSHOW:
+				$result =  new myKalturaKshowServices();
 				break;
-			case entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_HSHOW:
-				$result =  new myKalturaPartnerHshowServices();
+			case entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_KSHOW:
+				$result =  new myKalturaPartnerKshowServices();
 				break;
 			case entry::ENTRY_MEDIA_SOURCE_ARCHIVE_ORG:
 				$result =  new myArchiveOrgServices();
@@ -174,8 +174,8 @@ class myMediaSourceFactory
 		entry::ENTRY_MEDIA_SOURCE_WEBCAM ,
 		entry::ENTRY_MEDIA_SOURCE_KALTURA ,
 		entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER ,
-		entry::ENTRY_MEDIA_SOURCE_KALTURA_HSHOW,
-		entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_HSHOW ,
+		entry::ENTRY_MEDIA_SOURCE_KALTURA_KSHOW,
+		entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_KSHOW ,
 		//				entry::ENTRY_MEDIA_SOURCE_KALTURA_USER_CLIPS ,
 		entry::ENTRY_MEDIA_SOURCE_FLICKR ,
 		entry::ENTRY_MEDIA_SOURCE_PHOTOBUCKET ,

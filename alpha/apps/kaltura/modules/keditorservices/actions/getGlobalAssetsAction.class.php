@@ -13,7 +13,7 @@ require_once ( __DIR__ . "/defKeditorservicesAction.class.php");
  */
 class getGlobalAssetsAction extends defKeditorservicesAction
 {
-	protected function executeImpl ( hshow  $hshow )
+	protected function executeImpl ( kshow  $kshow )
 	{
 		$asset_type = $this->getRequestParameter( "type" , entry::ENTRY_MEDIA_TYPE_VIDEO );
 
@@ -30,8 +30,8 @@ class getGlobalAssetsAction extends defKeditorservicesAction
 			// trying to fetch invalid media type	
 		}
 		
-		$show_entry_id = $hshow->getShowEntryId();
-		$intro_id = $hshow->getIntroId();
+		$show_entry_id = $kshow->getShowEntryId();
+		$intro_id = $kshow->getIntroId();
 		
 		
 		$c = new Criteria();
@@ -43,7 +43,7 @@ class getGlobalAssetsAction extends defKeditorservicesAction
 			$this->entry_list = array ();
 	}
 	
-	protected function noSuchHshow ( $hshow_id )
+	protected function noSuchKshow ( $kshow_id )
 	{
 		$this->entry_list = array ();
 	}

@@ -1,21 +1,21 @@
 <?php
 /**
-* Subclass for representing a row from the 'hshow_kuser' table.
+ * Subclass for representing a row from the 'kshow_kuser' table.
  *
  * 
  *
  * @package Core
  * @subpackage model
  */ 
-class HshowKuser extends BaseHshowKuser
+class KshowKuser extends BaseKshowKuser
 {
 	// different type of subscriptions
-	const HSHOW_SUBSCRIPTION_NORMAL = 1;
+	const KSHOW_SUBSCRIPTION_NORMAL = 1;
 	
 	// differnt types of viewers
-	const HSHOWKUSER_VIEWER_USER = 0;
-	const HSHOWKUSER_VIEWER_SUBSCRIBER = 1;
-	const HSHOWKUSER_VIEWER_PRODUCER = 2;
+	const KSHOWKUSER_VIEWER_USER = 0;
+	const KSHOWKUSER_VIEWER_SUBSCRIBER = 1;
+	const KSHOWKUSER_VIEWER_PRODUCER = 2;
 	
 	public function save(PropelPDO $con = null)
 	{

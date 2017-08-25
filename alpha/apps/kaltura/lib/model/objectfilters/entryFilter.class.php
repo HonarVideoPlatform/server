@@ -33,7 +33,7 @@ class entryFilter extends baseObjectFilter
 			"_in_user_id",
 			"_notin_user_id",
 			"_eq_user_id" ,  // is in fact the kuser_id - see aliases
-			"_eq_hshow_id" ,
+			"_eq_kshow_id" ,
 			"_eq_status" ,
 			"_in_status" ,
 			"_notin_status" ,
@@ -183,7 +183,7 @@ class entryFilter extends baseObjectFilter
 				"desc" => "",
 				"fields" => array(
 					"user_id" => array("type" => "integer", "desc" => ""),
-					"hshow_id" => array("type" => "integer", "desc" => ""),
+					"kshow_id" => array("type" => "integer", "desc" => ""),
 					"type" => array("type" => "enum,entry,ENTRY_TYPE", "desc" => ""),
 					"media_type" => array("type" => "enum,entry,ENTRY_MEDIA_TYPE", "desc" => ""),
 					"view" => array("type" => "integer", "desc" => ""),

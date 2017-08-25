@@ -165,7 +165,7 @@ class myPartnerUtils
 	/**
 	 * Will set the pertner filter in all 3 peers:
 	 * 	kuserPeer
-	 * 	hshowPeer
+	 * 	kshowPeer
 	 * 	entryPeer
 	 *
 	 * @param unknown_type $partner_id
@@ -181,7 +181,7 @@ class myPartnerUtils
 		self::addPartnerToCriteria ( 'kuser', $partner_id , $private_partner_data, $partner_group);
 		self::addPartnerToCriteria ( 'category' , $partner_id , $private_partner_data , $partner_group);
 		self::addPartnerToCriteria ( 'entry' , $partner_id , $private_partner_data, $partner_group , $kaltura_network );
-		self::addPartnerToCriteria ( 'hshow' , $partner_id , $private_partner_data, $partner_group , $kaltura_network );
+		self::addPartnerToCriteria ( 'kshow' , $partner_id , $private_partner_data, $partner_group , $kaltura_network );
 		self::addPartnerToCriteria ( 'moderation' , $partner_id , $private_partner_data , $partner_group);
 		self::addPartnerToCriteria ( 'categoryEntry' , $partner_id , $private_partner_data , $partner_group);
 		self::addPartnerToCriteria ( 'categoryKuser', $partner_id , $private_partner_data , $partner_group);
@@ -286,21 +286,21 @@ class myPartnerUtils
 
 	}
 
-	public static function shouldForceUniqueHshow ( $partner_id , $allow_duplicate_names )
+	public static function shouldForceUniqueKshow ( $partner_id , $allow_duplicate_names )
 	{
 		// TODO - make more generic !
 		// TODO - remove this code - it's only for wikis
 		if ( ! $allow_duplicate_names ) return true;
 		$partner = PartnerPeer::retrieveByPK( $partner_id );
 		if ( !$partner ) return !$allow_duplicate_names;
-		return $partner->getShouldForceUniqueHshow();
+		return $partner->getShouldForceUniqueKshow();
 	}
 
-	public static function returnDuplicateHshow ( $partner_id )
+	public static function returnDuplicateKshow ( $partner_id )
 	{
 		$partner = PartnerPeer::retrieveByPK( $partner_id );
 		if ( !$partner ) return false;
-		return $partner->getReturnDuplicateHshow();		
+		return $partner->getReturnDuplicateKshow();		
 	}
 	
 	public static function shouldNotify ( $partner_id )
@@ -720,17 +720,17 @@ class myPartnerUtils
 	}	
 	
 /*@Partner $partner*/
-	public static function getDefaultHshow ( $partner_id, $subp_id , $puser_kuser, $group_id = null , $create_anyway = false, $default_name = null )
+	public static function getDefaultKshow ( $partner_id, $subp_id , $puser_kuser, $group_id = null , $create_anyway = false, $default_name = null )
 	{
 		$partner = PartnerPeer::retrieveByPK( $partner_id ); 
 		if ( !$partner ) return null;
 		
-		// see if partner allows a fallback hshow
-		$allow = $partner->getUseDefaultHshow();
+		// see if partner allows a fallback kshow
+		$allow = $partner->getUseDefaultKshow();
 		if ( ! $allow ) return null;
 
-		$hshow = myHshowUtils::getDefaultHshow ( $partner_id , $subp_id , $puser_kuser , $group_id , $partner->getAllowQuickEdit() , $create_anyway , $default_name );
-		return $hshow;
+		$kshow = myKshowUtils::getDefaultKshow ( $partner_id , $subp_id , $puser_kuser , $group_id , $partner->getAllowQuickEdit() , $create_anyway , $default_name );
+		return $kshow;
 	}
 	
 	

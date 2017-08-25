@@ -50,7 +50,7 @@ class deleteentryAction extends defPartnerservices2Action
 		$prefix = $this->getObjectPrefix();
 		$entry_id_to_delete = $this->getPM ( "{$prefix}_id" );
 
-		$hshow_id_for_entry_id_to_delete = $this->getP ( "hshow_id" );
+		$kshow_id_for_entry_id_to_delete = $this->getP ( "kshow_id" );
 		$c = $this->getCriteria(); 
 		if ( $c == null )
 		{
@@ -67,12 +67,12 @@ class deleteentryAction extends defPartnerservices2Action
 			return;
 		}
 
-		if ( $hshow_id_for_entry_id_to_delete != null )
+		if ( $kshow_id_for_entry_id_to_delete != null )
 		{
-			// match the hshow_id
-			if (  $hshow_id_for_entry_id_to_delete != $entry_to_delete->getHshowId() )
+			// match the kshow_id
+			if (  $kshow_id_for_entry_id_to_delete != $entry_to_delete->getKshowId() )
 			{
-				$this->addError( APIErrors::CANNOT_DELETE_ENTRY , $entry_id_to_delete , $hshow_id_for_entry_id_to_delete  );
+				$this->addError( APIErrors::CANNOT_DELETE_ENTRY , $entry_id_to_delete , $kshow_id_for_entry_id_to_delete  );
 				return;
 			}
 		}

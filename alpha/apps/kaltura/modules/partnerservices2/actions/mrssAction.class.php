@@ -113,7 +113,7 @@ class mrssAction extends defPartnerservices2Action
 
 		if ( $detailed )
 		{
-			// for some entry types - there are no hshow or kusers - don't join even when detailed
+			// for some entry types - there are no kshow or kusers - don't join even when detailed
 			if ( $this->joinOnDetailed () )	$list = entryPeer::doSelectJoinAll( $c );
 			else $list = entryPeer::doSelect( $c );
 			$level = objectWrapperBase::DETAIL_LEVEL_DETAILED ;

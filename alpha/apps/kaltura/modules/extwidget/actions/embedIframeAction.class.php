@@ -69,13 +69,13 @@ class embedIframeAction extends sfAction
 					$arr = explode ( ";" , $custom_data );
 					$countries_str = $arr[0]; 
 					$fallback_entry_id = (isset($arr[1]) ? $arr[1] : null);
-					$fallback_hshow_id = (isset($arr[2]) ? $arr[2] : null);
+					$fallback_kshow_id = (isset($arr[2]) ? $arr[2] : null);
 					$current_country = "";
 	
 					$valid_country = requestUtils::matchIpCountry( $countries_str , $current_country );
 					if ( ! $valid_country )
 					{
-						KalturaLog::log("Attempting to access widget [$widget_id] and entry [$entry_id] from country [$current_country]. Retrning entry_id: [$fallback_entry_id] hshow_id [$fallback_hshow_id]" );
+						KalturaLog::log("Attempting to access widget [$widget_id] and entry [$entry_id] from country [$current_country]. Retrning entry_id: [$fallback_entry_id] kshow_id [$fallback_kshow_id]" );
 						$entry_id = $fallback_entry_id;
 					}
 				}

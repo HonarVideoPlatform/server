@@ -34,8 +34,8 @@ abstract class BasekvotePeer {
 	/** the column name for the ID field */
 	const ID = 'kvote.ID';
 
-	/** the column name for the HSHOW_ID field */
-	const HSHOW_ID = 'kvote.HSHOW_ID';
+	/** the column name for the KSHOW_ID field */
+	const KSHOW_ID = 'kvote.KSHOW_ID';
 
 	/** the column name for the ENTRY_ID field */
 	const ENTRY_ID = 'kvote.ENTRY_ID';
@@ -80,10 +80,10 @@ abstract class BasekvotePeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'HshowId', 'EntryId', 'KuserId', 'PuserId', 'PartnerId', 'Rank', 'Status', 'KvoteType', 'CreatedAt', 'CustomData', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'hshowId', 'entryId', 'kuserId', 'puserId', 'partnerId', 'rank', 'status', 'kvoteType', 'createdAt', 'customData', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::HSHOW_ID, self::ENTRY_ID, self::KUSER_ID, self::PUSER_ID, self::PARTNER_ID, self::RANK, self::STATUS, self::KVOTE_TYPE, self::CREATED_AT, self::CUSTOM_DATA, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'hshow_id', 'entry_id', 'kuser_id', 'puser_id', 'partner_id', 'rank', 'status', 'kvote_type', 'created_at', 'custom_data', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'KshowId', 'EntryId', 'KuserId', 'PuserId', 'PartnerId', 'Rank', 'Status', 'KvoteType', 'CreatedAt', 'CustomData', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'kshowId', 'entryId', 'kuserId', 'puserId', 'partnerId', 'rank', 'status', 'kvoteType', 'createdAt', 'customData', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::KSHOW_ID, self::ENTRY_ID, self::KUSER_ID, self::PUSER_ID, self::PARTNER_ID, self::RANK, self::STATUS, self::KVOTE_TYPE, self::CREATED_AT, self::CUSTOM_DATA, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'kshow_id', 'entry_id', 'kuser_id', 'puser_id', 'partner_id', 'rank', 'status', 'kvote_type', 'created_at', 'custom_data', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
 	);
 
@@ -94,10 +94,10 @@ abstract class BasekvotePeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'HshowId' => 1, 'EntryId' => 2, 'KuserId' => 3, 'PuserId' => 4, 'PartnerId' => 5, 'Rank' => 6, 'Status' => 7, 'KvoteType' => 8, 'CreatedAt' => 9, 'CustomData' => 10, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'hshowId' => 1, 'entryId' => 2, 'kuserId' => 3, 'puserId' => 4, 'partnerId' => 5, 'rank' => 6, 'status' => 7, 'kvoteType' => 8, 'createdAt' => 9, 'customData' => 10, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::HSHOW_ID => 1, self::ENTRY_ID => 2, self::KUSER_ID => 3, self::PUSER_ID => 4, self::PARTNER_ID => 5, self::RANK => 6, self::STATUS => 7, self::KVOTE_TYPE => 8, self::CREATED_AT => 9, self::CUSTOM_DATA => 10, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'hshow_id' => 1, 'entry_id' => 2, 'kuser_id' => 3, 'puser_id' => 4, 'partner_id' => 5, 'rank' => 6, 'status' => 7, 'kvote_type' => 8, 'created_at' => 9, 'custom_data' => 10, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'KshowId' => 1, 'EntryId' => 2, 'KuserId' => 3, 'PuserId' => 4, 'PartnerId' => 5, 'Rank' => 6, 'Status' => 7, 'KvoteType' => 8, 'CreatedAt' => 9, 'CustomData' => 10, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'kshowId' => 1, 'entryId' => 2, 'kuserId' => 3, 'puserId' => 4, 'partnerId' => 5, 'rank' => 6, 'status' => 7, 'kvoteType' => 8, 'createdAt' => 9, 'customData' => 10, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::KSHOW_ID => 1, self::ENTRY_ID => 2, self::KUSER_ID => 3, self::PUSER_ID => 4, self::PARTNER_ID => 5, self::RANK => 6, self::STATUS => 7, self::KVOTE_TYPE => 8, self::CREATED_AT => 9, self::CUSTOM_DATA => 10, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'kshow_id' => 1, 'entry_id' => 2, 'kuser_id' => 3, 'puser_id' => 4, 'partner_id' => 5, 'rank' => 6, 'status' => 7, 'kvote_type' => 8, 'created_at' => 9, 'custom_data' => 10, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
 	);
 
@@ -169,7 +169,7 @@ abstract class BasekvotePeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 		$criteria->addSelectColumn(kvotePeer::ID);
-		$criteria->addSelectColumn(kvotePeer::HSHOW_ID);
+		$criteria->addSelectColumn(kvotePeer::KSHOW_ID);
 		$criteria->addSelectColumn(kvotePeer::ENTRY_ID);
 		$criteria->addSelectColumn(kvotePeer::KUSER_ID);
 		$criteria->addSelectColumn(kvotePeer::PUSER_ID);
@@ -747,7 +747,7 @@ abstract class BasekvotePeer {
 	}
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related hshowRelatedByHshowId table
+	 * Returns the number of rows matching criteria, joining the related kshowRelatedByKshowId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -755,7 +755,7 @@ abstract class BasekvotePeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinhshowRelatedByHshowId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinkshowRelatedByKshowId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -779,7 +779,7 @@ abstract class BasekvotePeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 		
 		
-		$criteria->addJoin(kvotePeer::HSHOW_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KSHOW_ID, kshowPeer::ID, $join_behavior);
 
 		$stmt = kvotePeer::doCountStmt($criteria, $con);
 
@@ -841,7 +841,7 @@ abstract class BasekvotePeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related hshowRelatedByKuserId table
+	 * Returns the number of rows matching criteria, joining the related kshowRelatedByKuserId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -849,7 +849,7 @@ abstract class BasekvotePeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinhshowRelatedByKuserId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinkshowRelatedByKuserId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -873,7 +873,7 @@ abstract class BasekvotePeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 		
 		
-		$criteria->addJoin(kvotePeer::KUSER_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KUSER_ID, kshowPeer::ID, $join_behavior);
 
 		$stmt = kvotePeer::doCountStmt($criteria, $con);
 
@@ -888,7 +888,7 @@ abstract class BasekvotePeer {
 
 
 	/**
-	 * Selects a collection of kvote objects pre-filled with their hshow objects.
+	 * Selects a collection of kvote objects pre-filled with their kshow objects.
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
@@ -896,7 +896,7 @@ abstract class BasekvotePeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinhshowRelatedByHshowId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinkshowRelatedByKshowId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -907,9 +907,9 @@ abstract class BasekvotePeer {
 
 		kvotePeer::addSelectColumns($criteria);
 		$startcol = (kvotePeer::NUM_COLUMNS - kvotePeer::NUM_LAZY_LOAD_COLUMNS);
-		hshowPeer::addSelectColumns($criteria);
+		kshowPeer::addSelectColumns($criteria);
 
-		$criteria->addJoin(kvotePeer::HSHOW_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KSHOW_ID, kshowPeer::ID, $join_behavior);
 
 		$stmt = kvotePeer::doSelectStmt($criteria, $con);
 		$results = array();
@@ -929,20 +929,20 @@ abstract class BasekvotePeer {
 				kvotePeer::addInstanceToPool($obj1, $key1);
 			} // if $obj1 already loaded
 
-			$key2 = hshowPeer::getPrimaryKeyHashFromRow($row, $startcol);
+			$key2 = kshowPeer::getPrimaryKeyHashFromRow($row, $startcol);
 			if ($key2 !== null) {
-				$obj2 = hshowPeer::getInstanceFromPool($key2);
+				$obj2 = kshowPeer::getInstanceFromPool($key2);
 				if (!$obj2) {
 
-					$cls = hshowPeer::getOMClass(false);
+					$cls = kshowPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol);
-					hshowPeer::addInstanceToPool($obj2, $key2);
+					kshowPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 already loaded
 				
-				// Add the $obj1 (kvote) to $obj2 (hshow)
-				$obj2->addkvoteRelatedByHshowId($obj1);
+				// Add the $obj1 (kvote) to $obj2 (kshow)
+				$obj2->addkvoteRelatedByKshowId($obj1);
 
 			} // if joined row was not null
 
@@ -1029,7 +1029,7 @@ abstract class BasekvotePeer {
 
 
 	/**
-	 * Selects a collection of kvote objects pre-filled with their hshow objects.
+	 * Selects a collection of kvote objects pre-filled with their kshow objects.
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
@@ -1037,7 +1037,7 @@ abstract class BasekvotePeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinhshowRelatedByKuserId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinkshowRelatedByKuserId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -1048,9 +1048,9 @@ abstract class BasekvotePeer {
 
 		kvotePeer::addSelectColumns($criteria);
 		$startcol = (kvotePeer::NUM_COLUMNS - kvotePeer::NUM_LAZY_LOAD_COLUMNS);
-		hshowPeer::addSelectColumns($criteria);
+		kshowPeer::addSelectColumns($criteria);
 
-		$criteria->addJoin(kvotePeer::KUSER_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KUSER_ID, kshowPeer::ID, $join_behavior);
 
 		$stmt = kvotePeer::doSelectStmt($criteria, $con);
 		$results = array();
@@ -1070,19 +1070,19 @@ abstract class BasekvotePeer {
 				kvotePeer::addInstanceToPool($obj1, $key1);
 			} // if $obj1 already loaded
 
-			$key2 = hshowPeer::getPrimaryKeyHashFromRow($row, $startcol);
+			$key2 = kshowPeer::getPrimaryKeyHashFromRow($row, $startcol);
 			if ($key2 !== null) {
-				$obj2 = hshowPeer::getInstanceFromPool($key2);
+				$obj2 = kshowPeer::getInstanceFromPool($key2);
 				if (!$obj2) {
 
-					$cls = hshowPeer::getOMClass(false);
+					$cls = kshowPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol);
-					hshowPeer::addInstanceToPool($obj2, $key2);
+					kshowPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 already loaded
 				
-				// Add the $obj1 (kvote) to $obj2 (hshow)
+				// Add the $obj1 (kvote) to $obj2 (kshow)
 				$obj2->addkvoteRelatedByKuserId($obj1);
 
 			} // if joined row was not null
@@ -1131,11 +1131,11 @@ abstract class BasekvotePeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 		
 		
-		$criteria->addJoin(kvotePeer::HSHOW_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KSHOW_ID, kshowPeer::ID, $join_behavior);
 
 		$criteria->addJoin(kvotePeer::ENTRY_ID, entryPeer::ID, $join_behavior);
 
-		$criteria->addJoin(kvotePeer::KUSER_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KUSER_ID, kshowPeer::ID, $join_behavior);
 
 		$stmt = kvotePeer::doCountStmt($criteria, $con);
 
@@ -1170,20 +1170,20 @@ abstract class BasekvotePeer {
 		kvotePeer::addSelectColumns($criteria);
 		$startcol2 = (kvotePeer::NUM_COLUMNS - kvotePeer::NUM_LAZY_LOAD_COLUMNS);
 
-		hshowPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (hshowPeer::NUM_COLUMNS - hshowPeer::NUM_LAZY_LOAD_COLUMNS);
+		kshowPeer::addSelectColumns($criteria);
+		$startcol3 = $startcol2 + (kshowPeer::NUM_COLUMNS - kshowPeer::NUM_LAZY_LOAD_COLUMNS);
 
 		entryPeer::addSelectColumns($criteria);
 		$startcol4 = $startcol3 + (entryPeer::NUM_COLUMNS - entryPeer::NUM_LAZY_LOAD_COLUMNS);
 
-		hshowPeer::addSelectColumns($criteria);
-		$startcol5 = $startcol4 + (hshowPeer::NUM_COLUMNS - hshowPeer::NUM_LAZY_LOAD_COLUMNS);
+		kshowPeer::addSelectColumns($criteria);
+		$startcol5 = $startcol4 + (kshowPeer::NUM_COLUMNS - kshowPeer::NUM_LAZY_LOAD_COLUMNS);
 
-		$criteria->addJoin(kvotePeer::HSHOW_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KSHOW_ID, kshowPeer::ID, $join_behavior);
 
 		$criteria->addJoin(kvotePeer::ENTRY_ID, entryPeer::ID, $join_behavior);
 
-		$criteria->addJoin(kvotePeer::KUSER_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KUSER_ID, kshowPeer::ID, $join_behavior);
 
 		$stmt = kvotePeer::doSelectStmt($criteria, $con);
 		$results = array();
@@ -1202,22 +1202,22 @@ abstract class BasekvotePeer {
 				kvotePeer::addInstanceToPool($obj1, $key1);
 			} // if obj1 already loaded
 
-			// Add objects for joined hshow rows
+			// Add objects for joined kshow rows
 
-			$key2 = hshowPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+			$key2 = kshowPeer::getPrimaryKeyHashFromRow($row, $startcol2);
 			if ($key2 !== null) {
-				$obj2 = hshowPeer::getInstanceFromPool($key2);
+				$obj2 = kshowPeer::getInstanceFromPool($key2);
 				if (!$obj2) {
 
-					$cls = hshowPeer::getOMClass(false);
+					$cls = kshowPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol2);
-					hshowPeer::addInstanceToPool($obj2, $key2);
+					kshowPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 loaded
 
-				// Add the $obj1 (kvote) to the collection in $obj2 (hshow)
-				$obj2->addkvoteRelatedByHshowId($obj1);
+				// Add the $obj1 (kvote) to the collection in $obj2 (kshow)
+				$obj2->addkvoteRelatedByKshowId($obj1);
 			} // if joined row not null
 
 			// Add objects for joined entry rows
@@ -1239,21 +1239,21 @@ abstract class BasekvotePeer {
 				$obj3->addkvote($obj1);
 			} // if joined row not null
 
-			// Add objects for joined hshow rows
+			// Add objects for joined kshow rows
 
-			$key4 = hshowPeer::getPrimaryKeyHashFromRow($row, $startcol4);
+			$key4 = kshowPeer::getPrimaryKeyHashFromRow($row, $startcol4);
 			if ($key4 !== null) {
-				$obj4 = hshowPeer::getInstanceFromPool($key4);
+				$obj4 = kshowPeer::getInstanceFromPool($key4);
 				if (!$obj4) {
 
-					$cls = hshowPeer::getOMClass(false);
+					$cls = kshowPeer::getOMClass(false);
 
 					$obj4 = new $cls();
 					$obj4->hydrate($row, $startcol4);
-					hshowPeer::addInstanceToPool($obj4, $key4);
+					kshowPeer::addInstanceToPool($obj4, $key4);
 				} // if obj4 loaded
 
-				// Add the $obj1 (kvote) to the collection in $obj4 (hshow)
+				// Add the $obj1 (kvote) to the collection in $obj4 (kshow)
 				$obj4->addkvoteRelatedByKuserId($obj1);
 			} // if joined row not null
 
@@ -1265,7 +1265,7 @@ abstract class BasekvotePeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related hshowRelatedByHshowId table
+	 * Returns the number of rows matching criteria, joining the related kshowRelatedByKshowId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -1273,7 +1273,7 @@ abstract class BasekvotePeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinAllExcepthshowRelatedByHshowId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinAllExceptkshowRelatedByKshowId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -1344,9 +1344,9 @@ abstract class BasekvotePeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 		
 		
-		$criteria->addJoin(kvotePeer::HSHOW_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KSHOW_ID, kshowPeer::ID, $join_behavior);
 
-		$criteria->addJoin(kvotePeer::KUSER_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KUSER_ID, kshowPeer::ID, $join_behavior);
 
 		$stmt = kvotePeer::doCountStmt($criteria, $con);
 
@@ -1361,7 +1361,7 @@ abstract class BasekvotePeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related hshowRelatedByKuserId table
+	 * Returns the number of rows matching criteria, joining the related kshowRelatedByKuserId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -1369,7 +1369,7 @@ abstract class BasekvotePeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinAllExcepthshowRelatedByKuserId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinAllExceptkshowRelatedByKuserId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -1408,7 +1408,7 @@ abstract class BasekvotePeer {
 
 
 	/**
-	 * Selects a collection of kvote objects pre-filled with all related objects except hshowRelatedByHshowId.
+	 * Selects a collection of kvote objects pre-filled with all related objects except kshowRelatedByKshowId.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
@@ -1417,7 +1417,7 @@ abstract class BasekvotePeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinAllExcepthshowRelatedByHshowId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinAllExceptkshowRelatedByKshowId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -1505,15 +1505,15 @@ abstract class BasekvotePeer {
 		kvotePeer::addSelectColumns($criteria);
 		$startcol2 = (kvotePeer::NUM_COLUMNS - kvotePeer::NUM_LAZY_LOAD_COLUMNS);
 
-		hshowPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (hshowPeer::NUM_COLUMNS - hshowPeer::NUM_LAZY_LOAD_COLUMNS);
+		kshowPeer::addSelectColumns($criteria);
+		$startcol3 = $startcol2 + (kshowPeer::NUM_COLUMNS - kshowPeer::NUM_LAZY_LOAD_COLUMNS);
 
-		hshowPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (hshowPeer::NUM_COLUMNS - hshowPeer::NUM_LAZY_LOAD_COLUMNS);
+		kshowPeer::addSelectColumns($criteria);
+		$startcol4 = $startcol3 + (kshowPeer::NUM_COLUMNS - kshowPeer::NUM_LAZY_LOAD_COLUMNS);
 
-		$criteria->addJoin(kvotePeer::HSHOW_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KSHOW_ID, kshowPeer::ID, $join_behavior);
 
-		$criteria->addJoin(kvotePeer::KUSER_ID, hshowPeer::ID, $join_behavior);
+		$criteria->addJoin(kvotePeer::KUSER_ID, kshowPeer::ID, $join_behavior);
 
 
 		$stmt = BasePeer::doSelect($criteria, $con);
@@ -1533,40 +1533,40 @@ abstract class BasekvotePeer {
 				kvotePeer::addInstanceToPool($obj1, $key1);
 			} // if obj1 already loaded
 
-				// Add objects for joined hshow rows
+				// Add objects for joined kshow rows
 
-				$key2 = hshowPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+				$key2 = kshowPeer::getPrimaryKeyHashFromRow($row, $startcol2);
 				if ($key2 !== null) {
-					$obj2 = hshowPeer::getInstanceFromPool($key2);
+					$obj2 = kshowPeer::getInstanceFromPool($key2);
 					if (!$obj2) {
 	
-						$cls = hshowPeer::getOMClass(false);
+						$cls = kshowPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol2);
-					hshowPeer::addInstanceToPool($obj2, $key2);
+					kshowPeer::addInstanceToPool($obj2, $key2);
 				} // if $obj2 already loaded
 
-				// Add the $obj1 (kvote) to the collection in $obj2 (hshow)
-				$obj2->addkvoteRelatedByHshowId($obj1);
+				// Add the $obj1 (kvote) to the collection in $obj2 (kshow)
+				$obj2->addkvoteRelatedByKshowId($obj1);
 
 			} // if joined row is not null
 
-				// Add objects for joined hshow rows
+				// Add objects for joined kshow rows
 
-				$key3 = hshowPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+				$key3 = kshowPeer::getPrimaryKeyHashFromRow($row, $startcol3);
 				if ($key3 !== null) {
-					$obj3 = hshowPeer::getInstanceFromPool($key3);
+					$obj3 = kshowPeer::getInstanceFromPool($key3);
 					if (!$obj3) {
 	
-						$cls = hshowPeer::getOMClass(false);
+						$cls = kshowPeer::getOMClass(false);
 
 					$obj3 = new $cls();
 					$obj3->hydrate($row, $startcol3);
-					hshowPeer::addInstanceToPool($obj3, $key3);
+					kshowPeer::addInstanceToPool($obj3, $key3);
 				} // if $obj3 already loaded
 
-				// Add the $obj1 (kvote) to the collection in $obj3 (hshow)
+				// Add the $obj1 (kvote) to the collection in $obj3 (kshow)
 				$obj3->addkvoteRelatedByKuserId($obj1);
 
 			} // if joined row is not null
@@ -1579,7 +1579,7 @@ abstract class BasekvotePeer {
 
 
 	/**
-	 * Selects a collection of kvote objects pre-filled with all related objects except hshowRelatedByKuserId.
+	 * Selects a collection of kvote objects pre-filled with all related objects except kshowRelatedByKuserId.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
@@ -1588,7 +1588,7 @@ abstract class BasekvotePeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinAllExcepthshowRelatedByKuserId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinAllExceptkshowRelatedByKuserId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 

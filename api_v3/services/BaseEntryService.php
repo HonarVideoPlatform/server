@@ -310,8 +310,8 @@ class BaseEntryService extends KalturaEntryService
 		
 	    $dbEntry->save();
 	    
-	    $hshow = $this->createDummyHShow();
-	    $hshowId = $hshow->getId();
+	    $kshow = $this->createDummyKShow();
+	    $kshowId = $kshow->getId();
 	    
 	    // setup the needed params for my insert entry helper
 	    $paramsArray = array (
@@ -325,7 +325,7 @@ class BaseEntryService extends KalturaEntryService
 	    );
 			
 	    $token = $this->getKsUniqueString();
-	    $insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
+	    $insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $kshowId, $paramsArray);
 	    $insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 	    $insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
 	    $dbEntry = $insert_entry_helper->getEntry();

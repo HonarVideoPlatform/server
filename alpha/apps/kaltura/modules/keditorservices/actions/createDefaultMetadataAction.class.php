@@ -14,25 +14,25 @@ class createDefaultMetadataAction extends defKeditorservicesAction
 	/**
 	 * Executes index action
 	 */
-	protected function executeImpl ( hshow $hshow )
+	protected function executeImpl ( kshow $kshow )
 	{
 		$this->xml_content = ""; 
 
-		$hshow_id = $this->hshow_id;
-		if ( $hshow_id == NULL || $hshow_id == 0 )		return sfView::SUCCESS;
-		$metadata_creator = new myHshowMetadataCreator ();
+		$kshow_id = $this->kshow_id;
+		if ( $kshow_id == NULL || $kshow_id == 0 )		return sfView::SUCCESS;
+		$metadata_creator = new myKshowMetadataCreator ();
 
-		$this->show_metadata = $metadata_creator->createMetadata ( $hshow_id );
+		$this->show_metadata = $metadata_creator->createMetadata ( $kshow_id );
 
-//		$hshow = hshowPeer:retrieveByPK( $hshow_id );
-		$entry = entryPeer::retrieveByPK( $hshow->getShowEntryId() );
+//		$kshow = kshowPeer:retrieveByPK( $kshow_id );
+		$entry = entryPeer::retrieveByPK( $kshow->getShowEntryId() );
 
 
 		// TODO - this should never happen
 		if ( $entry == NULL )
 		{
 			// there is no show entry for this show !
-			$entry = $hshow->createEntry ( entry::ENTRY_MEDIA_TYPE_SHOW , $hshow->getProducerId() );
+			$entry = $kshow->createEntry ( entry::ENTRY_MEDIA_TYPE_SHOW , $kshow->getProducerId() );
 		}
 
 		$content_path = myContentStorage::getFSContentRootPath();
@@ -68,7 +68,7 @@ class createDefaultMetadataAction extends defKeditorservicesAction
 
 	}
 
-	protected function noSuchHshow ( $hshow_id )
+	protected function noSuchKshow ( $kshow_id )
 	{
 		$this->xml_content = "";
 	}

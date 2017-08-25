@@ -5,7 +5,7 @@
  */
 class getallentriesAction extends defPartnerservices2Action
 {
-	const LIST_TYPE_HSHOW = 1 ;
+	const LIST_TYPE_KSHOW = 1 ;
 	const LIST_TYPE_KUSER = 2 ;
 	const LIST_TYPE_ROUGHCUT = 4 ;
 	const LIST_TYPE_EPISODE = 8 ;
@@ -20,7 +20,7 @@ class getallentriesAction extends defPartnerservices2Action
 				"in" => array (
 					"mandatory" => array ( 
 						"entry_id" => array ("type" => "string", "desc" => ""),
-						"hshow_id" => array ("type" => "string", "desc" => "")
+						"kshow_id" => array ("type" => "string", "desc" => "")
 						),
 					"optional" => array (
 						"list_type" => array ("type" => "integer", "desc" => ""), // TODO: describe enum
@@ -60,8 +60,8 @@ class getallentriesAction extends defPartnerservices2Action
 			return; 
 		}
 		
-		$hshow_id =  $this->getP ( "hshow_id" );
-		list ( $hshow , $entry , $error , $error_obj ) = myHshowUtils::getHshowAndEntry( $hshow_id  , $entry_id );
+		$kshow_id =  $this->getP ( "kshow_id" );
+		list ( $kshow , $entry , $error , $error_obj ) = myKshowUtils::getKshowAndEntry( $kshow_id  , $entry_id );
 
 		if ( $error_obj )
 		{
@@ -69,7 +69,7 @@ class getallentriesAction extends defPartnerservices2Action
 			return ;
 		}
 
-		KalturaLog::log ( __METHOD__ . " hshow_id [$hshow_id] entry_id [$entry_id]" );
+		KalturaLog::log ( __METHOD__ . " kshow_id [$kshow_id] entry_id [$entry_id]" );
 
 
 		$list_type = $this->getP ( "list_type" , self::LIST_TYPE_ROUGHCUT );
@@ -85,29 +85,29 @@ class getallentriesAction extends defPartnerservices2Action
 			$merge_entry_lists = $this->getPartner()->getMergeEntryLists();
 		}
 		
-		$hshow_entry_list = array();
+		$kshow_entry_list = array();
 		$kuser_entry_list = array();
 
 		$aggrigate_id_list = array();
-$this->benchmarkStart( "list_type_hshow" );		
-		if ( ($list_type & self::LIST_TYPE_HSHOW) && $hshow_id)
+$this->benchmarkStart( "list_type_kshow" );		
+		if ( ($list_type & self::LIST_TYPE_KSHOW) && $kshow_id)
 		{
 			$c = new Criteria();
 			$c->addAnd ( entryPeer::TYPE , entryType::MEDIA_CLIP );
 //			$c->addAnd ( entryPeer::MEDIA_TYPE , entry::ENTRY_MEDIA_TYPE_SHOW , Criteria::NOT_EQUAL );
-			$c->addAnd ( entryPeer::HSHOW_ID , $hshow_id );
+			$c->addAnd ( entryPeer::KSHOW_ID , $kshow_id );
 			$this->addIgnoreIdList ($c , $aggrigate_id_list);
 			
-//			$this->addOffsetAndLimit ( $c ); // fetch as many as the hshow has
+//			$this->addOffsetAndLimit ( $c ); // fetch as many as the kshow has
 			if ( $disable_user_data )
-				$hshow_entry_list = entryPeer::doSelect( $c );
+				$kshow_entry_list = entryPeer::doSelect( $c );
 			else
-				$hshow_entry_list = entryPeer::doSelectJoinkuser( $c );
+				$kshow_entry_list = entryPeer::doSelectJoinkuser( $c );
 				
-			$this->updateAggrigatedIdList( $aggrigate_id_list , $hshow_entry_list );
+			$this->updateAggrigatedIdList( $aggrigate_id_list , $kshow_entry_list );
 		}
 		
-$this->benchmarkEnd ( "list_type_hshow" );
+$this->benchmarkEnd ( "list_type_kshow" );
 $this->benchmarkStart( "list_type_kuser" );
 		if ( $list_type & self::LIST_TYPE_KUSER )
 		{
@@ -227,7 +227,7 @@ $this->benchmarkStart( "list_type_kuser" );
 			
 			if ( $merge_entry_lists )
 			{
-				$hshow_entry_list = kArray::append  ( $hshow_entry_list , $kuser_entry_list );
+				$kshow_entry_list = kArray::append  ( $kshow_entry_list , $kuser_entry_list );
 				$kuser_entry_list = null;
 			}
 		}
@@ -235,24 +235,24 @@ $this->benchmarkEnd( "list_type_kuser" );
 $this->benchmarkStart( "list_type_episode" );
 		if ( $list_type & self::LIST_TYPE_EPISODE )
 		{
-			if ( $hshow && $hshow->getEpisodeId() )
+			if ( $kshow && $kshow->getEpisodeId() )
 			{
-				// episode_id will point to the "parent" hshow
-				// fetch the entries of the parent hshow
+				// episode_id will point to the "parent" kshow
+				// fetch the entries of the parent kshow
 				$c = new Criteria();
 				$c->addAnd ( entryPeer::TYPE , entryType::MEDIA_CLIP );
 //				$c->addAnd ( entryPeer::MEDIA_TYPE , entry::ENTRY_MEDIA_TYPE_SHOW , Criteria::NOT_EQUAL );
-				$c->addAnd ( entryPeer::HSHOW_ID , $hshow->getEpisodeId() );
+				$c->addAnd ( entryPeer::KSHOW_ID , $kshow->getEpisodeId() );
 				$this->addIgnoreIdList ($c , $aggrigate_id_list);
 //				$this->addOffsetAndLimit ( $c ); // limit the number of the inherited entries from the episode
 				if ( $disable_user_data )
-					$parent_hshow_entries = entryPeer::doSelect( $c );
+					$parent_kshow_entries = entryPeer::doSelect( $c );
 				else
-					$parent_hshow_entries = entryPeer::doSelectJoinkuser( $c );
+					$parent_kshow_entries = entryPeer::doSelectJoinkuser( $c );
 				
-				if ( count ( $parent_hshow_entries) )
+				if ( count ( $parent_kshow_entries) )
 				{
-					$hshow_entry_list = kArray::append  ( $hshow_entry_list , $parent_hshow_entries );
+					$kshow_entry_list = kArray::append  ( $kshow_entry_list , $parent_kshow_entries );
 				}
 			}
 		}
@@ -263,7 +263,7 @@ $this->benchmarkStart( "list_type_roughcut" );
 		$entry_data_from_roughcut_map = array(); // will hold an associative array where the id is the key
 		if ( $list_type & self::LIST_TYPE_ROUGHCUT )
 		{
-			if ( $entry->getType() == entryType::MIX ) //&& $hshow->getHasRoughcut() )
+			if ( $entry->getType() == entryType::MIX ) //&& $kshow->getHasRoughcut() )
 			{
 				$sync_key = $entry->getSyncKey ( entry::FILE_SYNC_ENTRY_SUB_TYPE_DATA , $version );
 				$roughcut_file_name = kFileSyncUtils::getReadyLocalFilePathForKey ( $sync_key );
@@ -276,7 +276,7 @@ $this->benchmarkStart( "list_type_roughcut" );
 					$id = $data["id"]; // first element is the id
 					$entry_data_from_roughcut_map[] = $data;
 					$found = false;
-					foreach ( $hshow_entry_list as $entry )
+					foreach ( $kshow_entry_list as $entry )
 					{
 						// see we are not fetching duplicate entries
 						if ( $entry->getId() == $id )
@@ -309,13 +309,13 @@ $this->benchmarkStart( "list_type_roughcut" );
 					entryPeer::blockDeletedInCriteriaFilter();
 						
 					// merge the 2 lists into 1:
-					$hshow_entry_list = kArray::append  ( $hshow_entry_list , $extra_entries );
+					$kshow_entry_list = kArray::append  ( $kshow_entry_list , $extra_entries );
 				}
 			}
 		}
 $this->benchmarkEnd( "list_type_roughcut" );
 $this->benchmarkStart( "create_wrapper" );
-		$entry_wrapper =  objectWrapperBase::getWrapperClass( $hshow_entry_list , objectWrapperBase::DETAIL_LEVEL_REGULAR , -3 ,0 ,array ( "contributorScreenName" ) );
+		$entry_wrapper =  objectWrapperBase::getWrapperClass( $kshow_entry_list , objectWrapperBase::DETAIL_LEVEL_REGULAR , -3 ,0 ,array ( "contributorScreenName" ) );
 		//$entry_wrapper->addFields ( array ( "kuser.screenName" ) );
 		$this->addMsg ( "show" , $entry_wrapper );
 		// if ! $disable_roughcut_entry_data - add the roughcut_entry_data

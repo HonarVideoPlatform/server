@@ -17,7 +17,7 @@ class commentPeer extends BasecommentPeer
 	 *
 	 * @param int $subjectType = the type of the object the commens refers to
 	 * @param int $subjectId = the id of the object the comments refers to
-	 * @param int $pageSize = number of hshows in each page
+	 * @param int $pageSize = number of kshows in each page
 	 * @param int $page = the requested page
 	 * @return the pager object
 	 */
@@ -38,11 +38,11 @@ class commentPeer extends BasecommentPeer
 	    return $pager;
 	}
 	
-	public static function getLastShoutout($hshowId)
+	public static function getLastShoutout($kshowId)
 	{
 		$c = new Criteria();
 		$c->add(commentPeer::COMMENT_TYPE, comment::COMMENT_TYPE_SHOUTOUT);
-		$c->add(commentPeer::SUBJECT_ID, $hshowId);
+		$c->add(commentPeer::SUBJECT_ID, $kshowId);
 		$c->addDescendingOrderByColumn(commentPeer::BASE_DATE);
 		$c->setLimit(1);
 		

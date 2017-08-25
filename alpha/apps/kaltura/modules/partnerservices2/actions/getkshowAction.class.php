@@ -3,27 +3,27 @@
  * @package api
  * @subpackage ps2
  */
-class gethshowAction extends defPartnerservices2Action
+class getkshowAction extends defPartnerservices2Action
 {
 	public function describe()
 	{
 		return 
 			array (
-				"display_name" => "getHShow",
+				"display_name" => "getKShow",
 				"desc" => "" ,
 				"in" => array (
 					"mandatory" => array ( 
-						"hshow_id" => array ("type" => "string", "desc" => "")
+						"kshow_id" => array ("type" => "string", "desc" => "")
 						),
 					"optional" => array (
 						"detailed" => array ("type" => "boolean", "desc" => "")
 						)
 					),
 				"out" => array (
-					"hshow" => array ("type" => "hshow", "desc" => "")
+					"kshow" => array ("type" => "kshow", "desc" => "")
 					),
 				"errors" => array (
-					APIErrors::INVALID_HSHOW_ID ,
+					APIErrors::INVALID_KSHOW_ID ,
 				)
 			); 
 	}
@@ -31,44 +31,44 @@ class gethshowAction extends defPartnerservices2Action
 	// ask to fetch the kuser from puser_kuser 
 	public function needKuserFromPuser ( )	
 	{	
-		$hshow_id = $this->getPM ( "hshow_id" );
-		if ( $hshow_id == hshow::HSHOW_ID_USE_DEFAULT )			return parent::KUSER_DATA_KUSER_ID_ONLY ;
+		$kshow_id = $this->getPM ( "kshow_id" );
+		if ( $kshow_id == kshow::KSHOW_ID_USE_DEFAULT )			return parent::KUSER_DATA_KUSER_ID_ONLY ;
 		return self::KUSER_DATA_NO_KUSER;	
 	}
 		
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
-		$hshow_id = $this->getPM ( "hshow_id" );
+		$kshow_id = $this->getPM ( "kshow_id" );
 		$detailed = $this->getP ( "detailed" , false );
-		$hshow_indexedCustomData3 = $this->getP ( "indexedCustomData3" );
-		$hshow = null;
+		$kshow_indexedCustomData3 = $this->getP ( "indexedCustomData3" );
+		$kshow = null;
         
-		if ( $hshow_id == hshow::HSHOW_ID_USE_DEFAULT )
+		if ( $kshow_id == kshow::KSHOW_ID_USE_DEFAULT )
         {
-// see if the partner has some default hshow to add to
-            $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser );
-if ( $hshow ) $hshow_id = $hshow->getId();
+            // see if the partner has some default kshow to add to
+            $kshow = myPartnerUtils::getDefaultKshow ( $partner_id, $subp_id , $puser_kuser );
+            if ( $kshow ) $kshow_id = $kshow->getId();
         }
-		elseif ( $hshow_id )
+		elseif ( $kshow_id )
 		{
-			$hshow = hshowPeer::retrieveByPK( $hshow_id );
+			$kshow = kshowPeer::retrieveByPK( $kshow_id );
 		}
-		elseif ( $hshow_indexedCustomData3 )
+		elseif ( $kshow_indexedCustomData3 )
 		{
-			$hshow = hshowPeer::retrieveByIndexedCustomData3( $hshow_indexedCustomData3 );
+			$kshow = kshowPeer::retrieveByIndexedCustomData3( $kshow_indexedCustomData3 );
 		}
 
-		if ( ! $hshow )
+		if ( ! $kshow )
 		{
-			$this->addError ( APIErrors::INVALID_HSHOW_ID , $hshow_id );
+			$this->addError ( APIErrors::INVALID_KSHOW_ID , $kshow_id );
 		}
 		else
 		{
 			$level = ( $detailed ? objectWrapperBase::DETAIL_LEVEL_DETAILED : objectWrapperBase::DETAIL_LEVEL_REGULAR );
-			$wrapper = objectWrapperBase::getWrapperClass( $hshow , $level );
+			$wrapper = objectWrapperBase::getWrapperClass( $kshow , $level );
 			// TODO - remove this code when cache works properly when saving objects (in their save method)
-			$wrapper->removeFromCache( "hshow" , $hshow_id );
-			$this->addMsg ( "hshow" , $wrapper ) ;
+			$wrapper->removeFromCache( "kshow" , $kshow_id );
+			$this->addMsg ( "kshow" , $wrapper ) ;
 		}
 	}
 }

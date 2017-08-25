@@ -37,7 +37,7 @@ kmc.functions = {
 			uid					: kmc.vars.user_id,
 			ks					: kmc.vars.ks,
 			entryId				: "-1",
-			hshowId				: "-1",
+			kshowId				: "-1",
 			debugmode			: "true",
 			widget_id			: "_" + kmc.vars.partner_id,
 			urchinNumber		: kmc.vars.google_analytics_account, // "UA-12055206-1""
@@ -93,7 +93,7 @@ kmc.functions = {
 			sessionId		: kmc.vars.ks,
 			devFlag			: "true",
 			entryId			: "-1",
-			hshow_id		: "-1",
+			kshow_id		: "-1",
 			terms_of_use	: kmc.vars.terms_of_use,
 			close			: "kmc.functions.onCloseKcw",
 			quick_edit		: 0, 

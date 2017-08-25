@@ -34,8 +34,8 @@ abstract class BaseWidgetLogPeer {
 	/** the column name for the ID field */
 	const ID = 'widget_log.ID';
 
-	/** the column name for the HSHOW_ID field */
-	const HSHOW_ID = 'widget_log.HSHOW_ID';
+	/** the column name for the KSHOW_ID field */
+	const KSHOW_ID = 'widget_log.KSHOW_ID';
 
 	/** the column name for the ENTRY_ID field */
 	const ENTRY_ID = 'widget_log.ENTRY_ID';
@@ -95,10 +95,10 @@ abstract class BaseWidgetLogPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'HshowId', 'EntryId', 'KmediaType', 'WidgetType', 'Referer', 'Views', 'Ip1', 'Ip1Count', 'Ip2', 'Ip2Count', 'CreatedAt', 'UpdatedAt', 'Plays', 'PartnerId', 'SubpId', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'hshowId', 'entryId', 'kmediaType', 'widgetType', 'referer', 'views', 'ip1', 'ip1Count', 'ip2', 'ip2Count', 'createdAt', 'updatedAt', 'plays', 'partnerId', 'subpId', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::HSHOW_ID, self::ENTRY_ID, self::KMEDIA_TYPE, self::WIDGET_TYPE, self::REFERER, self::VIEWS, self::IP1, self::IP1_COUNT, self::IP2, self::IP2_COUNT, self::CREATED_AT, self::UPDATED_AT, self::PLAYS, self::PARTNER_ID, self::SUBP_ID, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'hshow_id', 'entry_id', 'kmedia_type', 'widget_type', 'referer', 'views', 'ip1', 'ip1_count', 'ip2', 'ip2_count', 'created_at', 'updated_at', 'plays', 'partner_id', 'subp_id', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'KshowId', 'EntryId', 'KmediaType', 'WidgetType', 'Referer', 'Views', 'Ip1', 'Ip1Count', 'Ip2', 'Ip2Count', 'CreatedAt', 'UpdatedAt', 'Plays', 'PartnerId', 'SubpId', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'kshowId', 'entryId', 'kmediaType', 'widgetType', 'referer', 'views', 'ip1', 'ip1Count', 'ip2', 'ip2Count', 'createdAt', 'updatedAt', 'plays', 'partnerId', 'subpId', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::KSHOW_ID, self::ENTRY_ID, self::KMEDIA_TYPE, self::WIDGET_TYPE, self::REFERER, self::VIEWS, self::IP1, self::IP1_COUNT, self::IP2, self::IP2_COUNT, self::CREATED_AT, self::UPDATED_AT, self::PLAYS, self::PARTNER_ID, self::SUBP_ID, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'kshow_id', 'entry_id', 'kmedia_type', 'widget_type', 'referer', 'views', 'ip1', 'ip1_count', 'ip2', 'ip2_count', 'created_at', 'updated_at', 'plays', 'partner_id', 'subp_id', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
 	);
 
@@ -109,10 +109,10 @@ abstract class BaseWidgetLogPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'HshowId' => 1, 'EntryId' => 2, 'KmediaType' => 3, 'WidgetType' => 4, 'Referer' => 5, 'Views' => 6, 'Ip1' => 7, 'Ip1Count' => 8, 'Ip2' => 9, 'Ip2Count' => 10, 'CreatedAt' => 11, 'UpdatedAt' => 12, 'Plays' => 13, 'PartnerId' => 14, 'SubpId' => 15, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'hshowId' => 1, 'entryId' => 2, 'kmediaType' => 3, 'widgetType' => 4, 'referer' => 5, 'views' => 6, 'ip1' => 7, 'ip1Count' => 8, 'ip2' => 9, 'ip2Count' => 10, 'createdAt' => 11, 'updatedAt' => 12, 'plays' => 13, 'partnerId' => 14, 'subpId' => 15, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::HSHOW_ID => 1, self::ENTRY_ID => 2, self::KMEDIA_TYPE => 3, self::WIDGET_TYPE => 4, self::REFERER => 5, self::VIEWS => 6, self::IP1 => 7, self::IP1_COUNT => 8, self::IP2 => 9, self::IP2_COUNT => 10, self::CREATED_AT => 11, self::UPDATED_AT => 12, self::PLAYS => 13, self::PARTNER_ID => 14, self::SUBP_ID => 15, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'hshow_id' => 1, 'entry_id' => 2, 'kmedia_type' => 3, 'widget_type' => 4, 'referer' => 5, 'views' => 6, 'ip1' => 7, 'ip1_count' => 8, 'ip2' => 9, 'ip2_count' => 10, 'created_at' => 11, 'updated_at' => 12, 'plays' => 13, 'partner_id' => 14, 'subp_id' => 15, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'KshowId' => 1, 'EntryId' => 2, 'KmediaType' => 3, 'WidgetType' => 4, 'Referer' => 5, 'Views' => 6, 'Ip1' => 7, 'Ip1Count' => 8, 'Ip2' => 9, 'Ip2Count' => 10, 'CreatedAt' => 11, 'UpdatedAt' => 12, 'Plays' => 13, 'PartnerId' => 14, 'SubpId' => 15, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'kshowId' => 1, 'entryId' => 2, 'kmediaType' => 3, 'widgetType' => 4, 'referer' => 5, 'views' => 6, 'ip1' => 7, 'ip1Count' => 8, 'ip2' => 9, 'ip2Count' => 10, 'createdAt' => 11, 'updatedAt' => 12, 'plays' => 13, 'partnerId' => 14, 'subpId' => 15, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::KSHOW_ID => 1, self::ENTRY_ID => 2, self::KMEDIA_TYPE => 3, self::WIDGET_TYPE => 4, self::REFERER => 5, self::VIEWS => 6, self::IP1 => 7, self::IP1_COUNT => 8, self::IP2 => 9, self::IP2_COUNT => 10, self::CREATED_AT => 11, self::UPDATED_AT => 12, self::PLAYS => 13, self::PARTNER_ID => 14, self::SUBP_ID => 15, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'kshow_id' => 1, 'entry_id' => 2, 'kmedia_type' => 3, 'widget_type' => 4, 'referer' => 5, 'views' => 6, 'ip1' => 7, 'ip1_count' => 8, 'ip2' => 9, 'ip2_count' => 10, 'created_at' => 11, 'updated_at' => 12, 'plays' => 13, 'partner_id' => 14, 'subp_id' => 15, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
 	);
 
@@ -184,7 +184,7 @@ abstract class BaseWidgetLogPeer {
 	public static function addSelectColumns(Criteria $criteria)
 	{
 		$criteria->addSelectColumn(WidgetLogPeer::ID);
-		$criteria->addSelectColumn(WidgetLogPeer::HSHOW_ID);
+		$criteria->addSelectColumn(WidgetLogPeer::KSHOW_ID);
 		$criteria->addSelectColumn(WidgetLogPeer::ENTRY_ID);
 		$criteria->addSelectColumn(WidgetLogPeer::KMEDIA_TYPE);
 		$criteria->addSelectColumn(WidgetLogPeer::WIDGET_TYPE);

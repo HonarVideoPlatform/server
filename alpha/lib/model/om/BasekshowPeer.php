@@ -1,29 +1,29 @@
 <?php
 
 /**
-* Base static class for performing query and update operations on the 'hshow' table.
+ * Base static class for performing query and update operations on the 'kshow' table.
  *
  * 
  *
  * @package Core
  * @subpackage model.om
  */
-abstract class BasehshowPeer {
+abstract class BasekshowPeer {
 
 	/** the default database name for this class */
 	const DATABASE_NAME = 'propel';
 
 	/** the table name for this class */
-	const TABLE_NAME = 'hshow';
+	const TABLE_NAME = 'kshow';
 
 	/** the related Propel class for this table */
-	const OM_CLASS = 'hshow';
+	const OM_CLASS = 'kshow';
 
 	/** A class that can be returned by this peer. */
-	const CLASS_DEFAULT = 'Core.hshow';
+	const CLASS_DEFAULT = 'Core.kshow';
 
 	/** the related TableMap class for this table */
-	const TM_CLASS = 'hshowTableMap';
+	const TM_CLASS = 'kshowTableMap';
 	
 	/** The total number of columns. */
 	const NUM_COLUMNS = 51;
@@ -32,163 +32,163 @@ abstract class BasehshowPeer {
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** the column name for the ID field */
-	const ID = 'hshow.ID';
+	const ID = 'kshow.ID';
 
 	/** the column name for the PRODUCER_ID field */
-	const PRODUCER_ID = 'hshow.PRODUCER_ID';
+	const PRODUCER_ID = 'kshow.PRODUCER_ID';
 
 	/** the column name for the EPISODE_ID field */
-	const EPISODE_ID = 'hshow.EPISODE_ID';
+	const EPISODE_ID = 'kshow.EPISODE_ID';
 
 	/** the column name for the NAME field */
-	const NAME = 'hshow.NAME';
+	const NAME = 'kshow.NAME';
 
 	/** the column name for the SUBDOMAIN field */
-	const SUBDOMAIN = 'hshow.SUBDOMAIN';
+	const SUBDOMAIN = 'kshow.SUBDOMAIN';
 
 	/** the column name for the DESCRIPTION field */
-	const DESCRIPTION = 'hshow.DESCRIPTION';
+	const DESCRIPTION = 'kshow.DESCRIPTION';
 
 	/** the column name for the STATUS field */
-	const STATUS = 'hshow.STATUS';
+	const STATUS = 'kshow.STATUS';
 
 	/** the column name for the TYPE field */
-	const TYPE = 'hshow.TYPE';
+	const TYPE = 'kshow.TYPE';
 
 	/** the column name for the MEDIA_TYPE field */
-	const MEDIA_TYPE = 'hshow.MEDIA_TYPE';
+	const MEDIA_TYPE = 'kshow.MEDIA_TYPE';
 
 	/** the column name for the FORMAT_TYPE field */
-	const FORMAT_TYPE = 'hshow.FORMAT_TYPE';
+	const FORMAT_TYPE = 'kshow.FORMAT_TYPE';
 
 	/** the column name for the LANGUAGE field */
-	const LANGUAGE = 'hshow.LANGUAGE';
+	const LANGUAGE = 'kshow.LANGUAGE';
 
 	/** the column name for the START_DATE field */
-	const START_DATE = 'hshow.START_DATE';
+	const START_DATE = 'kshow.START_DATE';
 
 	/** the column name for the END_DATE field */
-	const END_DATE = 'hshow.END_DATE';
+	const END_DATE = 'kshow.END_DATE';
 
 	/** the column name for the SKIN field */
-	const SKIN = 'hshow.SKIN';
+	const SKIN = 'kshow.SKIN';
 
 	/** the column name for the THUMBNAIL field */
-	const THUMBNAIL = 'hshow.THUMBNAIL';
+	const THUMBNAIL = 'kshow.THUMBNAIL';
 
 	/** the column name for the SHOW_ENTRY_ID field */
-	const SHOW_ENTRY_ID = 'hshow.SHOW_ENTRY_ID';
+	const SHOW_ENTRY_ID = 'kshow.SHOW_ENTRY_ID';
 
 	/** the column name for the INTRO_ID field */
-	const INTRO_ID = 'hshow.INTRO_ID';
+	const INTRO_ID = 'kshow.INTRO_ID';
 
 	/** the column name for the VIEWS field */
-	const VIEWS = 'hshow.VIEWS';
+	const VIEWS = 'kshow.VIEWS';
 
 	/** the column name for the VOTES field */
-	const VOTES = 'hshow.VOTES';
+	const VOTES = 'kshow.VOTES';
 
 	/** the column name for the COMMENTS field */
-	const COMMENTS = 'hshow.COMMENTS';
+	const COMMENTS = 'kshow.COMMENTS';
 
 	/** the column name for the FAVORITES field */
-	const FAVORITES = 'hshow.FAVORITES';
+	const FAVORITES = 'kshow.FAVORITES';
 
 	/** the column name for the RANK field */
-	const RANK = 'hshow.RANK';
+	const RANK = 'kshow.RANK';
 
 	/** the column name for the ENTRIES field */
-	const ENTRIES = 'hshow.ENTRIES';
+	const ENTRIES = 'kshow.ENTRIES';
 
 	/** the column name for the CONTRIBUTORS field */
-	const CONTRIBUTORS = 'hshow.CONTRIBUTORS';
+	const CONTRIBUTORS = 'kshow.CONTRIBUTORS';
 
 	/** the column name for the SUBSCRIBERS field */
-	const SUBSCRIBERS = 'hshow.SUBSCRIBERS';
+	const SUBSCRIBERS = 'kshow.SUBSCRIBERS';
 
 	/** the column name for the NUMBER_OF_UPDATES field */
-	const NUMBER_OF_UPDATES = 'hshow.NUMBER_OF_UPDATES';
+	const NUMBER_OF_UPDATES = 'kshow.NUMBER_OF_UPDATES';
 
 	/** the column name for the TAGS field */
-	const TAGS = 'hshow.TAGS';
+	const TAGS = 'kshow.TAGS';
 
 	/** the column name for the CUSTOM_DATA field */
-	const CUSTOM_DATA = 'hshow.CUSTOM_DATA';
+	const CUSTOM_DATA = 'kshow.CUSTOM_DATA';
 
 	/** the column name for the INDEXED_CUSTOM_DATA_1 field */
-	const INDEXED_CUSTOM_DATA_1 = 'hshow.INDEXED_CUSTOM_DATA_1';
+	const INDEXED_CUSTOM_DATA_1 = 'kshow.INDEXED_CUSTOM_DATA_1';
 
 	/** the column name for the INDEXED_CUSTOM_DATA_2 field */
-	const INDEXED_CUSTOM_DATA_2 = 'hshow.INDEXED_CUSTOM_DATA_2';
+	const INDEXED_CUSTOM_DATA_2 = 'kshow.INDEXED_CUSTOM_DATA_2';
 
 	/** the column name for the INDEXED_CUSTOM_DATA_3 field */
-	const INDEXED_CUSTOM_DATA_3 = 'hshow.INDEXED_CUSTOM_DATA_3';
+	const INDEXED_CUSTOM_DATA_3 = 'kshow.INDEXED_CUSTOM_DATA_3';
 
 	/** the column name for the REOCCURENCE field */
-	const REOCCURENCE = 'hshow.REOCCURENCE';
+	const REOCCURENCE = 'kshow.REOCCURENCE';
 
 	/** the column name for the LICENSE_TYPE field */
-	const LICENSE_TYPE = 'hshow.LICENSE_TYPE';
+	const LICENSE_TYPE = 'kshow.LICENSE_TYPE';
 
 	/** the column name for the LENGTH_IN_MSECS field */
-	const LENGTH_IN_MSECS = 'hshow.LENGTH_IN_MSECS';
+	const LENGTH_IN_MSECS = 'kshow.LENGTH_IN_MSECS';
 
 	/** the column name for the VIEW_PERMISSIONS field */
-	const VIEW_PERMISSIONS = 'hshow.VIEW_PERMISSIONS';
+	const VIEW_PERMISSIONS = 'kshow.VIEW_PERMISSIONS';
 
 	/** the column name for the VIEW_PASSWORD field */
-	const VIEW_PASSWORD = 'hshow.VIEW_PASSWORD';
+	const VIEW_PASSWORD = 'kshow.VIEW_PASSWORD';
 
 	/** the column name for the CONTRIB_PERMISSIONS field */
-	const CONTRIB_PERMISSIONS = 'hshow.CONTRIB_PERMISSIONS';
+	const CONTRIB_PERMISSIONS = 'kshow.CONTRIB_PERMISSIONS';
 
 	/** the column name for the CONTRIB_PASSWORD field */
-	const CONTRIB_PASSWORD = 'hshow.CONTRIB_PASSWORD';
+	const CONTRIB_PASSWORD = 'kshow.CONTRIB_PASSWORD';
 
 	/** the column name for the EDIT_PERMISSIONS field */
-	const EDIT_PERMISSIONS = 'hshow.EDIT_PERMISSIONS';
+	const EDIT_PERMISSIONS = 'kshow.EDIT_PERMISSIONS';
 
 	/** the column name for the EDIT_PASSWORD field */
-	const EDIT_PASSWORD = 'hshow.EDIT_PASSWORD';
+	const EDIT_PASSWORD = 'kshow.EDIT_PASSWORD';
 
 	/** the column name for the SALT field */
-	const SALT = 'hshow.SALT';
+	const SALT = 'kshow.SALT';
 
 	/** the column name for the CREATED_AT field */
-	const CREATED_AT = 'hshow.CREATED_AT';
+	const CREATED_AT = 'kshow.CREATED_AT';
 
 	/** the column name for the UPDATED_AT field */
-	const UPDATED_AT = 'hshow.UPDATED_AT';
+	const UPDATED_AT = 'kshow.UPDATED_AT';
 
 	/** the column name for the PARTNER_ID field */
-	const PARTNER_ID = 'hshow.PARTNER_ID';
+	const PARTNER_ID = 'kshow.PARTNER_ID';
 
 	/** the column name for the DISPLAY_IN_SEARCH field */
-	const DISPLAY_IN_SEARCH = 'hshow.DISPLAY_IN_SEARCH';
+	const DISPLAY_IN_SEARCH = 'kshow.DISPLAY_IN_SEARCH';
 
 	/** the column name for the SUBP_ID field */
-	const SUBP_ID = 'hshow.SUBP_ID';
+	const SUBP_ID = 'kshow.SUBP_ID';
 
 	/** the column name for the PERMISSIONS field */
-	const PERMISSIONS = 'hshow.PERMISSIONS';
+	const PERMISSIONS = 'kshow.PERMISSIONS';
 
 	/** the column name for the GROUP_ID field */
-	const GROUP_ID = 'hshow.GROUP_ID';
+	const GROUP_ID = 'kshow.GROUP_ID';
 
 	/** the column name for the PLAYS field */
-	const PLAYS = 'hshow.PLAYS';
+	const PLAYS = 'kshow.PLAYS';
 
 	/** the column name for the PARTNER_DATA field */
-	const PARTNER_DATA = 'hshow.PARTNER_DATA';
+	const PARTNER_DATA = 'kshow.PARTNER_DATA';
 
 	/** the column name for the INT_ID field */
-	const INT_ID = 'hshow.INT_ID';
+	const INT_ID = 'kshow.INT_ID';
 
 	/**
-	 * An identiy map to hold any loaded instances of hshow objects.
+	 * An identiy map to hold any loaded instances of kshow objects.
 	 * This must be public so that other peer classes can access this when hydrating from JOIN
 	 * queries.
-	 * @var        array hshow[]
+	 * @var        array kshow[]
 	 */
 	public static $instances = array();
 
@@ -267,12 +267,12 @@ abstract class BasehshowPeer {
 	 *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
 	 * </code>
 	 * @param      string $alias The alias for the current table.
-	 * @param      string $column The column name for current table. (i.e. hshowPeer::COLUMN_NAME).
+	 * @param      string $column The column name for current table. (i.e. kshowPeer::COLUMN_NAME).
 	 * @return     string
 	 */
 	public static function alias($alias, $column)
 	{
-		return str_replace(hshowPeer::TABLE_NAME.'.', $alias.'.', $column);
+		return str_replace(kshowPeer::TABLE_NAME.'.', $alias.'.', $column);
 	}
 
 	/**
@@ -288,57 +288,57 @@ abstract class BasehshowPeer {
 	 */
 	public static function addSelectColumns(Criteria $criteria)
 	{
-		$criteria->addSelectColumn(hshowPeer::ID);
-		$criteria->addSelectColumn(hshowPeer::PRODUCER_ID);
-		$criteria->addSelectColumn(hshowPeer::EPISODE_ID);
-		$criteria->addSelectColumn(hshowPeer::NAME);
-		$criteria->addSelectColumn(hshowPeer::SUBDOMAIN);
-		$criteria->addSelectColumn(hshowPeer::DESCRIPTION);
-		$criteria->addSelectColumn(hshowPeer::STATUS);
-		$criteria->addSelectColumn(hshowPeer::TYPE);
-		$criteria->addSelectColumn(hshowPeer::MEDIA_TYPE);
-		$criteria->addSelectColumn(hshowPeer::FORMAT_TYPE);
-		$criteria->addSelectColumn(hshowPeer::LANGUAGE);
-		$criteria->addSelectColumn(hshowPeer::START_DATE);
-		$criteria->addSelectColumn(hshowPeer::END_DATE);
-		$criteria->addSelectColumn(hshowPeer::SKIN);
-		$criteria->addSelectColumn(hshowPeer::THUMBNAIL);
-		$criteria->addSelectColumn(hshowPeer::SHOW_ENTRY_ID);
-		$criteria->addSelectColumn(hshowPeer::INTRO_ID);
-		$criteria->addSelectColumn(hshowPeer::VIEWS);
-		$criteria->addSelectColumn(hshowPeer::VOTES);
-		$criteria->addSelectColumn(hshowPeer::COMMENTS);
-		$criteria->addSelectColumn(hshowPeer::FAVORITES);
-		$criteria->addSelectColumn(hshowPeer::RANK);
-		$criteria->addSelectColumn(hshowPeer::ENTRIES);
-		$criteria->addSelectColumn(hshowPeer::CONTRIBUTORS);
-		$criteria->addSelectColumn(hshowPeer::SUBSCRIBERS);
-		$criteria->addSelectColumn(hshowPeer::NUMBER_OF_UPDATES);
-		$criteria->addSelectColumn(hshowPeer::TAGS);
-		$criteria->addSelectColumn(hshowPeer::CUSTOM_DATA);
-		$criteria->addSelectColumn(hshowPeer::INDEXED_CUSTOM_DATA_1);
-		$criteria->addSelectColumn(hshowPeer::INDEXED_CUSTOM_DATA_2);
-		$criteria->addSelectColumn(hshowPeer::INDEXED_CUSTOM_DATA_3);
-		$criteria->addSelectColumn(hshowPeer::REOCCURENCE);
-		$criteria->addSelectColumn(hshowPeer::LICENSE_TYPE);
-		$criteria->addSelectColumn(hshowPeer::LENGTH_IN_MSECS);
-		$criteria->addSelectColumn(hshowPeer::VIEW_PERMISSIONS);
-		$criteria->addSelectColumn(hshowPeer::VIEW_PASSWORD);
-		$criteria->addSelectColumn(hshowPeer::CONTRIB_PERMISSIONS);
-		$criteria->addSelectColumn(hshowPeer::CONTRIB_PASSWORD);
-		$criteria->addSelectColumn(hshowPeer::EDIT_PERMISSIONS);
-		$criteria->addSelectColumn(hshowPeer::EDIT_PASSWORD);
-		$criteria->addSelectColumn(hshowPeer::SALT);
-		$criteria->addSelectColumn(hshowPeer::CREATED_AT);
-		$criteria->addSelectColumn(hshowPeer::UPDATED_AT);
-		$criteria->addSelectColumn(hshowPeer::PARTNER_ID);
-		$criteria->addSelectColumn(hshowPeer::DISPLAY_IN_SEARCH);
-		$criteria->addSelectColumn(hshowPeer::SUBP_ID);
-		$criteria->addSelectColumn(hshowPeer::PERMISSIONS);
-		$criteria->addSelectColumn(hshowPeer::GROUP_ID);
-		$criteria->addSelectColumn(hshowPeer::PLAYS);
-		$criteria->addSelectColumn(hshowPeer::PARTNER_DATA);
-		$criteria->addSelectColumn(hshowPeer::INT_ID);
+		$criteria->addSelectColumn(kshowPeer::ID);
+		$criteria->addSelectColumn(kshowPeer::PRODUCER_ID);
+		$criteria->addSelectColumn(kshowPeer::EPISODE_ID);
+		$criteria->addSelectColumn(kshowPeer::NAME);
+		$criteria->addSelectColumn(kshowPeer::SUBDOMAIN);
+		$criteria->addSelectColumn(kshowPeer::DESCRIPTION);
+		$criteria->addSelectColumn(kshowPeer::STATUS);
+		$criteria->addSelectColumn(kshowPeer::TYPE);
+		$criteria->addSelectColumn(kshowPeer::MEDIA_TYPE);
+		$criteria->addSelectColumn(kshowPeer::FORMAT_TYPE);
+		$criteria->addSelectColumn(kshowPeer::LANGUAGE);
+		$criteria->addSelectColumn(kshowPeer::START_DATE);
+		$criteria->addSelectColumn(kshowPeer::END_DATE);
+		$criteria->addSelectColumn(kshowPeer::SKIN);
+		$criteria->addSelectColumn(kshowPeer::THUMBNAIL);
+		$criteria->addSelectColumn(kshowPeer::SHOW_ENTRY_ID);
+		$criteria->addSelectColumn(kshowPeer::INTRO_ID);
+		$criteria->addSelectColumn(kshowPeer::VIEWS);
+		$criteria->addSelectColumn(kshowPeer::VOTES);
+		$criteria->addSelectColumn(kshowPeer::COMMENTS);
+		$criteria->addSelectColumn(kshowPeer::FAVORITES);
+		$criteria->addSelectColumn(kshowPeer::RANK);
+		$criteria->addSelectColumn(kshowPeer::ENTRIES);
+		$criteria->addSelectColumn(kshowPeer::CONTRIBUTORS);
+		$criteria->addSelectColumn(kshowPeer::SUBSCRIBERS);
+		$criteria->addSelectColumn(kshowPeer::NUMBER_OF_UPDATES);
+		$criteria->addSelectColumn(kshowPeer::TAGS);
+		$criteria->addSelectColumn(kshowPeer::CUSTOM_DATA);
+		$criteria->addSelectColumn(kshowPeer::INDEXED_CUSTOM_DATA_1);
+		$criteria->addSelectColumn(kshowPeer::INDEXED_CUSTOM_DATA_2);
+		$criteria->addSelectColumn(kshowPeer::INDEXED_CUSTOM_DATA_3);
+		$criteria->addSelectColumn(kshowPeer::REOCCURENCE);
+		$criteria->addSelectColumn(kshowPeer::LICENSE_TYPE);
+		$criteria->addSelectColumn(kshowPeer::LENGTH_IN_MSECS);
+		$criteria->addSelectColumn(kshowPeer::VIEW_PERMISSIONS);
+		$criteria->addSelectColumn(kshowPeer::VIEW_PASSWORD);
+		$criteria->addSelectColumn(kshowPeer::CONTRIB_PERMISSIONS);
+		$criteria->addSelectColumn(kshowPeer::CONTRIB_PASSWORD);
+		$criteria->addSelectColumn(kshowPeer::EDIT_PERMISSIONS);
+		$criteria->addSelectColumn(kshowPeer::EDIT_PASSWORD);
+		$criteria->addSelectColumn(kshowPeer::SALT);
+		$criteria->addSelectColumn(kshowPeer::CREATED_AT);
+		$criteria->addSelectColumn(kshowPeer::UPDATED_AT);
+		$criteria->addSelectColumn(kshowPeer::PARTNER_ID);
+		$criteria->addSelectColumn(kshowPeer::DISPLAY_IN_SEARCH);
+		$criteria->addSelectColumn(kshowPeer::SUBP_ID);
+		$criteria->addSelectColumn(kshowPeer::PERMISSIONS);
+		$criteria->addSelectColumn(kshowPeer::GROUP_ID);
+		$criteria->addSelectColumn(kshowPeer::PLAYS);
+		$criteria->addSelectColumn(kshowPeer::PARTNER_DATA);
+		$criteria->addSelectColumn(kshowPeer::INT_ID);
 	}
 
 	/**
@@ -357,27 +357,27 @@ abstract class BasehshowPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(hshowPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(kshowPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			hshowPeer::addSelectColumns($criteria);
+			kshowPeer::addSelectColumns($criteria);
 		}
 
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
 		$criteria->setDbName(self::DATABASE_NAME); // Set the correct dbName
 		
-		hshowPeer::attachCriteriaFilter($criteria);
+		kshowPeer::attachCriteriaFilter($criteria);
 
 		$queryDB = kQueryCache::QUERY_DB_UNDEFINED;
 		$cacheKey = null;
 		$cachedResult = kQueryCache::getCachedQueryResults(
 			$criteria, 
 			kQueryCache::QUERY_TYPE_COUNT,
-			'hshowPeer', 
+			'kshowPeer', 
 			$cacheKey, 
 			$queryDB);
 		if ($cachedResult !== null)
@@ -386,7 +386,7 @@ abstract class BasehshowPeer {
 		}
 		
 		// select the connection for the query
-		$con = hshowPeer::alternativeCon ($con, $queryDB);
+		$con = kshowPeer::alternativeCon ($con, $queryDB);
 		
 		// BasePeer returns a PDOStatement
 		$stmt = BasePeer::doCount($criteria, $con);
@@ -410,7 +410,7 @@ abstract class BasehshowPeer {
 	 *
 	 * @param      Criteria $criteria object used to create the SELECT statement.
 	 * @param      PropelPDO $con
-	 * @return     hshow
+	 * @return     kshow
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
@@ -418,7 +418,7 @@ abstract class BasehshowPeer {
 	{
 		$critcopy = clone $criteria;
 		$critcopy->setLimit(1);
-		$objects = hshowPeer::doSelect($critcopy, $con);
+		$objects = kshowPeer::doSelect($critcopy, $con);
 		if ($objects) {
 			return $objects[0];
 		}
@@ -460,10 +460,10 @@ abstract class BasehshowPeer {
 	{
 		foreach ($queryResult as $curIndex => $curObject)
 		{
-			$objFromPool = hshowPeer::getInstanceFromPool($curObject->getPrimaryKey());
+			$objFromPool = kshowPeer::getInstanceFromPool($curObject->getPrimaryKey());
 			if ($objFromPool === null)
 			{
-				hshowPeer::addInstanceToPool($curObject);
+				kshowPeer::addInstanceToPool($curObject);
 			}
 			else
 			{
@@ -485,7 +485,7 @@ abstract class BasehshowPeer {
 			{  
 				foreach ($queryResult as $curResult)
 				{
-					hshowPeer::addInstanceToPool($curResult);
+					kshowPeer::addInstanceToPool($curResult);
 				}
 			}
 		}
@@ -502,27 +502,27 @@ abstract class BasehshowPeer {
 	 */
 	public static function doSelect(Criteria $criteria, PropelPDO $con = null)
 	{		
-		$criteriaForSelect = hshowPeer::prepareCriteriaForSelect($criteria);
+		$criteriaForSelect = kshowPeer::prepareCriteriaForSelect($criteria);
 		
 		$queryDB = kQueryCache::QUERY_DB_UNDEFINED;
 		$cacheKey = null;
 		$cachedResult = kQueryCache::getCachedQueryResults(
 			$criteriaForSelect, 
 			kQueryCache::QUERY_TYPE_SELECT,
-			'hshowPeer', 
+			'kshowPeer', 
 			$cacheKey, 
 			$queryDB);
 		if ($cachedResult !== null)
 		{
 			$cacheKey = null;
-			hshowPeer::filterSelectResults($cachedResult, $criteriaForSelect);
-			hshowPeer::updateInstancePool($cachedResult);
+			kshowPeer::filterSelectResults($cachedResult, $criteriaForSelect);
+			kshowPeer::updateInstancePool($cachedResult);
 			return $cachedResult;
 		}
 		
-		$con = hshowPeer::alternativeCon($con, $queryDB);
+		$con = kshowPeer::alternativeCon($con, $queryDB);
 		
-		$queryResult = hshowPeer::populateObjects(BasePeer::doSelect($criteriaForSelect, $con));
+		$queryResult = kshowPeer::populateObjects(BasePeer::doSelect($criteriaForSelect, $con));
 		
 		if($criteriaForSelect instanceof KalturaCriteria)
 			$criteriaForSelect->applyResultsSort($queryResult);
@@ -533,9 +533,9 @@ abstract class BasehshowPeer {
 			$cacheKey = null;
 		}
 		
-		hshowPeer::filterSelectResults($queryResult, $criteria);
+		kshowPeer::filterSelectResults($queryResult, $criteria);
 		
-		hshowPeer::addInstancesToPool($queryResult);
+		kshowPeer::addInstancesToPool($queryResult);
 		return $queryResult;
 	}
 
@@ -559,7 +559,7 @@ abstract class BasehshowPeer {
 			$con = myDbHelper::alternativeCon($con);
 			
 		if($con === null)
-			$con = Propel::getConnection(hshowPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(kshowPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		
 		return $con;
 	}
@@ -571,7 +571,7 @@ abstract class BasehshowPeer {
 	
 	public static function  setUseCriteriaFilter ( $use )
 	{
-		$criteria_filter = hshowPeer::getCriteriaFilter();
+		$criteria_filter = kshowPeer::getCriteriaFilter();
 		
 		if ( $use )  $criteria_filter->enable(); 
 		else $criteria_filter->disable();
@@ -585,12 +585,12 @@ abstract class BasehshowPeer {
 	public static function &getCriteriaFilter()
 	{
 		if(self::$s_criteria_filter == null)
-			hshowPeer::setDefaultCriteriaFilter();
+			kshowPeer::setDefaultCriteriaFilter();
 		
-		$partnerCriteria = myPartnerUtils::getPartnerCriteriaParams('hshow');
+		$partnerCriteria = myPartnerUtils::getPartnerCriteriaParams('kshow');
 		if ($partnerCriteria)
 		{
-			call_user_func_array(array('hshowPeer','addPartnerToCriteria'), $partnerCriteria);
+			call_user_func_array(array('kshowPeer','addPartnerToCriteria'), $partnerCriteria);
 		}
 		
 		return self::$s_criteria_filter;
@@ -617,7 +617,7 @@ abstract class BasehshowPeer {
 	 */
 	protected static function attachCriteriaFilter(Criteria $criteria)
 	{
-		hshowPeer::getCriteriaFilter()->applyFilter($criteria);
+		kshowPeer::getCriteriaFilter()->applyFilter($criteria);
 	}
 	
 	public static function addPartnerToCriteria($partnerId, $privatePartnerData = false, $partnerGroup = null, $kalturaNetwork = null)
@@ -706,10 +706,10 @@ abstract class BasehshowPeer {
 	public static function doCountStmt(Criteria $criteria, PropelPDO $con = null)
 	{
 		// attach default criteria
-		hshowPeer::attachCriteriaFilter($criteria);
+		kshowPeer::attachCriteriaFilter($criteria);
 		
 		// select the connection for the query
-		$con = hshowPeer::alternativeCon ( $con );
+		$con = kshowPeer::alternativeCon ( $con );
 		
 		// BasePeer returns a PDOStatement
 		return BasePeer::doCount($criteria, $con);
@@ -723,20 +723,20 @@ abstract class BasehshowPeer {
 			if(count($asColumns) == 1 && isset($asColumns['_score']))
 			{
 				$criteria = clone $criteria;
-				hshowPeer::addSelectColumns($criteria);
+				kshowPeer::addSelectColumns($criteria);
 			}
 		}
 		else
 		{
 			$criteria = clone $criteria;
-			hshowPeer::addSelectColumns($criteria);
+			kshowPeer::addSelectColumns($criteria);
 		}
 		
 		// Set the correct dbName
 		$criteria->setDbName(self::DATABASE_NAME);
 
 		// attach default criteria
-		hshowPeer::attachCriteriaFilter($criteria);
+		kshowPeer::attachCriteriaFilter($criteria);
 
 		return $criteria;
 	}
@@ -756,9 +756,9 @@ abstract class BasehshowPeer {
 	 */
 	public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
 	{
-		$con = hshowPeer::alternativeCon($con);
+		$con = kshowPeer::alternativeCon($con);
 		
-		$criteria = hshowPeer::prepareCriteriaForSelect($criteria);
+		$criteria = kshowPeer::prepareCriteriaForSelect($criteria);
 		
 		// BasePeer returns a PDOStatement
 		return BasePeer::doSelect($criteria, $con);
@@ -772,10 +772,10 @@ abstract class BasehshowPeer {
 	 * to the cache in order to ensure that the same objects are always returned by doSelect*()
 	 * and retrieveByPK*() calls.
 	 *
-	 * @param      hshow $value A hshow object.
+	 * @param      kshow $value A kshow object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
-	public static function addInstanceToPool(hshow $obj, $key = null)
+	public static function addInstanceToPool(kshow $obj, $key = null)
 	{
 		if ( Propel::isInstancePoolingEnabled() )
 		{
@@ -789,7 +789,7 @@ abstract class BasehshowPeer {
 				)
 			{
 				self::$instances[$key] = $obj;
-				kMemoryManager::registerPeer('hshowPeer');
+				kMemoryManager::registerPeer('kshowPeer');
 			}
 		}
 	}
@@ -802,18 +802,18 @@ abstract class BasehshowPeer {
 	 * methods in your stub classes -- you may need to explicitly remove objects
 	 * from the cache in order to prevent returning objects that no longer exist.
 	 *
-	 * @param      mixed $value A hshow object or a primary key value.
+	 * @param      mixed $value A kshow object or a primary key value.
 	 */
 	public static function removeInstanceFromPool($value)
 	{
 		if (Propel::isInstancePoolingEnabled() && $value !== null) {
-			if (is_object($value) && $value instanceof hshow) {
+			if (is_object($value) && $value instanceof kshow) {
 				$key = (string) $value->getId();
 			} elseif (is_scalar($value)) {
 				// assume we've been passed a primary key
 				$key = (string) $value;
 			} else {
-				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or hshow object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or kshow object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
 				throw $e;
 			}
 
@@ -828,7 +828,7 @@ abstract class BasehshowPeer {
 	 * a multi-column primary key, a serialize()d version of the primary key will be returned.
 	 *
 	 * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-	 * @return     hshow Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+	 * @return     kshow Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
 	 * @see        getPrimaryKeyHash()
 	 */
 	public static function getInstanceFromPool($key)
@@ -856,7 +856,7 @@ abstract class BasehshowPeer {
 	}
 	
 	/**
-	 * Method to invalidate the instance pool of all tables related to hshow
+	 * Method to invalidate the instance pool of all tables related to kshow
 	 * by a foreign key with ON DELETE CASCADE
 	 */
 	public static function clearRelatedInstancePool()
@@ -894,11 +894,11 @@ abstract class BasehshowPeer {
 		$results = array();
 	
 		// set the class once to avoid overhead in the loop
-		$cls = hshowPeer::getOMClass(false);
+		$cls = kshowPeer::getOMClass(false);
 		// populate the object(s)
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key = hshowPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj = hshowPeer::getInstanceFromPool($key))) {
+			$key = kshowPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj = kshowPeer::getInstanceFromPool($key))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://propel.phpdb.org/trac/ticket/509
 				// $obj->hydrate($row, 0, true); // rehydrate
@@ -930,14 +930,14 @@ abstract class BasehshowPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(hshowPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(kshowPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			hshowPeer::addSelectColumns($criteria);
+			kshowPeer::addSelectColumns($criteria);
 		}
 		
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
@@ -946,9 +946,9 @@ abstract class BasehshowPeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 		
 		
-		$criteria->addJoin(hshowPeer::PRODUCER_ID, kuserPeer::ID, $join_behavior);
+		$criteria->addJoin(kshowPeer::PRODUCER_ID, kuserPeer::ID, $join_behavior);
 
-		$stmt = hshowPeer::doCountStmt($criteria, $con);
+		$stmt = kshowPeer::doCountStmt($criteria, $con);
 
 		if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
 			$count = (int) $row[0];
@@ -961,11 +961,11 @@ abstract class BasehshowPeer {
 
 
 	/**
-	 * Selects a collection of hshow objects pre-filled with their kuser objects.
+	 * Selects a collection of kshow objects pre-filled with their kuser objects.
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of hshow objects.
+	 * @return     array Array of kshow objects.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
@@ -978,28 +978,28 @@ abstract class BasehshowPeer {
 			$criteria->setDbName(self::DATABASE_NAME);
 		}
 
-		hshowPeer::addSelectColumns($criteria);
-		$startcol = (hshowPeer::NUM_COLUMNS - hshowPeer::NUM_LAZY_LOAD_COLUMNS);
+		kshowPeer::addSelectColumns($criteria);
+		$startcol = (kshowPeer::NUM_COLUMNS - kshowPeer::NUM_LAZY_LOAD_COLUMNS);
 		kuserPeer::addSelectColumns($criteria);
 
-		$criteria->addJoin(hshowPeer::PRODUCER_ID, kuserPeer::ID, $join_behavior);
+		$criteria->addJoin(kshowPeer::PRODUCER_ID, kuserPeer::ID, $join_behavior);
 
-		$stmt = hshowPeer::doSelectStmt($criteria, $con);
+		$stmt = kshowPeer::doSelectStmt($criteria, $con);
 		$results = array();
 
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = hshowPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = hshowPeer::getInstanceFromPool($key1))) {
+			$key1 = kshowPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj1 = kshowPeer::getInstanceFromPool($key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://propel.phpdb.org/trac/ticket/509
 				// $obj1->hydrate($row, 0, true); // rehydrate
 			} else {
 
-				$cls = hshowPeer::getOMClass(false);
+				$cls = kshowPeer::getOMClass(false);
 
 				$obj1 = new $cls();
 				$obj1->hydrate($row);
-				hshowPeer::addInstanceToPool($obj1, $key1);
+				kshowPeer::addInstanceToPool($obj1, $key1);
 			} // if $obj1 already loaded
 
 			$key2 = kuserPeer::getPrimaryKeyHashFromRow($row, $startcol);
@@ -1014,8 +1014,8 @@ abstract class BasehshowPeer {
 					kuserPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 already loaded
 				
-				// Add the $obj1 (hshow) to $obj2 (kuser)
-				$obj2->addhshow($obj1);
+				// Add the $obj1 (kshow) to $obj2 (kuser)
+				$obj2->addkshow($obj1);
 
 			} // if joined row was not null
 
@@ -1047,14 +1047,14 @@ abstract class BasehshowPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(hshowPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(kshowPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			hshowPeer::addSelectColumns($criteria);
+			kshowPeer::addSelectColumns($criteria);
 		}
 		
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
@@ -1063,9 +1063,9 @@ abstract class BasehshowPeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 		
 		
-		$criteria->addJoin(hshowPeer::PRODUCER_ID, kuserPeer::ID, $join_behavior);
+		$criteria->addJoin(kshowPeer::PRODUCER_ID, kuserPeer::ID, $join_behavior);
 
-		$stmt = hshowPeer::doCountStmt($criteria, $con);
+		$stmt = kshowPeer::doCountStmt($criteria, $con);
 
 		if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
 			$count = (int) $row[0];
@@ -1077,12 +1077,12 @@ abstract class BasehshowPeer {
 	}
 
 	/**
-	 * Selects a collection of hshow objects pre-filled with all related objects.
+	 * Selects a collection of kshow objects pre-filled with all related objects.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of hshow objects.
+	 * @return     array Array of kshow objects.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
@@ -1095,29 +1095,29 @@ abstract class BasehshowPeer {
 			$criteria->setDbName(self::DATABASE_NAME);
 		}
 
-		hshowPeer::addSelectColumns($criteria);
-		$startcol2 = (hshowPeer::NUM_COLUMNS - hshowPeer::NUM_LAZY_LOAD_COLUMNS);
+		kshowPeer::addSelectColumns($criteria);
+		$startcol2 = (kshowPeer::NUM_COLUMNS - kshowPeer::NUM_LAZY_LOAD_COLUMNS);
 
 		kuserPeer::addSelectColumns($criteria);
 		$startcol3 = $startcol2 + (kuserPeer::NUM_COLUMNS - kuserPeer::NUM_LAZY_LOAD_COLUMNS);
 
-		$criteria->addJoin(hshowPeer::PRODUCER_ID, kuserPeer::ID, $join_behavior);
+		$criteria->addJoin(kshowPeer::PRODUCER_ID, kuserPeer::ID, $join_behavior);
 
-		$stmt = hshowPeer::doSelectStmt($criteria, $con);
+		$stmt = kshowPeer::doSelectStmt($criteria, $con);
 		$results = array();
 
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = hshowPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = hshowPeer::getInstanceFromPool($key1))) {
+			$key1 = kshowPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj1 = kshowPeer::getInstanceFromPool($key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://propel.phpdb.org/trac/ticket/509
 				// $obj1->hydrate($row, 0, true); // rehydrate
 			} else {
-				$cls = hshowPeer::getOMClass(false);
+				$cls = kshowPeer::getOMClass(false);
 
 				$obj1 = new $cls();
 				$obj1->hydrate($row);
-				hshowPeer::addInstanceToPool($obj1, $key1);
+				kshowPeer::addInstanceToPool($obj1, $key1);
 			} // if obj1 already loaded
 
 			// Add objects for joined kuser rows
@@ -1134,8 +1134,8 @@ abstract class BasehshowPeer {
 					kuserPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 loaded
 
-				// Add the $obj1 (hshow) to the collection in $obj2 (kuser)
-				$obj2->addhshow($obj1);
+				// Add the $obj1 (kshow) to the collection in $obj2 (kuser)
+				$obj2->addkshow($obj1);
 			} // if joined row not null
 
 			$results[] = $obj1;
@@ -1161,10 +1161,10 @@ abstract class BasehshowPeer {
 	 */
 	public static function buildTableMap()
 	{
-	  $dbMap = Propel::getDatabaseMap(BasehshowPeer::DATABASE_NAME);
-	  if (!$dbMap->hasTable(BasehshowPeer::TABLE_NAME))
+	  $dbMap = Propel::getDatabaseMap(BasekshowPeer::DATABASE_NAME);
+	  if (!$dbMap->hasTable(BasekshowPeer::TABLE_NAME))
 	  {
-	    $dbMap->addTableObject(new hshowTableMap());
+	    $dbMap->addTableObject(new kshowTableMap());
 	  }
 	}
 
@@ -1181,13 +1181,13 @@ abstract class BasehshowPeer {
 	 */
 	public static function getOMClass($withPrefix = true)
 	{
-		return $withPrefix ? hshowPeer::CLASS_DEFAULT : hshowPeer::OM_CLASS;
+		return $withPrefix ? kshowPeer::CLASS_DEFAULT : kshowPeer::OM_CLASS;
 	}
 
 	/**
-	 * Method perform an INSERT on the database, given a hshow or Criteria object.
+	 * Method perform an INSERT on the database, given a kshow or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or hshow object containing data that is used to create the INSERT statement.
+	 * @param      mixed $values Criteria or kshow object containing data that is used to create the INSERT statement.
 	 * @param      PropelPDO $con the PropelPDO connection to use
 	 * @return     mixed The new primary key.
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -1196,13 +1196,13 @@ abstract class BasehshowPeer {
 	public static function doInsert($values, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(hshowPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(kshowPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 		} else {
-			$criteria = $values->buildCriteria(); // build Criteria from hshow object
+			$criteria = $values->buildCriteria(); // build Criteria from kshow object
 		}
 
 
@@ -1224,9 +1224,9 @@ abstract class BasehshowPeer {
 	}
 
 	/**
-	 * Method perform an UPDATE on the database, given a hshow or Criteria object.
+	 * Method perform an UPDATE on the database, given a kshow or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or hshow object containing data that is used to create the UPDATE statement.
+	 * @param      mixed $values Criteria or kshow object containing data that is used to create the UPDATE statement.
 	 * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -1235,7 +1235,7 @@ abstract class BasehshowPeer {
 	public static function doUpdate($values, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(hshowPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(kshowPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		$selectCriteria = new Criteria(self::DATABASE_NAME);
@@ -1243,10 +1243,10 @@ abstract class BasehshowPeer {
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 
-			$comparison = $criteria->getComparison(hshowPeer::ID);
-			$selectCriteria->add(hshowPeer::ID, $criteria->remove(hshowPeer::ID), $comparison);
+			$comparison = $criteria->getComparison(kshowPeer::ID);
+			$selectCriteria->add(kshowPeer::ID, $criteria->remove(kshowPeer::ID), $comparison);
 
-		} else { // $values is hshow object
+		} else { // $values is kshow object
 			$criteria = $values->buildCriteria(); // gets full criteria
 			$selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
 		}
@@ -1276,26 +1276,26 @@ abstract class BasehshowPeer {
 	}
 
 	/**
-	 * Method to DELETE all rows from the hshow table.
+	 * Method to DELETE all rows from the kshow table.
 	 *
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 */
 	public static function doDeleteAll($con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(hshowPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(kshowPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		$affectedRows = 0; // initialize var to track total num of affected rows
 		try {
 			// use transaction because $criteria could contain info
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
-			$affectedRows += BasePeer::doDeleteAll(hshowPeer::TABLE_NAME, $con);
+			$affectedRows += BasePeer::doDeleteAll(kshowPeer::TABLE_NAME, $con);
 			// Because this db requires some delete cascade/set null emulation, we have to
 			// clear the cached instance *after* the emulation has happened (since
 			// instances get re-added by the select statement contained therein).
-			hshowPeer::clearInstancePool();
-			hshowPeer::clearRelatedInstancePool();
+			kshowPeer::clearInstancePool();
+			kshowPeer::clearRelatedInstancePool();
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -1305,9 +1305,9 @@ abstract class BasehshowPeer {
 	}
 
 	/**
-	 * Method perform a DELETE on the database, given a hshow or Criteria object OR a primary key value.
+	 * Method perform a DELETE on the database, given a kshow or Criteria object OR a primary key value.
 	 *
-	 * @param      mixed $values Criteria or hshow object or primary key or array of primary keys
+	 * @param      mixed $values Criteria or kshow object or primary key or array of primary keys
 	 *              which is used to create the DELETE statement
 	 * @param      PropelPDO $con the connection to use
 	 * @return     int 	The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -1318,27 +1318,27 @@ abstract class BasehshowPeer {
 	 public static function doDelete($values, PropelPDO $con = null)
 	 {
 		if ($con === null) {
-			$con = Propel::getConnection(hshowPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(kshowPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
 			// invalidate the cache for all objects of this type, since we have no
 			// way of knowing (without running a query) what objects should be invalidated
 			// from the cache based on this Criteria.
-			hshowPeer::clearInstancePool();
+			kshowPeer::clearInstancePool();
 			// rename for clarity
 			$criteria = clone $values;
-		} elseif ($values instanceof hshow) { // it's a model object
+		} elseif ($values instanceof kshow) { // it's a model object
 			// invalidate the cache for this single object
-			hshowPeer::removeInstanceFromPool($values);
+			kshowPeer::removeInstanceFromPool($values);
 			// create criteria based on pk values
 			$criteria = $values->buildPkeyCriteria();
 		} else { // it's a primary key, or an array of pks
 			$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(hshowPeer::ID, (array) $values, Criteria::IN);
+			$criteria->add(kshowPeer::ID, (array) $values, Criteria::IN);
 			// invalidate the cache for this object(s)
 			foreach ((array) $values as $singleval) {
-				hshowPeer::removeInstanceFromPool($singleval);
+				kshowPeer::removeInstanceFromPool($singleval);
 			}
 		}
 
@@ -1353,7 +1353,7 @@ abstract class BasehshowPeer {
 			$con->beginTransaction();
 			
 			$affectedRows += BasePeer::doDelete($criteria, $con);
-			hshowPeer::clearRelatedInstancePool();
+			kshowPeer::clearRelatedInstancePool();
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -1363,24 +1363,24 @@ abstract class BasehshowPeer {
 	}
 
 	/**
-	 * Validates all modified columns of given hshow object.
+	 * Validates all modified columns of given kshow object.
 	 * If parameter $columns is either a single column name or an array of column names
 	 * than only those columns are validated.
 	 *
 	 * NOTICE: This does not apply to primary or foreign keys for now.
 	 *
-	 * @param      hshow $obj The object to validate.
+	 * @param      kshow $obj The object to validate.
 	 * @param      mixed $cols Column name or array of column names.
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
 	 */
-	public static function doValidate(hshow $obj, $cols = null)
+	public static function doValidate(kshow $obj, $cols = null)
 	{
 		$columns = array();
 
 		if ($cols) {
-			$dbMap = Propel::getDatabaseMap(hshowPeer::DATABASE_NAME);
-			$tableMap = $dbMap->getTable(hshowPeer::TABLE_NAME);
+			$dbMap = Propel::getDatabaseMap(kshowPeer::DATABASE_NAME);
+			$tableMap = $dbMap->getTable(kshowPeer::TABLE_NAME);
 
 			if (! is_array($cols)) {
 				$cols = array($cols);
@@ -1396,7 +1396,7 @@ abstract class BasehshowPeer {
 
 		}
 
-		return BasePeer::doValidate(hshowPeer::DATABASE_NAME, hshowPeer::TABLE_NAME, $columns);
+		return BasePeer::doValidate(kshowPeer::DATABASE_NAME, kshowPeer::TABLE_NAME, $columns);
 	}
 
 	/**
@@ -1404,19 +1404,19 @@ abstract class BasehshowPeer {
 	 *
 	 * @param      string $pk the primary key.
 	 * @param      PropelPDO $con the connection to use
-	 * @return     hshow
+	 * @return     kshow
 	 */
 	public static function retrieveByPK($pk, PropelPDO $con = null)
 	{
 
-		if (null !== ($obj = hshowPeer::getInstanceFromPool((string) $pk))) {
+		if (null !== ($obj = kshowPeer::getInstanceFromPool((string) $pk))) {
 			return $obj;
 		}
 
-		$criteria = new Criteria(hshowPeer::DATABASE_NAME);
-		$criteria->add(hshowPeer::ID, $pk);
+		$criteria = new Criteria(kshowPeer::DATABASE_NAME);
+		$criteria->add(kshowPeer::ID, $pk);
 
-		$v = hshowPeer::doSelect($criteria, $con);
+		$v = kshowPeer::doSelect($criteria, $con);
 
 		return !empty($v) > 0 ? $v[0] : null;
 	}
@@ -1435,16 +1435,16 @@ abstract class BasehshowPeer {
 		if (empty($pks)) {
 			$objs = array();
 		} else {
-			$criteria = new Criteria(hshowPeer::DATABASE_NAME);
-			$criteria->add(hshowPeer::ID, $pks, Criteria::IN);
-			$objs = hshowPeer::doSelect($criteria, $con);
+			$criteria = new Criteria(kshowPeer::DATABASE_NAME);
+			$criteria->add(kshowPeer::ID, $pks, Criteria::IN);
+			$objs = kshowPeer::doSelect($criteria, $con);
 		}
 		return $objs;
 	}
 
-} // BasehshowPeer
+} // BasekshowPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-BasehshowPeer::buildTableMap();
+BasekshowPeer::buildTableMap();
 

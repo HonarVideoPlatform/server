@@ -10,7 +10,7 @@
  */ 
 class moderation extends Basemoderation implements IBaseObject
 {
-	const MODERATION_OBJECT_TYPE_HSHOW = 1;
+	const MODERATION_OBJECT_TYPE_KSHOW = 1;
 	const MODERATION_OBJECT_TYPE_ENTRY = 2;
 	const MODERATION_OBJECT_TYPE_USER = 3;
 	
@@ -57,8 +57,8 @@ class moderation extends Basemoderation implements IBaseObject
 		
 		switch ( $this->getObjectType()  )
 		{
-			case self::MODERATION_OBJECT_TYPE_HSHOW:
-				$this->m_object = hshowPeer::retrieveByPK( $object_id );
+			case self::MODERATION_OBJECT_TYPE_KSHOW:
+				$this->m_object = kshowPeer::retrieveByPK( $object_id );
 				break;
 			case self::MODERATION_OBJECT_TYPE_ENTRY:
 				// be able to fetch entries that are deleted
@@ -114,7 +114,7 @@ class moderation extends Basemoderation implements IBaseObject
 		if ( self::$MODERATION_TYPE_MAP == null )
 		{
 			self::$MODERATION_TYPE_MAP = array (
-				self::MODERATION_OBJECT_TYPE_HSHOW => "hshow",
+				self::MODERATION_OBJECT_TYPE_KSHOW => "kshow",
 				self::MODERATION_OBJECT_TYPE_ENTRY => "entry" ,
 				self::MODERATION_OBJECT_TYPE_USER => "user" ,
 			);

@@ -54,7 +54,7 @@ class listmoderationsAction extends defPartnerservices2Action
 		$fields_set = $filter->fillObjectFromRequest( $this->getInputParams() , "filter_" , null );
 		$filter->attachToCriteria( $c );
 		
-		//if ($order_by != -1) hshowPeer::setOrder( $c , $order_by );
+		//if ($order_by != -1) kshowPeer::setOrder( $c , $order_by );
 		$count = moderationPeer::doCount( $c );
 
 		$offset = ($page-1)* $limit;

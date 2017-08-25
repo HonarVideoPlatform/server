@@ -11,7 +11,7 @@ require_once ( __DIR__ . "/defKeditorservicesAction.class.php");
  */
 class setRoughcutThumbnailAction extends defKeditorservicesAction
 {
-	protected function executeImpl( hshow $hshow, entry &$entry )
+	protected function executeImpl( kshow $kshow, entry &$entry )
 	{
 		$this->res = "";
 		
@@ -23,39 +23,39 @@ class setRoughcutThumbnailAction extends defKeditorservicesAction
 			if ( $likuser_id != $entry->getKuserId())
 			{
 				// ERROR - attempting to update an entry which doesnt belong to the user
-				return "<xml>!!</xml>";//$this->securityViolation( $hshow->getId() );
+				return "<xml>!!</xml>";//$this->securityViolation( $kshow->getId() );
 			}
 		}
 
 		$debug = @$_GET["debug"];
 		/*
-		$hshow_id = @$_GET["hshow_id"];
+		$kshow_id = @$_GET["kshow_id"];
 		$debug = @$_GET["debug"];
 		
-		$this->hshow_id = $hshow_id;
+		$this->kshow_id = $kshow_id;
 
-		if ( $hshow_id == NULL || $hshow_id == 0 ) return;
+		if ( $kshow_id == NULL || $kshow_id == 0 ) return;
 
-		$hshow = hshowPeer::retrieveByPK( $hshow_id );
+		$kshow = kshowPeer::retrieveByPK( $kshow_id );
 		
-		if ( ! $hshow ) 
+		if ( ! $kshow ) 
 		{
-			$this->res = "No hshow " . $hshow_id ;
+			$this->res = "No kshow " . $kshow_id ;
 			return;	
 		}
 
 		// is the logged-in-user is not an admin or the producer - check if show can be published	
 		$likuser_id = $this->getLoggedInUserId();
-		$viewer_type = myHshowUtils::getViewerType($hshow, $likuser_id);
-		if ( $viewer_type != HshowKuser::HSHOWKUSER_VIEWER_PRODUCER && ( ! $hshow->getCanPublish() ) ) 
+		$viewer_type = myKshowUtils::getViewerType($kshow, $likuser_id);
+		if ( $viewer_type != KshowKuser::KSHOWKUSER_VIEWER_PRODUCER && ( ! $kshow->getCanPublish() ) ) 
 		{
 			// ERROR - attempting to publish a non-publishable show
-			return "<xml>!</xml>";//$this->securityViolation( $hshow->getId() );
+			return "<xml>!</xml>";//$this->securityViolation( $kshow->getId() );
 		}
 		
 		
-		// ASSUME - the hshow & roughcut already exist
-		$show_entry_id = $hshow->getShowEntryId();
+		// ASSUME - the kshow & roughcut already exist
+		$show_entry_id = $kshow->getShowEntryId();
 		$roughcut = entryPeer::retrieveByPK( $show_entry_id );
 
 		$roughcut = entryPeer::retrieveByPK( $entry_id );
@@ -63,7 +63,7 @@ class setRoughcutThumbnailAction extends defKeditorservicesAction
  
 		if ( ! $roughcut)
 		{
-			$this->res = "No roughcut for hshow " . $hshow->getId() ;
+			$this->res = "No roughcut for kshow " . $kshow->getId() ;
 			return;	
 		}
 		*/		

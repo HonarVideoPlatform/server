@@ -21,11 +21,11 @@ class myCommentUtils
 	 * return an ajax response.
 	 * The request may include 3 fields: page number, page size, entry id.
 	 */
-	public static function getComments($page, $pageSize, $hshowId, $kuserId)
+	public static function getComments($page, $pageSize, $kshowId, $kuserId)
 	{
 		$commentsData = array(); // this array will hold the comments data
-		$subjectid =  $hshowId > 0 ? $hshowId : $kuserId;
-		$subjecttype = $hshowId > 0 ? Comment::COMMENT_TYPE_HSHOW : Comment::COMMENT_TYPE_USER;
+		$subjectid =  $kshowId > 0 ? $kshowId : $kuserId;
+		$subjecttype = $kshowId > 0 ? Comment::COMMENT_TYPE_KSHOW : Comment::COMMENT_TYPE_USER;
 	    
 		$pager = commentPeer::getOrderedPager( $subjecttype , $subjectid, $pageSize, $page);
 	    

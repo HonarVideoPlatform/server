@@ -54,8 +54,8 @@ function createSelect ( $id , $name , $default_value , $list_name )
 		$index_path_list = array ( "index.php" => "index" , "kaltura_dev.php" => "debug" ) ;
 	}
 
-	$clazz_list = array ( "hshow" => "hshow" , "kuser" => "kuser" , "entry" => "entry" , "PuserKuser" => "PuserKuser" ) ;
-	$moderation_object_type = array ( "1" => "hshow" , "2" => "entry" , "3" => "kuser" , "" => "none");
+	$clazz_list = array ( "kshow" => "kshow" , "kuser" => "kuser" , "entry" => "entry" , "PuserKuser" => "PuserKuser" ) ;
+	$moderation_object_type = array ( "1" => "kshow" , "2" => "entry" , "3" => "kuser" , "" => "none");
 	$notification_status = array ( "" => "All" , "1" => "Pending" , "2" => "Sent" , "3" => "Error" , "4" => "Should Resend" );
 	$entry_type = array ( "" => "All" , "1" => "Clip" , "2" => "Roughcut" );
 	$entry_media_type = array ( "" => "All" , "1" => "Video" , "2" => "Image" , "5" => "Audio" , "6" => "Roughcut" );
@@ -230,10 +230,10 @@ if ( count ( $partner_list ) > 1 )
 <?php echo  prop ( $partner , "allowMultiNotification"  , "select" , "1" , "2" , "boolean_int_type" ,"Allow multiple notifications for a single http hit or leave them one-by-one" ) ?>
 
 <tr><td style="font-weight:bold; text-" colspan="3"><hr/>Add entry</td></tr>
-<?php echo  prop ( $partner , "allowQuickEdit"  , "select" , "1" , "2" , "boolean_int_type" ,"Allows to add entries to a hshow" ) ?>
-<?php echo  prop ( $partner , "useDefaultHshow"  , "select" , "1" , "2" , "boolean_int_type" ,"Allow on-the-fly creation of hshows in addentry (kahos_id = -1 | -2)" ) ?>
-<?php echo  prop ( $partner , "shouldForceUniqueHshow"  , "select" , "1" , "2" , "boolean_int_type" ,"Should return an error if a hshow of this name already exists" ) ?>
-<?php echo  prop ( $partner , "returnDuplicateHshow"  , "select" , "1" , "2" , "boolean_int_type" ,"If for a hshow a duplicate was found but duplicates are not allowed - should return the original one in the error" ) ?>
+<?php echo  prop ( $partner , "allowQuickEdit"  , "select" , "1" , "2" , "boolean_int_type" ,"Allows to add entries to a kshow" ) ?>
+<?php echo  prop ( $partner , "useDefaultKshow"  , "select" , "1" , "2" , "boolean_int_type" ,"Allow on-the-fly creation of kshows in addentry (kahos_id = -1 | -2)" ) ?>
+<?php echo  prop ( $partner , "shouldForceUniqueKshow"  , "select" , "1" , "2" , "boolean_int_type" ,"Should return an error if a kshow of this name already exists" ) ?>
+<?php echo  prop ( $partner , "returnDuplicateKshow"  , "select" , "1" , "2" , "boolean_int_type" ,"If for a kshow a duplicate was found but duplicates are not allowed - should return the original one in the error" ) ?>
 
 <?php echo  prop ( $partner , "appearInSearch"  , "select" , "1" , "0" , "appear_in_saerch_list" ,"Policy for new entries to appear in the saerch " ) ?>
 <?php echo  prop ( $partner , "moderateContent"  , "select" , "1" , "0" , "boolean_int_type" ,"Moderation policy for new entries" ) ?>
@@ -266,7 +266,7 @@ if ( count ( $partner_list ) > 1 )
 <?php echo  prop ( $partner , "partnerParentId"  , "text" , "30" , ""  , "" , "ID of parent partner. TO CLEAR THE FIELD - SEND `-1000`"  ) ?>
 
 <tr><td style="font-weight:bold; text-" colspan="3"><hr/>Misc</td></tr>
-<?php echo  prop ( $partner , "mergeEntryLists"  , "select" , "1" , "0" , "boolean_int_type" ,"for service getallentries- merge the hshow & user lists" ) ?>
+<?php echo  prop ( $partner , "mergeEntryLists"  , "select" , "1" , "0" , "boolean_int_type" ,"for service getallentries- merge the kshow & user lists" ) ?>
 <?php echo  prop ( $partner , "allowLks"  , "select" , "1" , "0" , "boolean_int_type" ,"enables the lite-ks feature" ) ?>
 <?php echo  prop ( $partner , "matchIp"  , "text" , "30" , ""  , "" , "ip to match for specific services"  ) ?>
 <?php echo  prop ( $partner , "allowAnonymousRanking"  , "select" , "1" , "0" , "boolean_int_type" ,"enables anonymous comments" ) ?>

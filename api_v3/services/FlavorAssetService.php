@@ -230,8 +230,8 @@ class FlavorAssetService extends KalturaAssetService
      	
 		if ($contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA ||
 			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER ||
-			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_HSHOW ||
-			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_HSHOW ||
+			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_KSHOW ||
+			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_KSHOW ||
 			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_USER_CLIPS)
 		{
 			$srcFlavorAsset = assetPeer::retrieveOriginalByEntryId($contentResource->result->id); 

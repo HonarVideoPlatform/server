@@ -17,9 +17,9 @@ class myModerationMgr
 			$moderation->save();
 			 
 		}
-		elseif ( $object instanceof hshow)
+		elseif ( $object instanceof kshow)
 		{
-			throw new Exception ( "TO BE IMPLEMENTED addToModerationList - for type hshow");
+			throw new Exception ( "TO BE IMPLEMENTED addToModerationList - for type kshow");
 		}
 		else
 		{
@@ -57,9 +57,9 @@ class myModerationMgr
 			return moderationPeer::doUpdateAllModerations($c, $new_status );
 					 
 		}
-		elseif ( $object instanceof hshow)
+		elseif ( $object instanceof kshow)
 		{
-			throw new Exception ( "TO BE IMPLEMENTED addToModerationList - for type hshow");
+			throw new Exception ( "TO BE IMPLEMENTED addToModerationList - for type kshow");
 		}
 		else
 		{

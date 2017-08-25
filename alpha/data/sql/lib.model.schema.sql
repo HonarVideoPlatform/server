@@ -42,7 +42,7 @@ CREATE TABLE `kuser`
 	`fans` INTEGER default 0,
 	`entries` INTEGER default 0,
 	`storage_size` INTEGER default 0,
-	`produced_hshows` INTEGER default 0,
+	`produced_kshows` INTEGER default 0,
 	`status` INTEGER,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
@@ -67,13 +67,13 @@ CREATE TABLE `kuser`
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
-#-- hshow
+#-- kshow
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `hshow`;
+DROP TABLE IF EXISTS `kshow`;
 
 
-CREATE TABLE `hshow`
+CREATE TABLE `kshow`
 (
 	`id` VARCHAR(20)  NOT NULL,
 	`producer_id` INTEGER,
@@ -138,7 +138,7 @@ CREATE TABLE `hshow`
 	KEY `producer_id_index`(`producer_id`),
 	KEY `display_in_search_index`(`display_in_search`),
 	KEY `partner_group_index`(`partner_id`, `group_id`),
-	CONSTRAINT `hshow_FK_1`
+	CONSTRAINT `kshow_FK_1`
 		FOREIGN KEY (`producer_id`)
 		REFERENCES `kuser` (`id`)
 )Type=MyISAM;
@@ -153,7 +153,7 @@ DROP TABLE IF EXISTS `entry`;
 CREATE TABLE `entry`
 (
 	`id` VARCHAR(20)  NOT NULL,
-	`hshow_id` VARCHAR(20),
+	`kshow_id` VARCHAR(20),
 	`kuser_id` INTEGER,
 	`name` VARCHAR(60),
 	`type` SMALLINT,
@@ -207,10 +207,10 @@ CREATE TABLE `entry`
 	`flavor_params_ids` VARCHAR(512),
 	`available_from` DATETIME,
 	PRIMARY KEY (`id`),
-	KEY `hshow_rank_index`(`hshow_id`, `rank`),
-	KEY `hshow_views_index`(`hshow_id`, `views`),
-	KEY `hshow_votes_index`(`hshow_id`, `votes`),
-	KEY `hshow_created_index`(`hshow_id`, `created_at`),
+	KEY `kshow_rank_index`(`kshow_id`, `rank`),
+	KEY `kshow_views_index`(`kshow_id`, `views`),
+	KEY `kshow_votes_index`(`kshow_id`, `votes`),
+	KEY `kshow_created_index`(`kshow_id`, `created_at`),
 	KEY `views_index`(`views`),
 	KEY `votes_index`(`votes`),
 	KEY `display_in_search_index`(`display_in_search`),
@@ -220,8 +220,8 @@ CREATE TABLE `entry`
 	KEY `partner_moderation_status`(`partner_id`, `moderation_status`),
 	KEY `partner_modified_at_index`(`partner_id`, `modified_at`),
 	CONSTRAINT `entry_FK_1`
-		FOREIGN KEY (`hshow_id`)
-		REFERENCES `hshow` (`id`),
+		FOREIGN KEY (`kshow_id`)
+		REFERENCES `kshow` (`id`),
 	INDEX `entry_FI_2` (`kuser_id`),
 	CONSTRAINT `entry_FK_2`
 		FOREIGN KEY (`kuser_id`)
@@ -246,24 +246,24 @@ DROP TABLE IF EXISTS `kvote`;
 CREATE TABLE `kvote`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`hshow_id` VARCHAR(20),
+	`kshow_id` VARCHAR(20),
 	`entry_id` VARCHAR(20),
 	`kuser_id` INTEGER,
 	`rank` INTEGER,
 	`created_at` DATETIME,
 	PRIMARY KEY (`id`),
-	KEY `hshow_index`(`hshow_id`),
+	KEY `kshow_index`(`kshow_id`),
 	KEY `entry_user_index`(`entry_id`),
 	CONSTRAINT `kvote_FK_1`
-		FOREIGN KEY (`hshow_id`)
-		REFERENCES `hshow` (`id`),
+		FOREIGN KEY (`kshow_id`)
+		REFERENCES `kshow` (`id`),
 	CONSTRAINT `kvote_FK_2`
 		FOREIGN KEY (`entry_id`)
 		REFERENCES `entry` (`id`),
 	INDEX `kvote_FI_3` (`kuser_id`),
 	CONSTRAINT `kvote_FK_3`
 		FOREIGN KEY (`kuser_id`)
-		REFERENCES `hshow` (`id`)
+		REFERENCES `kshow` (`id`)
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
@@ -361,27 +361,27 @@ CREATE TABLE `favorite`
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
-#-- hshow_kuser
+#-- kshow_kuser
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `hshow_kuser`;
+DROP TABLE IF EXISTS `kshow_kuser`;
 
 
-CREATE TABLE `hshow_kuser`
+CREATE TABLE `kshow_kuser`
 (
-	`hshow_id` VARCHAR(20),
+	`kshow_id` VARCHAR(20),
 	`kuser_id` INTEGER,
 	`subscription_type` INTEGER,
 	`alert_type` INTEGER,
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (`id`),
-	KEY `hshow_index`(`hshow_id`),
+	KEY `kshow_index`(`kshow_id`),
 	KEY `kuser_index`(`kuser_id`),
-	KEY `subscription_index`(`hshow_id`, `subscription_type`),
-	CONSTRAINT `hshow_kuser_FK_1`
-		FOREIGN KEY (`hshow_id`)
-		REFERENCES `hshow` (`id`),
-	CONSTRAINT `hshow_kuser_FK_2`
+	KEY `subscription_index`(`kshow_id`, `subscription_type`),
+	CONSTRAINT `kshow_kuser_FK_1`
+		FOREIGN KEY (`kshow_id`)
+		REFERENCES `kshow` (`id`),
+	CONSTRAINT `kshow_kuser_FK_2`
 		FOREIGN KEY (`kuser_id`)
 		REFERENCES `kuser` (`id`)
 )Type=MyISAM;
@@ -841,7 +841,7 @@ DROP TABLE IF EXISTS `puser_role`;
 CREATE TABLE `puser_role`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`hshow_id` VARCHAR(20),
+	`kshow_id` VARCHAR(20),
 	`partner_id` INTEGER,
 	`puser_id` VARCHAR(64),
 	`role` INTEGER,
@@ -850,10 +850,10 @@ CREATE TABLE `puser_role`
 	`subp_id` INTEGER default 0,
 	PRIMARY KEY (`id`),
 	KEY `partner_puser_index`(`partner_id`, `puser_id`),
-	KEY `hshow_id_index`(`hshow_id`),
+	KEY `kshow_id_index`(`kshow_id`),
 	CONSTRAINT `puser_role_FK_1`
-		FOREIGN KEY (`hshow_id`)
-		REFERENCES `hshow` (`id`),
+		FOREIGN KEY (`kshow_id`)
+		REFERENCES `kshow` (`id`),
 	CONSTRAINT `puser_role_FK_2`
 		FOREIGN KEY (`partner_id`)
 		REFERENCES `puser_kuser` (`partner_id`),
@@ -1002,7 +1002,7 @@ DROP TABLE IF EXISTS `widget_log`;
 CREATE TABLE `widget_log`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`hshow_id` VARCHAR(20),
+	`kshow_id` VARCHAR(20),
 	`entry_id` VARCHAR(20),
 	`kmedia_type` INTEGER,
 	`widget_type` VARCHAR(32),
@@ -1019,7 +1019,7 @@ CREATE TABLE `widget_log`
 	`subp_id` INTEGER default 0,
 	PRIMARY KEY (`id`),
 	KEY `referer_index`(`referer`),
-	KEY `entry_id_hshow_id_index`(`entry_id`, `hshow_id`),
+	KEY `entry_id_kshow_id_index`(`entry_id`, `kshow_id`),
 	KEY `partner_id_subp_id_index`(`partner_id`, `subp_id`),
 	CONSTRAINT `widget_log_FK_1`
 		FOREIGN KEY (`entry_id`)
@@ -1208,7 +1208,7 @@ CREATE TABLE `roughcut_entry`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`roughcut_id` VARCHAR(20),
 	`roughcut_version` INTEGER,
-	`roughcut_hshow_id` VARCHAR(20),
+	`roughcut_kshow_id` VARCHAR(20),
 	`entry_id` VARCHAR(20),
 	`partner_id` INTEGER,
 	`op_type` SMALLINT,
@@ -1218,13 +1218,13 @@ CREATE TABLE `roughcut_entry`
 	KEY `partner_id_index`(`partner_id`),
 	KEY `entry_id_index`(`entry_id`),
 	KEY `roughcut_id_index`(`roughcut_id`),
-	KEY `roughcut_hshow_id_index`(`roughcut_hshow_id`),
+	KEY `roughcut_kshow_id_index`(`roughcut_kshow_id`),
 	CONSTRAINT `roughcut_entry_FK_1`
 		FOREIGN KEY (`roughcut_id`)
 		REFERENCES `entry` (`id`),
 	CONSTRAINT `roughcut_entry_FK_2`
-		FOREIGN KEY (`roughcut_hshow_id`)
-		REFERENCES `hshow` (`id`),
+		FOREIGN KEY (`roughcut_kshow_id`)
+		REFERENCES `kshow` (`id`),
 	CONSTRAINT `roughcut_entry_FK_3`
 		FOREIGN KEY (`entry_id`)
 		REFERENCES `entry` (`id`)
@@ -1245,7 +1245,7 @@ CREATE TABLE `widget`
 	`root_widget_id` VARCHAR(32),
 	`partner_id` INTEGER,
 	`subp_id` INTEGER,
-	`hshow_id` VARCHAR(20),
+	`kshow_id` VARCHAR(20),
 	`entry_id` VARCHAR(20),
 	`ui_conf_id` INTEGER,
 	`custom_data` VARCHAR(1024),
@@ -1256,10 +1256,10 @@ CREATE TABLE `widget`
 	`partner_data` VARCHAR(4096),
 	PRIMARY KEY (`id`),
 	KEY `int_id_index`(`int_id`),
-	INDEX `widget_FI_1` (`hshow_id`),
+	INDEX `widget_FI_1` (`kshow_id`),
 	CONSTRAINT `widget_FK_1`
-		FOREIGN KEY (`hshow_id`)
-		REFERENCES `hshow` (`id`),
+		FOREIGN KEY (`kshow_id`)
+		REFERENCES `kshow` (`id`),
 	INDEX `widget_FI_2` (`entry_id`),
 	CONSTRAINT `widget_FK_2`
 		FOREIGN KEY (`entry_id`)
@@ -1283,7 +1283,7 @@ CREATE TABLE `kwidget_log`
 	`widget_id` VARCHAR(32),
 	`source_widget_id` VARCHAR(32),
 	`root_widget_id` VARCHAR(32),
-	`hshow_id` VARCHAR(20),
+	`kshow_id` VARCHAR(20),
 	`entry_id` VARCHAR(20),
 	`ui_conf_id` INTEGER,
 	`referer` VARCHAR(1024),
@@ -1299,16 +1299,16 @@ CREATE TABLE `kwidget_log`
 	`subp_id` INTEGER default 0,
 	PRIMARY KEY (`id`),
 	KEY `referer_index`(`referer`),
-	KEY `entry_id_hshow_id_index`(`entry_id`, `hshow_id`),
+	KEY `entry_id_kshow_id_index`(`entry_id`, `kshow_id`),
 	KEY `partner_id_subp_id_index`(`partner_id`, `subp_id`),
 	INDEX `kwidget_log_FI_1` (`widget_id`),
 	CONSTRAINT `kwidget_log_FK_1`
 		FOREIGN KEY (`widget_id`)
 		REFERENCES `widget` (`id`),
-	INDEX `kwidget_log_FI_2` (`hshow_id`),
+	INDEX `kwidget_log_FI_2` (`kshow_id`),
 	CONSTRAINT `kwidget_log_FK_2`
-		FOREIGN KEY (`hshow_id`)
-		REFERENCES `hshow` (`id`),
+		FOREIGN KEY (`kshow_id`)
+		REFERENCES `kshow` (`id`),
 	CONSTRAINT `kwidget_log_FK_3`
 		FOREIGN KEY (`entry_id`)
 		REFERENCES `entry` (`id`),
@@ -1373,8 +1373,8 @@ CREATE TABLE `partner_stats`
 	`users_2` INTEGER,
 	`rc_1` INTEGER,
 	`rc_2` INTEGER,
-	`hshows_1` INTEGER,
-	`hshows_2` INTEGER,
+	`kshows_1` INTEGER,
+	`kshows_2` INTEGER,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	`custom_data` TEXT,

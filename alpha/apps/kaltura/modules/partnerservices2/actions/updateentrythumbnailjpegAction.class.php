@@ -46,7 +46,7 @@ class updateentrythumbnailjpegAction extends defPartnerservices2Action
 		
 		// TODO - verify the user is allowed to modify the entry
 		
-		if ($entry->getHshowId() === hshow::SANDBOX_ID)
+		if ($entry->getKshowId() === kshow::SANDBOX_ID)
 		{
 			$this->addError ( APIErrors::SANDBOX_ALERT );
 			return ;

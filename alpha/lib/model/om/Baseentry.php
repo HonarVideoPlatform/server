@@ -26,10 +26,10 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 	protected $id;
 
 	/**
-	 * The value for the hshow_id field.
+	 * The value for the kshow_id field.
 	 * @var        string
 	 */
-	protected $hshow_id;
+	protected $kshow_id;
 
 	/**
 	 * The value for the kuser_id field.
@@ -550,13 +550,13 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [hshow_id] column value.
+	 * Get the [kshow_id] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getHshowId()
+	public function getKshowId()
 	{
-		return $this->hshow_id;
+		return $this->kshow_id;
 	}
 
 	/**
@@ -1333,27 +1333,27 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 	} // setId()
 
 	/**
-	 * Set the value of [hshow_id] column.
+	 * Set the value of [kshow_id] column.
 	 * 
 	 * @param      string $v new value
 	 * @return     entry The current object (for fluent API support)
 	 */
-	public function setHshowId($v)
+	public function setKshowId($v)
 	{
-		if(!isset($this->oldColumnsValues[entryPeer::HSHOW_ID]))
-			$this->oldColumnsValues[entryPeer::HSHOW_ID] = $this->hshow_id;
+		if(!isset($this->oldColumnsValues[entryPeer::KSHOW_ID]))
+			$this->oldColumnsValues[entryPeer::KSHOW_ID] = $this->kshow_id;
 
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->hshow_id !== $v) {
-			$this->hshow_id = $v;
-			$this->modifiedColumns[] = entryPeer::HSHOW_ID;
+		if ($this->kshow_id !== $v) {
+			$this->kshow_id = $v;
+			$this->modifiedColumns[] = entryPeer::KSHOW_ID;
 		}
 
 		return $this;
-	} // setHshowId()
+	} // setKshowId()
 
 	/**
 	 * Set the value of [kuser_id] column.
@@ -2835,7 +2835,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 		try {
 
 			$this->id = ($row[$startcol + 0] !== null) ? (string) $row[$startcol + 0] : null;
-			$this->hshow_id = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+			$this->kshow_id = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
 			$this->kuser_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
 			$this->name = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
 			$this->type = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
@@ -3666,7 +3666,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getHshowId();
+				return $this->getKshowId();
 				break;
 			case 2:
 				return $this->getKuserId();
@@ -3843,7 +3843,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 		$keys = entryPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getHshowId(),
+			$keys[1] => $this->getKshowId(),
 			$keys[2] => $this->getKuserId(),
 			$keys[3] => $this->getName(),
 			$keys[4] => $this->getType(),
@@ -3930,7 +3930,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setHshowId($value);
+				$this->setKshowId($value);
 				break;
 			case 2:
 				$this->setKuserId($value);
@@ -4110,7 +4110,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 		$keys = entryPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setHshowId($arr[$keys[1]]);
+		if (array_key_exists($keys[1], $arr)) $this->setKshowId($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setKuserId($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setName($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setType($arr[$keys[4]]);
@@ -4174,7 +4174,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 		$criteria = new Criteria(entryPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(entryPeer::ID)) $criteria->add(entryPeer::ID, $this->id);
-		if ($this->isColumnModified(entryPeer::HSHOW_ID)) $criteria->add(entryPeer::HSHOW_ID, $this->hshow_id);
+		if ($this->isColumnModified(entryPeer::KSHOW_ID)) $criteria->add(entryPeer::KSHOW_ID, $this->kshow_id);
 		if ($this->isColumnModified(entryPeer::KUSER_ID)) $criteria->add(entryPeer::KUSER_ID, $this->kuser_id);
 		if ($this->isColumnModified(entryPeer::NAME)) $criteria->add(entryPeer::NAME, $this->name);
 		if ($this->isColumnModified(entryPeer::TYPE)) $criteria->add(entryPeer::TYPE, $this->type);
@@ -4306,7 +4306,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 
 		$copyObj->setId($this->id);
 
-		$copyObj->setHshowId($this->hshow_id);
+		$copyObj->setKshowId($this->kshow_id);
 
 		$copyObj->setKuserId($this->kuser_id);
 
@@ -5256,7 +5256,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 	 * api reasonable.  You can provide public methods for those you
 	 * actually need in entry.
 	 */
-	public function getkvotesJoinhshowRelatedByHshowId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getkvotesJoinkshowRelatedByKshowId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(entryPeer::DATABASE_NAME);
@@ -5273,7 +5273,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 
 				$criteria->add(kvotePeer::ENTRY_ID, $this->id);
 
-				$this->collkvotes = kvotePeer::doSelectJoinhshowRelatedByHshowId($criteria, $con, $join_behavior);
+				$this->collkvotes = kvotePeer::doSelectJoinkshowRelatedByKshowId($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
@@ -5283,7 +5283,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 			$criteria->add(kvotePeer::ENTRY_ID, $this->id);
 
 			if (!isset($this->lastkvoteCriteria) || !$this->lastkvoteCriteria->equals($criteria)) {
-				$this->collkvotes = kvotePeer::doSelectJoinhshowRelatedByHshowId($criteria, $con, $join_behavior);
+				$this->collkvotes = kvotePeer::doSelectJoinkshowRelatedByKshowId($criteria, $con, $join_behavior);
 			}
 		}
 		$this->lastkvoteCriteria = $criteria;
@@ -5303,7 +5303,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 	 * api reasonable.  You can provide public methods for those you
 	 * actually need in entry.
 	 */
-	public function getkvotesJoinhshowRelatedByKuserId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getkvotesJoinkshowRelatedByKuserId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(entryPeer::DATABASE_NAME);
@@ -5320,7 +5320,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 
 				$criteria->add(kvotePeer::ENTRY_ID, $this->id);
 
-				$this->collkvotes = kvotePeer::doSelectJoinhshowRelatedByKuserId($criteria, $con, $join_behavior);
+				$this->collkvotes = kvotePeer::doSelectJoinkshowRelatedByKuserId($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
@@ -5330,7 +5330,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 			$criteria->add(kvotePeer::ENTRY_ID, $this->id);
 
 			if (!isset($this->lastkvoteCriteria) || !$this->lastkvoteCriteria->equals($criteria)) {
-				$this->collkvotes = kvotePeer::doSelectJoinhshowRelatedByKuserId($criteria, $con, $join_behavior);
+				$this->collkvotes = kvotePeer::doSelectJoinkshowRelatedByKuserId($criteria, $con, $join_behavior);
 			}
 		}
 		$this->lastkvoteCriteria = $criteria;
@@ -6060,7 +6060,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 	 * api reasonable.  You can provide public methods for those you
 	 * actually need in entry.
 	 */
-	public function getroughcutEntrysRelatedByRoughcutIdJoinhshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getroughcutEntrysRelatedByRoughcutIdJoinkshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(entryPeer::DATABASE_NAME);
@@ -6077,7 +6077,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 
 				$criteria->add(roughcutEntryPeer::ROUGHCUT_ID, $this->id);
 
-				$this->collroughcutEntrysRelatedByRoughcutId = roughcutEntryPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
+				$this->collroughcutEntrysRelatedByRoughcutId = roughcutEntryPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
@@ -6087,7 +6087,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 			$criteria->add(roughcutEntryPeer::ROUGHCUT_ID, $this->id);
 
 			if (!isset($this->lastroughcutEntryRelatedByRoughcutIdCriteria) || !$this->lastroughcutEntryRelatedByRoughcutIdCriteria->equals($criteria)) {
-				$this->collroughcutEntrysRelatedByRoughcutId = roughcutEntryPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
+				$this->collroughcutEntrysRelatedByRoughcutId = roughcutEntryPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
 			}
 		}
 		$this->lastroughcutEntryRelatedByRoughcutIdCriteria = $criteria;
@@ -6261,7 +6261,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 	 * api reasonable.  You can provide public methods for those you
 	 * actually need in entry.
 	 */
-	public function getroughcutEntrysRelatedByEntryIdJoinhshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getroughcutEntrysRelatedByEntryIdJoinkshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(entryPeer::DATABASE_NAME);
@@ -6278,7 +6278,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 
 				$criteria->add(roughcutEntryPeer::ENTRY_ID, $this->id);
 
-				$this->collroughcutEntrysRelatedByEntryId = roughcutEntryPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
+				$this->collroughcutEntrysRelatedByEntryId = roughcutEntryPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
@@ -6288,7 +6288,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 			$criteria->add(roughcutEntryPeer::ENTRY_ID, $this->id);
 
 			if (!isset($this->lastroughcutEntryRelatedByEntryIdCriteria) || !$this->lastroughcutEntryRelatedByEntryIdCriteria->equals($criteria)) {
-				$this->collroughcutEntrysRelatedByEntryId = roughcutEntryPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
+				$this->collroughcutEntrysRelatedByEntryId = roughcutEntryPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
 			}
 		}
 		$this->lastroughcutEntryRelatedByEntryIdCriteria = $criteria;
@@ -6462,7 +6462,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 	 * api reasonable.  You can provide public methods for those you
 	 * actually need in entry.
 	 */
-	public function getwidgetsJoinhshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getwidgetsJoinkshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(entryPeer::DATABASE_NAME);
@@ -6479,7 +6479,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 
 				$criteria->add(widgetPeer::ENTRY_ID, $this->id);
 
-				$this->collwidgets = widgetPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
+				$this->collwidgets = widgetPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
@@ -6489,7 +6489,7 @@ abstract class Baseentry extends BaseObject  implements Persistent {
 			$criteria->add(widgetPeer::ENTRY_ID, $this->id);
 
 			if (!isset($this->lastwidgetCriteria) || !$this->lastwidgetCriteria->equals($criteria)) {
-				$this->collwidgets = widgetPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
+				$this->collwidgets = widgetPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
 			}
 		}
 		$this->lastwidgetCriteria = $criteria;

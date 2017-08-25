@@ -34,8 +34,8 @@ class partnersAction extends kalturaSystemAction
 		{
 			$partner = new Partner();
 			$pw = objectWrapperBase::getWrapperClass( $partner , 0 );
-			$extra_fields  = array ( "partnerName" , "description" , "adminName" , "adminEmail" , "useDefaultHshow" , "conversionString" , "flvConversionString" , "allowQuickEdit" , 
-				"shouldForceUniqueHshow" , "returnDuplicateHshow" , "notificationsConfig" , "notify" , "allowMultiNotification" , "appearInSearch" ,
+			$extra_fields  = array ( "partnerName" , "description" , "adminName" , "adminEmail" , "useDefaultKshow" , "conversionString" , "flvConversionString" , "allowQuickEdit" , 
+				"shouldForceUniqueKshow" , "returnDuplicateKshow" , "notificationsConfig" , "notify" , "allowMultiNotification" , "appearInSearch" ,
 				"mergeEntryLists" , "allowLks" , "allowAnonymousRanking", "isFirstLogin", "matchIp", "host", "defThumbOffset" , "defThumbDensity" ,
 				"landingPage" , "userLandingPage", "status" , "serviceConfigId", "moderateContent" , "currentConversionProfileType" , "monitorUsage",
 				"templatePartnerId", "addEntryMaxFiles" , "defaultConversionProfileId", "partnerGroupType", "partnerParentId", "enableAnalyticsTab",

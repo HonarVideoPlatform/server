@@ -44,40 +44,40 @@ class addwidgetAction extends defPartnerservices2Action
 		$new_widget = null;
 		if ( count ( $fields_modified ) > 0 )
 		{
-			// see if to create a widget from a widget or from a hshow
+			// see if to create a widget from a widget or from a kshow
 			if ( $widget->getSourceWidgetId() )
 			{
 				$widget_from_db = widgetPeer::retrieveByPK( $widget->getSourceWidgetId() );
 					
-				$new_widget = widget::createWidgetFromWidget( $widget_from_db , $widget->getHshowId(), $widget->getEntryId(), $widget->getUiConfId() ,
+				$new_widget = widget::createWidgetFromWidget( $widget_from_db , $widget->getKshowId(), $widget->getEntryId(), $widget->getUiConfId() ,
 					$widget->getCustomData() , $widget->getPartnerData() , $widget->getSecurityType() );
 				if ( !$new_widget )
 				{
-					 $this->addError( APIErrors::INVALID_HSHOW_AND_ENTRY_PAIR , $widget->getHshowId(), $widget->getEntryId() );
+					 $this->addError( APIErrors::INVALID_KSHOW_AND_ENTRY_PAIR , $widget->getKshowId(), $widget->getEntryId() );
 					 return;
 				}
 			}
 			else
 			{
-				$hshow_id = $widget->getHshowId();
+				$kshow_id = $widget->getKshowId();
 
-				if ( $hshow_id )
+				if ( $kshow_id )
 				{
-					$hshow = hshowPeer::retrieveByPK( $hshow_id );
-					if ( ! $hshow )
+					$kshow = kshowPeer::retrieveByPK( $kshow_id );
+					if ( ! $kshow )
 					{
-						$this->addError( APIErrors::HSHOW_DOES_NOT_EXISTS ) ;// This field in unique. Please change ");
+						$this->addError( APIErrors::KSHOW_DOES_NOT_EXISTS ) ;// This field in unique. Please change ");
 						return;
 					}
 				}
 				else
 				{
-					$hshow = new hshow();
-					$hshow->setId(0);
-					$hshow->setPartnerId($partner_id);
-					$hshow->setSubpId($subp_id);
+					$kshow = new kshow();
+					$kshow->setId(0);
+					$kshow->setPartnerId($partner_id);
+					$kshow->setSubpId($subp_id);
 				}
-				$new_widget = widget::createWidget( $hshow , $widget->getEntryId() , null  , $widget->getUiConfId() ,
+				$new_widget = widget::createWidget( $kshow , $widget->getEntryId() , null  , $widget->getUiConfId() ,
 					$widget->getCustomData() , $widget->getPartnerData() , $widget->getSecurityType() );
 			}
 

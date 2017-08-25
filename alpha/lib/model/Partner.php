@@ -177,27 +177,27 @@ class Partner extends BasePartner
 	
 	private static $s_config_params = array ( );
 
-	public function getUseDefaultHshow()	{		return $this->getFromCustomData( "useDefaultHshow" , null , true );	}
-	public function setUseDefaultHshow( $v )	{		return $this->putInCustomData( "useDefaultHshow", $v );	}
+	public function getUseDefaultKshow()	{		return $this->getFromCustomData( "useDefaultKshow" , null , true );	}
+	public function setUseDefaultKshow( $v )	{		return $this->putInCustomData( "useDefaultKshow", $v );	}
 		
-	public function getShouldForceUniqueHshow()
+	public function getShouldForceUniqueKshow()
 	{
-		return $this->getFromCustomData( "forceUniqueHshow" , null , false );
+		return $this->getFromCustomData( "forceUniqueKshow" , null , false );
 	}
 	
-	public function setShouldForceUniqueHshow( $v )
+	public function setShouldForceUniqueKshow( $v )
 	{
-		return $this->putInCustomData( "forceUniqueHshow", $v );	
+		return $this->putInCustomData( "forceUniqueKshow", $v );	
 	}
 	
-	public function getReturnDuplicateHshow()
+	public function getReturnDuplicateKshow()
 	{
-		return $this->getFromCustomData( "returnDuplicateHshow" , null , true );
+		return $this->getFromCustomData( "returnDuplicateKshow" , null , true );
 	}
 	
-	public function setReturnDuplicateHshow( $v )
+	public function setReturnDuplicateKshow( $v )
 	{
-		return $this->putInCustomData( "returnDuplicateHshow", $v );
+		return $this->putInCustomData( "returnDuplicateKshow", $v );
 	}
 
 	public function getAllowQuickEdit()

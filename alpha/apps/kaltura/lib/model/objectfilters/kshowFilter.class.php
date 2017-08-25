@@ -3,7 +3,7 @@
  * @package Core
  * @subpackage model.filters
  */ 
-class hshowFilter extends baseObjectFilter
+class kshowFilter extends baseObjectFilter
 {
 	public function init ()
 	{
@@ -33,7 +33,7 @@ class hshowFilter extends baseObjectFilter
 	{
 		return
 			array (
-				"display_name" => "HShowFilter",
+				"display_name" => "KShowFilter",
 				"desc" => ""
 			);
 	}
@@ -42,12 +42,12 @@ class hshowFilter extends baseObjectFilter
 	// The base class should invoke $peek_class::translateFieldName( $field_name , BasePeer::TYPE_FIELDNAME , BasePeer::TYPE_COLNAME );
 	public function getFieldNameFromPeer ( $field_name )
 	{
-		return hshowPeer::translateFieldName( $field_name , BasePeer::TYPE_FIELDNAME , BasePeer::TYPE_COLNAME );
+		return kshowPeer::translateFieldName( $field_name , BasePeer::TYPE_FIELDNAME , BasePeer::TYPE_COLNAME );
 	}
 
 	public function getIdFromPeer (  )
 	{
-		return hshowPeer::ID;
+		return kshowPeer::ID;
 	}
 }
 ?>

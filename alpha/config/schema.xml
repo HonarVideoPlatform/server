@@ -35,7 +35,7 @@
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="fans" type="integer" default="0" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="entries" type="integer" default="0" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="storage_size" type="integer" default="0" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="produced_hshows" type="integer" default="0" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="produced_kshows" type="integer" default="0" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="status" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="created_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="updated_at" type="timestamp" />
@@ -81,7 +81,7 @@
 			<index-column name="login_data_id" />
 		</index>
 	</table>
-	<table skipSql="false" abstract="false" name="hshow" phpName="hshow" reloadOnInsert="true">
+	<table skipSql="false" abstract="false" name="kshow" phpName="kshow" reloadOnInsert="true">
 		<column lazyLoad="false" name="id" type="varchar" required="true" primaryKey="true" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="producer_id" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="episode_id" type="varchar" size="20" />
@@ -170,7 +170,7 @@
 	</table>
 	<table skipSql="false" abstract="false" name="entry" phpName="entry" reloadOnInsert="true">
 		<column lazyLoad="false" name="id" type="varchar" required="true" primaryKey="true" size="20" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hshow_id" type="varchar" size="20" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kshow_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kuser_id" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="name" type="varchar" size="60" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="type" type="smallint" inheritance="single" />
@@ -225,20 +225,20 @@
 		<foreign-key onDelete="none" onUpdate="none" foreignTable="kuser">
 			<reference local="kuser_id" foreign="id" />
 		</foreign-key>
-		<index name="hshow_rank_index">
-			<index-column name="hshow_id" />
+		<index name="kshow_rank_index">
+			<index-column name="kshow_id" />
 			<index-column name="rank" />
 		</index>
-		<index name="hshow_views_index">
-			<index-column name="hshow_id" />
+		<index name="kshow_views_index">
+			<index-column name="kshow_id" />
 			<index-column name="views" />
 		</index>
-		<index name="hshow_votes_index">
-			<index-column name="hshow_id" />
+		<index name="kshow_votes_index">
+			<index-column name="kshow_id" />
 			<index-column name="votes" />
 		</index>
-		<index name="hshow_created_index">
-			<index-column name="hshow_id" />
+		<index name="kshow_created_index">
+			<index-column name="kshow_id" />
 			<index-column name="created_at" />
 		</index>
 		<index name="views_index">
@@ -314,7 +314,7 @@
 	</table>
 	<table skipSql="false" abstract="false" name="kvote" phpName="kvote">
 		<column lazyLoad="false" name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hshow_id" type="varchar" size="20" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kshow_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="entry_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kuser_id" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="puser_id" type="varchar" size="100" />
@@ -324,17 +324,17 @@
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kvote_type" type="integer" default="1"/>
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="created_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="custom_data" type="longvarchar" />
-		<foreign-key onDelete="none" onUpdate="none" foreignTable="hshow">
-			<reference local="hshow_id" foreign="id" />
+		<foreign-key onDelete="none" onUpdate="none" foreignTable="kshow">
+			<reference local="kshow_id" foreign="id" />
 		</foreign-key>
 		<foreign-key onDelete="none" onUpdate="none" foreignTable="entry">
 			<reference local="entry_id" foreign="id" />
 		</foreign-key>
-		<foreign-key onDelete="none" onUpdate="none" foreignTable="hshow">
+		<foreign-key onDelete="none" onUpdate="none" foreignTable="kshow">
 			<reference local="kuser_id" foreign="id" />
 		</foreign-key>
-		<index name="hshow_index">
-			<index-column name="hshow_id" />
+		<index name="kshow_index">
+			<index-column name="kshow_id" />
 		</index>
 		<index name="entry_user_status_index">
 			<index-column name="entry_id" />
@@ -397,26 +397,26 @@
 			<index-column name="subject_id" />
 		</index>
 	</table>
-	<table skipSql="false" abstract="false" name="hshow_kuser">
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hshow_id" type="varchar" size="20" />
+	<table skipSql="false" abstract="false" name="kshow_kuser">
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kshow_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kuser_id" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="subscription_type" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="alert_type" type="integer" />
 		<column lazyLoad="false" name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<foreign-key onDelete="none" onUpdate="none" foreignTable="hshow">
-			<reference local="hshow_id" foreign="id" />
+		<foreign-key onDelete="none" onUpdate="none" foreignTable="kshow">
+			<reference local="kshow_id" foreign="id" />
 		</foreign-key>
 		<foreign-key onDelete="none" onUpdate="none" foreignTable="kuser">
 			<reference local="kuser_id" foreign="id" />
 		</foreign-key>
-		<index name="hshow_index">
-			<index-column name="hshow_id" />
+		<index name="kshow_index">
+			<index-column name="kshow_id" />
 		</index>
 		<index name="kuser_index">
 			<index-column name="kuser_id" />
 		</index>
 		<index name="subscription_index">
-			<index-column name="hshow_id" />
+			<index-column name="kshow_id" />
 			<index-column name="subscription_type" />
 		</index>
 	</table>
@@ -851,15 +851,15 @@
 	</table>
 	<table skipSql="false" abstract="false" name="puser_role">
 		<column lazyLoad="false" name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hshow_id" type="varchar" size="20" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kshow_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="partner_id" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="puser_id" type="varchar" size="64" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="role" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="created_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="updated_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="subp_id" type="integer" default="0" />
-		<foreign-key onDelete="none" onUpdate="none" foreignTable="hshow">
-			<reference local="hshow_id" foreign="id" />
+		<foreign-key onDelete="none" onUpdate="none" foreignTable="kshow">
+			<reference local="kshow_id" foreign="id" />
 		</foreign-key>
 		<foreign-key onDelete="none" onUpdate="none" foreignTable="puser_kuser">
 			<reference local="partner_id" foreign="partner_id" />
@@ -871,8 +871,8 @@
 			<index-column name="partner_id" />
 			<index-column name="puser_id" />
 		</index>
-		<index name="hshow_id_index">
-			<index-column name="hshow_id" />
+		<index name="kshow_id_index">
+			<index-column name="kshow_id" />
 		</index>
 	</table>
 	<table skipSql="false" abstract="false" name="partner">
@@ -928,7 +928,7 @@
 	</table>
 	<table skipSql="false" abstract="false" name="widget_log">
 		<column lazyLoad="false" name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hshow_id" type="varchar" size="20" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kshow_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="entry_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kmedia_type" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="widget_type" type="varchar" size="32" />
@@ -949,9 +949,9 @@
 		<index name="referer_index">
 			<index-column name="referer" />
 		</index>
-		<index name="entry_id_hshow_id_index">
+		<index name="entry_id_kshow_id_index">
 			<index-column name="entry_id" />
-			<index-column name="hshow_id" />
+			<index-column name="kshow_id" />
 		</index>
 		<index name="partner_id_subp_id_index">
 			<index-column name="partner_id" />
@@ -1027,7 +1027,7 @@
 		<column lazyLoad="false" name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="roughcut_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="roughcut_version" type="integer" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="roughcut_hshow_id" type="varchar" size="20" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="roughcut_kshow_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="entry_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="partner_id" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="op_type" type="smallint" />
@@ -1036,8 +1036,8 @@
 		<foreign-key onDelete="none" onUpdate="none" foreignTable="entry">
 			<reference local="roughcut_id" foreign="id" />
 		</foreign-key>
-		<foreign-key onDelete="none" onUpdate="none" foreignTable="hshow">
-			<reference local="roughcut_hshow_id" foreign="id" />
+		<foreign-key onDelete="none" onUpdate="none" foreignTable="kshow">
+			<reference local="roughcut_kshow_id" foreign="id" />
 		</foreign-key>
 		<foreign-key onDelete="none" onUpdate="none" foreignTable="entry">
 			<reference local="entry_id" foreign="id" />
@@ -1051,8 +1051,8 @@
 		<index name="roughcut_id_index">
 			<index-column name="roughcut_id" />
 		</index>
-		<index name="roughcut_hshow_id_index">
-			<index-column name="roughcut_hshow_id" />
+		<index name="roughcut_kshow_id_index">
+			<index-column name="roughcut_kshow_id" />
 		</index>
 	</table>
 	<table skipSql="false" abstract="false" name="widget" phpName="widget" reloadOnInsert="true">
@@ -1062,7 +1062,7 @@
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="root_widget_id" type="varchar" size="32" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="partner_id" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="subp_id" type="integer" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hshow_id" type="varchar" size="20" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kshow_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="entry_id" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="ui_conf_id" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="custom_data" type="varchar" size="1024" />
@@ -1071,8 +1071,8 @@
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="created_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="updated_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="partner_data" type="varchar" size="4096" />
-		<foreign-key onDelete="none" onUpdate="none" foreignTable="hshow">
-			<reference local="hshow_id" foreign="id" />
+		<foreign-key onDelete="none" onUpdate="none" foreignTable="kshow">
+			<reference local="kshow_id" foreign="id" />
 		</foreign-key>
 		<foreign-key onDelete="none" onUpdate="none" foreignTable="entry">
 			<reference local="entry_id" foreign="id" />
@@ -1128,8 +1128,8 @@
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="users_2" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="rc_1" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="rc_2" type="integer" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hshows_1" type="integer" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hshows_2" type="integer" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kshows_1" type="integer" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kshows_2" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="created_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="updated_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="custom_data" type="longvarchar" />

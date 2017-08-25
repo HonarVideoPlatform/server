@@ -23,7 +23,7 @@ class adddvdentryAction extends defPartnerservices2Action
 					),
 				"errors" => array (
 					APIErrors::NO_FIELDS_SET_FOR_GENERIC_ENTRY ,
-					APIErrors::INVALID_HSHOW_ID
+					APIErrors::INVALID_KSHOW_ID
 				)
 			); 
 	}
@@ -58,34 +58,34 @@ class adddvdentryAction extends defPartnerservices2Action
 		if ( count ( $fields_modified ) > 0 )
 		{
 			
-			$hshow_id = $this->getP ( "hshow_id" , hshow::HSHOW_ID_USE_DEFAULT );						
-	       	if ( $hshow_id == hshow::HSHOW_ID_USE_DEFAULT )
+			$kshow_id = $this->getP ( "kshow_id" , kshow::KSHOW_ID_USE_DEFAULT );						
+	       	if ( $kshow_id == kshow::KSHOW_ID_USE_DEFAULT )
 	        {
-	            // see if the partner has some default hshow to add to
-	            $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser  );
-	            if ( $hshow ) $hshow_id = $hshow->getId();
+	            // see if the partner has some default kshow to add to
+	            $kshow = myPartnerUtils::getDefaultKshow ( $partner_id, $subp_id , $puser_kuser  );
+	            if ( $kshow ) $kshow_id = $kshow->getId();
 	        }
-			elseif ( $hshow_id == hshow::HSHOW_ID_CREATE_NEW )
+			elseif ( $kshow_id == kshow::KSHOW_ID_CREATE_NEW )
 	        {
-	            // if the partner allows - create a new hshow 
-	            $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser , null , true );
-	            if ( $hshow ) $hshow_id = $hshow->getId();
+	            // if the partner allows - create a new kshow 
+	            $kshow = myPartnerUtils::getDefaultKshow ( $partner_id, $subp_id , $puser_kuser , null , true );
+	            if ( $kshow ) $kshow_id = $kshow->getId();
 	        }   
 			else
 	        {
-	            $hshow = hshowPeer::retrieveByPK( $hshow_id );
+	            $kshow = kshowPeer::retrieveByPK( $kshow_id );
 	        }
 	
-	        if ( ! $hshow )
+	        if ( ! $kshow )
 	        {
 	            // the partner is attempting to add an entry to some invalid or non-existing kwho
-	            $this->addError( APIErrors::INVALID_HSHOW_ID, $hshow_id );
+	            $this->addError( APIErrors::INVALID_KSHOW_ID, $kshow_id );
 	            return;
 	        }
 	        
 			// force the type and media type
-			// TODO - set the hshow to some default hshow of the partner - maybe extract it from the custom_data of this specific partner
-			$dvd_entry->setHshowId ( $hshow_id );
+			// TODO - set the kshow to some default kshow of the partner - maybe extract it from the custom_data of this specific partner
+			$dvd_entry->setKshowId ( $kshow_id );
 			$dvd_entry->setStatus( entryStatus::READY );
 			$dvd_entry->setPartnerId( $partner_id );
 			$dvd_entry->setSubpId( $subp_id );

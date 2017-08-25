@@ -62,7 +62,7 @@ $objectsToTrack = array(
 			entryPeer::FLAVOR_PARAMS_IDS,
 			entryPeer::AVAILABLE_FROM,
 			"conversion_quality",
-			"current_hshow_version",
+			"current_kshow_version",
 			"encodingIP1",
 			"encodingIP2",
 			"streamUsername",
@@ -115,15 +115,15 @@ $objectsToTrack = array(
 			flavorParamsConversionProfilePeer::FORCE_NONE_COMPLIED,
 		),
 	),
-	KalturaAuditTrailObjectType::HSHOW_KUSER => array(
+	KalturaAuditTrailObjectType::KSHOW_KUSER => array(
 		'actions' => array(
 			KalturaAuditTrailAction::CREATED,
 			KalturaAuditTrailAction::CHANGED,
 			KalturaAuditTrailAction::DELETED,
 		),
 		'descriptors' => array(
-			HshowKuserPeer::SUBSCRIPTION_TYPE,
-			HshowKuserPeer::ALERT_TYPE,
+			KshowKuserPeer::SUBSCRIPTION_TYPE,
+			KshowKuserPeer::ALERT_TYPE,
 		),
 	),
 	KalturaAuditTrailObjectType::MEDIA_INFO => array(

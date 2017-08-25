@@ -7,7 +7,7 @@ echo javascript_tag('contributeurl = "'. url_for( '/contribute' ).'";');
 
 <script type="text/javascript">
 
-function mobileInsertEntry( hshowid, usermobile, mediatype, fileforupload, filethumbnail )
+function mobileInsertEntry( kshowid, usermobile, mediatype, fileforupload, filethumbnail )
 {
 
 	if (mediatype == "video")
@@ -18,7 +18,7 @@ function mobileInsertEntry( hshowid, usermobile, mediatype, fileforupload, filet
 	
 
 	new Ajax.Request( contributeurl + '/insertEntry' +
-		'?hshow_id=' + hshowid +
+		'?kshow_id=' + kshowid +
 		'&entry_id=0' +
 		'&mobile_upload=1' +
 		'&mobile_id=' + usermobile +
@@ -72,8 +72,8 @@ if ( $importedMessageDataArray != null )
 					echo '<a href="/content/uploads/'.$importedMessageData["attachment"]["filename"].'">download file</a>';
 				}
 				
-				$hshowinsertid = $importedMessageData["subject"];
-				if ( $hshowinsertid == "" ) $hshowinsertid = 1;
+				$kshowinsertid = $importedMessageData["subject"];
+				if ( $kshowinsertid == "" ) $kshowinsertid = 1;
 				$insertypte = $importedMessageData["attachment"]["type"];
 				$insertfilename = $importedMessageData["attachment"]["filename"];
 				$thumbnailfilename = $importedMessageData["attachment"]["thumbnail"];
@@ -81,7 +81,7 @@ if ( $importedMessageDataArray != null )
 				$pieces = explode( '@', $importedMessageData["fromaddress"] );
 				$kusermobileid = $pieces[0];
 				
-				$functionname = "mobileInsertEntry('".$hshowinsertid."','".$kusermobileid."','".$insertypte."','".$insertfilename."','".$thumbnailfilename."')";
+				$functionname = "mobileInsertEntry('".$kshowinsertid."','".$kusermobileid."','".$insertypte."','".$insertfilename."','".$thumbnailfilename."')";
 				echo '<input type="button" value="submit mobile entry" onclick="'.$functionname.'">';
 			
 		}

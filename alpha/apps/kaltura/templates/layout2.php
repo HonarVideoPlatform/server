@@ -24,20 +24,20 @@
 		var ENTRY_MEDIA_SOURCE_CCMIXTER = <?php echo entry::ENTRY_MEDIA_SOURCE_CCMIXTER; ?>;
 		var ENTRY_MEDIA_SOURCE_CURRENT = <?php echo entry::ENTRY_MEDIA_SOURCE_CURRENT; ?>;
 		
-		var COMMENT_TYPE_HSHOW = <?php echo comment::COMMENT_TYPE_HSHOW; ?>;
+		var COMMENT_TYPE_KSHOW = <?php echo comment::COMMENT_TYPE_KSHOW; ?>;
 		var COMMENT_TYPE_DISCUSSION = <?php echo comment::COMMENT_TYPE_DISCUSSION; ?>;
 		var COMMENT_TYPE_USER = <?php echo comment::COMMENT_TYPE_USER; ?>;
 		var COMMENT_TYPE_SHOUTOUT = <?php echo comment::COMMENT_TYPE_SHOUTOUT; ?>;
 		
-		var HSHOW_PERMISSION_INVITE_ONLY = <?php echo hshow::HSHOW_PERMISSION_INVITE_ONLY; ?>;
+		var KSHOW_PERMISSION_INVITE_ONLY = <?php echo kshow::KSHOW_PERMISSION_INVITE_ONLY; ?>;
 		
-		var HSHOWKUSER_VIEWER_USER = <?php echo HshowKuser::HSHOWKUSER_VIEWER_USER; ?>;
-		var HSHOWKUSER_VIEWER_SUBSCRIBER = <?php echo HshowKuser::HSHOWKUSER_VIEWER_SUBSCRIBER; ?>;
-		var HSHOWKUSER_VIEWER_PRODUCER = <?php echo HshowKuser::HSHOWKUSER_VIEWER_PRODUCER; ?>;
+		var KSHOWKUSER_VIEWER_USER = <?php echo KshowKuser::KSHOWKUSER_VIEWER_USER; ?>;
+		var KSHOWKUSER_VIEWER_SUBSCRIBER = <?php echo KshowKuser::KSHOWKUSER_VIEWER_SUBSCRIBER; ?>;
+		var KSHOWKUSER_VIEWER_PRODUCER = <?php echo KshowKuser::KSHOWKUSER_VIEWER_PRODUCER; ?>;
 		
 		<?php
 		
-		$modules = array('browse', 'contribute', 'edit', 'emailImport', 'hshowcss',
+		$modules = array('browse', 'contribute', 'edit', 'emailImport', 'kshowcss',
 			'login', 'mail', 'mykaltura', 'produce', 'home', 'tour', 
 			'search', 'sns', 'static', 'system', 'upload', 'forum' );
 			
@@ -77,7 +77,7 @@
 					</ul>
 					<button class="startKaltura" onclick="onClickNavBarCreate()"></button>
 					<ul class="bottomLinks userMenu">
-						<li class="bordered"><a href="<?php echo url_for('/edit')."?hshow_id=2"; ?>">Try out video editor</a></li>
+						<li class="bordered"><a href="<?php echo url_for('/edit')."?kshow_id=2"; ?>">Try out video editor</a></li>
 						<li><a href="<?php echo url_for('/tour'); ?>">Take the tour</a></li>
 					</ul><!-- end bottomLinks-->
 					<div class="search"><div><input type="text" id="navBarSearchInput" value="Search Kaltura" /></div><b id="navBarSearcGo"></b></div><!-- end search-->

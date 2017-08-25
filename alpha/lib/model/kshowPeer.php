@@ -1,18 +1,18 @@
 <?php
 /**
-* Subclass for performing query and update operations on the 'hshow' table.
+ * Subclass for performing query and update operations on the 'kshow' table.
  *
  *
  *
  * @package Core
  * @subpackage model
  */
-class hshowPeer extends BasehshowPeer 
+class kshowPeer extends BasekshowPeer 
 {
 	private static $s_default_count_limit = 301;
 
 	/**
-	 * This function sets the requested order of hshows to the given criteria object.
+	 * This function sets the requested order of kshows to the given criteria object.
 	 * we can use an associative array to hold the ordering fields instead of the
 	 * switch statement being used now
 	 *
@@ -22,44 +22,44 @@ class hshowPeer extends BasehshowPeer
 	private static function setOrder($c, $order)
 	{
 		switch ($order) {
-		case hshow::HSHOW_SORT_MOST_VIEWED:
-			//$c->hints = array(hshowPeer::TABLE_NAME => "views_index");
+		case kshow::KSHOW_SORT_MOST_VIEWED:
+			//$c->hints = array(kshowPeer::TABLE_NAME => "views_index");
 			$c->addDescendingOrderByColumn(self::VIEWS);
 
 			break;
 
-		case hshow::HSHOW_SORT_MOST_RECENT:
-			//$c->hints = array(hshowPeer::TABLE_NAME => "created_at_index");
+		case kshow::KSHOW_SORT_MOST_RECENT:
+			//$c->hints = array(kshowPeer::TABLE_NAME => "created_at_index");
 			$c->addDescendingOrderByColumn(self::CREATED_AT);
 			break;
 
-		case hshow::HSHOW_SORT_MOST_COMMENTS:
+		case kshow::KSHOW_SORT_MOST_COMMENTS:
 			$c->addDescendingOrderByColumn(self::COMMENTS);
 			break;
 
-		case hshow::HSHOW_SORT_MOST_FAVORITES:
+		case kshow::KSHOW_SORT_MOST_FAVORITES:
 			$c->addDescendingOrderByColumn(self::FAVORITES);
 			break;
 
-		case hshow::HSHOW_SORT_END_DATE:
+		case kshow::KSHOW_SORT_END_DATE:
 			$c->addDescendingOrderByColumn(self::END_DATE);
 			break;
 
-		case hshow::HSHOW_SORT_MOST_ENTRIES:
+		case kshow::KSHOW_SORT_MOST_ENTRIES:
 			$c->addDescendingOrderByColumn(self::ENTRIES);
 			break;
 
-		case hshow::HSHOW_SORT_NAME:
+		case kshow::KSHOW_SORT_NAME:
 			$c->addAscendingOrderByColumn(self::NAME);
 			break;
 
-		case hshow::HSHOW_SORT_RANK:
+		case kshow::KSHOW_SORT_RANK:
 			$c->addDescendingOrderByColumn(self::RANK);
 			break;
-		case hshow::HSHOW_SORT_MOST_UPDATED:
+		case kshow::KSHOW_SORT_MOST_UPDATED:
 			$c->addDescendingOrderByColumn(self::UPDATED_AT);
 			break;
-		case hshow::HSHOW_SORT_MOST_CONTRIBUTORS:
+		case kshow::KSHOW_SORT_MOST_CONTRIBUTORS:
 			$c->addDescendingOrderByColumn(self::CONTRIBUTORS);
 			break;
 
@@ -67,11 +67,11 @@ class hshowPeer extends BasehshowPeer
 	}
 
 	/**
-	 * This function returns a pager object holding hshows sorted by a given sort order.
-	 * each hshow holds the kuser object of its host.
+	 * This function returns a pager object holding kshows sorted by a given sort order.
+	 * each kshow holds the kuser object of its host.
 	 *
 	 * @param int $order = the requested sort order
-	 * @param int $pageSize = number of hshows in each page
+	 * @param int $pageSize = number of kshows in each page
 	 * @param int $page = the requested page
 	 * @return the pager object
 	 */
@@ -85,14 +85,14 @@ class hshowPeer extends BasehshowPeer
 		if( $kaltura_part_of_flag )
 		{
 			// in this case we get the user-id in the $producer_id field
-			$c->addJoin(self::ID, entryPeer::HSHOW_ID, Criteria::INNER_JOIN);
+			$c->addJoin(self::ID, entryPeer::KSHOW_ID, Criteria::INNER_JOIN);
 			$c->add(entryPeer::KUSER_ID, $producer_id);
 			$c->add( self::PRODUCER_ID, $producer_id, Criteria::NOT_EQUAL );
 			$c->setDistinct();
 		}
 		else if( $producer_id > 0 ) $c->add( self::PRODUCER_ID, $producer_id );
 
-		$pager = new sfPropelPager('hshow', $pageSize);
+		$pager = new sfPropelPager('kshow', $pageSize);
 	    $pager->setCriteria($c);
 	    $pager->setPage($page);
 	    $pager->setPeerMethod('doSelectJoinAll');
@@ -102,28 +102,28 @@ class hshowPeer extends BasehshowPeer
 	    return $pager;
 	}
 
-	public static function getHshowsByName( $name )
+	public static function getKshowsByName( $name )
 	{
 		$c = new Criteria();
-		$c->add ( hshowPeer::NAME , $name );
-		return hshowPeer::doSelect( $c );
+		$c->add ( kshowPeer::NAME , $name );
+		return kshowPeer::doSelect( $c );
 	}
 
-	public static function getFirstHshowByName( $name )
+	public static function getFirstKshowByName( $name )
 	{
-		$hshows = self::getHshowsByName ( $name );
-		if( $hshows != null )
-			return $hshows[0];
+		$kshows = self::getKshowsByName ( $name );
+		if( $kshows != null )
+			return $kshows[0];
 		return null;
 	}
 
 	public static function retrieveByIndexedCustomData3 ( $name )
 	{
 		$c = new Criteria();
-		$c->add ( hshowPeer::INDEXED_CUSTOM_DATA_3 , $name );
-		$hshows =  hshowPeer::doSelect( $c );
-		if( $hshows != null )
-			return $hshows[0];
+		$c->add ( kshowPeer::INDEXED_CUSTOM_DATA_3 , $name );
+		$kshows =  kshowPeer::doSelect( $c );
+		if( $kshows != null )
+			return $kshows[0];
 		return null;
 	}
 
@@ -134,7 +134,7 @@ class hshowPeer extends BasehshowPeer
 	 * @param int $kuserId = the requested user
 	 * @param int $type = the favorite type (currently only SUBJECT_TYPE_ENTRY will match)
 	 * @param int $privacy = the privacy filter
-	 * @param int $pageSize = number of hshows in each page
+	 * @param int $pageSize = number of kshows in each page
 	 * @param int $page = the requested page
 	 * @return the pager object
 	 */
@@ -158,7 +158,7 @@ class hshowPeer extends BasehshowPeer
 
 		$c->addAscendingOrderByColumn(self::NAME);
 
-	    $pager = new sfPropelPager('hshow', $pageSize);
+	    $pager = new sfPropelPager('kshow', $pageSize);
 	    $pager->setCriteria($c);
 	    $pager->setPage($page);
 	    $pager->setPeerMethod('doSelectJoinkuser');
@@ -174,25 +174,25 @@ class hshowPeer extends BasehshowPeer
 	 * This function returns a pager object holding the given user's shows, for which he or she is the producer.
 	 *
 	 * @param int $kuserId = the requested user
-	 * @param int $pageSize = number of hshows in each page
+	 * @param int $pageSize = number of kshows in each page
 	 * @param int $page = the requested page
 	 * @param int $order = the requested sort order
-	 * @param int $currentHshowId = the current hshow id (e.g. in the browse page) not to be shown again in the other user shows
+	 * @param int $currentKshowId = the current kshow id (e.g. in the browse page) not to be shown again in the other user shows
 	 * @return the pager object
 	 */
-	public static function getUserShows($kuserId, $pageSize, $page, $order, $currentHshowId = 0)
+	public static function getUserShows($kuserId, $pageSize, $page, $order, $currentKshowId = 0)
 	{
 
 		$c = new Criteria();
 
 		$c->addJoin(self::PRODUCER_ID, kuserPeer::ID, Criteria::INNER_JOIN);
 		$c->add(self::PRODUCER_ID, $kuserId);
-		if ($currentHshowId)
-			$c->add(self::ID, $currentHshowId, Criteria::NOT_EQUAL);
+		if ($currentKshowId)
+			$c->add(self::ID, $currentKshowId, Criteria::NOT_EQUAL);
 
 		self::setOrder($c, $order);
 
-	    $pager = new sfPropelPager('hshow', $pageSize);
+	    $pager = new sfPropelPager('kshow', $pageSize);
 	    $pager->setCriteria($c);
 	    $pager->setPage($page);
 	    $pager->setPeerMethod('doSelectJoinkuser');
@@ -207,7 +207,7 @@ class hshowPeer extends BasehshowPeer
 	 * This function returns a pager object holding the set of shows for which given user contributed media.
 	 *
 	 * @param int $kuserId = the requested user
-	 * @param int $pageSize = number of hshows in each page
+	 * @param int $pageSize = number of kshows in each page
 	 * @param int $page = the requested page
 	 * @return the pager object
 	 */
@@ -216,13 +216,13 @@ class hshowPeer extends BasehshowPeer
 
 		$c = new Criteria();
 
-		$c->addJoin(self::ID, entryPeer::HSHOW_ID, Criteria::INNER_JOIN);
+		$c->addJoin(self::ID, entryPeer::KSHOW_ID, Criteria::INNER_JOIN);
 		$c->add(entryPeer::KUSER_ID, $kuserId);
 		$c->add( self::PRODUCER_ID, $kuserId, Criteria::NOT_EQUAL );
 		self::setOrder($c, $order);
 		$c->setDistinct();
 
-	    $pager = new sfPropelPager('hshow', $pageSize);
+	    $pager = new sfPropelPager('kshow', $pageSize);
 	    $pager->setCriteria($c);
 	    $pager->setPage($page);
 	    $pager->setPeerMethod('doSelectJoinkuser');
@@ -249,35 +249,35 @@ class hshowPeer extends BasehshowPeer
 		return $id_list;
 	}
 
-	public static function getHshowsByEntryIds($entry_ids)
+	public static function getKshowsByEntryIds($entry_ids)
 	{
 		$c = new Criteria();
-		//$c->addSelectColumn(hshowPeer::ID);
-		//$c->addSelectColumn(hshowPeer::NAME);
-		hshowPeer::addSelectColumns($c);
-		$c->addJoin(hshowPeer::ID, roughcutEntryPeer::ROUGHCUT_HSHOW_ID);
+		//$c->addSelectColumn(kshowPeer::ID);
+		//$c->addSelectColumn(kshowPeer::NAME);
+		kshowPeer::addSelectColumns($c);
+		$c->addJoin(kshowPeer::ID, roughcutEntryPeer::ROUGHCUT_KSHOW_ID);
 		$c->add(roughcutEntryPeer::ENTRY_ID, $entry_ids, Criteria::IN);
-		$results = hshowPeer::populateObjects(self::doSelectStmt($c));
-		hshowPeer::addInstancesToPool($results);
+		$results = kshowPeer::populateObjects(self::doSelectStmt($c));
+		kshowPeer::addInstancesToPool($results);
 		return $results;
 	}
 
-	// this function deletes a HSHOW
+	// this function deletes a KSHOW
 	// users can only delete their own entries
-	public static function deleteHShow( $hshow_id, $kuser_id  )
+	public static function deleteKShow( $kshow_id, $kuser_id  )
 	{
-		$hshow = self::retrieveByPK( $hshow_id );
-		if( $hshow == null ) return false;
-		if( $hshow->getProducerId() != $kuser_id ) return false;
+		$kshow = self::retrieveByPK( $kshow_id );
+		if( $kshow == null ) return false;
+		if( $kshow->getProducerId() != $kuser_id ) return false;
 		else
 		{
-			$hshow->delete();
+			$kshow->delete();
 
 			// now delete the subscriptions
 			$c = new Criteria();
-			$c->add(HshowKuserPeer::HSHOW_ID, $hshow_id ); // the current user knows they just favorited
-			$c->add(HshowKuserPeer::SUBSCRIPTION_TYPE, HshowKuser::HSHOW_SUBSCRIPTION_NORMAL); // this table stores other relations too
-			$subscriptions = HshowKuserPeer::doSelect( $c );
+			$c->add(KshowKuserPeer::KSHOW_ID, $kshow_id ); // the current user knows they just favorited
+			$c->add(KshowKuserPeer::SUBSCRIPTION_TYPE, KshowKuser::KSHOW_SUBSCRIPTION_NORMAL); // this table stores other relations too
+			$subscriptions = KshowKuserPeer::doSelect( $c );
 			foreach ( $subscriptions as $subscription )
 			{
 					$subscription->delete();
@@ -293,9 +293,9 @@ class hshowPeer extends BasehshowPeer
 		$criteria = clone $criteria;
 		$criteria->clearSelectColumns()->clearOrderByColumns();
 		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn("DISTINCT ".hshowPeer::ID);
+			$criteria->addSelectColumn("DISTINCT ".kshowPeer::ID);
 		} else {
-			$criteria->addSelectColumn(hshowPeer::ID);
+			$criteria->addSelectColumn(kshowPeer::ID);
 		}
 
 		$criteria->setLimit( self::$s_default_count_limit );
@@ -318,7 +318,7 @@ class hshowPeer extends BasehshowPeer
 	 *
 	 * @param      string $pk the primary key.
 	 * @param      PropelPDO $con the connection to use
-	 * @return     hshow
+	 * @return     kshow
 	 */
 	public static function retrieveByPKNoFilter($pk, PropelPDO $con = null)
 	{

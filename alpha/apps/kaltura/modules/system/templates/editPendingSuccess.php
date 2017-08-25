@@ -7,8 +7,8 @@
 <form>
 	Entry Id: <input type="text" name="entry_id" value="<?php echo $entry_id ?>">
 	
-	Hshow Id: <input type="text" name="hshow_id" value="<?php echo $hshow_id ?>">
-	<a href="./investigate?hshow_id=<?php echo $hshow_id ?>&entry_id=<?php echo $entry_id ?>">investigate</a>
+	Kshow Id: <input type="text" name="kshow_id" value="<?php echo $kshow_id ?>">
+	<a href="./investigate?kshow_id=<?php echo $kshow_id ?>&entry_id=<?php echo $entry_id ?>">investigate</a>
 <br>	
 <?php if ( !empty ( $metadata ) ) { ?>
 

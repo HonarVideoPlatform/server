@@ -7,7 +7,7 @@ class entryWrapper extends objectWrapperBase
 {
 	protected $basic_fields = array ( "id" , "name" , "partnerId" , "subpId" );
 	
-	protected $regular_fields_ext = array ( "puserId"  , "tags" , "status" , "type" ,  "mediaType" ,"hshowId" , /*"kuserId" , */
+	protected $regular_fields_ext = array ( "puserId"  , "tags" , "status" , "type" ,  "mediaType" ,"kshowId" , /*"kuserId" , */
 		"createdAt" , "createdAtAsInt" ,  "dataPath", "rank" , "totalRank" , "anonymous"  , "duration" ,
 		"source" ,  "sourceId" , "sourceLink" , "dataUrl" , "thumbnailUrl" , "groupId" , "partnerData" , 
 		"version", "conversionQuality", "permissions" , "desiredVersion", "editorType" ,
@@ -19,9 +19,9 @@ class entryWrapper extends objectWrapperBase
 	protected $detailed_fields_ext = array ( "comments" , "favorites"  , "dataContent" , "allVersionsFormatted" , 
 		"moderationStatus" , "moderationCount" , "contributorScreenName" ) ;
 	
-	protected $detailed_objs_ext = array ( "kuser" , "hshow"   );
+	protected $detailed_objs_ext = array ( "kuser" , "kshow"   );
 	
-	protected $objs_cache = array ( "kuser" => "kuser,kuserId" , "hshow" => "hshow,hshowId" ); 
+	protected $objs_cache = array ( "kuser" => "kuser,kuserId" , "kshow" => "kshow,kshowId" ); 
 
 	protected $updateable_fields = array ( "name"  , "tags" , "type" , "mediaType" , "source" ,  "sourceId" , "sourceLink" , 
 			"licenseType" , "credit"  , "groupId" , "partnerData", "conversionQuality", "permissions" , "dataContent" , "desiredVersion" ,

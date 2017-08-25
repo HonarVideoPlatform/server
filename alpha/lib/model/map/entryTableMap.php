@@ -38,7 +38,7 @@ class entryTableMap extends TableMap {
 		$this->setUseIdGenerator(true);
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'VARCHAR', true, 20, null);
-		$this->addColumn('HSHOW_ID', 'HshowId', 'VARCHAR', false, 20, null);
+		$this->addColumn('KSHOW_ID', 'KshowId', 'VARCHAR', false, 20, null);
 		$this->addForeignKey('KUSER_ID', 'KuserId', 'INTEGER', 'kuser', 'ID', false, null, null);
 		$this->addColumn('NAME', 'Name', 'VARCHAR', false, 60, null);
 		$this->addColumn('TYPE', 'Type', 'SMALLINT', false, null, null);

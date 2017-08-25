@@ -13,14 +13,14 @@ if($entry)
 
 ?>
 <xml>
-	<?php echo baseObjectUtils::objToXml ( $entry , array ( 'id' , 'name', 'hshow_id' , 'tags', 'media_type', 'length_in_msecs', 'status' ) , 'entry' , true , 
+	<?php echo baseObjectUtils::objToXml ( $entry , array ( 'id' , 'name', 'kshow_id' , 'tags', 'media_type', 'length_in_msecs', 'status' ) , 'entry' , true , 
 		array ( "thumbnail_path" => $thumbnail , "user_name" => $user_name,
 			"message" => $message,
 			"server_time" => time(),
-			"hshow_category" => $hshow_category,
-			"hshow_name" => $hshow_name,
-			"hshow_description" => $hshow_description,
-			"hshow_tags" => $hshow_tags,
+			"kshow_category" => $kshow_category,
+			"kshow_name" => $kshow_name,
+			"kshow_description" => $kshow_description,
+			"kshow_tags" => $kshow_tags,
 			"generic_embed_code" => $generic_embed_code, "myspace_embed_code" => $myspace_embed_code,
 			"share_url" => $share_url,
 			"show_klogo" => $show_klogo) ) ; ?>

@@ -1121,8 +1121,8 @@ class KalturaEntryService extends KalturaBaseService
 		$dbEntry = $this->prepareEntryForInsert($newEntry);
 	  	$dbEntry->setSourceId( $srcEntry->getId() );
 	  	
-	 	$hshow = $this->createDummyHShow();
-		$hshowId = $hshow->getId();
+	 	$kshow = $this->createDummyKShow();
+		$kshowId = $kshow->getId();
 		
 		$msg = null;
 		$flavorAsset = kFlowHelper::createOriginalFlavorAsset($this->getPartnerId(), $dbEntry->getId(), $msg);
@@ -1485,19 +1485,19 @@ class KalturaEntryService extends KalturaBaseService
 	}
 	
 
-	protected function createDummyHShow()
+	protected function createDummyKShow()
 	{
-		$hshow = new hshow();
-		$hshow->setName(hshow::DUMMY_HSHOW_NAME);
-		$hshow->setProducerId($this->getKuser()->getId());
-		$hshow->setPartnerId($this->getPartnerId());
-		$hshow->setSubpId($this->getPartnerId() * 100);
-		$hshow->setViewPermissions(hshow::HSHOW_PERMISSION_EVERYONE);
-		$hshow->setPermissions(hshow::PERMISSIONS_PUBLIC);
-		$hshow->setAllowQuickEdit(true);
-		$hshow->save();
+		$kshow = new kshow();
+		$kshow->setName(kshow::DUMMY_KSHOW_NAME);
+		$kshow->setProducerId($this->getKuser()->getId());
+		$kshow->setPartnerId($this->getPartnerId());
+		$kshow->setSubpId($this->getPartnerId() * 100);
+		$kshow->setViewPermissions(kshow::KSHOW_PERMISSION_EVERYONE);
+		$kshow->setPermissions(kshow::PERMISSIONS_PUBLIC);
+		$kshow->setAllowQuickEdit(true);
+		$kshow->save();
 		
-		return $hshow;
+		return $kshow;
 	}
 	
 	protected function updateEntry($entryId, KalturaBaseEntry $entry, $entryType = null)

@@ -3,19 +3,19 @@
  * @package Core
  * @subpackage ExternalServices
  */
-class myKalturaPartnerHshowServices extends myKalturaHshowServices implements IMediaSource
+class myKalturaPartnerKshowServices extends myKalturaKshowServices implements IMediaSource
 {
-	const AUTH_SALT = "myKalturaPartnerHshowServices:gogog123";
+	const AUTH_SALT = "myKalturaPartnerKshowServices:gogog123";
 	const AUTH_INTERVAL = 3600;
 	
-	protected $id = entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_HSHOW;
+	protected $id = entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_KSHOW;
 	
 	private static $NEED_MEDIA_INFO = "0";
 	
 	// assume the extraData is the partner_id to be searched 
-	protected function getHshowFilter ( $extraData )
+	protected function getKshowFilter ( $extraData )
 	{
-		$filter = new hshowFilter ();
+		$filter = new kshowFilter ();
 		// This is the old way to search within a partner
 //		$entry_filter->setByName ( "_eq_partner_id" , $extraData );
 

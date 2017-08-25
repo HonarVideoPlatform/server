@@ -58,7 +58,7 @@ class getwidgetAction extends defPartnerservices2Action
 		}
 		else
 		{
-			// check if this widget is public - if so , create a ks for viewing the related hshow
+			// check if this widget is public - if so , create a ks for viewing the related kshow
 			if ( $uiconf_id )
 				$widget->overrideUiConfId ( $uiconf_id );
 

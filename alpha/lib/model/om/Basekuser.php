@@ -228,11 +228,11 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 	protected $storage_size;
 
 	/**
-	 * The value for the produced_hshows field.
+	 * The value for the produced_kshows field.
 	 * Note: this column has a database default value of: 0
 	 * @var        int
 	 */
-	protected $produced_hshows;
+	protected $produced_kshows;
 
 	/**
 	 * The value for the status field.
@@ -309,14 +309,14 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 	protected $type;
 
 	/**
-	 * @var        array hshow[] Collection to store aggregation of hshow objects.
+	 * @var        array kshow[] Collection to store aggregation of kshow objects.
 	 */
-	protected $collhshows;
+	protected $collkshows;
 
 	/**
-	 * @var        Criteria The criteria used to select the current contents of collhshows.
+	 * @var        Criteria The criteria used to select the current contents of collkshows.
 	 */
-	private $lasthshowCriteria = null;
+	private $lastkshowCriteria = null;
 
 	/**
 	 * @var        array entry[] Collection to store aggregation of entry objects.
@@ -359,14 +359,14 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 	private $lastfavoriteCriteria = null;
 
 	/**
-	 * @var        array HshowKuser[] Collection to store aggregation of HshowKuser objects.
+	 * @var        array KshowKuser[] Collection to store aggregation of KshowKuser objects.
 	 */
-	protected $collHshowKusers;
+	protected $collKshowKusers;
 
 	/**
-	 * @var        Criteria The criteria used to select the current contents of collHshowKusers.
+	 * @var        Criteria The criteria used to select the current contents of collKshowKusers.
 	 */
-	private $lastHshowKuserCriteria = null;
+	private $lastKshowKuserCriteria = null;
 
 	/**
 	 * @var        array PuserKuser[] Collection to store aggregation of PuserKuser objects.
@@ -535,7 +535,7 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 		$this->fans = 0;
 		$this->entries = 0;
 		$this->storage_size = 0;
-		$this->produced_hshows = 0;
+		$this->produced_kshows = 0;
 		$this->partner_id = 0;
 		$this->type = 0;
 	}
@@ -921,13 +921,13 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [produced_hshows] column value.
+	 * Get the [produced_kshows] column value.
 	 * 
 	 * @return     int
 	 */
-	public function getProducedHshows()
+	public function getProducedKshows()
 	{
-		return $this->produced_hshows;
+		return $this->produced_kshows;
 	}
 
 	/**
@@ -1922,27 +1922,27 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 	} // setStorageSize()
 
 	/**
-	 * Set the value of [produced_hshows] column.
+	 * Set the value of [produced_kshows] column.
 	 * 
 	 * @param      int $v new value
 	 * @return     kuser The current object (for fluent API support)
 	 */
-	public function setProducedHshows($v)
+	public function setProducedKshows($v)
 	{
-		if(!isset($this->oldColumnsValues[kuserPeer::PRODUCED_HSHOWS]))
-			$this->oldColumnsValues[kuserPeer::PRODUCED_HSHOWS] = $this->produced_hshows;
+		if(!isset($this->oldColumnsValues[kuserPeer::PRODUCED_KSHOWS]))
+			$this->oldColumnsValues[kuserPeer::PRODUCED_KSHOWS] = $this->produced_kshows;
 
 		if ($v !== null) {
 			$v = (int) $v;
 		}
 
-		if ($this->produced_hshows !== $v || $this->isNew()) {
-			$this->produced_hshows = $v;
-			$this->modifiedColumns[] = kuserPeer::PRODUCED_HSHOWS;
+		if ($this->produced_kshows !== $v || $this->isNew()) {
+			$this->produced_kshows = $v;
+			$this->modifiedColumns[] = kuserPeer::PRODUCED_KSHOWS;
 		}
 
 		return $this;
-	} // setProducedHshows()
+	} // setProducedKshows()
 
 	/**
 	 * Set the value of [status] column.
@@ -2295,7 +2295,7 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				return false;
 			}
 
-			if ($this->produced_hshows !== 0) {
+			if ($this->produced_kshows !== 0) {
 				return false;
 			}
 
@@ -2366,7 +2366,7 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 			$this->fans = ($row[$startcol + 31] !== null) ? (int) $row[$startcol + 31] : null;
 			$this->entries = ($row[$startcol + 32] !== null) ? (int) $row[$startcol + 32] : null;
 			$this->storage_size = ($row[$startcol + 33] !== null) ? (int) $row[$startcol + 33] : null;
-			$this->produced_hshows = ($row[$startcol + 34] !== null) ? (int) $row[$startcol + 34] : null;
+			$this->produced_kshows = ($row[$startcol + 34] !== null) ? (int) $row[$startcol + 34] : null;
 			$this->status = ($row[$startcol + 35] !== null) ? (int) $row[$startcol + 35] : null;
 			$this->created_at = ($row[$startcol + 36] !== null) ? (string) $row[$startcol + 36] : null;
 			$this->updated_at = ($row[$startcol + 37] !== null) ? (string) $row[$startcol + 37] : null;
@@ -2454,8 +2454,8 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 
 		if ($deep) {  // also de-associate any related objects?
 
-			$this->collhshows = null;
-			$this->lasthshowCriteria = null;
+			$this->collkshows = null;
+			$this->lastkshowCriteria = null;
 
 			$this->collentrys = null;
 			$this->lastentryCriteria = null;
@@ -2469,8 +2469,8 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 			$this->collfavorites = null;
 			$this->lastfavoriteCriteria = null;
 
-			$this->collHshowKusers = null;
-			$this->lastHshowKuserCriteria = null;
+			$this->collKshowKusers = null;
+			$this->lastKshowKuserCriteria = null;
 
 			$this->collPuserKusers = null;
 			$this->lastPuserKuserCriteria = null;
@@ -2712,8 +2712,8 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
 			}
 
-			if ($this->collhshows !== null) {
-				foreach ($this->collhshows as $referrerFK) {
+			if ($this->collkshows !== null) {
+				foreach ($this->collkshows as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
 						$affectedRows += $referrerFK->save($con);
 					}
@@ -2752,8 +2752,8 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				}
 			}
 
-			if ($this->collHshowKusers !== null) {
-				foreach ($this->collHshowKusers as $referrerFK) {
+			if ($this->collKshowKusers !== null) {
+				foreach ($this->collKshowKusers as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
 						$affectedRows += $referrerFK->save($con);
 					}
@@ -3062,8 +3062,8 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 			}
 
 
-				if ($this->collhshows !== null) {
-					foreach ($this->collhshows as $referrerFK) {
+				if ($this->collkshows !== null) {
+					foreach ($this->collkshows as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -3102,8 +3102,8 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 					}
 				}
 
-				if ($this->collHshowKusers !== null) {
-					foreach ($this->collHshowKusers as $referrerFK) {
+				if ($this->collKshowKusers !== null) {
+					foreach ($this->collKshowKusers as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -3334,7 +3334,7 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				return $this->getStorageSize();
 				break;
 			case 34:
-				return $this->getProducedHshows();
+				return $this->getProducedKshows();
 				break;
 			case 35:
 				return $this->getStatus();
@@ -3427,7 +3427,7 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 			$keys[31] => $this->getFans(),
 			$keys[32] => $this->getEntries(),
 			$keys[33] => $this->getStorageSize(),
-			$keys[34] => $this->getProducedHshows(),
+			$keys[34] => $this->getProducedKshows(),
 			$keys[35] => $this->getStatus(),
 			$keys[36] => $this->getCreatedAt(),
 			$keys[37] => $this->getUpdatedAt(),
@@ -3574,7 +3574,7 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				$this->setStorageSize($value);
 				break;
 			case 34:
-				$this->setProducedHshows($value);
+				$this->setProducedKshows($value);
 				break;
 			case 35:
 				$this->setStatus($value);
@@ -3670,7 +3670,7 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[31], $arr)) $this->setFans($arr[$keys[31]]);
 		if (array_key_exists($keys[32], $arr)) $this->setEntries($arr[$keys[32]]);
 		if (array_key_exists($keys[33], $arr)) $this->setStorageSize($arr[$keys[33]]);
-		if (array_key_exists($keys[34], $arr)) $this->setProducedHshows($arr[$keys[34]]);
+		if (array_key_exists($keys[34], $arr)) $this->setProducedKshows($arr[$keys[34]]);
 		if (array_key_exists($keys[35], $arr)) $this->setStatus($arr[$keys[35]]);
 		if (array_key_exists($keys[36], $arr)) $this->setCreatedAt($arr[$keys[36]]);
 		if (array_key_exists($keys[37], $arr)) $this->setUpdatedAt($arr[$keys[37]]);
@@ -3728,7 +3728,7 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(kuserPeer::FANS)) $criteria->add(kuserPeer::FANS, $this->fans);
 		if ($this->isColumnModified(kuserPeer::ENTRIES)) $criteria->add(kuserPeer::ENTRIES, $this->entries);
 		if ($this->isColumnModified(kuserPeer::STORAGE_SIZE)) $criteria->add(kuserPeer::STORAGE_SIZE, $this->storage_size);
-		if ($this->isColumnModified(kuserPeer::PRODUCED_HSHOWS)) $criteria->add(kuserPeer::PRODUCED_HSHOWS, $this->produced_hshows);
+		if ($this->isColumnModified(kuserPeer::PRODUCED_KSHOWS)) $criteria->add(kuserPeer::PRODUCED_KSHOWS, $this->produced_kshows);
 		if ($this->isColumnModified(kuserPeer::STATUS)) $criteria->add(kuserPeer::STATUS, $this->status);
 		if ($this->isColumnModified(kuserPeer::CREATED_AT)) $criteria->add(kuserPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(kuserPeer::UPDATED_AT)) $criteria->add(kuserPeer::UPDATED_AT, $this->updated_at);
@@ -3885,7 +3885,7 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 
 		$copyObj->setStorageSize($this->storage_size);
 
-		$copyObj->setProducedHshows($this->produced_hshows);
+		$copyObj->setProducedKshows($this->produced_kshows);
 
 		$copyObj->setStatus($this->status);
 
@@ -3917,9 +3917,9 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 			// the getter/setter methods for fkey referrer objects.
 			$copyObj->setNew(false);
 
-			foreach ($this->gethshows() as $relObj) {
+			foreach ($this->getkshows() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-					$copyObj->addhshow($relObj->copy($deepCopy));
+					$copyObj->addkshow($relObj->copy($deepCopy));
 				}
 			}
 
@@ -3947,9 +3947,9 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				}
 			}
 
-			foreach ($this->getHshowKusers() as $relObj) {
+			foreach ($this->getKshowKusers() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-					$copyObj->addHshowKuser($relObj->copy($deepCopy));
+					$copyObj->addKshowKuser($relObj->copy($deepCopy));
 				}
 			}
 
@@ -4085,47 +4085,47 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Clears out the collhshows collection (array).
+	 * Clears out the collkshows collection (array).
 	 *
 	 * This does not modify the database; however, it will remove any associated objects, causing
 	 * them to be refetched by subsequent calls to accessor method.
 	 *
 	 * @return     void
-	 * @see        addhshows()
+	 * @see        addkshows()
 	 */
-	public function clearhshows()
+	public function clearkshows()
 	{
-		$this->collhshows = null; // important to set this to NULL since that means it is uninitialized
+		$this->collkshows = null; // important to set this to NULL since that means it is uninitialized
 	}
 
 	/**
-	 * Initializes the collhshows collection (array).
+	 * Initializes the collkshows collection (array).
 	 *
-	 * By default this just sets the collhshows collection to an empty array (like clearcollhshows());
+	 * By default this just sets the collkshows collection to an empty array (like clearcollkshows());
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
 	 * @return     void
 	 */
-	public function inithshows()
+	public function initkshows()
 	{
-		$this->collhshows = array();
+		$this->collkshows = array();
 	}
 
 	/**
-	 * Gets an array of hshow objects which contain a foreign key that references this object.
+	 * Gets an array of kshow objects which contain a foreign key that references this object.
 	 *
 	 * If this collection has already been initialized with an identical Criteria, it returns the collection.
 	 * Otherwise if this kuser has previously been saved, it will retrieve
-	 * related hshows from storage. If this kuser is new, it will return
+	 * related kshows from storage. If this kuser is new, it will return
 	 * an empty collection or the current collection, the criteria is ignored on a new object.
 	 *
 	 * @param      PropelPDO $con
 	 * @param      Criteria $criteria
-	 * @return     array hshow[]
+	 * @return     array kshow[]
 	 * @throws     PropelException
 	 */
-	public function gethshows($criteria = null, PropelPDO $con = null)
+	public function getkshows($criteria = null, PropelPDO $con = null)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(kuserPeer::DATABASE_NAME);
@@ -4135,15 +4135,15 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		if ($this->collhshows === null) {
+		if ($this->collkshows === null) {
 			if ($this->isNew()) {
-			   $this->collhshows = array();
+			   $this->collkshows = array();
 			} else {
 
-				$criteria->add(hshowPeer::PRODUCER_ID, $this->id);
+				$criteria->add(kshowPeer::PRODUCER_ID, $this->id);
 
-				hshowPeer::addSelectColumns($criteria);
-				$this->collhshows = hshowPeer::doSelect($criteria, $con);
+				kshowPeer::addSelectColumns($criteria);
+				$this->collkshows = kshowPeer::doSelect($criteria, $con);
 			}
 		} else {
 			// criteria has no effect for a new object
@@ -4153,28 +4153,28 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				// one, just return the collection.
 
 
-				$criteria->add(hshowPeer::PRODUCER_ID, $this->id);
+				$criteria->add(kshowPeer::PRODUCER_ID, $this->id);
 
-				hshowPeer::addSelectColumns($criteria);
-				if (!isset($this->lasthshowCriteria) || !$this->lasthshowCriteria->equals($criteria)) {
-					$this->collhshows = hshowPeer::doSelect($criteria, $con);
+				kshowPeer::addSelectColumns($criteria);
+				if (!isset($this->lastkshowCriteria) || !$this->lastkshowCriteria->equals($criteria)) {
+					$this->collkshows = kshowPeer::doSelect($criteria, $con);
 				}
 			}
 		}
-		$this->lasthshowCriteria = $criteria;
-		return $this->collhshows;
+		$this->lastkshowCriteria = $criteria;
+		return $this->collkshows;
 	}
 
 	/**
-	 * Returns the number of related hshow objects.
+	 * Returns the number of related kshow objects.
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct
 	 * @param      PropelPDO $con
-	 * @return     int Count of related hshow objects.
+	 * @return     int Count of related kshow objects.
 	 * @throws     PropelException
 	 */
-	public function counthshows(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	public function countkshows(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(kuserPeer::DATABASE_NAME);
@@ -4188,14 +4188,14 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 
 		$count = null;
 
-		if ($this->collhshows === null) {
+		if ($this->collkshows === null) {
 			if ($this->isNew()) {
 				$count = 0;
 			} else {
 
-				$criteria->add(hshowPeer::PRODUCER_ID, $this->id);
+				$criteria->add(kshowPeer::PRODUCER_ID, $this->id);
 
-				$count = hshowPeer::doCount($criteria, false, $con);
+				$count = kshowPeer::doCount($criteria, false, $con);
 			}
 		} else {
 			// criteria has no effect for a new object
@@ -4205,35 +4205,35 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				// one, just return count of the collection.
 
 
-				$criteria->add(hshowPeer::PRODUCER_ID, $this->id);
+				$criteria->add(kshowPeer::PRODUCER_ID, $this->id);
 
-				if (!isset($this->lasthshowCriteria) || !$this->lasthshowCriteria->equals($criteria)) {
-					$count = hshowPeer::doCount($criteria, false, $con);
+				if (!isset($this->lastkshowCriteria) || !$this->lastkshowCriteria->equals($criteria)) {
+					$count = kshowPeer::doCount($criteria, false, $con);
 				} else {
-					$count = count($this->collhshows);
+					$count = count($this->collkshows);
 				}
 			} else {
-				$count = count($this->collhshows);
+				$count = count($this->collkshows);
 			}
 		}
 		return $count;
 	}
 
 	/**
-	 * Method called to associate a hshow object to this object
-	 * through the hshow foreign key attribute.
+	 * Method called to associate a kshow object to this object
+	 * through the kshow foreign key attribute.
 	 *
-	 * @param      hshow $l hshow
+	 * @param      kshow $l kshow
 	 * @return     void
 	 * @throws     PropelException
 	 */
-	public function addhshow(hshow $l)
+	public function addkshow(kshow $l)
 	{
-		if ($this->collhshows === null) {
-			$this->inithshows();
+		if ($this->collkshows === null) {
+			$this->initkshows();
 		}
-		if (!in_array($l, $this->collhshows, true)) { // only add it if the **same** object is not already associated
-			array_push($this->collhshows, $l);
+		if (!in_array($l, $this->collkshows, true)) { // only add it if the **same** object is not already associated
+			array_push($this->collkshows, $l);
 			$l->setkuser($this);
 		}
 	}
@@ -4855,47 +4855,47 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Clears out the collHshowKusers collection (array).
+	 * Clears out the collKshowKusers collection (array).
 	 *
 	 * This does not modify the database; however, it will remove any associated objects, causing
 	 * them to be refetched by subsequent calls to accessor method.
 	 *
 	 * @return     void
-	 * @see        addHshowKusers()
+	 * @see        addKshowKusers()
 	 */
-	public function clearHshowKusers()
+	public function clearKshowKusers()
 	{
-		$this->collHshowKusers = null; // important to set this to NULL since that means it is uninitialized
+		$this->collKshowKusers = null; // important to set this to NULL since that means it is uninitialized
 	}
 
 	/**
-	 * Initializes the collHshowKusers collection (array).
+	 * Initializes the collKshowKusers collection (array).
 	 *
-	 * By default this just sets the collHshowKusers collection to an empty array (like clearcollHshowKusers());
+	 * By default this just sets the collKshowKusers collection to an empty array (like clearcollKshowKusers());
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
 	 * @return     void
 	 */
-	public function initHshowKusers()
+	public function initKshowKusers()
 	{
-		$this->collHshowKusers = array();
+		$this->collKshowKusers = array();
 	}
 
 	/**
-	 * Gets an array of HshowKuser objects which contain a foreign key that references this object.
+	 * Gets an array of KshowKuser objects which contain a foreign key that references this object.
 	 *
 	 * If this collection has already been initialized with an identical Criteria, it returns the collection.
 	 * Otherwise if this kuser has previously been saved, it will retrieve
-	 * related HshowKusers from storage. If this kuser is new, it will return
+	 * related KshowKusers from storage. If this kuser is new, it will return
 	 * an empty collection or the current collection, the criteria is ignored on a new object.
 	 *
 	 * @param      PropelPDO $con
 	 * @param      Criteria $criteria
-	 * @return     array HshowKuser[]
+	 * @return     array KshowKuser[]
 	 * @throws     PropelException
 	 */
-	public function getHshowKusers($criteria = null, PropelPDO $con = null)
+	public function getKshowKusers($criteria = null, PropelPDO $con = null)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(kuserPeer::DATABASE_NAME);
@@ -4905,15 +4905,15 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		if ($this->collHshowKusers === null) {
+		if ($this->collKshowKusers === null) {
 			if ($this->isNew()) {
-			   $this->collHshowKusers = array();
+			   $this->collKshowKusers = array();
 			} else {
 
-				$criteria->add(HshowKuserPeer::KUSER_ID, $this->id);
+				$criteria->add(KshowKuserPeer::KUSER_ID, $this->id);
 
-				HshowKuserPeer::addSelectColumns($criteria);
-				$this->collHshowKusers = HshowKuserPeer::doSelect($criteria, $con);
+				KshowKuserPeer::addSelectColumns($criteria);
+				$this->collKshowKusers = KshowKuserPeer::doSelect($criteria, $con);
 			}
 		} else {
 			// criteria has no effect for a new object
@@ -4923,28 +4923,28 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				// one, just return the collection.
 
 
-				$criteria->add(HshowKuserPeer::KUSER_ID, $this->id);
+				$criteria->add(KshowKuserPeer::KUSER_ID, $this->id);
 
-				HshowKuserPeer::addSelectColumns($criteria);
-				if (!isset($this->lastHshowKuserCriteria) || !$this->lastHshowKuserCriteria->equals($criteria)) {
-					$this->collHshowKusers = HshowKuserPeer::doSelect($criteria, $con);
+				KshowKuserPeer::addSelectColumns($criteria);
+				if (!isset($this->lastKshowKuserCriteria) || !$this->lastKshowKuserCriteria->equals($criteria)) {
+					$this->collKshowKusers = KshowKuserPeer::doSelect($criteria, $con);
 				}
 			}
 		}
-		$this->lastHshowKuserCriteria = $criteria;
-		return $this->collHshowKusers;
+		$this->lastKshowKuserCriteria = $criteria;
+		return $this->collKshowKusers;
 	}
 
 	/**
-	 * Returns the number of related HshowKuser objects.
+	 * Returns the number of related KshowKuser objects.
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct
 	 * @param      PropelPDO $con
-	 * @return     int Count of related HshowKuser objects.
+	 * @return     int Count of related KshowKuser objects.
 	 * @throws     PropelException
 	 */
-	public function countHshowKusers(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	public function countKshowKusers(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(kuserPeer::DATABASE_NAME);
@@ -4958,14 +4958,14 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 
 		$count = null;
 
-		if ($this->collHshowKusers === null) {
+		if ($this->collKshowKusers === null) {
 			if ($this->isNew()) {
 				$count = 0;
 			} else {
 
-				$criteria->add(HshowKuserPeer::KUSER_ID, $this->id);
+				$criteria->add(KshowKuserPeer::KUSER_ID, $this->id);
 
-				$count = HshowKuserPeer::doCount($criteria, false, $con);
+				$count = KshowKuserPeer::doCount($criteria, false, $con);
 			}
 		} else {
 			// criteria has no effect for a new object
@@ -4975,35 +4975,35 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 				// one, just return count of the collection.
 
 
-				$criteria->add(HshowKuserPeer::KUSER_ID, $this->id);
+				$criteria->add(KshowKuserPeer::KUSER_ID, $this->id);
 
-				if (!isset($this->lastHshowKuserCriteria) || !$this->lastHshowKuserCriteria->equals($criteria)) {
-					$count = HshowKuserPeer::doCount($criteria, false, $con);
+				if (!isset($this->lastKshowKuserCriteria) || !$this->lastKshowKuserCriteria->equals($criteria)) {
+					$count = KshowKuserPeer::doCount($criteria, false, $con);
 				} else {
-					$count = count($this->collHshowKusers);
+					$count = count($this->collKshowKusers);
 				}
 			} else {
-				$count = count($this->collHshowKusers);
+				$count = count($this->collKshowKusers);
 			}
 		}
 		return $count;
 	}
 
 	/**
-	 * Method called to associate a HshowKuser object to this object
-	 * through the HshowKuser foreign key attribute.
+	 * Method called to associate a KshowKuser object to this object
+	 * through the KshowKuser foreign key attribute.
 	 *
-	 * @param      HshowKuser $l HshowKuser
+	 * @param      KshowKuser $l KshowKuser
 	 * @return     void
 	 * @throws     PropelException
 	 */
-	public function addHshowKuser(HshowKuser $l)
+	public function addKshowKuser(KshowKuser $l)
 	{
-		if ($this->collHshowKusers === null) {
-			$this->initHshowKusers();
+		if ($this->collKshowKusers === null) {
+			$this->initKshowKusers();
 		}
-		if (!in_array($l, $this->collHshowKusers, true)) { // only add it if the **same** object is not already associated
-			array_push($this->collHshowKusers, $l);
+		if (!in_array($l, $this->collKshowKusers, true)) { // only add it if the **same** object is not already associated
+			array_push($this->collKshowKusers, $l);
 			$l->setkuser($this);
 		}
 	}
@@ -5014,13 +5014,13 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 	 * an identical criteria, it returns the collection.
 	 * Otherwise if this kuser is new, it will return
 	 * an empty collection; or if this kuser has previously
-	 * been saved, it will retrieve related HshowKusers from storage.
+	 * been saved, it will retrieve related KshowKusers from storage.
 	 *
 	 * This method is protected by default in order to keep the public
 	 * api reasonable.  You can provide public methods for those you
 	 * actually need in kuser.
 	 */
-	public function getHshowKusersJoinhshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getKshowKusersJoinkshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(kuserPeer::DATABASE_NAME);
@@ -5030,29 +5030,29 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		if ($this->collHshowKusers === null) {
+		if ($this->collKshowKusers === null) {
 			if ($this->isNew()) {
-				$this->collHshowKusers = array();
+				$this->collKshowKusers = array();
 			} else {
 
-				$criteria->add(HshowKuserPeer::KUSER_ID, $this->id);
+				$criteria->add(KshowKuserPeer::KUSER_ID, $this->id);
 
-				$this->collHshowKusers = HshowKuserPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
+				$this->collKshowKusers = KshowKuserPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
 			// called for.  If the criteria is the same as the last
 			// one, just return the collection.
 
-			$criteria->add(HshowKuserPeer::KUSER_ID, $this->id);
+			$criteria->add(KshowKuserPeer::KUSER_ID, $this->id);
 
-			if (!isset($this->lastHshowKuserCriteria) || !$this->lastHshowKuserCriteria->equals($criteria)) {
-				$this->collHshowKusers = HshowKuserPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
+			if (!isset($this->lastKshowKuserCriteria) || !$this->lastKshowKuserCriteria->equals($criteria)) {
+				$this->collKshowKusers = KshowKuserPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
 			}
 		}
-		$this->lastHshowKuserCriteria = $criteria;
+		$this->lastKshowKuserCriteria = $criteria;
 
-		return $this->collHshowKusers;
+		return $this->collKshowKusers;
 	}
 
 	/**
@@ -6996,8 +6996,8 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
-			if ($this->collhshows) {
-				foreach ((array) $this->collhshows as $o) {
+			if ($this->collkshows) {
+				foreach ((array) $this->collkshows as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
@@ -7021,8 +7021,8 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 					$o->clearAllReferences($deep);
 				}
 			}
-			if ($this->collHshowKusers) {
-				foreach ((array) $this->collHshowKusers as $o) {
+			if ($this->collKshowKusers) {
+				foreach ((array) $this->collKshowKusers as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
@@ -7083,12 +7083,12 @@ abstract class Basekuser extends BaseObject  implements Persistent {
 			}
 		} // if ($deep)
 
-		$this->collhshows = null;
+		$this->collkshows = null;
 		$this->collentrys = null;
 		$this->collcomments = null;
 		$this->collflags = null;
 		$this->collfavorites = null;
-		$this->collHshowKusers = null;
+		$this->collKshowKusers = null;
 		$this->collPuserKusers = null;
 		$this->collPartners = null;
 		$this->collmoderations = null;

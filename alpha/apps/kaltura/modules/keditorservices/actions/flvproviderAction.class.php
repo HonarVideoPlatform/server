@@ -18,7 +18,7 @@ class flvproviderAction extends sfAction
 		$meta = $this->getRequestParameter( "meta" , false );
 		$file_info = $this->getRequestParameter( "file_info" );
 		$this->entry_id = 0;
-		$this->hshow_id = 0;
+		$this->kshow_id = 0;
 		$version = $this->getRequestParameter( "version" , null ); // returned the version feature to allow rollback
 		$addPadding = false;
 		
@@ -26,7 +26,7 @@ class flvproviderAction extends sfAction
 		{
 			$file_info_arr = explode ( "-" , $file_info );
 
-			// the format of file_info is assumed <hshow_id>-<video|audio|voice>-<1|2|3>
+			// the format of file_info is assumed <kshow_id>-<video|audio|voice>-<1|2|3>
 			// OR
 			// e<entry_id>-<video|audio|voice>-<1|2|3>
 
@@ -39,7 +39,7 @@ class flvproviderAction extends sfAction
 			if ($file_info_arr[0][0] == 'e')
 				$this->entry_id = substr($file_info_arr[0], 1);
 			else
-				$this->hshow_id = $file_info_arr[0];
+				$this->kshow_id = $file_info_arr[0];
 
 			if ( count ( $file_info_arr ) == 1 )
 			{
@@ -82,7 +82,7 @@ class flvproviderAction extends sfAction
 		}
 		else
 		{
-			$this->hshow_id = @$_GET["hshow_id"];
+			$this->kshow_id = @$_GET["kshow_id"];
 			$this->entry_id = @$_GET["entry_id"];
 			$this->timeline = @$_GET["timeline"];
 			$this->streamNum = $this->getRequestParameter('num', 3);
@@ -99,23 +99,23 @@ class flvproviderAction extends sfAction
 				return sfView::ERROR;
 			}
 							
-			$this->hshow_id = $entry->getHshowId();
+			$this->kshow_id = $entry->getKshowId();
 		}
 		
-		$hshow = hshowPeer::retrieveByPK($this->hshow_id);
+		$kshow = kshowPeer::retrieveByPK($this->kshow_id);
 
-		if (!$hshow)
+		if (!$kshow)
 		{
-			$this->error = "No such hshow " . $this->hshow_id ;
+			$this->error = "No such kshow " . $this->kshow_id ;
 			return sfView::ERROR;
 		}
 
-		if (!$entry) // if we received only the hshow (old widgets) retrieve the entry
-			$entry = entryPeer::retrieveByPK($hshow->getShowEntryId());
+		if (!$entry) // if we received only the kshow (old widgets) retrieve the entry
+			$entry = entryPeer::retrieveByPK($kshow->getShowEntryId());
 			
 		if (!$entry)
 		{
-			$this->error = "No such entry for hshow " . $this->hshow_id ;
+			$this->error = "No such entry for kshow " . $this->kshow_id ;
 			return sfView::ERROR;
 		}
 			
@@ -125,8 +125,8 @@ class flvproviderAction extends sfAction
 			$referer = @$_SERVER['HTTP_REFERER'];
 
 			//since we're using a cdn this is useless
-			//$hshow->incPlays();
-			//WidgetLog::incPlaysIfExists( $this->hshow_id , $this->entry_id );
+			//$kshow->incPlays();
+			//WidgetLog::incPlaysIfExists( $this->kshow_id , $this->entry_id );
 		}
 		
 		$dataKey = $entry->getSyncKey(entry::FILE_SYNC_ENTRY_SUB_TYPE_DATA, $version); // replaced__getDataPath

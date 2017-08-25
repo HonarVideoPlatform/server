@@ -1,6 +1,6 @@
 <?php
 /**
- * Will help find the policy for features deppending on the partner, hshow, entry , kuser and other dynamic parameters 
+ * Will help find the policy for features deppending on the partner, kshow, entry , kuser and other dynamic parameters 
  */
 class myPolicyMgr
 {

@@ -11,7 +11,7 @@ require_once ( __DIR__ . "/defKeditorservicesAction.class.php");
  */
 class setRoughcutNameAction extends defKeditorservicesAction
 {
-	protected function executeImpl( hshow $hshow, entry &$entry )
+	protected function executeImpl( kshow $kshow, entry &$entry )
 	{
 		$this->res = "";
 		
@@ -20,7 +20,7 @@ class setRoughcutNameAction extends defKeditorservicesAction
 		if ( $likuser_id != $entry->getKuserId())
 		{
 			// ERROR - attempting to update an entry which doesnt belong to the user
-			return "<xml>!</xml>";//$this->securityViolation( $hshow->getId() );
+			return "<xml>!</xml>";//$this->securityViolation( $kshow->getId() );
 		}
 		
 		$name = @$_GET["RoughcutName"];

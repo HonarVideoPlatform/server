@@ -30,7 +30,7 @@ class myContentStorage
 	 * on the browser side without even checking for modification on the server side. A new ugc will
 	 * simply get another name through the version process.
 	 * When we want to set a kaltura template will set the $fileName parameter to '&'.kaltura_template_name.
-	 * The path is composed from the entity name (hshow, entry, kuser),
+	 * The path is composed from the entity name (kshow, entry, kuser),
 	 * the entity id and it's random obfuscator (which is used also for versioning)
 	 * @param string $entityName = the entity object name
 	 * @param int $id = the entity id

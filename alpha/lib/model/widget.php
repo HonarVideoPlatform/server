@@ -55,7 +55,7 @@ class widget extends Basewidget implements IBaseObject
 	/**
 	 * If 
 	 */
-	public static function createWidgetFromWidget ( $parent_widget_obj_or_id , $hshow_id, $entry_id = null , $ui_conf_id = null , $custom_data = null , 
+	public static function createWidgetFromWidget ( $parent_widget_obj_or_id , $kshow_id, $entry_id = null , $ui_conf_id = null , $custom_data = null , 
 		$partner_data = null , $security_type = null )
 	{
 		if ( $parent_widget_obj_or_id == null )  throw new Exception ( "Cannot createWidget from empty object" );
@@ -72,39 +72,39 @@ class widget extends Basewidget implements IBaseObject
 				throw new Exception ( "Cannot createWidget from a none-existing widget [$parent_widget_obj_or_id]" );
 		}	
 		
-		$hshow = null;
-		$widget_hshow_id = $source_widget->getHshowId();
-		if (!$widget_hshow_id)
+		$kshow = null;
+		$widget_kshow_id = $source_widget->getKshowId();
+		if (!$widget_kshow_id)
 		{
-			// fetch the hshow/entry according to the hshow_id/entry_id rules
-			list ( $hshow , $entry , $error , $error_obj ) = myHshowUtils::getHshowAndEntry ( $hshow_id , $entry_id );
-			$widget_hshow_id = $hshow_id;
+			// fetch the kshow/entry according to the kshow_id/entry_id rules
+			list ( $kshow , $entry , $error , $error_obj ) = myKshowUtils::getKshowAndEntry ( $kshow_id , $entry_id );
+			$widget_kshow_id = $kshow_id;
 			if ( $source_widget->getEntryId() )
 			{
 				$entry_id = $source_widget->getEntryId() ;
 			}
 		}
 		
-		if (  !$hshow) 
+		if (  !$kshow) 
 		{
-			$hshow = hshowPeer::retrieveByPK( $widget_hshow_id );
-			if ( !$hshow ) 
+			$kshow = kshowPeer::retrieveByPK( $widget_kshow_id );
+			if ( !$kshow ) 
 				return null;
 		}
 		
-		return self::createWidget( $hshow , $entry_id , $source_widget ,  $ui_conf_id , $custom_data , 
+		return self::createWidget( $kshow , $entry_id , $source_widget ,  $ui_conf_id , $custom_data , 
 			$partner_data , $security_type );
 		
 	}
 	
-	public static function createWidget ( $hshow , $entry_id = null , $parent_widget_obj_or_id = null , $ui_conf_id = 1 , $custom_data = null , 
+	public static function createWidget ( $kshow , $entry_id = null , $parent_widget_obj_or_id = null , $ui_conf_id = 1 , $custom_data = null , 
 		$partner_data = null , $security_type = null  )
 	{
 		$widget = new widget();
-		$widget->setHshowId( $hshow->getId() );
+		$widget->setKshowId( $kshow->getId() );
 		$widget->setEntryId( $entry_id );
-		$widget->setPartnerId( $hshow->getPartnerId() );
-		$widget->setSubpId( $hshow->getSubpId() );
+		$widget->setPartnerId( $kshow->getPartnerId() );
+		$widget->setSubpId( $kshow->getSubpId() );
 
 		$source_widget = null;
 		if ( $parent_widget_obj_or_id != null )
@@ -180,7 +180,7 @@ class widget extends Basewidget implements IBaseObject
 		
 	     // add the version as an additional parameter
 		$domain = myPartnerUtils::getHost($this->getPartnerId());
-//		$swf_url = "/index.php/widget/{$this->getHshowId()}/-1/2/{$this->getUiConfId()}/-1"; 
+//		$swf_url = "/index.php/widget/{$this->getKshowId()}/-1/2/{$this->getUiConfId()}/-1"; 
 		$security_type = $this->getSecurityType();
 		
 		$ui_conf = $this->getuiConf();

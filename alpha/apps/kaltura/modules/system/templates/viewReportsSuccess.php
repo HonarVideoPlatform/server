@@ -39,7 +39,7 @@ function retrieveSubject( $type, $id )
 {
 	switch( $type )
 	{
-		case flag::SUBJECT_TYPE_ENTRY: { $entry = entryPeer::retrieveByPK( $id ); return 'entry id:'.$id.'<br/>hshow:'.returnHshowLink($entry->getHshowId()).'<br/>Name:'.$entry->getName(); }
+		case flag::SUBJECT_TYPE_ENTRY: { $entry = entryPeer::retrieveByPK( $id ); return 'entry id:'.$id.'<br/>kshow:'.returnKshowLink($entry->getKshowId()).'<br/>Name:'.$entry->getName(); }
 		case flag::SUBJECT_TYPE_USER: { $user = kuserPeer::retrieveByPK( $id ); return returnUserLink( $user->getScreenName()); }
 		case flag::SUBJECT_TYPE_COMMENT: { $comment = commentPeer::retrieveByPK( $id ); return 'comment id:'.$id.'<br/>Commnet:'.$comment->getComment(); }
 		default: return 'Unknown';
@@ -51,9 +51,9 @@ function returnUserLink( $username )
 	return "<a href='/index.php/mykaltura/viewprofile?screenname=".$username."'>".$username."</a>";
 }
 
-function returnHshowLink( $hshow_id )
+function returnKshowLink( $kshow_id )
 {
-	return "<a href='/index.php/browse?hshow_id=".$hshow_id."'>".$hshow_id."</a>";
+	return "<a href='/index.php/browse?kshow_id=".$kshow_id."'>".$kshow_id."</a>";
 }
 
 

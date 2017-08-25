@@ -15,7 +15,7 @@ class urlName
 }
 
 
-class myHshowMetadataCreator
+class myKshowMetadataCreator
 {
 	
 	private static $IMAGE_EXT = array ( "jpg" , "gif" , "bmp" , "png" );
@@ -49,18 +49,18 @@ class myHshowMetadataCreator
 	private $m_voice_seq_play_time = 0;
 	private $m_object_seq_play_time = 0;
 	
-	public function createMetadata ( $hshow_id )
+	public function createMetadata ( $kshow_id )
 	{
-//		echo ( "createMetadata for [$hshow_id]\n" );
-		$hshow = hshowPeer::retrieveByPK( $hshow_id );
-		$show_entry_id = $hshow->getShowEntryId();
-		$intro_id = $hshow->getIntroId();
-		// fetch all entries for a hshow without the hshow entry or the intro
+//		echo ( "createMetadata for [$kshow_id]\n" );
+		$kshow = kshowPeer::retrieveByPK( $kshow_id );
+		$show_entry_id = $kshow->getShowEntryId();
+		$intro_id = $kshow->getIntroId();
+		// fetch all entries for a kshow without the kshow entry or the intro
 		// the order is ascending by creation date of the entry
 
 		// if ordering by ascending ID - the intro will always be first
 		$c = new Criteria ();
-		$c->add ( entryPeer::HSHOW_ID , $hshow_id );
+		$c->add ( entryPeer::KSHOW_ID , $kshow_id );
 		$c->add ( entryPeer::ID , array ( $show_entry_id , $intro_id ) , Criteria::NOT_IN );
 //		$c->addDescendingOrderByColumn('(' . entryPeer::ID . '=' . $intro_id . ')');
 		$c->addAscendingOrderByColumn( entryPeer::ID );
@@ -69,7 +69,7 @@ class myHshowMetadataCreator
 //		$c->addAscendingOrderByColumn( entryPeer::CREATED_AT );
 		$entry_list = entryPeer::doSelect( $c );
 		
-//		echo ( "hshow [$hshow_id] has " . count ( $entry_list ) . " entries\n" );
+//		echo ( "kshow [$kshow_id] has " . count ( $entry_list ) . " entries\n" );
 		
 		return $this->createMetadataForList ( $entry_list );
 	}

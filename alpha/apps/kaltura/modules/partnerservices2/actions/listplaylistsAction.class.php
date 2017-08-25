@@ -44,8 +44,8 @@ class listplaylistsAction extends listentriesAction
 	
 	protected function joinOnDetailed () { return true;}
 		
-	// for this specific hshow list - the ticket is regular and the filter is for all
-	// hshows for the current user only 
+	// for this specific kshow list - the ticket is regular and the filter is for all
+	// kshows for the current user only 
 	protected function setExtraFilters ( entryFilter &$fields_set )
 	{
 		if (intval($fields_set->get("_in_moderation_status")) == moderation::MODERATION_STATUS_APPROVED)

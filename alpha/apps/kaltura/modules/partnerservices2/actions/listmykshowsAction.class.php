@@ -3,23 +3,23 @@
  * @package api
  * @subpackage ps2
  */
-require_once 'listhshowsAction.class.php';
+require_once 'listkshowsAction.class.php';
 
 /**
  * @package api
  * @subpackage ps2
  */
-class listmyhshowsAction extends listhshowsAction
+class listmykshowsAction extends listkshowsAction
 {
 	public function describe()
 	{
 		return 	
 			array (
-				"display_name" => "listMyHShows",
+				"display_name" => "listMyKShows",
 				"desc" => "" ,
 				"in" => array (
 					"mandatory" => array ( 
-						"filter" => array ("type" => "hshowFilter", "desc" => "")
+						"filter" => array ("type" => "kshowFilter", "desc" => "")
 						),
 					"optional" => array (
 						"detailed" => array ("type" => "boolean", "desc" => ""),
@@ -32,7 +32,7 @@ class listmyhshowsAction extends listhshowsAction
 					"count" => array ("type" => "integer", "desc" => ""),
 					"page_size" => array ("type" => "integer", "desc" => ""),
 					"page" => array ("type" => "integer", "desc" => ""),
-					"hshows" => array ("type" => "*hshow", "desc" => ""),
+					"kshows" => array ("type" => "*kshow", "desc" => ""),
 					"user" => array ("type" => "kuser", "desc" => ""),
 					),
 				"errors" => array (
@@ -45,9 +45,9 @@ class listmyhshowsAction extends listhshowsAction
 		return self::REQUIED_TICKET_REGULAR;
 	}
 		
-	// for this specific hshow list - the ticket is regular and the filter is for all
-	// hshows for the current user only 
-	protected function setExtraFilters ( hshowFilter &$fields_set )
+	// for this specific kshow list - the ticket is regular and the filter is for all
+	// kshows for the current user only 
+	protected function setExtraFilters ( kshowFilter &$fields_set )
 	{
 		$fields_set->set( "_eq_producer_id" , $this->puser_id );
 	}

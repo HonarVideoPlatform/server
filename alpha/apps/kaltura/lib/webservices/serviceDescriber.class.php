@@ -28,10 +28,10 @@ class serviceDescriber
 		) ,
 		
 		"addentry" => array (
-			"desc" => "Add entry to a hshow." ,
+			"desc" => "Add entry to a kshow." ,
 			"in" => array (
 				"mandatory" => array ( 
-					"hshow_id" => array("type" => "integer", "desc" => "Add the entry to thie hshow"),
+					"kshow_id" => array("type" => "integer", "desc" => "Add the entry to thie kshow"),
 					"entry" => array("type" => "entry", "desc" => "Description of entry object"), 
 					// TODO: HOW TO DESCRIBE MULTIPLE ENTRIES?
 		/*

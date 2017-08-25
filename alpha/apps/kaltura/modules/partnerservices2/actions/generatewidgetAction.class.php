@@ -3,16 +3,16 @@
  * @package api
  * @subpackage ps2
  */
-require_once 'addhshowAction.class.php';
+require_once 'addkshowAction.class.php';
 
 /**
-* 1. Will create a hshow with name and summary for a specific partner.
-* 2. Will generate widget-html for this hshow.
+ * 1. Will create a kshow with name and summary for a specific partner.
+ * 2. Will generate widget-html for this kshow.
  * 
  * @package api
  * @subpackage ps2
  */
-class generatewidgetAction extends addhshowAction
+class generatewidgetAction extends addkshowAction
 {
 	public function describe()
 	{
@@ -52,35 +52,35 @@ class generatewidgetAction extends addhshowAction
 	*/
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
-		$hshow_id = $this->getP ( "hshow_id");
+		$kshow_id = $this->getP ( "kshow_id");
 		$detailed = $this->getP ( "detailed" , false );
 		$level = ( $detailed ? objectWrapperBase::DETAIL_LEVEL_DETAILED : objectWrapperBase::DETAIL_LEVEL_REGULAR );
 
 		$widget_size = $this->getP ( "size" );
 
-		$hshow_from_db = null;
-		if ( $hshow_id )
+		$kshow_from_db = null;
+		if ( $kshow_id )
 		{
-			$hshow_from_db = hshowPeer::retrieveByPK( $hshow_id );
+			$kshow_from_db = kshowPeer::retrieveByPK( $kshow_id );
 		}
 
-		if ( $hshow_from_db )
+		if ( $kshow_from_db )
 		{
-			$this->addMsg ( "hshow" , objectWrapperBase::getWrapperClass( $hshow_from_db ,  $level  ) );
+			$this->addMsg ( "kshow" , objectWrapperBase::getWrapperClass( $kshow_from_db ,  $level  ) );
 			$this->addMsg ( "already_exists_objects" , 1 );
 			$this->addDebug ( "already_exists_objects" , 1 );
 		}
 		else
 		{
-			// no hshow to be found - creae a new one
+			// no kshow to be found - creae a new one
 			parent::executeImpl(  $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser );
 		}
 
-		// create widget code for the new hshow
-		$hshow = $this->getMsg ( "hshow" );
-		$hshow_id = $hshow->id;
+		// create widget code for the new kshow
+		$kshow = $this->getMsg ( "kshow" );
+		$kshow_id = $kshow->id;
 
-		list ($genericWidget, $myspaceWidget) = myHshowUtils::getEmbedPlayerUrl ($hshow_id,null , false , "" );
+		list ($genericWidget, $myspaceWidget) = myKshowUtils::getEmbedPlayerUrl ($kshow_id,null , false , "" );
 		$code = array ( "generic_code" => $genericWidget , "myspace_code" => $myspaceWidget );
 		$this->addMsg ( "widget_code" , $code );
 

@@ -71,7 +71,7 @@ class kuserTableMap extends TableMap {
 		$this->addColumn('FANS', 'Fans', 'INTEGER', false, null, 0);
 		$this->addColumn('ENTRIES', 'Entries', 'INTEGER', false, null, 0);
 		$this->addColumn('STORAGE_SIZE', 'StorageSize', 'INTEGER', false, null, 0);
-		$this->addColumn('PRODUCED_HSHOWS', 'ProducedHshows', 'INTEGER', false, null, 0);
+		$this->addColumn('PRODUCED_KSHOWS', 'ProducedKshows', 'INTEGER', false, null, 0);
 		$this->addColumn('STATUS', 'Status', 'INTEGER', false, null, null);
 		$this->addColumn('CREATED_AT', 'CreatedAt', 'TIMESTAMP', false, null, null);
 		$this->addColumn('UPDATED_AT', 'UpdatedAt', 'TIMESTAMP', false, null, null);
@@ -92,12 +92,12 @@ class kuserTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('hshow', 'hshow', RelationMap::ONE_TO_MANY, array('id' => 'producer_id', ), null, null);
+    $this->addRelation('kshow', 'kshow', RelationMap::ONE_TO_MANY, array('id' => 'producer_id', ), null, null);
     $this->addRelation('entry', 'entry', RelationMap::ONE_TO_MANY, array('id' => 'kuser_id', ), null, null);
     $this->addRelation('comment', 'comment', RelationMap::ONE_TO_MANY, array('id' => 'kuser_id', ), null, null);
     $this->addRelation('flag', 'flag', RelationMap::ONE_TO_MANY, array('id' => 'kuser_id', ), null, null);
     $this->addRelation('favorite', 'favorite', RelationMap::ONE_TO_MANY, array('id' => 'kuser_id', ), null, null);
-    $this->addRelation('HshowKuser', 'HshowKuser', RelationMap::ONE_TO_MANY, array('id' => 'kuser_id', ), null, null);
+    $this->addRelation('KshowKuser', 'KshowKuser', RelationMap::ONE_TO_MANY, array('id' => 'kuser_id', ), null, null);
     $this->addRelation('PuserKuser', 'PuserKuser', RelationMap::ONE_TO_MANY, array('id' => 'kuser_id', ), null, null);
     $this->addRelation('Partner', 'Partner', RelationMap::ONE_TO_MANY, array('id' => 'anonymous_kuser_id', ), null, null);
     $this->addRelation('moderation', 'moderation', RelationMap::ONE_TO_MANY, array('id' => 'kuser_id', ), null, null);

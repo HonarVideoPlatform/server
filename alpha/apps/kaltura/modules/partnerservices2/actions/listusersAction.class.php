@@ -47,7 +47,7 @@ class listusersAction extends defPartnerservices2Action
 		$extra_fields = array();
 		if ($detailed)
 		{
-			$extra_fields = array ( "country" , "state" , "city"  , "zip" , "urlList" , "networkHighschool" , "networkCollege" , "views" , "fans" , "entries" , "producedHshows" );
+			$extra_fields = array ( "country" , "state" , "city"  , "zip" , "urlList" , "networkHighschool" , "networkCollege" , "views" , "fans" , "entries" , "producedKshows" );
 		}
 		$level = objectWrapperBase::DETAIL_LEVEL_REGULAR;
 		

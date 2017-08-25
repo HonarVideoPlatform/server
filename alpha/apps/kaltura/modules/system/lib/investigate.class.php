@@ -54,12 +54,12 @@ class investigate
 		"4" => "ENTRY_BLOCK",
 		"5" => "ENTRY_UPDATE",
 		"6" => "ENTRY_UPDATE_THUMBNAIL",
-		"11" => "HSHOW_ADD",
-		"12" => "HSHOW_UPDATE_INFO",
-		"13" => "HSHOW_DELETE",
-		"14" => "HSHOW_UPDATE_PERMISSIONS",
-		"15" => "HSHOW_RANK",
-		"16" => "HSHOW_BLOCK");
+		"11" => "KSHOW_ADD",
+		"12" => "KSHOW_UPDATE_INFO",
+		"13" => "KSHOW_DELETE",
+		"14" => "KSHOW_UPDATE_PERMISSIONS",
+		"15" => "KSHOW_RANK",
+		"16" => "KSHOW_BLOCK");
 	
 	private static $not_result_texts = array(
 		"0" => "OK", 
@@ -236,7 +236,7 @@ class investigate
 			"<td width='50px'>Tags</td>" . 
 			"<td width='50px'>Admin tags</td>" .
 			"<td title='plays / views'>P/V</td>".
-			"<td width='50px'>Hshow Id</td>".
+			"<td width='50px'>Kshow Id</td>".
 			"<td>Kuser Id</td>".
 			"<td title='" . self::printEntryStatusStr() . "'>Status</td>".
 			"<td title='" . self::printEntryTypeStr() . "'>Type</td>".
@@ -260,21 +260,21 @@ class investigate
 	}
 	
 	
-	public static function printEntry ( $entry , $create_link = false , $hshow = null , $text = null )
+	public static function printEntry ( $entry , $create_link = false , $kshow = null , $text = null )
 	{
 		if ( $entry === NULL )	{	return ""; 	}
 		
-		if ( $hshow != null )
+		if ( $kshow != null )
 		{
 			if ( $entry instanceof entry )
 			{
-				$entry->setHshow ( $hshow );
+				$entry->setKshow ( $kshow );
 			}
 			else if ( $entry instanceof genericObjectWrapper ) 
 			{
-				$entry->getWrappedObj()->setHshow ( $hshow );
+				$entry->getWrappedObj()->setKshow ( $kshow );
 			}
-			//$entry->setHshowId ( $hshow->getId() );
+			//$entry->setKshowId ( $kshow->getId() );
 		}
 		
 		if ( $entry instanceof entry )
@@ -282,7 +282,7 @@ class investigate
 		
 		$id_partner_id = $entry->id . "(" . $entry->partnerId . ")<br>" . $entry->intId;
 			
-		$hshow_name = (  $entry->hshow ? $entry->hshow->name : "" );
+		$kshow_name = (  $entry->kshow ? $entry->kshow->name : "" );
 		
 		$thumb_url = $entry->thumbnailUrl; 
 		$str = "" .
@@ -293,7 +293,7 @@ class investigate
 			'<td>' . htmlentities( $entry->Tags , ENT_COMPAT  , "UTF-8" ). ' </td>'.
 			'<td>' . htmlentities( $entry->AdminTags , ENT_COMPAT  , "UTF-8" ). ' </td>'.
 			'<td>' . "p:" . $entry->plays . "<br>v: " . $entry->views . ' </td>'.
-			'<td >' . "<a href='" . url_for ( "/system" ) . "/investigate?hshow_id=" . $entry->HshowId  . "'>" . $entry->HshowId . " , " . $hshow_name . '</a></td>' .
+			'<td >' . "<a href='" . url_for ( "/system" ) . "/investigate?kshow_id=" . $entry->KshowId  . "'>" . $entry->KshowId . " , " . $kshow_name . '</a></td>' .
 			'<td>' . $entry->KuserId . ", " . ( $entry->kuser ? $entry->kuser->screenName : "" ). '</td>'.
 			'<td style="background-color:' . self::entryStatusColor ( $entry->Status) . '">' . self::formatEntryStatus ( $entry->Status ) . '</td>'.
 			'<td>' . self::formatEntryType(  $entry->type  ) . '</td>'.
@@ -562,7 +562,7 @@ file_sizeint(11)
 		return $trs;		
 	}	
 	
-	public static function printHshowHeader (  )
+	public static function printKshowHeader (  )
 	{
 		$str = "<tr><td>Id(pid)</td>" .
 			"<td>Name</td>" . 
@@ -589,36 +589,36 @@ file_sizeint(11)
 		return $str;
 	}	
 	
-	public static function printHshow ( $hshow )
+	public static function printKshow ( $kshow )
 	{
-		if ( $hshow === NULL )	{	return ""; 	}
+		if ( $kshow === NULL )	{	return ""; 	}
 		
-		if ( $hshow instanceof hshow )
-			$hshow = new genericObjectWrapper ( $hshow  , true );
+		if ( $kshow instanceof kshow )
+			$kshow = new genericObjectWrapper ( $kshow  , true );
 			
-		$id_partner_id = $hshow->id . "(" . $hshow->partnerId . ")";
+		$id_partner_id = $kshow->id . "(" . $kshow->partnerId . ")";
 			
 		$str = "" .
 			"<td>" . $id_partner_id . "</td>".
-			"<td>" . $hshow->name . "</td>" . 
-			"<td>" . $hshow->producerId . "</td>".
-			"<td>" . htmlentities( $hshow->tags ). "</td>".
-			"<td>" . self::formatEntryType( $hshow->type ). "</td>".
-			"<td>" . $hshow->mediaType . "</td>".
-			'<td><img width="100" height="80"	src="' . $hshow->ThumbnailPath . '"></td>'.
-			"<td>" . $hshow->status . "</td>" .
-			"<td>" . $hshow->views . "</td>".	
-			"<td>" . $hshow->votes . "</td>".
-			"<td>" . $hshow->comments . "</td>".
-			"<td>" . $hshow->favorites . "</td>".
-			"<td>@@" . $hshow->rank . "</td>".
-			"<td>" . $hshow->entries . "</td>".
-			"<td>" . $hshow->lengthInMsecs . "</td>".
-			"<td>" . $hshow->viewPermissions . "(" . $hshow->viewPassword . ")</td>".
-			"<td>" . $hshow->contribPermissions . "(" . $hshow->contribPassword . ")</td>".
-			"<td>" . $hshow->editPermissions . "(" . $hshow->editPassword . ")</td>".
-			"<td>" . $hshow->createdAt . "</td>".
-			"<td>" . $hshow->updatedAt . "</td>";
+			"<td>" . $kshow->name . "</td>" . 
+			"<td>" . $kshow->producerId . "</td>".
+			"<td>" . htmlentities( $kshow->tags ). "</td>".
+			"<td>" . self::formatEntryType( $kshow->type ). "</td>".
+			"<td>" . $kshow->mediaType . "</td>".
+			'<td><img width="100" height="80"	src="' . $kshow->ThumbnailPath . '"></td>'.
+			"<td>" . $kshow->status . "</td>" .
+			"<td>" . $kshow->views . "</td>".	
+			"<td>" . $kshow->votes . "</td>".
+			"<td>" . $kshow->comments . "</td>".
+			"<td>" . $kshow->favorites . "</td>".
+			"<td>@@" . $kshow->rank . "</td>".
+			"<td>" . $kshow->entries . "</td>".
+			"<td>" . $kshow->lengthInMsecs . "</td>".
+			"<td>" . $kshow->viewPermissions . "(" . $kshow->viewPassword . ")</td>".
+			"<td>" . $kshow->contribPermissions . "(" . $kshow->contribPassword . ")</td>".
+			"<td>" . $kshow->editPermissions . "(" . $kshow->editPassword . ")</td>".
+			"<td>" . $kshow->createdAt . "</td>".
+			"<td>" . $kshow->updatedAt . "</td>";
 		
 		return $str;
 	}	

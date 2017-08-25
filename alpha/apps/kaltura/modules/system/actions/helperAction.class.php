@@ -98,15 +98,15 @@ class helperAction extends kalturaSystemAction
 				return "";
 			}
 /*			$kwid = new kwid();
-			list ( $kwid->hshow_id , $kwid->partner_id , $kwid->subp_id ,$kwid->article_name  ,$kwid->widget_id , $kwid->hash  ) =
+			list ( $kwid->kshow_id , $kwid->partner_id , $kwid->subp_id ,$kwid->article_name  ,$kwid->widget_id , $kwid->hash  ) =
 				 @explode ( self::KWID_SEPARATOR , $str );
 */
 			$cracked = @explode ( "|" , $kwid_str );
-			$names = array ( "hshow_id" , "partner_id" , "subp_id" , "article_name" , "widget_id" , "hash" );
+			$names = array ( "kshow_id" , "partner_id" , "subp_id" , "article_name" , "widget_id" , "hash" );
 			$combined = array_combine( $names , $cracked );
 			
 			$secret = $this->getP ( "secret" );
-			$md5 = md5 ( $combined["hshow_id"]  . $combined["partner_id"]  . $combined["subp_id"] . $combined["article_name"] . 
+			$md5 = md5 ( $combined["kshow_id"]  . $combined["partner_id"]  . $combined["subp_id"] . $combined["article_name"] . 
 				$combined["widget_id"] .  $secret );
 				
 			$combined["secret"] = $secret;

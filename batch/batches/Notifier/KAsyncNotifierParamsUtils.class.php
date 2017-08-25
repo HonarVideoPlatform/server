@@ -20,8 +20,8 @@ class KAsyncNotifierParamsUtils
 			case KalturaNotificationObjectType::ENTRY:
 				$params["entry_id"] = $data->objectId;
 				break;
-			case KalturaNotificationObjectType::HSHOW:
-				$params["hshow_id"] = $data->objectId;
+			case KalturaNotificationObjectType::KSHOW:
+				$params["kshow_id"] = $data->objectId;
 				break;
 			case KalturaNotificationObjectType::BATCH_JOB:
 				$params["job_id"] = $data->objectId;

@@ -9,13 +9,13 @@ require_once 'addmoderationAction.class.php';
  * @package api
  * @subpackage ps2
  */
-class reporthshowAction extends addmoderationAction
+class reportkshowAction extends addmoderationAction
 {
 	public function describe()
 	{
 		return 
 			array (
-				"display_name" => "reportHShow",
+				"display_name" => "reportKShow",
 				"desc" => "" ,
 				"in" => array (
 					"mandatory" => array ( 
@@ -38,7 +38,7 @@ class reporthshowAction extends addmoderationAction
 	
 	protected function fixModeration  ( moderation &$moderation ) 	
 	{
-		$moderation->setObjectType( moderation::MODERATION_OBJECT_TYPE_HSHOW );
+		$moderation->setObjectType( moderation::MODERATION_OBJECT_TYPE_KSHOW );
 	}
 
 	// TODO - remove when decide to support

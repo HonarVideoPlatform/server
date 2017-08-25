@@ -6,7 +6,7 @@
 	<tr>
 		<td>Id</td>
 		<td>Name</td>
-		<td>Hshow Id</td>
+		<td>Kshow Id</td>
 		<td>Kuser Id</td>
 		<td>Status</td>
 		<td>Type</td>

@@ -433,7 +433,7 @@ return array(
 	'entry-investigate info entry tags label' => 'Tags',
 	'entry-investigate info entry admin tags label' => 'Admin Tags',
 	'entry-investigate info entry pv label' => 'P/V',
-	'entry-investigate info entry hshow id label' => 'Hshow ID',
+	'entry-investigate info entry kshow id label' => 'Kshow ID',
 	'entry-investigate info entry kuser id label' => 'Kuser ID',
 	'entry-investigate info entry status label' => 'Status',
 	'entry-investigate info entry type label' => 'Type',

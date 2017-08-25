@@ -36,7 +36,7 @@ function firstPage($text, $pagerHtml, $user_id , $partner_id)
 	$KUSER_SORT_GENDER = kuser::KUSER_SORT_GENDER;
 	$KUSER_SORT_MOST_FANS = kuser::KUSER_SORT_MOST_FANS;
 	$KUSER_SORT_MOST_ENTRIES = kuser::KUSER_SORT_MOST_ENTRIES;
-	$KUSER_SORT_PRODUCED_HSHOWS = kuser::KUSER_SORT_PRODUCED_HSHOWS;
+	$KUSER_SORT_PRODUCED_KSHOWS = kuser::KUSER_SORT_PRODUCED_KSHOWS;
 	
 	$options = dashboardUtils::partnerOptions ( $partner_id );
 	
@@ -76,7 +76,7 @@ jQuery(document).ready(function(){
 								<td class="date" onclick='changeMediaSortOrder(this, $KUSER_SORT_MOST_RECENT)'><span>Created</span></td>
 								<td class="views color2" onclick='changeMediaSortOrder(this, $KUSER_SORT_MOST_VIEWED)'><span>Views</span></td>
 								<td class="views" onclick='changeMediaSortOrder(this, $KUSER_SORT_MOST_FANS)'><span>Fans</span></td>
-								<td class="views" onclick='changeMediaSortOrder(this, $KUSER_SORT_PRODUCED_HSHOWS)'><span>Shows</span></td>
+								<td class="views" onclick='changeMediaSortOrder(this, $KUSER_SORT_PRODUCED_KSHOWS)'><span>Shows</span></td>
 								<td class="date" style="width: 25px; cursor:default;">RC</td>
 								<td class="views" onclick='changeMediaSortOrder(this, $KUSER_SORT_MOST_ENTRIES)'><span>Entries</span></td>
 								<td class="action" >Action</td>

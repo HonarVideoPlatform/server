@@ -174,7 +174,7 @@ while(!feof($f))
 	// once flushed to disk - the api_event is removed from the array.
 	
 
-	// 125965956955.03, Dec 01 04:26:09 symfony [info] {sfRequest} request parameters array (  'entry_id' => '-1',  'hshow_id' => '292688',  'kdata' => 'YTo0OntzOjQ6ImJhc2UiO3M6MzQ6Imh0dHA6Ly93aWtpZWR1Y2F0b3Iub3JnL2luZGV4LnBocC8iO3M6MzoiYWRkIjtzOjQ5OiJTcGVjaWFsOkthbHR1cmFDb250cmlidXRpb25XaXphcmQ|02a3Nob3dfaWQ9MjkyNjg4IjtzOjQ6ImVkaXQiO3M6NDI6IlNwZWNpYWw6S2FsdHVyYVZpZGVvRWRpdG9yP2tzaG93X2lkPTI5MjY4OCI7czo1OiJzaGFyZSI7czo0NzoiaHR0cDovL3dpa2llZHVjYXRvci5vcmcvTGVzc29uXzg6X0Zvb2RfU3BvaWxhZ2UiO30=',  'referer' => 'http://wikieducator.org/Lesson_8:_Food_Spoilage',  'widget_type' => '3',  'module' => 'keditorservices',  'action' => 'getEntryInfo',)
+	// 125965956955.03, Dec 01 04:26:09 symfony [info] {sfRequest} request parameters array (  'entry_id' => '-1',  'kshow_id' => '292688',  'kdata' => 'YTo0OntzOjQ6ImJhc2UiO3M6MzQ6Imh0dHA6Ly93aWtpZWR1Y2F0b3Iub3JnL2luZGV4LnBocC8iO3M6MzoiYWRkIjtzOjQ5OiJTcGVjaWFsOkthbHR1cmFDb250cmlidXRpb25XaXphcmQ|02a3Nob3dfaWQ9MjkyNjg4IjtzOjQ6ImVkaXQiO3M6NDI6IlNwZWNpYWw6S2FsdHVyYVZpZGVvRWRpdG9yP2tzaG93X2lkPTI5MjY4OCI7czo1OiJzaGFyZSI7czo0NzoiaHR0cDovL3dpa2llZHVjYXRvci5vcmcvTGVzc29uXzg6X0Zvb2RfU3BvaWxhZ2UiO30=',  'referer' => 'http://wikieducator.org/Lesson_8:_Food_Spoilage',  'widget_type' => '3',  'module' => 'keditorservices',  'action' => 'getEntryInfo',)
 	// 2009-11-30 07:52:11
 	if ( preg_match ( "/([\d\.]*), ([a-zA-Z\d\- \:]*) symfony.*request parameters (.*)/" , $s , $matches ) )
 	{

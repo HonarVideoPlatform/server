@@ -21,10 +21,10 @@
 		array ( "request1_detailed" , "" , "1" ),
 		array ( "request1_entry_id" , "" , "30" , "" ) ,
 		array ( "request1_version" , "" , "34" , "-1" ) ,
-		array ( "request2_service" , "" , "15" , "gethshow" ) ,
-		array ( "request2_hshow_id" , "" , "30" , "{response1.result.entry.hshowId}" ) ,			
+		array ( "request2_service" , "" , "15" , "getkshow" ) ,
+		array ( "request2_kshow_id" , "" , "30" , "{response1.result.entry.kshowId}" ) ,			
 		array ( "request3_service" , "" , "15" , "getallentries" ) ,
-		array ( "request3_hshow_id" , "" , "30" , "{response2.result.hshow.id}" ) ,
+		array ( "request3_kshow_id" , "" , "30" , "{response2.result.kshow.id}" ) ,
 		array ( "request3_entry_typee" , "" , "40" , "{response1.result.entry.type}" ) ,
 		array ( "request3_list_type" , "" , "40" , "4" ) ,
 	);

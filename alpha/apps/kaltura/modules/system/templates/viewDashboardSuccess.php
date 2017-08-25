@@ -6,7 +6,7 @@ function retrieveSubject( $type, $id )
 {
 	switch( $type )
 	{
-		case flag::SUBJECT_TYPE_ENTRY: { $entry = entryPeer::retrieveByPK( $id ); return 'entry id:'.$id.'<br/>hshow:'.returnHshowLink($entry->getHshowId()).'<br/>Name:'.$entry->getName(); }
+		case flag::SUBJECT_TYPE_ENTRY: { $entry = entryPeer::retrieveByPK( $id ); return 'entry id:'.$id.'<br/>kshow:'.returnKshowLink($entry->getKshowId()).'<br/>Name:'.$entry->getName(); }
 		case flag::SUBJECT_TYPE_USER: { $user = kuserPeer::retrieveByPK( $id ); return returnUserLink( $user->getScreenName()); }
 		case flag::SUBJECT_TYPE_COMMENT: { $comment = commentPeer::retrieveByPK( $id ); return 'comment id:'.$id.'<br/>Commnet:'.$comment->getComment(); }
 		default: return 'Unknown';
@@ -18,27 +18,27 @@ function returnUserLink( $username )
 	return "<a href='/index.php/mykaltura/viewprofile?screenname=".$username."'>".$username."</a>";
 }
 
-function returnEntryLink( $hshow_id, $entry_id )
+function returnEntryLink( $kshow_id, $entry_id )
 {
-	return "<a href='/index.php/browse?hshow_id=".$hshow_id."&entry_id=".$entry_id."'>".$entry_id."</a>";
+	return "<a href='/index.php/browse?kshow_id=".$kshow_id."&entry_id=".$entry_id."'>".$entry_id."</a>";
 }
 
-function returnHshowLink( $hshow_id )
+function returnKshowLink( $kshow_id )
 {
-	return "<a href='/index.php/browse?hshow_id=".$hshow_id."'>".$hshow_id."</a>";
+	return "<a href='/index.php/browse?kshow_id=".$kshow_id."'>".$kshow_id."</a>";
 }
 
-function returnShowThumbnailLink( $path, $hshow_id )
+function returnShowThumbnailLink( $path, $kshow_id )
 {
-	return "<a href='/index.php/browse?hshow_id=".$hshow_id."'><img width='50' src='".$path."' /></a>";
+	return "<a href='/index.php/browse?kshow_id=".$kshow_id."'><img width='50' src='".$path."' /></a>";
 }
 
-function returnEntryThumbnailLink( $hshow_id, $path, $entry_id, $media_type )
+function returnEntryThumbnailLink( $kshow_id, $path, $entry_id, $media_type )
 {
 	if ($media_type == entry::ENTRY_MEDIA_TYPE_AUDIO)
 		$path = "/images/main/ico_sound.gif";
 		
-	return "<a href='/index.php/browse?".$hshow_id."&entry_id=".$entry_id."'><img width='50' src='".$path."' /></a>";
+	return "<a href='/index.php/browse?".$kshow_id."&entry_id=".$entry_id."'><img width='50' src='".$path."' /></a>";
 }
 
 function returnUserThumbnailLink( $path, $screenname )
@@ -69,7 +69,7 @@ echo '<h1>Kaltura System Dashboard</h1><p>Updated: '.date("D M j G:i:s T Y").'</
 echo '<h2>Summary</h2>';
 echo '<TABLE border="1" cellspacing="2" cellpadding="10" bgcolor="#efefef" >';
 echo '<TR bgcolor="#eee"><TD>Type</TD><TD>Total accumulated nubmer</TD><TD>Created during the last 7 days</TD><TD>Created during the last 24 hours</TD></TR>';
-echo '<TR><TD><a href="#shows">Shows</a></TD><TD>'.$hshow_count.'</TD><TD>'.$hshow_count7.'</TD><TD>'.$hshow_count1.'</TD></TR>';
+echo '<TR><TD><a href="#shows">Shows</a></TD><TD>'.$kshow_count.'</TD><TD>'.$kshow_count7.'</TD><TD>'.$kshow_count1.'</TD></TR>';
 echo '<TR><TD><a href="#entries">Entries</a></TD><TD>'.$entry_count.'</TD><TD>'.$entry_count7.'</TD><TD>'.$entry_count1.'</TD></TR>';
 echo '<TR><TD><a href="#users">Users</a></TD><TD>'.$kuser_count.'</TD><TD>'.$kuser_count7.'</TD><TD>'.$kuser_count1.'</TD></TR>';
 echo '</TABLE>';
@@ -78,21 +78,21 @@ echo '<a name="shows"></a>';
 $flip = 1;
 echo '<h2>Recently created shows</h2>'; 
 echo '<TABLE border="1" cellspacing="2" cellpadding="10">';
-if( !$hshows ) echo '<h1>No shows found</h1>';
+if( !$kshows ) echo '<h1>No shows found</h1>';
 	else 
 	{
 	echo '<TR><TD>ID</TD><TD>Thumbnail</TD><TD>Created</TD><TD>Produer</TD><TD>Data</TD><TD >Name</TD><TD width="40%">Description</TD></TR>';
-		foreach ( $hshows as $hshow )
+		foreach ( $kshows as $kshow )
 		{
 			$flip = $flip * -1;
 			echo '<TR '.( $flip > 0 ? 'bgcolor="#eee"' : 'bgcolor="#ddd"').'>'.	
-			'<TD>'.returnHshowLink( $hshow->getId()).'</TD>'.
-			'<TD>'.returnShowThumbnailLink( $hshow->getThumbnailPath(), $hshow->getId() ).'</TD>'.
-			'<TD>'.$hshow->getFormattedCreatedAt().'</TD>'.
-			'<TD>'.returnUserLink( $hshow->getkuser()->getScreenName()).'</TD>'.
-			'<TD>'.$hshow->getTypeText().'<br/>Views:'.$hshow->getViews().'<br/>Entries:'.( $hshow->getEntries() - 1 ) .'</TD>'.
-			'<TD>'.$hshow->getName().'</TD>'.
-			'<TD>'.$hshow->getDescription().'</TD>'.
+			'<TD>'.returnKshowLink( $kshow->getId()).'</TD>'.
+			'<TD>'.returnShowThumbnailLink( $kshow->getThumbnailPath(), $kshow->getId() ).'</TD>'.
+			'<TD>'.$kshow->getFormattedCreatedAt().'</TD>'.
+			'<TD>'.returnUserLink( $kshow->getkuser()->getScreenName()).'</TD>'.
+			'<TD>'.$kshow->getTypeText().'<br/>Views:'.$kshow->getViews().'<br/>Entries:'.( $kshow->getEntries() - 1 ) .'</TD>'.
+			'<TD>'.$kshow->getName().'</TD>'.
+			'<TD>'.$kshow->getDescription().'</TD>'.
 			
 			'</TR>';
 		}
@@ -108,16 +108,16 @@ if( !$entries ) echo '<h3>No entries found</h3>';
 	echo '<TR><TD>ID</TD><TD>Thumbnail</TD><TD>Created</TD><TD>Contributor</TD><TD>Media Type</TD><TD >Name</TD><TD width="40%">Part of kaltura</TD></TR>';
 		foreach ( $entries as $entry )
 		{
-			$hshow = $entry->gethshow();
+			$kshow = $entry->getkshow();
 			$flip = $flip * -1;
 			echo '<TR '.( $flip > 0 ? 'bgcolor="#eee"' : 'bgcolor="#ddd"').'>'.	
-			'<TD>'.returnEntryLink( $hshow->getId(), $entry->getId()).'</TD>'.
-			'<TD>'.returnEntryThumbnailLink( $hshow->getId(),$entry->getThumbnailPath(), $entry->getId(), $entry->getMediaType() ).'</TD>'.
+			'<TD>'.returnEntryLink( $kshow->getId(), $entry->getId()).'</TD>'.
+			'<TD>'.returnEntryThumbnailLink( $kshow->getId(),$entry->getThumbnailPath(), $entry->getId(), $entry->getMediaType() ).'</TD>'.
 			'<TD>'.$entry->getFormattedCreatedAt().'</TD>'.
 			'<TD>'.returnUserLink( $entry->getkuser()->getScreenName()).'</TD>'.
 			'<TD>'.getEntryTypeText($entry->getMediaType()).'</TD>'.
 			'<TD>'.$entry->getName().'</TD>'.
-			'<TD>'.returnShowThumbnailLink( $hshow->getThumbnailPath(), $hshow->getId() ).' '.$hshow->getName().'</TD>'.
+			'<TD>'.returnShowThumbnailLink( $kshow->getThumbnailPath(), $kshow->getId() ).' '.$kshow->getName().'</TD>'.
 			'</TR>';
 		}
 	}

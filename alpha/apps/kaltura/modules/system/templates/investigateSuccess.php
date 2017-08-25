@@ -130,9 +130,9 @@ function showElem ( elem )
 <form action="./investigate">
 	Entry Id: <input type="text" name="entry_id" value="<?php echo $entry_id ?>">
 	
-	Hshow Id: <input type="text" name="hshow_id" value="<?php echo $hshow_id ?>">
+	Kshow Id: <input type="text" name="kshow_id" value="<?php echo $kshow_id ?>">
 	
-	<a href="./editPending?hshow_id=<?php echo $hshow_id ?>&entry_id=<?php echo $entry_id ?>">editPending</a>
+	<a href="./editPending?kshow_id=<?php echo $kshow_id ?>&entry_id=<?php echo $entry_id ?>">editPending</a>
 <br>	
 <input type="submit" id="Go" name="Go" value="Go"/>
 Fast <input type="checkbox" name="fast" <?php echo  $fast ? "checked='checked'" : "" ?>>
@@ -140,27 +140,27 @@ Fast <input type="checkbox" name="fast" <?php echo  $fast ? "checked='checked'" 
 
 
 <?php 
-if ( $hshow ) { ?>
-Hshow:
+if ( $kshow ) { ?>
+Kshow:
 <br>
 
-<table border=1 cellspacing=0	<?php echo investigate::printHshowHeader() . " " . investigate::printHshow( $hshow ) ?>></table>
+<table border=1 cellspacing=0	<?php echo investigate::printKshowHeader() . " " . investigate::printKshow( $kshow ) ?>></table>
 
 <br>
 <table border=1 cellspacing=0	>
 	<?php echo investigate::printEntryHeader() . " " 
-		 . investigate::printEntry ( $hshow_original->getShowEntry() , true  , $hshow_original , "RC") 
-		 . investigate::printEntry ( $hshow_original->getIntro() , true  , $hshow_original  , "INTRO") 
-		 . investigate::printEntry ( $bg_entry , true  , $hshow_original , "BG" ) ;
+		 . investigate::printEntry ( $kshow_original->getShowEntry() , true  , $kshow_original , "RC") 
+		 . investigate::printEntry ( $kshow_original->getIntro() , true  , $kshow_original  , "INTRO") 
+		 . investigate::printEntry ( $bg_entry , true  , $kshow_original , "BG" ) ;
 	?>
 
 <?php
 
-if ( $hshow_entries )
+if ( $kshow_entries )
 {
-	foreach ( $hshow_entries as $entry )
+	foreach ( $kshow_entries as $entry )
 	{
-		echo ( investigate::printEntry ( $entry , true , $hshow_original ) );
+		echo ( investigate::printEntry ( $entry , true , $kshow_original ) );
 	}
 }	
 ?>

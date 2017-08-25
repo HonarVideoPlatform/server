@@ -69,7 +69,7 @@ class PlaylistService extends KalturaEntryService
 		
 		$dbPlaylist->setPartnerId ( $this->getPartnerId() );
 		$dbPlaylist->setStatus ( entryStatus::READY );
-		$dbPlaylist->setHshowId ( null ); // this is brave !!
+		$dbPlaylist->setKshowId ( null ); // this is brave !!
 		$dbPlaylist->setType ( entryType::PLAYLIST );
 		
 		myPlaylistUtils::validatePlaylist( $dbPlaylist );

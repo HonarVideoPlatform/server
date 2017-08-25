@@ -43,7 +43,7 @@ class widgetTableMap extends TableMap {
 		$this->addColumn('ROOT_WIDGET_ID', 'RootWidgetId', 'VARCHAR', false, 32, null);
 		$this->addColumn('PARTNER_ID', 'PartnerId', 'INTEGER', false, null, null);
 		$this->addColumn('SUBP_ID', 'SubpId', 'INTEGER', false, null, null);
-		$this->addForeignKey('HSHOW_ID', 'HshowId', 'VARCHAR', 'hshow', 'ID', false, 20, null);
+		$this->addForeignKey('KSHOW_ID', 'KshowId', 'VARCHAR', 'kshow', 'ID', false, 20, null);
 		$this->addForeignKey('ENTRY_ID', 'EntryId', 'VARCHAR', 'entry', 'ID', false, 20, null);
 		$this->addForeignKey('UI_CONF_ID', 'UiConfId', 'INTEGER', 'ui_conf', 'ID', false, null, null);
 		$this->addColumn('CUSTOM_DATA', 'CustomData', 'VARCHAR', false, 1024, null);
@@ -60,7 +60,7 @@ class widgetTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('hshow', 'hshow', RelationMap::MANY_TO_ONE, array('hshow_id' => 'id', ), null, null);
+    $this->addRelation('kshow', 'kshow', RelationMap::MANY_TO_ONE, array('kshow_id' => 'id', ), null, null);
     $this->addRelation('entry', 'entry', RelationMap::MANY_TO_ONE, array('entry_id' => 'id', ), null, null);
     $this->addRelation('uiConf', 'uiConf', RelationMap::MANY_TO_ONE, array('ui_conf_id' => 'id', ), null, null);
 	} // buildRelations()

@@ -278,7 +278,7 @@
 		<changefreq>monthly</changefreq>
 	</url>
 	<url>
-		<loc>http://www.kaltura.com/index.php/browse?hshow_id=99428</loc>
+		<loc>http://www.kaltura.com/index.php/browse?kshow_id=99428</loc>
 		<lastmod>2008-05-29</lastmod>
 		<changefreq>monthly</changefreq>
 	</url>
@@ -399,7 +399,7 @@
 		<changefreq>monthly</changefreq>
 	</url>
 	<url>
-		<loc>http://www.kaltura.com/sampleImplementation/starthshow.php</loc>
+		<loc>http://www.kaltura.com/sampleImplementation/startkshow.php</loc>
 		<lastmod>2008-05-29</lastmod>
 		<changefreq>monthly</changefreq>
 	</url>

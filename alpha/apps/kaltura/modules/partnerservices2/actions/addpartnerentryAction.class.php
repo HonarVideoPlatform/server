@@ -16,10 +16,10 @@ class addpartnerentryAction extends addentryAction
         return
             array(
                 "display_name" => "addPartnerEntry",
-                "desc" => "Add entry to a hshow - the entry will belong to the partner NOT a user" ,
+                "desc" => "Add entry to a kshow - the entry will belong to the partner NOT a user" ,
                 "in" => array(
                     "mandatory" => array(
-                        "hshow_id" => array("type" => "string", "desc" => "Add the entry to thie hshow"),
+                        "kshow_id" => array("type" => "string", "desc" => "Add the entry to thie kshow"),
                         "entry" => array("type" => "entry", "desc" => "Description of entry object"),
                         // TODO: HOW TO DESCRIBE MULTIPLE ENTRIES?
             /*
@@ -44,7 +44,7 @@ class addpartnerentryAction extends addentryAction
                     "ks" => array("type" => "string", "desc" => "Kaltura Session - a token used as an input for the rest of the services") ,
                     ),
                 "errors" => array (
-                    APIErrors::INVALID_HSHOW_ID,
+                    APIErrors::INVALID_KSHOW_ID,
                     APIErrors::INVALID_ENTRY_ID,
                     APIErrors::NO_ENTRIES_ADDED,
                     APIErrors::UNKNOWN_MEDIA_SOURCE,

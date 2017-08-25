@@ -26,7 +26,7 @@ class objdetailsAction extends defPartnerservices2Action
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
 		$clazz_name = $this->getP ( "clazz" );
-		if ( $clazz_name == "hshow" ) $obj = new hshow();
+		if ( $clazz_name == "kshow" ) $obj = new kshow();
 		else if ( $clazz_name == "kuser" ) $obj = new kuser();
 		else if ( $clazz_name == "entry" ) $obj = new entry();
 		else if ( $clazz_name == "PuserKuser" ) $obj = new PuserKuser();

@@ -2,7 +2,7 @@
 
 
 /**
-* This class defines the structure of the 'hshow_kuser' table.
+ * This class defines the structure of the 'kshow_kuser' table.
  *
  *
  *
@@ -14,12 +14,12 @@
  * @package Core
  * @subpackage model.map
  */
-class HshowKuserTableMap extends TableMap {
+class KshowKuserTableMap extends TableMap {
 
 	/**
 	 * The (dot-path) name of this class
 	 */
-	const CLASS_NAME = 'Core.HshowKuserTableMap';
+	const CLASS_NAME = 'Core.KshowKuserTableMap';
 
 	/**
 	 * Initialize the table attributes, columns and validators
@@ -31,13 +31,13 @@ class HshowKuserTableMap extends TableMap {
 	public function initialize()
 	{
 	  // attributes
-		$this->setName('hshow_kuser');
-		$this->setPhpName('HshowKuser');
-		$this->setClassname('HshowKuser');
+		$this->setName('kshow_kuser');
+		$this->setPhpName('KshowKuser');
+		$this->setClassname('KshowKuser');
 		$this->setPackage('Core');
 		$this->setUseIdGenerator(true);
 		// columns
-		$this->addForeignKey('HSHOW_ID', 'HshowId', 'VARCHAR', 'hshow', 'ID', false, 20, null);
+		$this->addForeignKey('KSHOW_ID', 'KshowId', 'VARCHAR', 'kshow', 'ID', false, 20, null);
 		$this->addForeignKey('KUSER_ID', 'KuserId', 'INTEGER', 'kuser', 'ID', false, null, null);
 		$this->addColumn('SUBSCRIPTION_TYPE', 'SubscriptionType', 'INTEGER', false, null, null);
 		$this->addColumn('ALERT_TYPE', 'AlertType', 'INTEGER', false, null, null);
@@ -50,8 +50,8 @@ class HshowKuserTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('hshow', 'hshow', RelationMap::MANY_TO_ONE, array('hshow_id' => 'id', ), null, null);
+    $this->addRelation('kshow', 'kshow', RelationMap::MANY_TO_ONE, array('kshow_id' => 'id', ), null, null);
     $this->addRelation('kuser', 'kuser', RelationMap::MANY_TO_ONE, array('kuser_id' => 'id', ), null, null);
 	} // buildRelations()
 
-} // HshowKuserTableMap
+} // KshowKuserTableMap

@@ -136,46 +136,46 @@ abstract class kalturaAction extends sfAction
 		return true;
 	}
 
-	protected function forceContribPermissions ( $hshow , $hshow_id , $allow_redirect = true , $full_window = false)
+	protected function forceContribPermissions ( $kshow , $kshow_id , $allow_redirect = true , $full_window = false)
 	{
-		return $this->forcePermissionsImpl ( $hshow ,$hshow_id , self::VERIFICATION_MODE_CONTRIB , $allow_redirect , $full_window );
+		return $this->forcePermissionsImpl ( $kshow ,$kshow_id , self::VERIFICATION_MODE_CONTRIB , $allow_redirect , $full_window );
 	}
 
-	protected function forceEditPermissions ( $hshow ,$hshow_id , $allow_redirect = true , $full_window = false)
+	protected function forceEditPermissions ( $kshow ,$kshow_id , $allow_redirect = true , $full_window = false)
 	{
-		return $this->forcePermissionsImpl ( $hshow ,$hshow_id , self::VERIFICATION_MODE_EDIT , $allow_redirect , $full_window );
+		return $this->forcePermissionsImpl ( $kshow ,$kshow_id , self::VERIFICATION_MODE_EDIT , $allow_redirect , $full_window );
 	}
 
-	protected function forceCustomizePermissions ( $hshow ,$hshow_id , $allow_redirect = true , $full_window = false)
+	protected function forceCustomizePermissions ( $kshow ,$kshow_id , $allow_redirect = true , $full_window = false)
 	{
-		return $this->forcePermissionsImpl ( $hshow ,$hshow_id , self::VERIFICATION_MODE_CUSTOMIZE , $allow_redirect , $full_window );
+		return $this->forcePermissionsImpl ( $kshow ,$kshow_id , self::VERIFICATION_MODE_CUSTOMIZE , $allow_redirect , $full_window );
 	}
 	
-	protected function forceViewPermissions ( $hshow ,$hshow_id , $allow_redirect = true , $full_window = false )
+	protected function forceViewPermissions ( $kshow ,$kshow_id , $allow_redirect = true , $full_window = false )
 	{
-		return $this->forcePermissionsImpl ( $hshow ,$hshow_id , self::VERIFICATION_MODE_VIEW , $allow_redirect , $full_window );
+		return $this->forcePermissionsImpl ( $kshow ,$kshow_id , self::VERIFICATION_MODE_VIEW , $allow_redirect , $full_window );
 	}
 	
 	// if $allow_redirect == true  $full_window can be true too which will cause a page to open and only then open the authentication wizard 
 	// 
-	private function forcePermissionsImpl ( $hshow ,$hshow_id , $verification_mode , $allow_redirect = true , $full_window = false)
+	private function forcePermissionsImpl ( $kshow ,$kshow_id , $verification_mode , $allow_redirect = true , $full_window = false)
 	{	
-		if ( $hshow == NULL )	$hshow = hshowPeer::retrieveByPK( $hshow_id);
-		if ( !$hshow )
+		if ( $kshow == NULL )	$kshow = kshowPeer::retrieveByPK( $kshow_id);
+		if ( !$kshow )
 		{
-			$this->playDead( "This Kaltura is no longer available. (Message No." .$hshow_id.")" );
-			//throw new Exception ( "Cannot force permission for show $hshow_id");
+			$this->playDead( "This Kaltura is no longer available. (Message No." .$kshow_id.")" );
+			//throw new Exception ( "Cannot force permission for show $kshow_id");
 		}
 		
 		$likuser_id = $this->getLoggedInUserId();
 		
 		
 		// if the user is eother the producer or an admin - return true
-		$viewer_type = myHshowUtils::getViewerType($hshow , $likuser_id ) ;
+		$viewer_type = myKshowUtils::getViewerType($kshow , $likuser_id ) ;
 		
-		if ( $viewer_type == HshowKuser::HSHOWKUSER_VIEWER_PRODUCER ) return true;
+		if ( $viewer_type == KshowKuser::KSHOWKUSER_VIEWER_PRODUCER ) return true;
 				
-		$this->setCredentialByName ( "requestHshow" , $hshow_id );
+		$this->setCredentialByName ( "requestKshow" , $kshow_id );
 		$this->setCredentialByName ( "verificationMode" , $verification_mode );
 		
 //		echo ("verificationMode: " .  $this->getCredentialByName ( "verificationMode" ) );
@@ -183,45 +183,45 @@ abstract class kalturaAction extends sfAction
 		if ( $full_window )
 		{
 			// check if all's well - if not - forward
-			$result = $this->forcePermissionsDoCheckOrRedirect( $hshow ,$hshow_id , $verification_mode , false );
+			$result = $this->forcePermissionsDoCheckOrRedirect( $kshow ,$kshow_id , $verification_mode , false );
 			if ( $result )
 				return true;// ALL IS OK !
 			$this->setFlash('vm', $verification_mode);
-			$this->setFlash('hshow_id', $hshow_id);
+			$this->setFlash('kshow_id', $kshow_id);
 			return $this->forward('login','openAuthenticate');
 		}
 		else
 		{
-			return $this->forcePermissionsDoCheckOrRedirect( $hshow ,$hshow_id , $verification_mode , $allow_redirect );
+			return $this->forcePermissionsDoCheckOrRedirect( $kshow ,$kshow_id , $verification_mode , $allow_redirect );
 		}
 	}
 	
-	private function forcePermissionsDoCheckOrRedirect ( $hshow ,$hshow_id , $verification_mode , $allow_redirect = true )
+	private function forcePermissionsDoCheckOrRedirect ( $kshow ,$kshow_id , $verification_mode , $allow_redirect = true )
 	{
-		$this->setCredentialByName ( "requestHshowName" , $hshow->getName() );
+		$this->setCredentialByName ( "requestKshowName" , $kshow->getName() );
 
 		$force_auth = false;
 		if ( $verification_mode == self::VERIFICATION_MODE_CONTRIB )
 		{
-			$permissions = $hshow->getContribPermissions();
-			$pwd = $hshow->getContribPassword();
+			$permissions = $kshow->getContribPermissions();
+			$pwd = $kshow->getContribPassword();
 		}
 		else if ( $verification_mode == self::VERIFICATION_MODE_EDIT  )
 		{
-			$permissions = $hshow->getEditPermissions ();
-			$pwd = $hshow->getEditPassword();
+			$permissions = $kshow->getEditPermissions ();
+			$pwd = $kshow->getEditPassword();
 			// in this case - force authentication when not for everyone 
 			$force_auth = true;
 		}
 		else if ( $verification_mode == self::VERIFICATION_MODE_VIEW  )
 		{
-			$permissions = $hshow->getViewPermissions ();
-			$pwd = $hshow->getViewPassword();
+			$permissions = $kshow->getViewPermissions ();
+			$pwd = $kshow->getViewPassword();
 		}
 		else if ( $verification_mode == self::VERIFICATION_MODE_CUSTOMIZE  )
 		{
 			// only the producer can customize
-			if ( ! $this->isProducer( $hshow ) )
+			if ( ! $this->isProducer( $kshow ) )
 			{
 				$this->playDead( NULL );
 			}
@@ -232,56 +232,56 @@ abstract class kalturaAction extends sfAction
 			throw new Exception ( "Cannot force permission for type $verification_mode");
 		}
 /*		
-		echo "hshow_id: $hshow_id, verification_mode: $verification_mode<br>" .
-			"producer: " . $hshow->getProducerId() . ", likuser id: " . $this->likuser_id . "<br>". 
+		echo "kshow_id: $kshow_id, verification_mode: $verification_mode<br>" .
+			"producer: " . $kshow->getProducerId() . ", likuser id: " . $this->likuser_id . "<br>". 
 			"permission: $permissions, pwd: $pwd<br>";
 */
 		/*
-		 const HSHOW_PERMISSION_EVERYONE = 1;
-		 const HSHOW_PERMISSION_JUST_ME = 2;
-		 const HSHOW_PERMISSION_INVITE_ONLY = 3;
-		 const HSHOW_PERMISSION_REGISTERED = 4;
+		 const KSHOW_PERMISSION_EVERYONE = 1;
+		 const KSHOW_PERMISSION_JUST_ME = 2;
+		 const KSHOW_PERMISSION_INVITE_ONLY = 3;
+		 const KSHOW_PERMISSION_REGISTERED = 4;
 		 */
 
-//		echo ( "$hshow_id , $verification_mode , $allow_redirect , $permissions\n" );
+//		echo ( "$kshow_id , $verification_mode , $allow_redirect , $permissions\n" );
 		
 		$res = true;
 
-		debugUtils::log ( "hshow_id [$hshow_id], verification_mode: " . $verification_mode . " permissions: $permissions" );
+		debugUtils::log ( "kshow_id [$kshow_id], verification_mode: " . $verification_mode . " permissions: $permissions" );
 		
 		switch ( $permissions )
 		{
-			case hshow::HSHOW_PERMISSION_EVERYONE:
+			case kshow::KSHOW_PERMISSION_EVERYONE:
 				break;
-			case hshow::HSHOW_PERMISSION_REGISTERED:
+			case kshow::KSHOW_PERMISSION_REGISTERED:
 				// if users are authenticated already - there will be no work here
 				$res = $this->forceAuthentication( $allow_redirect );
 				break;
-			case hshow::HSHOW_PERMISSION_JUST_ME:
+			case kshow::KSHOW_PERMISSION_JUST_ME:
 				if ( $force_auth )	
 				{
 					$res = $this->forceAuthentication( $allow_redirect );
 					if ( !$res ) break; // user was not authenticated but was supposed to be - don't continue
 				}
 				
-				if ( ! $this->isProducer( $hshow ) ) // ( $hshow->getProducerId() != $this->likuser_id )
+				if ( ! $this->isProducer( $kshow ) ) // ( $kshow->getProducerId() != $this->likuser_id )
 				{
 					$res = $this->justMe ( $allow_redirect );
 				}
 				break;
-			case hshow::HSHOW_PERMISSION_INVITE_ONLY:
+			case kshow::KSHOW_PERMISSION_INVITE_ONLY:
 				if ( $force_auth )	
 				{
 					$res = $this->forceAuthentication( $allow_redirect );
 					if ( !$res ) break; // user was not authenticated but was supposed to be - don't continue
 				}
 				// no need to force verification on producer himself
-				if ( ! $this->isProducer( $hshow ) ) // $hshow->getProducerId() != $this->likuser_id )
+				if ( ! $this->isProducer( $kshow ) ) // $kshow->getProducerId() != $this->likuser_id )
 				{
-					$res = $this->inviteOnly ( $hshow , $verification_mode , $allow_redirect ) ;
+					$res = $this->inviteOnly ( $kshow , $verification_mode , $allow_redirect ) ;
 				}
 				break;
-			case hshow::HSHOW_PERMISSION_NONE:
+			case kshow::KSHOW_PERMISSION_NONE:
 				// do nothing - exit
 				throw new sfStopException();
 				break;				
@@ -290,9 +290,9 @@ abstract class kalturaAction extends sfAction
 		return $res;
 	}
 
-	protected function isProducer ( $hshow )
+	protected function isProducer ( $kshow )
 	{
-		return 	( $hshow->getProducerId() == $this->getLoggedInUserId() );
+		return 	( $kshow->getProducerId() == $this->getLoggedInUserId() );
 	}
 	
 	protected function justMe ( $allow_redirect = true )
@@ -302,11 +302,11 @@ abstract class kalturaAction extends sfAction
 		return $this->forward('login','justMe');
 	}
 
-	protected function inviteOnly ( $hshow , $verification_mode , $allow_redirect = true )
+	protected function inviteOnly ( $kshow , $verification_mode , $allow_redirect = true )
 	{
-		$hshow_id = $hshow->getId();
+		$kshow_id = $kshow->getId();
 
-		if ( ! $this->isValidExpiryCredential ( "$verification_mode" . "hshow" . $hshow_id) )
+		if ( ! $this->isValidExpiryCredential ( "$verification_mode" . "kshow" . $kshow_id) )
 		{
 /*
  * TODO - PRIVILEGES - should not enforce authentication
@@ -315,8 +315,8 @@ abstract class kalturaAction extends sfAction
 			//$this->forceAuthentication( $allow_redirect );
 			if ( ! $allow_redirect ) return false;
 /*			
-			$this->setCredentialByName ( "requestHshow" , $hshow_id );
-			$this->setCredentialByName ( "requestHshowName" , $hshow->getName() );
+			$this->setCredentialByName ( "requestKshow" , $kshow_id );
+			$this->setCredentialByName ( "requestKshowName" , $kshow->getName() );
 			$this->setCredentialByName ( "verificationMode" , $verification_mode );
 	*/		
 			// be sure the likuser can 

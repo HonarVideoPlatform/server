@@ -523,7 +523,7 @@ function KalturaNotificationObjectType()
 {
 }
 KalturaNotificationObjectType.prototype.ENTRY = 1;
-KalturaNotificationObjectType.prototype.HSHOW = 2;
+KalturaNotificationObjectType.prototype.KSHOW = 2;
 KalturaNotificationObjectType.prototype.USER = 3;
 KalturaNotificationObjectType.prototype.BATCH_JOB = 4;
 
