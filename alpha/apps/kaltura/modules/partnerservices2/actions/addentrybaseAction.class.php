@@ -23,7 +23,7 @@ abstract class addentrybaseAction extends defPartnerservices2Action
 					),
 				"errors" => array (
 					APIErrors::NO_FIELDS_SET_FOR_GENERIC_ENTRY ,
-					APIErrors::INVALID_KSHOW_ID
+					APIErrors::INVALID_HSHOW_ID
 				)
 			); 
 	}
@@ -39,32 +39,32 @@ abstract class addentrybaseAction extends defPartnerservices2Action
 	
 	protected function validateEntry ( $entry ) {}
 
-	protected function getKshow ( $partner_id, $subp_id , $puser_kuser , $kshow_id , $entry )
+	protected function getHshow ( $partner_id, $subp_id , $puser_kuser , $hshow_id , $entry )
 	{
-	    if ( $kshow_id == kshow::KSHOW_ID_USE_DEFAULT )
+	    if ( $hshow_id == hshow::HSHOW_ID_USE_DEFAULT )
         {
-            // see if the partner has some default kshow to add to
-            $kshow = myPartnerUtils::getDefaultKshow ( $partner_id, $subp_id , $puser_kuser  );
-            if ( $kshow ) $kshow_id = $kshow->getId();
+            // see if the partner has some default hshow to add to
+            $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser  );
+            if ( $hshow ) $hshow_id = $hshow->getId();
         }
-		elseif ( $kshow_id == kshow::KSHOW_ID_CREATE_NEW )
+		elseif ( $hshow_id == hshow::HSHOW_ID_CREATE_NEW )
         {
-            // if the partner allows - create a new kshow 
-            $kshow = myPartnerUtils::getDefaultKshow ( $partner_id, $subp_id , $puser_kuser , null , true );
-            if ( $kshow ) $kshow_id = $kshow->getId();
+            // if the partner allows - create a new hshow 
+            $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser , null , true );
+            if ( $hshow ) $hshow_id = $hshow->getId();
         }   
 		else
         {
-            $kshow = kshowPeer::retrieveByPK( $kshow_id );
+            $hshow = hshowPeer::retrieveByPK( $hshow_id );
         }
 
-        if ( ! $kshow )
+        if ( ! $hshow )
         {
             // the partner is attempting to add an entry to some invalid or non-existing kwho
-            $this->addError( APIErrors::INVALID_KSHOW_ID, $kshow_id );
+            $this->addError( APIErrors::INVALID_HSHOW_ID, $hshow_id );
             return;
         }	
-        return $kshow;	
+        return $hshow;	
 	}
 	
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
@@ -92,12 +92,12 @@ abstract class addentrybaseAction extends defPartnerservices2Action
 		if ( count ( $fields_modified ) > 0 )
 		{
 			
-			$kshow_id = $this->getP ( "kshow_id" , kshow::KSHOW_ID_USE_DEFAULT );						
-			$kshow = $this->getKshow ( $partner_id , $subp_id , $puser_kuser , $kshow_id , $entry );
+			$hshow_id = $this->getP ( "hshow_id" , hshow::HSHOW_ID_USE_DEFAULT );						
+			$hshow = $this->getHshow ( $partner_id , $subp_id , $puser_kuser , $hshow_id , $entry );
 	        
 			// force the type and media type
-			// TODO - set the kshow to some default kshow of the partner - maybe extract it from the custom_data of this specific partner
-			$entry->setKshowId ( $kshow_id );
+			// TODO - set the hshow to some default hshow of the partner - maybe extract it from the custom_data of this specific partner
+			$entry->setHshowId ( $hshow_id );
 			$entry->setStatus( entryStatus::READY );
 			$entry->setPartnerId( $partner_id );
 			$entry->setSubpId( $subp_id );

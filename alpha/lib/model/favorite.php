@@ -22,7 +22,7 @@ class favorite extends Basefavorite
 	}	
 
 	// We're using the same table to store favorites of different types, use this integer constant to differentiate
-	const SUBJECT_TYPE_KSHOW = '1';
+	const SUBJECT_TYPE_HSHOW = '1';
 	const SUBJECT_TYPE_ENTRY = '2';
 	const SUBJECT_TYPE_USER = '3';
 
@@ -40,21 +40,21 @@ class favorite extends Basefavorite
 			$this->modifiedColumns[] = favoritePeer::SUBJECT_ID;
 		}
 		
-		if ($this->subject_type == self::SUBJECT_TYPE_KSHOW)
+		if ($this->subject_type == self::SUBJECT_TYPE_HSHOW)
 		{
-			$this->setSubjectKshowId($v);
+			$this->setSubjectHshowId($v);
 			$this->setSubjectEntryId(null);
 			$this->setSubjectKuserId(null);
 		}
 		else if ($this->subject_type == self::SUBJECT_TYPE_ENTRY)
 		{
-			$this->setSubjectKshowId(null);
+			$this->setSubjectHshowId(null);
 			$this->setSubjectEntryId($v);
 			$this->setSubjectKuserId(null);
 		}
 		else if ($this->subject_type == self::SUBJECT_TYPE_USER)
 		{
-			$this->setSubjectKshowId(null);
+			$this->setSubjectHshowId(null);
 			$this->setSubjectEntryId(null);
 			$this->setSubjectKuserId($v);
 		}

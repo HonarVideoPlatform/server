@@ -15,7 +15,7 @@ class getMetadataAction extends defKeditorservicesAction
 	 * Executes addComment action, which returns a form enabling the insertion of a comment
 	 * The request may include 1 fields: entry id.
 	 */
-	protected function executeImpl( kshow $kshow, entry &$entry )
+	protected function executeImpl( hshow $hshow, entry &$entry )
 	{
 		$version = @$_REQUEST["version"]; // it's a path on the disk
 		if ( kString::beginsWith( $version , "." ) )
@@ -62,9 +62,9 @@ class getMetadataAction extends defKeditorservicesAction
 		$this->xml_content = "No such entry [$entry_id]";
 	}
 	
-	protected function noSuchKshow ( $kshow_id )
+	protected function noSuchHshow ( $hshow_id )
 	{
-		$this->xml_content = "No such show [$kshow_id]";
+		$this->xml_content = "No such show [$hshow_id]";
 	}
 }
 

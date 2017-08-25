@@ -2,9 +2,9 @@
 
 require_once ( __DIR__ . "/myEntryUtils.class.php");
 
-class myKshowUtils
+class myHshowUtils
 {
-	public static function getWidgetCmdUrl($kdata, $cmd = "") //add, kshow, edit
+	public static function getWidgetCmdUrl($kdata, $cmd = "") //add, hshow, edit
 	{
 		$domain = requestUtils::getRequestHost();
 
@@ -14,7 +14,7 @@ class myKshowUtils
 	}
 
 
-	public static function createGenericWidgetHtml ( $partner_id, $subp_id, $partner_name ,  $widget_host  , $kshow_id , $user_id , $size='l' , $align='l', $version=null , $version_kshow_name=null , $version_kshow_description=null)
+	public static function createGenericWidgetHtml ( $partner_id, $subp_id, $partner_name ,  $widget_host  , $hshow_id , $user_id , $size='l' , $align='l', $version=null , $version_hshow_name=null , $version_hshow_description=null)
 	{
 /*		global $partner_id, $subp_id, $partner_name;
 		global $WIDGET_HOST;
@@ -25,21 +25,21 @@ class myKshowUtils
 
 	     // add the version as an additional parameter
 		$domain = $widget_host; 
-		$swf_url = "/index.php/widget/$kshow_id/" .
+		$swf_url = "/index.php/widget/$hshow_id/" .
 			( $entry_id ? $entry_id : "-1" ) . "/" .
 			( $media_type ? $media_type : "-1" ) . "/" .
 			( $widget_type ? $widget_type : "3" ) . "/" . // widget_type=3 -> WIKIA
 			( $version ? "$version" : "-1" );
 
-		$current_widget_kshow_id_list[] = $kshow_id;
+		$current_widget_hshow_id_list[] = $hshow_id;
 
-		$kshowCallUrl = "$domain/index.php/browse?kshow_id=$kshow_id";
-		$widgetCallUrl = "$kshowCallUrl&browseCmd=";
-		$editCallUrl = "$domain/index.php/edit?kshow_id=$kshow_id";
+		$hshowCallUrl = "$domain/index.php/browse?hshow_id=$hshow_id";
+		$widgetCallUrl = "$hshowCallUrl&browseCmd=";
+		$editCallUrl = "$domain/index.php/edit?hshow_id=$hshow_id";
 
 	/*
 	  widget3:
-	  url:  /widget/:kshow_id/:entry_id/:kmedia_type/:widget_type/:version
+	  url:  /widget/:hshow_id/:entry_id/:kmedia_type/:widget_type/:version
 	  param: { module: browse , action: widget }
 	 */
 	    if ( $size == "m")
@@ -66,8 +66,8 @@ class myKshowUtils
 		// this is a shorthand version of the kdata
 	    $links_arr = array (
 	    		"base" => "$external_url/" ,
-	    		"add" =>  "Special:KalturaContributionWizard?kshow_id=$kshow_id" ,
-	    		"edit" => "Special:KalturaVideoEditor?kshow_id=$kshow_id" ,
+	    		"add" =>  "Special:KalturaContributionWizard?hshow_id=$hshow_id" ,
+	    		"edit" => "Special:KalturaVideoEditor?hshow_id=$hshow_id" ,
 	    		"share" => $share ,
 	    	);
 
@@ -85,8 +85,8 @@ class myKshowUtils
 								"WidgetSize" => $size );
 
 		// add only if not null
-		if ( $version_kshow_name ) $flash_vars["Title"] = $version_kshow_name;
-		if ( $version_kshow_description ) $flash_vars["Description"] = $version_kshow_description;
+		if ( $version_hshow_name ) $flash_vars["Title"] = $version_hshow_name;
+		if ( $version_hshow_description ) $flash_vars["Description"] = $version_hshow_description;
 
 		$swf_url .= "/" . $links_str;
 	   	$flash_vars_str = http_build_query( $flash_vars , "" , "&" )		;
@@ -124,17 +124,17 @@ class myKshowUtils
 		return $str ;
 	}
 	/**
-	 * Will create the URL for the embedded player for this kshow_id assuming is placed on the current server with the same http protocol.
-	 * @param string $kshow_id
+	 * Will create the URL for the embedded player for this hshow_id assuming is placed on the current server with the same http protocol.
+	 * @param string $hshow_id
 	 * @return string URL
 	 */
-	public static function getEmbedPlayerUrl ( $kshow_id , $entry_id , $is_roughcut = false, $kdata = "")
+	public static function getEmbedPlayerUrl ( $hshow_id , $entry_id , $is_roughcut = false, $kdata = "")
 	{
-		// TODO - PERFORMANCE - cache the versions per kshow_id
-		// - if an entry_id exists - don't fetch the version for the kshow
+		// TODO - PERFORMANCE - cache the versions per hshow_id
+		// - if an entry_id exists - don't fetch the version for the hshow
 
-		$kshow = kshowPeer::retrieveByPK( $kshow_id );
-		if ( !$kshow )
+		$hshow = hshowPeer::retrieveByPK( $hshow_id );
+		if ( !$hshow )
 		return array("", "");
 
 		$media_type = entry::ENTRY_MEDIA_TYPE_SHOW;
@@ -145,14 +145,14 @@ class myKshowUtils
 			if ($entry)
 			$media_type = $entry->getMediaType();
 
-			// if the entry is one of the kshow roughcuts we want to share the latest roughcut
+			// if the entry is one of the hshow roughcuts we want to share the latest roughcut
 			if ($entry->getType() == entryType::MIX)
 			$entry_id = -1;
 		}
 
 		if ( $is_roughcut )
 		{
-			$show_entry_id = $kshow->getShowEntryId();
+			$show_entry_id = $hshow->getShowEntryId();
 			$show_entry = entryPeer::retrieveByPK( $show_entry_id );
 			if ( !$show_entry ) return null;
 			$media_type = $show_entry->getMediaType();
@@ -166,18 +166,18 @@ class myKshowUtils
 			$show_version = -1;
 		}
 
-		$partnerId = $kshow->getPartnerId();
+		$partnerId = $hshow->getPartnerId();
 
-		$swf_url = "/index.php/widget/$kshow_id/" . ( $entry_id ? $entry_id : "-1" ) . "/" . ( $media_type ? $media_type : "-1" ) ;
+		$swf_url = "/index.php/widget/$hshow_id/" . ( $entry_id ? $entry_id : "-1" ) . "/" . ( $media_type ? $media_type : "-1" ) ;
 
 		$domain = requestUtils::getRequestHost();
 
-		$kshowName = $kshow->getName();
+		$hshowName = $hshow->getName();
 
 		if ($entry_id >= 0)
 			$headerImage = $domain.'/index.php/browse/getWidgetImage/entry_id/'.$entry_id;
 		else
-			$headerImage = $domain.'/index.php/browse/getWidgetImage/kshow_id/'.$kshow_id;
+			$headerImage = $domain.'/index.php/browse/getWidgetImage/hshow_id/'.$hshow_id;
 
 
 		if (in_array($partnerId, array(1 , 8, 18, 200))) // we're sharing a wiki widget
@@ -187,7 +187,7 @@ class myKshowUtils
 			$baseCmd = self::getWidgetCmdUrl($kdata);
 
 			$widgetCallUrl = $baseCmd."add";
-			$kshowCallUrl = $baseCmd."kshow";
+			$hshowCallUrl = $baseCmd."hshow";
 			$editCallUrl = $baseCmd."edit";
 
 			$genericWidget =
@@ -202,7 +202,7 @@ class myKshowUtils
 <table cellpadding="0" cellspacing="0" style="width:400px; margin:0 auto;">
 	<tr style="background-color:black;">
 		<th colspan="2" style="background-color:black; background: url($headerImage) 0 0 no-repeat;">
-			<a href="$kshowCallUrl" style="display:block; height:30px; overflow:hidden;"></a>
+			<a href="$hshowCallUrl" style="display:block; height:30px; overflow:hidden;"></a>
 		</th>
 	</tr>
 	<tr style="background-color:black;">
@@ -229,13 +229,13 @@ EOT;
 return array($genericWidget, $myspaceWidget);
 		}
 
-		$kshowCallUrl = "$domain/index.php/browse?kshow_id=$kshow_id";
+		$hshowCallUrl = "$domain/index.php/browse?hshow_id=$hshow_id";
 		if ($entry_id >= 0)
-		$kshowCallUrl .= "&entry_id=$entry_id";
+		$hshowCallUrl .= "&entry_id=$entry_id";
 
-		$widgetCallUrl = "$kshowCallUrl&browseCmd=";
+		$widgetCallUrl = "$hshowCallUrl&browseCmd=";
 
-		$editCallUrl = "$domain/index.php/edit?kshow_id=$kshow_id";
+		$editCallUrl = "$domain/index.php/edit?hshow_id=$hshow_id";
 		if ($entry_id >= 0)
 		$editCallUrl .= "&entry_id=$entry_id";
 
@@ -286,7 +286,7 @@ return array($genericWidget, $myspaceWidget);
 		$myspaceWidget =
 		'<table cellpadding="0" cellspacing="0" style="width:400px; margin:6px auto; padding:0; background-color:black; border:1px solid black;">'.
 		'<tr>'.
-		'<th colspan="2" style="background-color:black; background: url('.$headerImage.') 0 0 no-repeat;"><a href="'.$kshowCallUrl.'" style="display:block; height:30px; overflow:hidden;"></a></th>'.
+		'<th colspan="2" style="background-color:black; background: url('.$headerImage.') 0 0 no-repeat;"><a href="'.$hshowCallUrl.'" style="display:block; height:30px; overflow:hidden;"></a></th>'.
 		'</tr>'.
 		'<tr>'.
 		'<td colspan="2">'.
@@ -308,37 +308,37 @@ return array($genericWidget, $myspaceWidget);
 	}
 
 	/**
-	 * Will create the URL for the kshow_id to be used as an HTML link
+	 * Will create the URL for the hshow_id to be used as an HTML link
 	 *
-	 * @param string $kshow_id
+	 * @param string $hshow_id
 	 * @return string URL link
 	 */
-	public static function getUrl ( $kshow_id )
+	public static function getUrl ( $hshow_id )
 	{
-		return requestUtils::getWebRootUrl() . "browse?kshow_id=$kshow_id";
+		return requestUtils::getWebRootUrl() . "browse?hshow_id=$hshow_id";
 	}
 
 	/**
-	 * Will return an array of kshows that are 'related' to a given show
+	 * Will return an array of hshows that are 'related' to a given show
 	 *
-	 * @param string $kshow_id
+	 * @param string $hshow_id
 	 * @return array of
 	 */
-	public static function getRelatedShows( $kshow_id, $kuser_id, $amount )
+	public static function getRelatedShows( $hshow_id, $kuser_id, $amount )
 	{
 		$c = new Criteria();
-		$c->addJoin( kshowPeer::PRODUCER_ID, kuserPeer::ID, Criteria::INNER_JOIN);
-		$c->add( kshowPeer::ID, 10000, Criteria::GREATER_EQUAL);
+		$c->addJoin( hshowPeer::PRODUCER_ID, kuserPeer::ID, Criteria::INNER_JOIN);
+		$c->add( hshowPeer::ID, 10000, Criteria::GREATER_EQUAL);
 
-		//$c->add( kshowPeer::PRODUCER_ID, $kuser_id );
+		//$c->add( hshowPeer::PRODUCER_ID, $kuser_id );
 
 		// our related algorithm is based on finding shows that have similar 'heavy' tags
-		if( $kshow_id )
+		if( $hshow_id )
 		{
-			$kshow = kshowPeer::retrieveByPK( $kshow_id );
-			if( $kshow )
+			$hshow = hshowPeer::retrieveByPK( $hshow_id );
+			if( $hshow )
 			{
-				$tags_string = $kshow->getTags();
+				$tags_string = $hshow->getTags();
 				if( $tags_string )
 				{
 					$tagsweight = array();
@@ -354,20 +354,20 @@ return array($genericWidget, $myspaceWidget);
 						else
 						{
 							//we'll be looking for shows that have similar top tags (3 in this case)
-							$c->addOr( kshowPeer::TAGS, '%'.$tag.'%', Criteria::LIKE );
+							$c->addOr( hshowPeer::TAGS, '%'.$tag.'%', Criteria::LIKE );
 						}
 					}
 				}
 
 				// and of course, we don't want the show itself
-				$c->addAnd( kshowPeer::ID, $kshow_id, Criteria::NOT_IN);
+				$c->addAnd( hshowPeer::ID, $hshow_id, Criteria::NOT_IN);
 			}
 		}
 		// we want recent ones
-		$c->addDescendingOrderByColumn( kshowPeer::UPDATED_AT );
+		$c->addDescendingOrderByColumn( hshowPeer::UPDATED_AT );
 		$c->setLimit( $amount );
 
-		$shows = kshowPeer::doSelectJoinKuser( $c );
+		$shows = hshowPeer::doSelectJoinKuser( $c );
 
 		//did we get enough?
 		$amount_related = count ($shows);
@@ -375,10 +375,10 @@ return array($genericWidget, $myspaceWidget);
 		{
 			// let's get some more, which are not really related, but recent
 			$c = new Criteria();
-			$c->addJoin( kshowPeer::PRODUCER_ID, kuserPeer::ID, Criteria::INNER_JOIN);
-			$c->addDescendingOrderByColumn( kshowPeer::UPDATED_AT );
+			$c->addJoin( hshowPeer::PRODUCER_ID, kuserPeer::ID, Criteria::INNER_JOIN);
+			$c->addDescendingOrderByColumn( hshowPeer::UPDATED_AT );
 			$c->setLimit( $amount - $amount_related );
-			$moreshows = kshowPeer::doSelectJoinKuser( $c );
+			$moreshows = hshowPeer::doSelectJoinKuser( $c );
 			return array_merge( $shows, $moreshows );
 		}
 
@@ -387,53 +387,53 @@ return array($genericWidget, $myspaceWidget);
 	}
 
 	/**
-	 * Will return formatted array of kshows data for shows that are 'related' to a given show
+	 * Will return formatted array of hshows data for shows that are 'related' to a given show
 	 *
-	 * @param string $kshow_id
+	 * @param string $hshow_id
 	 * @return array of
 	 */
-	public static function getRelatedShowsData ( $kshow_id, $kuser_id = null, $amount = 50 )
+	public static function getRelatedShowsData ( $hshow_id, $kuser_id = null, $amount = 50 )
 	{
-		$kshow_list = self::getRelatedShows ( $kshow_id, $kuser_id, $amount );
+		$hshow_list = self::getRelatedShows ( $hshow_id, $kuser_id, $amount );
 
-		$kshowdataarray = array();
+		$hshowdataarray = array();
 
-		foreach( $kshow_list as $kshow )
+		foreach( $hshow_list as $hshow )
 		{
 
-			$data = array ( 'id' => $kshow->getId(),
-			'thumbnail_path' => $kshow->getThumbnailPath(),
-			'show_entry_id' => $kshow->getShowEntryId(),
-			'name' => $kshow->getName(),
-			'producer_name' => $kshow->getkuser()->getScreenName(),
-			'views' => $kshow->getViews()
+			$data = array ( 'id' => $hshow->getId(),
+			'thumbnail_path' => $hshow->getThumbnailPath(),
+			'show_entry_id' => $hshow->getShowEntryId(),
+			'name' => $hshow->getName(),
+			'producer_name' => $hshow->getkuser()->getScreenName(),
+			'views' => $hshow->getViews()
 			);
-			$kshowdataarray[] = $data;
+			$hshowdataarray[] = $data;
 		}
-		return $kshowdataarray;
+		return $hshowdataarray;
 	}
 
-	public static function createTeamImage ( $kshow_id )
+	public static function createTeamImage ( $hshow_id )
 	{
-		self::createTeam1Image($kshow_id);
-		self::createTeam2Image($kshow_id);
+		self::createTeam1Image($hshow_id);
+		self::createTeam2Image($hshow_id);
 	}
 
 	/**
 	 * Creates an combined image of the producer and some of the contributors
 	 *
-	 * @param int $kshow_id
+	 * @param int $hshow_id
 	 */
 	const DIM_X = 26;
 	const DIM_Y = 23;
-	public static function createTeam1Image ( $kshow_id )
+	public static function createTeam1Image ( $hshow_id )
 	{
 		try
 		{
 			$contentPath = myContentStorage::getFSContentRootPath() ;
 
-			$kshow = kshowPeer::retrieveByPK( $kshow_id );
-			if ( ! $kshow ) return NULL;
+			$hshow = hshowPeer::retrieveByPK( $hshow_id );
+			if ( ! $hshow ) return NULL;
 
 			// the canvas for the output -
 			$im = imagecreatetruecolor(120 , 90 );
@@ -446,7 +446,7 @@ return array($genericWidget, $myspaceWidget);
 			imagedestroy($logoIm);
 
 			// get producer's image
-			$producer = kuser::getKuserById( $kshow->getProducerId() );
+			$producer = kuser::getKuserById( $hshow->getProducerId() );
 			$producer_image_path = kFile::fixPath(  $contentPath . $producer->getPicturePath () );
 			if (file_exists($producer_image_path))
 			{
@@ -459,10 +459,10 @@ return array($genericWidget, $myspaceWidget);
 				imagedestroy($srcIm);
 			}
 
-			// fetch as many different kusers as possible who contributed to the kshow
+			// fetch as many different kusers as possible who contributed to the hshow
 			// first entries willcome up first
 			$c = new Criteria();
-			$c->add ( entryPeer::KSHOW_ID , $kshow_id );
+			$c->add ( entryPeer::HSHOW_ID , $hshow_id );
 			$c->add ( entryPeer::TYPE , entryType::MEDIA_CLIP, Criteria::EQUAL );
 			//$c->add ( entryPeer::PICTURE, null, Criteria::NOT_EQUAL );
 			$c->setLimit( 16 ); // we'll need 16 images of contributers
@@ -530,15 +530,15 @@ return array($genericWidget, $myspaceWidget);
 			imagecopyresampled($im, $clapperIm, ( 1.2 * self::DIM_X ) , (1.2 * self::DIM_Y), 0, 0, self::DIM_X ,self::DIM_Y , imagesx($clapperIm) , imagesy($clapperIm) );
 			imagedestroy($clapperIm);
 
-			$path = kFile::fixPath( $contentPath.$kshow->getTeamPicturePath() );
+			$path = kFile::fixPath( $contentPath.$hshow->getTeamPicturePath() );
 
 			kFile::fullMkdir($path);
 
 			imagepng($im, $path);
 			imagedestroy($im);
 
-			$kshow->setHasTeamImage ( true );
-			$kshow->save();
+			$hshow->setHasTeamImage ( true );
+			$hshow->save();
 		}
 		catch ( Exception $ex )
 		{
@@ -547,12 +547,12 @@ return array($genericWidget, $myspaceWidget);
 		}
 	}
 
-	public static function createTeam2Image ( $kshow_id )
+	public static function createTeam2Image ( $hshow_id )
 	{
 		try
 		{
-			$kshow = kshowPeer::retrieveByPK( $kshow_id );
-			if ( ! $kshow ) return NULL;
+			$hshow = hshowPeer::retrieveByPK( $hshow_id );
+			if ( ! $hshow ) return NULL;
 
 			$contentPath = myContentStorage::getFSContentRootPath() ;
 
@@ -562,10 +562,10 @@ return array($genericWidget, $myspaceWidget);
 			$logo_path = kFile::fixPath( SF_ROOT_DIR.'/web/images/browse/contributorsBG.gif');
 			$im = imagecreatefromgif( $logo_path );
 
-			// fetch as many different kusers as possible who contributed to the kshow
+			// fetch as many different kusers as possible who contributed to the hshow
 			// first entries will come up first
 			$c = new Criteria();
-			$c->add ( entryPeer::KSHOW_ID , $kshow_id );
+			$c->add ( entryPeer::HSHOW_ID , $hshow_id );
 			$c->add ( entryPeer::TYPE , entryType::MEDIA_CLIP, Criteria::EQUAL );
 			//$c->add ( entryPeer::PICTURE, null, Criteria::NOT_EQUAL );
 			$c->setLimit( 14 ); // we'll need 14 images of contributers
@@ -596,15 +596,15 @@ return array($genericWidget, $myspaceWidget);
 			}
 
 
-			$path = kFile::fixPath( $contentPath.$kshow->getTeam2PicturePath() );
+			$path = kFile::fixPath( $contentPath.$hshow->getTeam2PicturePath() );
 
 			kFile::fullMkdir($path);
 
 			imagepng($im, $path);
 			imagedestroy($im);
 
-			$kshow->setHasTeamImage ( true );
-			$kshow->save();
+			$hshow->setHasTeamImage ( true );
+			$hshow->save();
 		}
 		catch ( Exception $ex )
 		{
@@ -645,32 +645,32 @@ return array($genericWidget, $myspaceWidget);
 		next ( $entries );
 	}
 
-	public static function isSubscribed($kshow_id, $kuser_id, $subscription_type = null)
+	public static function isSubscribed($hshow_id, $kuser_id, $subscription_type = null)
 	{
 		$c = new Criteria ();
-		$c->add ( KshowKuserPeer::KSHOW_ID , $kshow_id);
-		$c->add ( KshowKuserPeer::KUSER_ID , $kuser_id);
+		$c->add ( HshowKuserPeer::HSHOW_ID , $hshow_id);
+		$c->add ( HshowKuserPeer::KUSER_ID , $kuser_id);
 
 		if ($subscription_type !== null)
-		$c->add ( KshowKuserPeer::SUBSCRIPTION_TYPE, $subscription_type );
+		$c->add ( HshowKuserPeer::SUBSCRIPTION_TYPE, $subscription_type );
 
-		return KshowKuserPeer::doSelectOne( $c );
+		return HshowKuserPeer::doSelectOne( $c );
 	}
 
-	public static function subscribe($kshow_id, $kuser_id, &$message)
+	public static function subscribe($hshow_id, $kuser_id, &$message)
 	{
 		// first check if user already subscribed to this show
-		$kshowKuser = self::isSubscribed($kshow_id, $kuser_id);
-		if ( $kshowKuser != NULL )
+		$hshowKuser = self::isSubscribed($hshow_id, $kuser_id);
+		if ( $hshowKuser != NULL )
 		{
 			$message = "You are already subscribed to this Kaltura";
 			return false;
 		}
 
-		$kshow = kshowPeer::retrieveByPK($kshow_id);
-		if (!$kshow)
+		$hshow = hshowPeer::retrieveByPK($hshow_id);
+		if (!$hshow)
 		{
-			$message = "Kaltura $kshow_id doesn't exist";
+			$message = "Kaltura $hshow_id doesn't exist";
 			return false;
 		}
 
@@ -681,33 +681,33 @@ return array($genericWidget, $myspaceWidget);
 			return false;
 		}
 
-		$showname = $kshow->getName();
+		$showname = $hshow->getName();
 		$subscriberscreenname = $kuser->getScreenName();
 
 		// subscribe
-		$kshowKuser = new KshowKuser();
-		$kshowKuser->setKshowId($kshow_id);
-		$kshowKuser->setKuserId($kuser_id);
-		$kshowKuser->setSubscriptionType(KshowKuser::KSHOW_SUBSCRIPTION_NORMAL);
+		$hshowKuser = new HshowKuser();
+		$hshowKuser->setHshowId($hshow_id);
+		$hshowKuser->setKuserId($kuser_id);
+		$hshowKuser->setSubscriptionType(HshowKuser::HSHOW_SUBSCRIPTION_NORMAL);
 		// alert:: KALTURAS_PRODUCED_ALERT_TYPE_SUBSCRIBER_ADDED
-		$kshowKuser->setAlertType(21);
-		$kshowKuser->save();
+		$hshowKuser->setAlertType(21);
+		$hshowKuser->save();
 
 		$message = "You are now subscribed to $showname. You can receive updates and join the discussion.";
 		return true;
 	}
 
-	public static function unsubscribe( $kshow_id, $kuser_id, &$message )
+	public static function unsubscribe( $hshow_id, $kuser_id, &$message )
 	{
 		// first check if user already subscribed to this show
-		$kshowKuser = self::isSubscribed($kshow_id, $kuser_id, KshowKuser::KSHOW_SUBSCRIPTION_NORMAL);
+		$hshowKuser = self::isSubscribed($hshow_id, $kuser_id, HshowKuser::HSHOW_SUBSCRIPTION_NORMAL);
 
-		if ( !$kshowKuser )
+		if ( !$hshowKuser )
 		{
-			$kshow = kshowPeer::retrieveByPK($kshow_id);
-			if (!$kshow)
+			$hshow = hshowPeer::retrieveByPK($hshow_id);
+			if (!$hshow)
 			{
-				$message = "Kaltura $kshow_id doesn't exist.";
+				$message = "Kaltura $hshow_id doesn't exist.";
 			}
 			else
 			{
@@ -724,19 +724,19 @@ return array($genericWidget, $myspaceWidget);
 		}
 
 		// ok, we found he entry, so delete it.
-		$kshowKuser->delete();
+		$hshowKuser->delete();
 		$message = "You have unsubscribed from this Kaltura.";
 		return true;
 	}
 
-	public static function canEditKshow ( $kshow_id , $existing_kshow , $likuser_id )
+	public static function canEditHshow ( $hshow_id , $existing_hshow , $likuser_id )
 	{
-		if ( $existing_kshow == NULL )
+		if ( $existing_hshow == NULL )
 		{
 			// TODO - some good error -
 			// TODO - let's make a list of all errors we encounter and see how we use the I18N and built-in configuration mechanism to maintain the list
 			// and later on translate the errors.
-			// ERROR::fatal ( 12345 , "Kshow with id [" .  $kshow_id . "] does not exist in the system. This is either an innocent mistake or you are a wicked bastard" );
+			// ERROR::fatal ( 12345 , "Hshow with id [" .  $hshow_id . "] does not exist in the system. This is either an innocent mistake or you are a wicked bastard" );
 			// TODO - think of our policy - what do we do if we notice what looks like an attemp to harm the system ?
 			// because the system is not stable, mistakes like this one might very possibly be innocent, but later on - what should happen in XSS / SQL injection /
 			// attemp to insert malformed data ?
@@ -744,11 +744,11 @@ return array($genericWidget, $myspaceWidget);
 			return false;
 		}
 
-		// make sure the logged-in user is allowed to access this kshow in 2 aspects:
+		// make sure the logged-in user is allowed to access this hshow in 2 aspects:
 		// 1. - it is produced by him or a template
-		if ( $existing_kshow->getProducerId() != $likuser_id )
+		if ( $existing_hshow->getProducerId() != $likuser_id )
 		{
-			//ERROR::fatal ( 10101 , "User (with id [" . $likuser_id . "] is attempting to modify a kshow with id [$kshow_id] that does not belong to him (producer_id [" . $existing_kshow->getProducerId() . "] !!" );
+			//ERROR::fatal ( 10101 , "User (with id [" . $likuser_id . "] is attempting to modify a hshow with id [$hshow_id] that does not belong to him (producer_id [" . $existing_hshow->getProducerId() . "] !!" );
 
 			return false;
 		}
@@ -756,108 +756,108 @@ return array($genericWidget, $myspaceWidget);
 		return true;
 	}
 
-	public static function fromatPermissionText ( $kshow_id , $kshow = null )
+	public static function fromatPermissionText ( $hshow_id , $hshow = null )
 	{
-		if ( $kshow == NULL )
+		if ( $hshow == NULL )
 		{
-			$kshow = kshowPeer::retrieveByPK ( $kshow_id );
+			$hshow = hshowPeer::retrieveByPK ( $hshow_id );
 		}
 
-		if ( !$kshow )
+		if ( !$hshow )
 		{
 			// ERROR !
 			return "";
 		}
 
-		$pwd_permissions = $kshow->getViewPermissions() == kshow::KSHOW_PERMISSION_INVITE_ONLY ||
-		$kshow->getEditPermissions() == kshow::KSHOW_PERMISSION_INVITE_ONLY ||
-		$kshow->getContribPermissions() == kshow::KSHOW_PERMISSION_INVITE_ONLY;
+		$pwd_permissions = $hshow->getViewPermissions() == hshow::HSHOW_PERMISSION_INVITE_ONLY ||
+		$hshow->getEditPermissions() == hshow::HSHOW_PERMISSION_INVITE_ONLY ||
+		$hshow->getContribPermissions() == hshow::HSHOW_PERMISSION_INVITE_ONLY;
 
 		// no password protection
 		if ( ! $pwd_permissions ) return "";
 
 
 		$str =
-		( $kshow->getViewPermissions() == kshow::KSHOW_PERMISSION_INVITE_ONLY ? "View password " . $kshow->getViewPassword() . " " : "") .
-		( $kshow->getContribPermissions() == kshow::KSHOW_PERMISSION_INVITE_ONLY ? "Contribute password " . $kshow->getContribPassword() . " " : "") .
-		( $kshow->getEditPermissions() == kshow::KSHOW_PERMISSION_INVITE_ONLY ? "Edit password " . $kshow->getEditPassword() . " " : "") ;
+		( $hshow->getViewPermissions() == hshow::HSHOW_PERMISSION_INVITE_ONLY ? "View password " . $hshow->getViewPassword() . " " : "") .
+		( $hshow->getContribPermissions() == hshow::HSHOW_PERMISSION_INVITE_ONLY ? "Contribute password " . $hshow->getContribPassword() . " " : "") .
+		( $hshow->getEditPermissions() == hshow::HSHOW_PERMISSION_INVITE_ONLY ? "Edit password " . $hshow->getEditPassword() . " " : "") ;
 
 		return $str;
 	}
 
-	public static function getViewerType($kshow, $kuserId)
+	public static function getViewerType($hshow, $kuserId)
 	{
-		$viewerType = KshowKuser::KSHOWKUSER_VIEWER_USER; // viewer
+		$viewerType = HshowKuser::HSHOWKUSER_VIEWER_USER; // viewer
 		if ($kuserId)
 		{
-			if ($kshow->getProducerId() == $kuserId) {
-				$viewerType = KshowKuser::KSHOWKUSER_VIEWER_PRODUCER; // producer
+			if ($hshow->getProducerId() == $kuserId) {
+				$viewerType = HshowKuser::HSHOWKUSER_VIEWER_PRODUCER; // producer
 			}
 			else
 			{
-				if (myKshowUtils::isSubscribed($kshow->getId(), $kuserId))
-				$viewerType = KshowKuser::KSHOWKUSER_VIEWER_SUBSCRIBER; // subscriber;
+				if (myHshowUtils::isSubscribed($hshow->getId(), $kuserId))
+				$viewerType = HshowKuser::HSHOWKUSER_VIEWER_SUBSCRIBER; // subscriber;
 			}
 		}
 
 		return $viewerType;
 	}
 
-	private static function resetKshowStats ( $target_kshow , $reset_entry_stats = false )
+	private static function resetHshowStats ( $target_hshow , $reset_entry_stats = false )
 	{
 		// set all statistics to 0
-		$target_kshow->setComments ( 0 );
-		$target_kshow->setRank ( 0 );
-		$target_kshow->setViews ( 0 );
-		$target_kshow->setVotes ( 0 );
-		$target_kshow->setFavorites ( 0 );
+		$target_hshow->setComments ( 0 );
+		$target_hshow->setRank ( 0 );
+		$target_hshow->setViews ( 0 );
+		$target_hshow->setVotes ( 0 );
+		$target_hshow->setFavorites ( 0 );
 		if ( $reset_entry_stats )
 		{
-			$target_kshow->setEntries ( 0 );
-			$target_kshow->setContributors ( 0 );
+			$target_hshow->setEntries ( 0 );
+			$target_hshow->setContributors ( 0 );
 		}
-		$target_kshow->setSubscribers ( 0 );
-		$target_kshow->setNumberOfUpdates ( 0 );
+		$target_hshow->setSubscribers ( 0 );
+		$target_hshow->setNumberOfUpdates ( 0 );
 
-		$target_kshow->setCreatedAt( time() );
-		$target_kshow->setUpdatedAt( time() );
+		$target_hshow->setCreatedAt( time() );
+		$target_hshow->setUpdatedAt( time() );
 
 	}
 
-	public static function shalowCloneById ( $source_kshow_id , $new_prodcuer_id )
+	public static function shalowCloneById ( $source_hshow_id , $new_prodcuer_id )
 	{
-		$kshow = kshowPeer::retrieveByPK( $source_kshow_id );
-		if ( $kshow ) return self::shalowClone( $kshow , $new_prodcuer_id );
+		$hshow = hshowPeer::retrieveByPK( $source_hshow_id );
+		if ( $hshow ) return self::shalowClone( $hshow , $new_prodcuer_id );
 		else NULL;
 	}
 
-	public static function shalowClone ( kshow $source_kshow , $new_prodcuer_id )
+	public static function shalowClone ( hshow $source_hshow , $new_prodcuer_id )
 	{
-		$target_kshow = $source_kshow->copy();
+		$target_hshow = $source_hshow->copy();
 
-		$target_kshow->setProducerId( $new_prodcuer_id ) ;
+		$target_hshow->setProducerId( $new_prodcuer_id ) ;
 
-		$target_kshow->save();
+		$target_hshow->save();
 
-		self::resetKshowStats( $target_kshow , true );
-		if (!$source_kshow->getEpisodeId())
-			$target_kshow->setEpisodeId( $source_kshow->getId());
-		//$target_kshow->setHasRoughcut($source_kshow->getHasRoughcut());
+		self::resetHshowStats( $target_hshow , true );
+		if (!$source_hshow->getEpisodeId())
+			$target_hshow->setEpisodeId( $source_hshow->getId());
+		//$target_hshow->setHasRoughcut($source_hshow->getHasRoughcut());
 
-		$target_show_entry = $target_kshow->createEntry ( entry::ENTRY_MEDIA_TYPE_SHOW , $new_prodcuer_id );
+		$target_show_entry = $target_hshow->createEntry ( entry::ENTRY_MEDIA_TYPE_SHOW , $new_prodcuer_id );
 
 		$content = myContentStorage::getFSContentRootPath();
-		$source_thumbnail_path = $source_kshow->getThumbnailPath();
-		$target_kshow->setThumbnail ( null );
-		$target_kshow->setThumbnail ( $source_kshow->getThumbnail() );
-		$target_thumbnail_path = $target_kshow->getThumbnailPath();
+		$source_thumbnail_path = $source_hshow->getThumbnailPath();
+		$target_hshow->setThumbnail ( null );
+		$target_hshow->setThumbnail ( $source_hshow->getThumbnail() );
+		$target_thumbnail_path = $target_hshow->getThumbnailPath();
 
 //		myContentStorage::moveFile( $content . $source_thumbnail_path , $content . $target_thumbnail_path , false , true );
 
-		$target_kshow->save();
+		$target_hshow->save();
 
 		// copy the show_entry file content
-		$source_show_entry = entryPeer::retrieveByPK( $source_kshow->getShowEntryId() );
+		$source_show_entry = entryPeer::retrieveByPK( $source_hshow->getShowEntryId() );
 
 		$source_show_entry_data_key = $source_show_entry->getSyncKey(entry::FILE_SYNC_ENTRY_SUB_TYPE_DATA);
 		$target_show_entry->setData ( null );
@@ -872,48 +872,48 @@ return array($genericWidget, $myspaceWidget);
 
 		myEntryUtils::createThumbnail($target_show_entry, $source_show_entry, true);
 		
-//		$target_kshow->setHasRoughcut(true);
-//		$target_kshow->save();
+//		$target_hshow->setHasRoughcut(true);
+//		$target_hshow->save();
 		
 		$target_show_entry->save();
 
-		return $target_kshow;
+		return $target_hshow;
 	}
 
 
-	// use the entry's thumbnail as this kshow's thumbnail
-	public static function updateThumbnail ( $kshow , entry $entry , $should_force = false )
+	// use the entry's thumbnail as this hshow's thumbnail
+	public static function updateThumbnail ( $hshow , entry $entry , $should_force = false )
 	{
 		// We don't want to copy thumbnails of entries that are not ready - they are bad and will later be replaced anyway
 		if ( $entry->getThumbnail() != null && $entry->isReady() )
 		{
-			$show_entry = $kshow->getShowEntry();
+			$show_entry = $hshow->getShowEntry();
 			return myEntryUtils::createThumbnail ( $show_entry , $entry , $should_force );
 		}
 		return false;
 	}
 
 
-	public static function getKshowAndEntry ( &$kshow_id , &$entry_id )
+	public static function getHshowAndEntry ( &$hshow_id , &$entry_id )
 	{
 		$error = null;
-		$kshow = null;
+		$hshow = null;
 		$entry = null;
 		$error_obj = null;
 		if ( $entry_id == NULL || $entry_id == "-1" )
 		{
-			if ($kshow_id)
+			if ($hshow_id)
 			{
-				$kshow = kshowPeer::retrieveByPK( $kshow_id );
-				if ( ! $kshow )
+				$hshow = hshowPeer::retrieveByPK( $hshow_id );
+				if ( ! $hshow )
 				{
-					$error =  APIErrors::INVALID_KSHOW_ID; // "kshow [$kshow_id] does not exist";
-					$error_obj = array ( $error , $kshow_id  );
+					$error =  APIErrors::INVALID_HSHOW_ID; // "hshow [$hshow_id] does not exist";
+					$error_obj = array ( $error , $hshow_id  );
 				}
 				else
 				{
-					$entry_id = $kshow->getShowEntryId();
-					$entry = $kshow->getShowEntry();
+					$entry_id = $hshow->getShowEntryId();
+					$entry = $hshow->getShowEntry();
 				}
 			}
 		}
@@ -922,8 +922,8 @@ return array($genericWidget, $myspaceWidget);
 			$entry = entryPeer::retrieveByPK($entry_id);
 			if ( $entry )
 			{
-				$kshow = @$entry->getKshow();
-				$kshow_id = $entry->getKshowId();
+				$hshow = @$entry->getHshow();
+				$hshow_id = $entry->getHshowId();
 			}
 		}
 
@@ -933,7 +933,7 @@ return array($genericWidget, $myspaceWidget);
 			$error_obj = array ( $error , "entry" , $entry_id  );
 		}
 
-		return array ( $kshow , $entry , $error , $error_obj );
+		return array ( $hshow , $entry , $error , $error_obj );
 	}
 
 	/*
@@ -941,11 +941,11 @@ return array($genericWidget, $myspaceWidget);
 	 * A generic_id is a strgin starting with w- or k- or e-
 	 * then comes the real id -
 	 * 	w- a widget id which is a 32 character md5 string
-	 *  k- a kshow id which is an integer
+	 *  k- a hshow id which is an integer
 	 *  e- an entry id which is an integer
 	 */
 // TODO - cache the ids !!!
-	public static function getWidgetKshowEntryFromGenericId( $generic_id )
+	public static function getWidgetHshowEntryFromGenericId( $generic_id )
 	{
 		if ( $generic_id == null )
 			return null;
@@ -953,27 +953,27 @@ return array($genericWidget, $myspaceWidget);
 		if ( $prefix == "w-" )
 		{
 			$id = substr ( $generic_id , 2 ); // the rest of the string
-			$widget = widgetPeer::retrieveByPK( $id , null , widgetPeer::WIDGET_PEER_JOIN_ENTRY +  widgetPeer::WIDGET_PEER_JOIN_KSHOW ) ;
+			$widget = widgetPeer::retrieveByPK( $id , null , widgetPeer::WIDGET_PEER_JOIN_ENTRY +  widgetPeer::WIDGET_PEER_JOIN_HSHOW ) ;
 			if ( ! $widget )
 				return null;
-			$kshow = $widget->getKshow();
+			$hshow = $widget->getHshow();
 			$entry = $widget->getEntry();
 
-			return array ( $widget , $kshow , $entry );
+			return array ( $widget , $hshow , $entry );
 		}
 		elseif ( $prefix == "k-" )
 		{
 			$id = substr ( $generic_id , 2 ); // the rest of the string
-			list ( $kshow , $entry , $error ) = self::getKshowAndEntry ( $id , -1 );
+			list ( $hshow , $entry , $error ) = self::getHshowAndEntry ( $id , -1 );
 			if ( $error )	return null;
-			return array ( null , $kshow , $entry );
+			return array ( null , $hshow , $entry );
 		}
 		elseif ( $prefix == "e-" )
 		{
 			$id = substr ( $generic_id , 2 ); // the rest of the string
-			list ( $kshow , $entry , $error ) = self::getKshowAndEntry ( -1 , $id );
+			list ( $hshow , $entry , $error ) = self::getHshowAndEntry ( -1 , $id );
 			if ( $error )	return null;
-			return array ( null , $kshow , $entry );
+			return array ( null , $hshow , $entry );
 		}
 		else
 		{
@@ -983,12 +983,12 @@ return array($genericWidget, $myspaceWidget);
 	}
 
 	/**
-	 * Will search for a kshow for the specific partner & key.
+	 * Will search for a hshow for the specific partner & key.
 	 * The key can be combined from the kuser_id and the group_id
 	 * If not found - will create one
 	 * If both the kuser_id & group_id are null - always create one
 	 */
-	public static function getDefaultKshow ( $partner_id , $subp_id, $puser_kuser , $group_id = null , $allow_quick_edit = null , $create_anyway = false , $default_name = null )
+	public static function getDefaultHshow ( $partner_id , $subp_id, $puser_kuser , $group_id = null , $allow_quick_edit = null , $create_anyway = false , $default_name = null )
 	{
 		$kuser_id = null;
 		// make sure puser_kuser object exists so function will not exit with FATAL
@@ -1000,11 +1000,11 @@ return array($genericWidget, $myspaceWidget);
 		if ( !$create_anyway )
 		{
 			$c = new Criteria();
-			myCriteria::addComment( $c , "myKshowUtils::getDefaultKshow");
-			$c->add ( kshowPeer::GROUP_ID , $key );
-			$kshow = kshowPeer::doSelectOne( $c );
-			if ( $kshow ) return $kshow;
-					// no kshow - create using the service
+			myCriteria::addComment( $c , "myHshowUtils::getDefaultHshow");
+			$c->add ( hshowPeer::GROUP_ID , $key );
+			$hshow = hshowPeer::doSelectOne( $c );
+			if ( $hshow ) return $hshow;
+					// no hshow - create using the service
 			$name = "{$key}'s generated show'";
 		}
 		else
@@ -1015,38 +1015,38 @@ return array($genericWidget, $myspaceWidget);
 		if	( $default_name ) 
 			$name = $default_name;
 		
-		$extra_params = array ( "kshow_groupId" => $key , "kshow_allowQuickEdit" => $allow_quick_edit ); // set the groupId with the key so we'll find it next time round
-		$kshow = myPartnerServicesClient::createKshow ( "" , $puser_kuser->getPuserId() , $name , $partner_id , $subp_id , $extra_params );
+		$extra_params = array ( "hshow_groupId" => $key , "hshow_allowQuickEdit" => $allow_quick_edit ); // set the groupId with the key so we'll find it next time round
+		$hshow = myPartnerServicesClient::createHshow ( "" , $puser_kuser->getPuserId() , $name , $partner_id , $subp_id , $extra_params );
 		
-		return $kshow;
+		return $hshow;
 	}
 	
-	public static function getKshowFromPartnerPolicy ( $partner_id, $subp_id , $puser_kuser , $kshow_id , $entry )
+	public static function getHshowFromPartnerPolicy ( $partner_id, $subp_id , $puser_kuser , $hshow_id , $entry )
 	{
-	    if ( $kshow_id == kshow::KSHOW_ID_USE_DEFAULT )
+	    if ( $hshow_id == hshow::HSHOW_ID_USE_DEFAULT )
         {
-            // see if the partner has some default kshow to add to
-            $kshow = myPartnerUtils::getDefaultKshow ( $partner_id, $subp_id , $puser_kuser  );
-            if ( $kshow ) $kshow_id = $kshow->getId();
+            // see if the partner has some default hshow to add to
+            $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser  );
+            if ( $hshow ) $hshow_id = $hshow->getId();
         }
-		elseif ( $kshow_id == kshow::KSHOW_ID_CREATE_NEW )
+		elseif ( $hshow_id == hshow::HSHOW_ID_CREATE_NEW )
         {
-            // if the partner allows - create a new kshow 
-            $kshow = myPartnerUtils::getDefaultKshow ( $partner_id, $subp_id , $puser_kuser , null , true );
-            if ( $kshow ) $kshow_id = $kshow->getId();
+            // if the partner allows - create a new hshow 
+            $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser , null , true );
+            if ( $hshow ) $hshow_id = $hshow->getId();
         }   
 		else
         {
-            $kshow = kshowPeer::retrieveByPK( $kshow_id );
+            $hshow = hshowPeer::retrieveByPK( $hshow_id );
         }
 
-        if ( ! $kshow )
+        if ( ! $hshow )
         {
             // the partner is attempting to add an entry to some invalid or non-existing kwho
-            $this->addError( APIErrors::INVALID_KSHOW_ID, $kshow_id );
+            $this->addError( APIErrors::INVALID_HSHOW_ID, $hshow_id );
             return;
         }	
-        return $kshow;	
+        return $hshow;	
 	}	
 }
 ?>

@@ -129,10 +129,10 @@ class KalturaInternalToolsPluginSystemHelperAction extends KalturaApplicationPlu
 				return "";
 			}
 			$cracked = @explode ( "|" , $kwid_str );
-			$names = array ( "kshow_id" , "partner_id" , "subp_id" , "article_name" , "widget_id" , "hash" );
+			$names = array ( "hshow_id" , "partner_id" , "subp_id" , "article_name" , "widget_id" , "hash" );
 			$combined = array_combine( $names , $cracked );
 			
-			$md5 = md5 ( $combined["kshow_id"]  . $combined["partner_id"]  . $combined["subp_id"] . $combined["article_name"] . 
+			$md5 = md5 ( $combined["hshow_id"]  . $combined["partner_id"]  . $combined["subp_id"] . $combined["article_name"] . 
 				$combined["widget_id"] .  $secret );
 				
 			$combined["secret"] = $secret;

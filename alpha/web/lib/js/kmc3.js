@@ -84,7 +84,7 @@ $(function(){
 				sessionId		: kmc.vars.ks,
 				devFlag			: "true",
 				entryId			: "-1",
-				kshow_id		: "-1",
+				hshow_id		: "-1",
 				terms_of_use	: kmc.vars.terms_of_use,
 				close			: "kmc.functions.onCloseKcw",
 				quick_edit		: 0, 		// "when opening from the KMC - don't add to the roughcut" ???
@@ -420,7 +420,7 @@ $(function(){
 				uid					: kmc.vars.user_id,
 				ks					: kmc.vars.ks,
 				entryId				: "-1",
-				kshowId				: "-1",
+				hshowId				: "-1",
 				widget_id			: "_" + kmc.vars.partner_id,
 				enableCustomData	: kmc.vars.enable_custom_data,
 				urchinNumber		: kmc.vars.google_analytics_account // "UA-12055206-1""
@@ -1048,11 +1048,11 @@ $(function(){
 			"partner_id"	: kmc.vars.partner_id,
 			"subp_id"		: kmc.vars.subp_id,
 			"ks"			: kmc.vars.ks,
-			"kshow_id"		: "-1",
+			"hshow_id"		: "-1",
 			"backF"			: "kmc.functions.closeEditor", // kse
 			"saveF"			: "kmc.functions.saveEditor", // kse
 			// KAE can read both formats and cases of flashvars:
-			// "partnerId", "subpId", "kshowId", "entryId", "uid", "ks"
+			// "partnerId", "subpId", "hshowId", "entryId", "uid", "ks"
 			"terms_of_use"	: kmc.vars.terms_of_use,
 			"disableurlhashing" : kmc.vars.disableurlhashing,
 			"jsDelegate"	: "kmc.editors.kae_functions"

@@ -3,17 +3,17 @@
  * @package api
  * @subpackage ps2
  */
-class addkshowAction extends defPartnerservices2Action
+class addhshowAction extends defPartnerservices2Action
 {
 	public function describe()
 	{
 		return
 			array (
-				"display_name" => "addKShow",
+				"display_name" => "addHShow",
 				"desc" => "" ,
 				"in" => array (
 					"mandatory" => array (
-						"kshow" 				=> array ("type" => "kshow", "desc" => "kshow"),
+						"hshow" 				=> array ("type" => "hshow", "desc" => "hshow"),
 						),
 					"optional" => array (
 						"detailed" 				=> array ("type" => "boolean", "desc" => ""),
@@ -21,10 +21,10 @@ class addkshowAction extends defPartnerservices2Action
 						)
 					),
 				"out" => array (
-					"kshow" => array ("type" => "kshow", "desc" => "")
+					"hshow" => array ("type" => "hshow", "desc" => "")
 					),
 				"errors" => array (
-					APIErrors::DUPLICATE_KSHOW_BY_NAME
+					APIErrors::DUPLICATE_HSHOW_BY_NAME
 				)
 			);
 	}
@@ -48,13 +48,13 @@ class addkshowAction extends defPartnerservices2Action
 
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
-		$kshows_from_db = null;
+		$hshows_from_db = null;
 		// works in one of 2 ways:
-		// 1. get no requested name - will create a new kshow and return its details
+		// 1. get no requested name - will create a new hshow and return its details
 		// 2. get some name - tries to fetch by name. if already exists - return it
 
 		// get the new properties for the kuser from the request
-		$kshow = new kshow();
+		$hshow = new hshow();
 
 		$allow_duplicate_names = $this->getP ( "allow_duplicate_names" , true , true );
 		if ( $allow_duplicate_names === "false" || $allow_duplicate_names === 0 ) $allow_duplicate_names = false;
@@ -63,28 +63,28 @@ class addkshowAction extends defPartnerservices2Action
 		$detailed = $this->getP ( "detailed" , false );
 		$level = ( $detailed ? objectWrapperBase::DETAIL_LEVEL_DETAILED : objectWrapperBase::DETAIL_LEVEL_REGULAR );
 
-		$obj_wrapper = objectWrapperBase::getWrapperClass( $kshow , 0 );
+		$obj_wrapper = objectWrapperBase::getWrapperClass( $hshow , 0 );
 
-		$fields_modified = baseObjectUtils::fillObjectFromMap ( $this->getInputParams() , $kshow , "kshow_" , $obj_wrapper->getUpdateableFields() );
+		$fields_modified = baseObjectUtils::fillObjectFromMap ( $this->getInputParams() , $hshow , "hshow_" , $obj_wrapper->getUpdateableFields() );
 		// check that mandatory fields were set
 		// TODO
-		$kshow->setName( trim ( $kshow->getName() ) );
+		$hshow->setName( trim ( $hshow->getName() ) );
 		// ASSUME - the name is UNIQUE per partner_id !
 
-		if ( $kshow->getName() )
+		if ( $hshow->getName() )
 		{
-			if ( myPartnerUtils::shouldForceUniqueKshow( $partner_id , $allow_duplicate_names ) )
+			if ( myPartnerUtils::shouldForceUniqueHshow( $partner_id , $allow_duplicate_names ) )
 			{
-				// in this case willsearch for an existing kshow with this name and return with an error if found
-				$kshows_from_db = kshowPeer::getKshowsByName ( trim ( $kshow->getName() ) );
-				if ( $kshows_from_db )
+				// in this case willsearch for an existing hshow with this name and return with an error if found
+				$hshows_from_db = hshowPeer::getHshowsByName ( trim ( $hshow->getName() ) );
+				if ( $hshows_from_db )
 				{
-					$kshow_from_db = $kshows_from_db[0];
-					$this->addDebug ( "already_exists_objects" , count ( $kshows_from_db ) );
-					$this->addError ( APIErrors::DUPLICATE_KSHOW_BY_NAME, $kshow->getName() ) ;// This field in unique. Please change ");
-					if( myPartnerUtils::returnDuplicateKshow( $partner_id ))
+					$hshow_from_db = $hshows_from_db[0];
+					$this->addDebug ( "already_exists_objects" , count ( $hshows_from_db ) );
+					$this->addError ( APIErrors::DUPLICATE_HSHOW_BY_NAME, $hshow->getName() ) ;// This field in unique. Please change ");
+					if( myPartnerUtils::returnDuplicateHshow( $partner_id ))
 					{
-						$this->addMsg ( "kshow" , objectWrapperBase::getWrapperClass( $kshow_from_db , $level  ) );
+						$this->addMsg ( "hshow" , objectWrapperBase::getWrapperClass( $hshow_from_db , $level  ) );
 					}
 					return;
 				}
@@ -92,51 +92,51 @@ class addkshowAction extends defPartnerservices2Action
 		}
 
 
-		// the first kuser to create this kshow will be it's producer
+		// the first kuser to create this hshow will be it's producer
 		$producer_id =   $puser_kuser->getKuserId();
-		$kshow->setProducerId( $producer_id );
+		$hshow->setProducerId( $producer_id );
 		// moved to the update - where there is
 
-		$kshow->setPartnerId( $partner_id );
-		$kshow->setSubpId( $subp_id );
-		$kshow->setViewPermissions( kshow::KSHOW_PERMISSION_EVERYONE );
+		$hshow->setPartnerId( $partner_id );
+		$hshow->setSubpId( $subp_id );
+		$hshow->setViewPermissions( hshow::HSHOW_PERMISSION_EVERYONE );
 
 		// by default the permissions should be public
-		if ( $kshow->getPermissions () === null )
+		if ( $hshow->getPermissions () === null )
 		{ 
-			$kshow->setPermissions( kshow::PERMISSIONS_PUBLIC );
+			$hshow->setPermissions( hshow::PERMISSIONS_PUBLIC );
 		}
 		
-		// have to save the kshow before creating the default entries
-		$kshow->save();
-		$show_entry = $kshow->createEntry( entry::ENTRY_MEDIA_TYPE_SHOW , $producer_id , "&auto_edit.jpg" , $kshow->getName() ); // roughcut
-		$kshow->createEntry( entry::ENTRY_MEDIA_TYPE_VIDEO , $producer_id ); // intro
+		// have to save the hshow before creating the default entries
+		$hshow->save();
+		$show_entry = $hshow->createEntry( entry::ENTRY_MEDIA_TYPE_SHOW , $producer_id , "&auto_edit.jpg" , $hshow->getName() ); // roughcut
+		$hshow->createEntry( entry::ENTRY_MEDIA_TYPE_VIDEO , $producer_id ); // intro
 /*
-		$sample_text = $kshow->getName();
+		$sample_text = $hshow->getName();
 		$host = requestUtils::getHost();
 */
 		$sample_text = "";
 		myEntryUtils::modifyEntryMetadataWithText ( $show_entry , $sample_text , "" );
 
 		// set the roughcut to false so the update iwll override with better data
-		$kshow->setHasRoughcut( false );
+		$hshow->setHasRoughcut( false );
 
-		$kshow->initFromTemplate ( $producer_id , $sample_text);
+		$hshow->initFromTemplate ( $producer_id , $sample_text);
 
-		$kshow->save();
+		$hshow->save();
 
-		myNotificationMgr::createNotification( kNotificationJobData::NOTIFICATION_TYPE_KSHOW_ADD , $kshow );
+		myNotificationMgr::createNotification( kNotificationJobData::NOTIFICATION_TYPE_HSHOW_ADD , $hshow );
 
-		$this->addMsg ( "kshow" , objectWrapperBase::getWrapperClass( $kshow ,  $level  ) );
+		$this->addMsg ( "hshow" , objectWrapperBase::getWrapperClass( $hshow ,  $level  ) );
 
 		if ( $return_metadata )
 		{
-			$this->addMsg ( "metadata" , $kshow->getMetadata() );
+			$this->addMsg ( "metadata" , $hshow->getMetadata() );
 		}
 
 		$this->addDebug ( "added_fields" , $fields_modified );
-		if ( $kshows_from_db )
-			$this->addDebug ( "already_exists_objects" , count ( $kshows_from_db ) );
+		if ( $hshows_from_db )
+			$this->addDebug ( "already_exists_objects" , count ( $hshows_from_db ) );
 
 	}
 }

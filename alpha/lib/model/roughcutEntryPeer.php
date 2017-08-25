@@ -95,11 +95,11 @@ class roughcutEntryPeer extends BaseroughcutEntryPeer
 
 	// TODO - the join_all = true doesn't work due to a bug with propel !
 	// need to find a workaround
-	public static function retrievByKshowId( $kshow_id , $join_all = false )
+	public static function retrievByHshowId( $hshow_id , $join_all = false )
 	{
 		$c = new Criteria();
 //		myCriteria::addComment( $c , __METHOD__ );
-		$c->addAnd ( roughcutEntryPeer::ROUGHCUT_KSHOW_ID , $kshow_id );
+		$c->addAnd ( roughcutEntryPeer::ROUGHCUT_HSHOW_ID , $hshow_id );
 		$c->addAscendingOrderByColumn( roughcutEntryPeer::ID );
 		if ( $join_all )
 			return roughcutEntryPeer::doSelectJoinAll( $c );

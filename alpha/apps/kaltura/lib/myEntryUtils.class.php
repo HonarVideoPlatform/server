@@ -61,7 +61,7 @@ class myEntryUtils
 		myNotificationMgr::createNotification(kNotificationJobData::NOTIFICATION_TYPE_ENTRY_UPDATE_THUMBNAIL, $entry);
 	}
 	
-	public static function deepClone ( entry $source , $kshow_id , $override_fields, $echo = false)
+	public static function deepClone ( entry $source , $hshow_id , $override_fields, $echo = false)
 	{
 		if ($echo)
 			echo "Copying entry: " . $source->getId() . "\n";
@@ -77,7 +77,7 @@ class myEntryUtils
 				$override_fields , $target , baseObjectUtils::CLONE_POLICY_PREFER_NEW , array  ("id") );
 		}
 
-		$target->setKshowId ( $kshow_id );
+		$target->setHshowId ( $hshow_id );
 		// set all statistics to 0
 		$target->setComments ( 0 );
 		$target->setTotalRank ( 0 );
@@ -94,7 +94,7 @@ class myEntryUtils
 		$target_data_path = null;
 		
 		if ($echo)
-			echo "Copied " . $source->getId() . " (from kshow [" . $source->getKshowId() . "]) -> " . $target->getId() . "\n";
+			echo "Copied " . $source->getId() . " (from hshow [" . $source->getHshowId() . "]) -> " . $target->getId() . "\n";
 
 		if ( myContentStorage::isTemplate($source->getData()))
 		{
@@ -535,19 +535,19 @@ class myEntryUtils
 
 	public static function createRoughcutThumbnailFromEntry ( $source_entry , $should_force = false )
 	{
-		$kshow = kshowPeer::retrieveByPK( $source_entry->getKshowId() );
-		if ( ! $kshow )
+		$hshow = hshowPeer::retrieveByPK( $source_entry->getHshowId() );
+		if ( ! $hshow )
 		{
-			KalturaLog::log( "Error: entry [" . $source_entry->getId() . "] does not have a kshow" );	
+			KalturaLog::log( "Error: entry [" . $source_entry->getId() . "] does not have a hshow" );	
 			return false;
 		}
 	
-		if ( $kshow )
+		if ( $hshow )
 		{
-			$roughcut = $kshow->getShowEntry();
+			$roughcut = $hshow->getShowEntry();
 			if ( ! $roughcut )
 			{
-				KalturaLog::log( "Error: entry [" . $source_entry->getId() . "] from kshow " . $kshow->getId() . "] does not have a roughcut " );
+				KalturaLog::log( "Error: entry [" . $source_entry->getId() . "] from hshow " . $hshow->getId() . "] does not have a roughcut " );
 				return false;	
 			}
 			
@@ -1468,23 +1468,23 @@ PuserKuserPeer::getCriteriaFilter()->disable();
  			kuserPeer::setUseCriteriaFilter(true);
  		} 		
  		
- 		// copy the kshow
- 		kshowPeer::setUseCriteriaFilter(false);
- 		$kshow = $entry->getKshow();
- 		if ($kshow)
+ 		// copy the hshow
+ 		hshowPeer::setUseCriteriaFilter(false);
+ 		$hshow = $entry->getHshow();
+ 		if ($hshow)
  		{
- 			$newKshow = $kshow->copy();
- 			$newKshow->setIntId(null);
- 			$newKshow->setPartnerId($toPartner->getId());
- 			$newKshow->setSubpId($toPartner->getId() * 100);
+ 			$newHshow = $hshow->copy();
+ 			$newHshow->setIntId(null);
+ 			$newHshow->setPartnerId($toPartner->getId());
+ 			$newHshow->setSubpId($toPartner->getId() * 100);
  			if ($newKuser) {
- 				$newKshow->setProducerId($newKuser->getId());
+ 				$newHshow->setProducerId($newKuser->getId());
  			}
- 			$newKshow->save();
+ 			$newHshow->save();
  			
- 			$newEntry->setKshowId($newKshow->getId());
+ 			$newEntry->setHshowId($newHshow->getId());
  		}
- 		kshowPeer::setUseCriteriaFilter(true);
+ 		hshowPeer::setUseCriteriaFilter(true);
  		
  		// reset the statistics
  		myEntryUtils::resetEntryStatistics($newEntry);

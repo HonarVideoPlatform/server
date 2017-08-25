@@ -24,10 +24,10 @@ class plymediaAction extends kalturaAction
 			}
 			else
 			{
-				$kshow = kshowPeer::retrieveByPK( $id );
-				if ( $kshow )
+				$hshow = hshowPeer::retrieveByPK( $id );
+				if ( $hshow )
 				{
-					return $this->renderText( self::renderEntry ( $kshow->getShowEntryId() ) );
+					return $this->renderText( self::renderEntry ( $hshow->getShowEntryId() ) );
 				}
 			}
 		}

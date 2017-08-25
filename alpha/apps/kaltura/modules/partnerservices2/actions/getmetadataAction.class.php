@@ -14,7 +14,7 @@ class getmetadataAction extends defPartnerservices2Action
 				"in" => array (
 					"mandatory" => array ( 
 						"entry_id" => array ("type" => "string", "desc" => ""),
-						"kshow_id" => array ("type" => "string", "desc" => ""),
+						"hshow_id" => array ("type" => "string", "desc" => ""),
 						"version"  => array ("type" => "string", "desc" => "")
 						),
 					"optional" => array (
@@ -24,7 +24,7 @@ class getmetadataAction extends defPartnerservices2Action
 					"metadata" => array ("type" => "xml", "desc" => "")
 					),
 				"errors" => array (
-					APIErrors::INVALID_KSHOW_ID , 
+					APIErrors::INVALID_HSHOW_ID , 
 					APIErrors::INVALID_ENTRY_ID ,
 					APIErrors::INVALID_FILE_NAME , 
 				)
@@ -36,13 +36,13 @@ class getmetadataAction extends defPartnerservices2Action
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
 		$entry_id = $this->getP ( "entry_id" );
-		$kshow_id =  $this->getP ( "kshow_id" );
+		$hshow_id =  $this->getP ( "hshow_id" );
 		
 		// Make sure the request is for a ready roughcut
 		$c = entryPeer::getCriteriaFilter()->getFilter();
 		$c->addAnd ( entryPeer::STATUS, entryStatus::READY , Criteria::EQUAL);
 				
-		list ( $kshow , $entry , $error , $error_obj ) = myKshowUtils::getKshowAndEntry( $kshow_id  , $entry_id );
+		list ( $hshow , $entry , $error , $error_obj ) = myHshowUtils::getHshowAndEntry( $hshow_id  , $entry_id );
 
 		if ( $error_obj )
 		{

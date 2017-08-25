@@ -11,26 +11,26 @@ require_once ( __DIR__ . "/defKeditorservicesAction.class.php");
  */
 class getAllEntriesAction extends defKeditorservicesAction
 {
-	const LIST_TYPE_KSHOW = 1 ;
+	const LIST_TYPE_HSHOW = 1 ;
 	const LIST_TYPE_KUSER = 2 ;
 	const LIST_TYPE_ROUGHCUT = 4 ;
 	const LIST_TYPE_EPISODE = 8 ;
 	const LIST_TYPE_ALL = 15;
 	
-	protected function executeImpl ( kshow $kshow, entry &$entry )
+	protected function executeImpl ( hshow $hshow, entry &$entry )
 	{
 		$list_type = $this->getP ( "list_type" , self::LIST_TYPE_ALL );
 		
-		$kshow_entry_list = array();
+		$hshow_entry_list = array();
 		$kuser_entry_list = array();
 		
-		if ( $list_type & self::LIST_TYPE_KSHOW )
+		if ( $list_type & self::LIST_TYPE_HSHOW )
 		{
 			$c = new Criteria();
 			$c->add ( entryPeer::TYPE , entryType::MEDIA_CLIP );
 			$c->add ( entryPeer::MEDIA_TYPE , entry::ENTRY_MEDIA_TYPE_SHOW , Criteria::NOT_EQUAL );
-			$c->add ( entryPeer::KSHOW_ID , $this->kshow_id );
-			$kshow_entry_list = entryPeer::doSelectJoinkuser( $c );
+			$c->add ( entryPeer::HSHOW_ID , $this->hshow_id );
+			$hshow_entry_list = entryPeer::doSelectJoinkuser( $c );
 		}
 
 		if ( $list_type & self::LIST_TYPE_KUSER )
@@ -44,18 +44,18 @@ class getAllEntriesAction extends defKeditorservicesAction
 
 		if ( $list_type & self::LIST_TYPE_EPISODE )
 		{
-			if ( $kshow->getEpisodeId() )
+			if ( $hshow->getEpisodeId() )
 			{
-				// episode_id will point to the "parent" kshow
-				// fetch the entries of the parent kshow
+				// episode_id will point to the "parent" hshow
+				// fetch the entries of the parent hshow
 				$c = new Criteria();
 				$c->add ( entryPeer::TYPE , entryType::MEDIA_CLIP );
 				$c->add ( entryPeer::MEDIA_TYPE , entry::ENTRY_MEDIA_TYPE_SHOW , Criteria::NOT_EQUAL );
-				$c->add ( entryPeer::KSHOW_ID , $kshow->getEpisodeId() );
-				$parent_kshow_entries = entryPeer::doSelectJoinkuser( $c );
-				if ( count ( $parent_kshow_entries) )
+				$c->add ( entryPeer::HSHOW_ID , $hshow->getEpisodeId() );
+				$parent_hshow_entries = entryPeer::doSelectJoinkuser( $c );
+				if ( count ( $parent_hshow_entries) )
 				{
-					$kshow_entry_list = kArray::append  ( $kshow_entry_list , $parent_kshow_entries );
+					$hshow_entry_list = kArray::append  ( $hshow_entry_list , $parent_hshow_entries );
 				}			
 			}
 		}
@@ -65,7 +65,7 @@ class getAllEntriesAction extends defKeditorservicesAction
 
 		if ( $list_type & self::LIST_TYPE_ROUGHCUT )
 		{
-			if ( $kshow->getHasRoughcut() )
+			if ( $hshow->getHasRoughcut() )
 			{
 				$roughcut_file_name =  $entry->getDataPath();
 				
@@ -75,7 +75,7 @@ class getAllEntriesAction extends defKeditorservicesAction
 				foreach ( $entry_ids_from_roughcut as $id )
 				{
 					$found = false;
-					foreach ( $kshow_entry_list as $entry )
+					foreach ( $hshow_entry_list as $entry )
 					{
 						if ( $entry->getId() == $id )
 						{
@@ -91,18 +91,18 @@ class getAllEntriesAction extends defKeditorservicesAction
 				$extra_entries = entryPeer::doSelectJoinkuser( $c );
 				
 				// merge the 2 lists into 1:
-				$kshow_entry_list = kArray::append  ( $kshow_entry_list , $extra_entries );
+				$hshow_entry_list = kArray::append  ( $hshow_entry_list , $extra_entries );
 			}
 		}
 		
-		$this->kshow_entry_list = $kshow_entry_list;
+		$this->hshow_entry_list = $hshow_entry_list;
 		$this->kuser_entry_list = $kuser_entry_list;
 		
 	}
 	
-	protected function noSuchKshow ( $kshow_id )
+	protected function noSuchHshow ( $hshow_id )
 	{
-		$this->kshow_entry_list = array ();
+		$this->hshow_entry_list = array ();
 		$this->kuser_entry_list = array ();
 	}
 

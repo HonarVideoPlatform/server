@@ -33,7 +33,7 @@ class updatedataentryAction extends updateentryAction
 			); 
 	}
 	
-	public function requiredPrivileges () { return "" ; } //"edit:<kshow_id>" ; }
+	public function requiredPrivileges () { return "" ; } //"edit:<hshow_id>" ; }
 	
 	public function verifyEntryPrivileges ( $entry ) 
 	{

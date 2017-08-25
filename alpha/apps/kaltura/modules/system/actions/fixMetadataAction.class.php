@@ -25,9 +25,9 @@ class fixMetadataAction extends kalturaSystemAction
 		entryPeer::setUseCriteriaFilter( false );
 		$this->result = NULL;
 
-		$kshow_ids = @$_REQUEST["kshow_ids"];
-		$this->kshow_ids = $kshow_ids;
-		$this->kshow = NULL;
+		$hshow_ids = @		$hshow_ids = @$_REQUEST["hshow_ids"];REQUEST["hshow_ids"];
+		$this->hshow_ids = $hshow_ids;
+		$this->hshow = NULL;
 
 		$entry_ids = @$_REQUEST["entry_ids"];
 		$this->entry_ids = $entry_ids;
@@ -36,20 +36,20 @@ class fixMetadataAction extends kalturaSystemAction
 
 		$show_entry_list = array();
 
-		if ( !empty ( $kshow_ids ))
+		if ( !empty ( $hshow_ids ))
 		{
-			$ids_arr = explode ( "," , $kshow_ids );
-			$kshows = kshowPeer::retrieveByPKs( $ids_arr );
+			$ids_arr = explode ( "," , $hshow_ids );
+			$hshows = hshowPeer::retrieveByPKs( $ids_arr );
 
-			if ( ! $kshows )
+			if ( ! $hshows )
 			{
-				$this->result = "No kshows [$kshow_ids] in DB";
+				$this->result = "No hshows [$hshow_ids] in DB";
 				return;
 			}
 
-			foreach ( $kshows as $kshow )
+			foreach ( $hshows as $hshow )
 			{
-				$show_entry =  $kshow->getShowEntry();
+				$show_entry =  $hshow->getShowEntry();
 				$show_entry_list[] = $show_entry;
 			}
 		}
@@ -57,7 +57,7 @@ class fixMetadataAction extends kalturaSystemAction
 		{
 			if ( empty ( $entry_ids ))
 			{
-				$this->result = "Submit an entry_id of a kshow_id to fix";
+				$this->result = "Submit an entry_id of a hshow_id to fix";
 				return;
 			}
 			$ids_arr = explode ( "," , $entry_ids );

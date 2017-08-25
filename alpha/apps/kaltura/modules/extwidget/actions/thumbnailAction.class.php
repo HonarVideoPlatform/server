@@ -233,12 +233,12 @@ class thumbnailAction extends sfAction
 				KExternalErrors::dieError(KExternalErrors::ENTRY_AND_WIDGET_NOT_FOUND);
 			}
 			
-			// get the kshow
-			$kshow_id= $widget->getKshowId();
-			$kshow = kshowPeer::retrieveByPK($kshow_id);
-			if ( $kshow )
+			// get the hshow
+			$hshow_id= $widget->getHshowId();
+			$hshow = hshowPeer::retrieveByPK($hshow_id);
+			if ( $hshow )
 			{
-				$entry_id = $kshow->getShowEntryId();
+				$entry_id = $hshow->getShowEntryId();
 			}
 			else
 			{

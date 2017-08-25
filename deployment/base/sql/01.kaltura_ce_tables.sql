@@ -727,7 +727,7 @@ CREATE TABLE IF NOT EXISTS `email_ingestion_profile` (
 
 CREATE TABLE IF NOT EXISTS `entry` (
   `id` varchar(20) NOT NULL DEFAULT '',
-  `kshow_id` varchar(20) DEFAULT NULL,
+  `hshow_id` varchar(20) DEFAULT NULL,
   `kuser_id` int(11) DEFAULT NULL,
   `name` varchar(256) DEFAULT NULL,
   `type` smallint(6) DEFAULT NULL,
@@ -780,7 +780,7 @@ CREATE TABLE IF NOT EXISTS `entry` (
   `available_from` datetime DEFAULT NULL,
   `last_played_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `kshow_created_index` (`kshow_id`,`created_at`),
+  KEY `hshow_created_index` (`hshow_id`,`created_at`),
   KEY `int_id_index` (`int_id`),
   KEY `entry_FI_2` (`kuser_id`),
   KEY `status_created_index` (`status`,`created_at`),
@@ -1176,9 +1176,9 @@ CREATE TABLE IF NOT EXISTS `keyword` (
   KEY `word_index` (`word`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Table structure for table `kshow` */
+/*Table structure for table `hshow` */
 
-CREATE TABLE IF NOT EXISTS `kshow` (
+CREATE TABLE IF NOT EXISTS `hshow` (
   `id` varchar(20) NOT NULL DEFAULT '',
   `producer_id` int(11) DEFAULT NULL,
   `episode_id` varchar(20) DEFAULT NULL,
@@ -1235,18 +1235,18 @@ CREATE TABLE IF NOT EXISTS `kshow` (
   KEY `int_id_index` (`int_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-/*Table structure for table `kshow_kuser` */
+/*Table structure for table `hshow_kuser` */
 
-CREATE TABLE IF NOT EXISTS `kshow_kuser` (
-  `kshow_id` varchar(20) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `hshow_kuser` (
+  `hshow_id` varchar(20) DEFAULT NULL,
   `kuser_id` int(11) DEFAULT NULL,
   `subscription_type` int(11) DEFAULT NULL,
   `alert_type` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
-  KEY `kshow_index` (`kshow_id`),
+  KEY `hshow_index` (`hshow_id`),
   KEY `kuser_index` (`kuser_id`),
-  KEY `subscription_index` (`kshow_id`,`subscription_type`)
+  KEY `subscription_index` (`hshow_id`,`subscription_type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `kuser` */
@@ -1285,7 +1285,7 @@ CREATE TABLE IF NOT EXISTS `kuser` (
   `views` int(11) DEFAULT '0',
   `fans` int(11) DEFAULT '0',
   `entries` int(11) DEFAULT '0',
-  `produced_kshows` int(11) DEFAULT '0',
+  `produced_hshows` int(11) DEFAULT '0',
   `status` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -1323,7 +1323,7 @@ CREATE TABLE IF NOT EXISTS `kuser_to_user_role` (
 
 CREATE TABLE IF NOT EXISTS `kvote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kshow_id` varchar(20) DEFAULT NULL,
+  `hshow_id` varchar(20) DEFAULT NULL,
   `entry_id` varchar(20) DEFAULT NULL,
   `kuser_id` int(11) DEFAULT NULL,
   `puser_id` VARCHAR(100),
@@ -1334,7 +1334,7 @@ CREATE TABLE IF NOT EXISTS `kvote` (
   `kvote_type` int(11) DEFAULT '1',
   `custom_data` text,
   PRIMARY KEY (`id`),
-  KEY `kshow_index` (`kshow_id`),
+  KEY `hshow_index` (`hshow_id`),
   KEY `entry_user_index` (`entry_id`),
   KEY `kvote_FI_3` (`kuser_id`),
   KEY `entry_user_status_index` (`entry_id`,`kuser_id`,`status`)
@@ -1347,7 +1347,7 @@ CREATE TABLE IF NOT EXISTS `kwidget_log` (
   `widget_id` varchar(24) DEFAULT NULL,
   `source_widget_id` varchar(24) DEFAULT NULL,
   `root_widget_id` varchar(24) DEFAULT NULL,
-  `kshow_id` varchar(20) DEFAULT NULL,
+  `hshow_id` varchar(20) DEFAULT NULL,
   `entry_id` varchar(20) DEFAULT NULL,
   `ui_conf_id` int(11) DEFAULT NULL,
   `referer` varchar(1024) DEFAULT NULL,
@@ -1363,10 +1363,10 @@ CREATE TABLE IF NOT EXISTS `kwidget_log` (
   `subp_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `referer_index` (`referer`(255)),
-  KEY `entry_id_kshow_id_index` (`entry_id`,`kshow_id`),
+  KEY `entry_id_hshow_id_index` (`entry_id`,`hshow_id`),
   KEY `partner_id_subp_id_index` (`partner_id`,`subp_id`),
   KEY `kwidget_log_FI_1` (`widget_id`),
-  KEY `kwidget_log_FI_2` (`kshow_id`),
+  KEY `kwidget_log_FI_2` (`hshow_id`),
   KEY `kwidget_log_FI_4` (`ui_conf_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1617,8 +1617,8 @@ CREATE TABLE IF NOT EXISTS `partner_stats` (
   `users_2` int(11) DEFAULT NULL,
   `rc_1` int(11) DEFAULT NULL,
   `rc_2` int(11) DEFAULT NULL,
-  `kshows_1` int(11) DEFAULT NULL,
-  `kshows_2` int(11) DEFAULT NULL,
+  `hshows_1` int(11) DEFAULT NULL,
+  `hshows_2` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `custom_data` text,
@@ -1733,7 +1733,7 @@ CREATE TABLE IF NOT EXISTS `puser_kuser` (
 
 CREATE TABLE IF NOT EXISTS `puser_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kshow_id` varchar(20) DEFAULT NULL,
+  `hshow_id` varchar(20) DEFAULT NULL,
   `partner_id` int(11) DEFAULT NULL,
   `puser_id` varchar(64) DEFAULT NULL,
   `role` int(11) DEFAULT NULL,
@@ -1742,7 +1742,7 @@ CREATE TABLE IF NOT EXISTS `puser_role` (
   `subp_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `partner_puser_index` (`partner_id`,`puser_id`),
-  KEY `kshow_id_index` (`kshow_id`),
+  KEY `hshow_id_index` (`hshow_id`),
   KEY `puser_role_FI_3` (`puser_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -1767,7 +1767,7 @@ CREATE TABLE IF NOT EXISTS `roughcut_entry` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `roughcut_id` varchar(20) DEFAULT NULL,
   `roughcut_version` int(11) DEFAULT NULL,
-  `roughcut_kshow_id` varchar(20) DEFAULT NULL,
+  `roughcut_hshow_id` varchar(20) DEFAULT NULL,
   `entry_id` varchar(20) DEFAULT NULL,
   `partner_id` int(11) DEFAULT NULL,
   `op_type` smallint(6) DEFAULT NULL,
@@ -2008,7 +2008,7 @@ CREATE TABLE IF NOT EXISTS `temp_updated_kusers_storage_usage` (
 
 CREATE TABLE IF NOT EXISTS `tmp` (
   `id` int(11) NOT NULL DEFAULT '0',
-  `kshow_id` int(11) DEFAULT NULL,
+  `hshow_id` int(11) DEFAULT NULL,
   `kuser_id` int(11) DEFAULT NULL,
   `name` varchar(60) DEFAULT NULL,
   `type` smallint(6) DEFAULT NULL,
@@ -2182,7 +2182,7 @@ CREATE TABLE IF NOT EXISTS `widget` (
   `root_widget_id` varchar(32) DEFAULT NULL,
   `partner_id` int(11) DEFAULT NULL,
   `subp_id` int(11) DEFAULT NULL,
-  `kshow_id` varchar(20) DEFAULT NULL,
+  `hshow_id` varchar(20) DEFAULT NULL,
   `entry_id` varchar(20) DEFAULT NULL,
   `ui_conf_id` int(11) DEFAULT NULL,
   `custom_data` varchar(1024) DEFAULT NULL,
@@ -2202,7 +2202,7 @@ CREATE TABLE IF NOT EXISTS `widget` (
 
 CREATE TABLE IF NOT EXISTS `widget_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kshow_id` varchar(20) DEFAULT NULL,
+  `hshow_id` varchar(20) DEFAULT NULL,
   `entry_id` varchar(20) DEFAULT NULL,
   `kmedia_type` int(11) DEFAULT NULL,
   `widget_type` varchar(32) DEFAULT NULL,
@@ -2219,7 +2219,7 @@ CREATE TABLE IF NOT EXISTS `widget_log` (
   `subp_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `referer_index` (`referer`(255)),
-  KEY `entry_id_kshow_id_index` (`entry_id`,`kshow_id`),
+  KEY `entry_id_hshow_id_index` (`entry_id`,`hshow_id`),
   KEY `views_index` (`views`),
   KEY `plays_index` (`plays`),
   KEY `partner_id_subp_id_index` (`partner_id`,`subp_id`),

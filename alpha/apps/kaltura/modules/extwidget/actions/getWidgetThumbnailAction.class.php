@@ -6,7 +6,7 @@
 class getWidgetThumbnailAction extends sfAction
 {
 	/**
-	 * Will forward to the the thumbnail of the kshows using the widget id
+	 * Will forward to the the thumbnail of the hshows using the widget id
 	 */
 	public function execute()
 	{
@@ -19,13 +19,13 @@ class getWidgetThumbnailAction extends sfAction
 		}
 		
 		// because of the routing rule - the entry_id & kmedia_type WILL exist. be sure to ignore them if smaller than 0
-		$kshow_id= $widget->getKshowId();
+		$hshow_id= $widget->getHshowId();
 		
-		if ($kshow_id)
+		if ($hshow_id)
 		{
-			$kshow = kshowPeer::retrieveByPK($kshow_id);
-			if ($kshow->getShowEntry())
-				$this->redirect($kshow->getShowEntry()->getBigThumbnailUrl());
+			$hshow = hshowPeer::retrieveByPK($hshow_id);
+			if ($hshow->getShowEntry())
+				$this->redirect($hshow->getShowEntry()->getBigThumbnailUrl());
 		}
 	}
 }

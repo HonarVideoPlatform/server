@@ -11,27 +11,27 @@ require_once ( __DIR__ . "/kalturaSystemAction.class.php" );
  * @subpackage system
  * @deprecated
  */
-class cloneKshowAction extends kalturaSystemAction
+class cloneHshowAction extends kalturaSystemAction
 {
 
 	public function execute()
 	{
 		$this->forceSystemAuthentication();
 
-		$source_kshow_id = $this->getP ( "source_kshow_id" );
-		$target_kshow_id = $this->getP ( "target_kshow_id" );
+		$source_hshow_id = $this->getP ( "source_hshow_id" );
+		$target_hshow_id = $this->getP ( "target_hshow_id" );
 		$kuser_names = $this->getP ( "kuser_names" );
 
 		$reset = $this->getP ( "reset" );
 		if ( $reset )
 		{
-			$source_kshow_id = null;
-			$target_kshow_id = null;
+			$source_hshow_id = null;
+			$target_hshow_id = null;
 			$kuser_names = null;
 		}
 		
 		$mode = 0;// view
-		if ( $source_kshow_id && $target_kshow_id && $kuser_names )
+		if ( $source_hshow_id && $target_hshow_id && $kuser_names )
 		{
 			$mode = 1; // review
 			$list_of_kuser_names = explode ( "," , $kuser_names );
@@ -40,11 +40,11 @@ class cloneKshowAction extends kalturaSystemAction
 				$name = trim($name);
 			}
 
-			$source_kshow = kshowPeer::retrieveByPK( $source_kshow_id ) ;
-			$target_kshow = kshowPeer::retrieveByPK( $target_kshow_id ) ;
+			$source_hshow = hshowPeer::retrieveByPK( $source_hshow_id ) ;
+			$target_hshow = hshowPeer::retrieveByPK( $target_hshow_id ) ;
 
-			$target_partner_id = $target_kshow->getPartnerId();
-			$target_subp_id = $target_kshow->getSubpId();
+			$target_partner_id = $target_hshow->getPartnerId();
+			$target_subp_id = $target_hshow->getSubpId();
 
 			$c = new Criteria();
 			// select only the kusers of the correct partner_id
@@ -52,7 +52,7 @@ class cloneKshowAction extends kalturaSystemAction
 			$c->setLimit( 10 );
 			//$c->add ( kuserPeer::PARTNER_ID , $target_partner_id );
 			$list_of_kusers = kuserPeer::doSelect( $c );
-			$producer = kuserPeer::retrieveByPK( $target_kshow->getProducerId());;
+			$producer = kuserPeer::retrieveByPK( $target_hshow->getProducerId());;
 			$list_of_kusers[] = $producer;
 
 			$c->add ( kuserPeer::PARTNER_ID , $target_partner_id );
@@ -60,7 +60,7 @@ class cloneKshowAction extends kalturaSystemAction
 			$list_of_valid_kusers[] = $producer;
 			
 			$c = new Criteria();
-			$c->add ( entryPeer::KSHOW_ID , $source_kshow_id );
+			$c->add ( entryPeer::HSHOW_ID , $source_hshow_id );
 			$c->add ( entryPeer::TYPE , entryType::MEDIA_CLIP );
 			$c->add ( entryPeer::STATUS , entryStatus::READY );
 			$entries = entryPeer::doSelectJoinAll( $c );
@@ -90,12 +90,12 @@ class cloneKshowAction extends kalturaSystemAction
 					{
 						$kuser_id = $entry_kusers[$entry->getId()] ;
 						$override_fields = $entry->copy();
-						$override_fields->setPartnerId ( $target_kshow->getPartnerId() );
-						$override_fields->setSubpId( $target_kshow->getSubpId());
+						$override_fields->setPartnerId ( $target_hshow->getPartnerId() );
+						$override_fields->setSubpId( $target_hshow->getSubpId());
 						$override_fields->setKuserId( $kuser_id );
 						$override_fields->setCreatorKuserId( $kuser_id );
 						
-						$new_entry = myEntryUtils::deepClone( $entry , $target_kshow_id , $override_fields ,false );
+						$new_entry = myEntryUtils::deepClone( $entry , $target_hshow_id , $override_fields ,false );
 						$new_entry_list[] = $new_entry;
 						// will help fix the metadata entries
 						$entry_id_map [$entry->getId()] = $new_entry->getId();
@@ -112,8 +112,8 @@ class cloneKshowAction extends kalturaSystemAction
 				}
 				
 				// now clone the show_entry
-				$new_show_entry = $target_kshow->getShowEntry();
-				myEntryUtils::deepCloneShowEntry ( $source_kshow->getShowEntry() , $new_show_entry , $entry_id_map , $entry_cache ) ;
+				$new_show_entry = $target_hshow->getShowEntry();
+				myEntryUtils::deepCloneShowEntry ( $source_hshow->getShowEntry() , $new_show_entry , $entry_id_map , $entry_cache ) ;
 				$new_entry_list[] = $new_show_entry;
 				$entries = $new_entry_list;
 				$entry_kusers = null;
@@ -122,11 +122,11 @@ class cloneKshowAction extends kalturaSystemAction
 //			echo "ended!<bR>";			flush();
 		}
 		
-		$this->source_kshow_id = @$source_kshow_id;
-		$this->target_kshow_id = @$target_kshow_id;
+		$this->source_hshow_id = @$source_hshow_id;
+		$this->target_hshow_id = @$target_hshow_id;
 		$this->partner_id = @$target_partner_id;
-		$this->source_kshow = @$source_kshow;
-		$this->target_kshow = @$target_kshow;
+		$this->source_hshow = @$source_hshow;
+		$this->target_hshow = @$target_hshow;
 		$this->kuser_names = @$kuser_names;
 		$this->list_of_kusers = @$list_of_kusers;
 		$this->entries = @$entries;

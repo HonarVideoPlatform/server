@@ -14,7 +14,7 @@ class appendentrytoroughcutAction extends defPartnerservices2Action
 				"in" => array (
 					"mandatory" => array ( 
 						"entry_id" => array ("type" => "string", "desc" => ""),
-						"kshow_id" => array ("type" => "string", "desc" => ""),
+						"hshow_id" => array ("type" => "string", "desc" => ""),
 						),
 					"optional" => array (
 						"show_entry_id" => array ("type" => "string", "desc" => ""),
@@ -22,11 +22,11 @@ class appendentrytoroughcutAction extends defPartnerservices2Action
 					),
 				"out" => array (
 					"entry" => array ("type" => "entry", "desc" => ""),
-					"kshow" => array ("type" => "kshow", "desc" => ""),
+					"hshow" => array ("type" => "hshow", "desc" => ""),
 					"metadata" => array ("type" => "xml", "desc" => "xml after updating")
 					),
 				"errors" => array (
-					APIErrors::INVALID_KSHOW_ID , 
+					APIErrors::INVALID_HSHOW_ID , 
 					APIErrors::INVALID_ENTRY_ID ,
 				)
 			); 		
@@ -39,14 +39,14 @@ class appendentrytoroughcutAction extends defPartnerservices2Action
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
 		$entry_id = $this->getP ( "entry_id" );
-		$kshow_id =  $this->getP ( "kshow_id" );
+		$hshow_id =  $this->getP ( "hshow_id" );
 		$show_entry_id = $this->getP ( "show_entry_id" );
 		
 		// Make sure the request is for a ready roughcut
 		$c = entryPeer::getCriteriaFilter()->getFilter();
 		$c->addAnd ( entryPeer::STATUS, entryStatus::READY , Criteria::EQUAL);
 				
-		list ( $kshow , $show_entry , $error , $error_obj ) = myKshowUtils::getKshowAndEntry( $kshow_id  , $show_entry_id );
+		list ( $hshow , $show_entry , $error , $error_obj ) = myHshowUtils::getHshowAndEntry( $hshow_id  , $show_entry_id );
 
 		if ( $error_obj )
 		{
@@ -61,20 +61,20 @@ class appendentrytoroughcutAction extends defPartnerservices2Action
 			return;
 		}
 
-		$metadata = $kshow->getMetadata();
+		$metadata = $hshow->getMetadata();
 
-		$relevant_kshow_version = 1 + $kshow->getVersion(); // the next metadata will be the first relevant version for this new entry
+		$relevant_hshow_version = 1 + $hshow->getVersion(); // the next metadata will be the first relevant version for this new entry
 		$version_info = array();
 		$version_info["KuserId"] = $puser_kuser->getKuserId();
 		$version_info["PuserId"] = $puser_id;
 		$version_info["ScreenName"] = $puser_kuser->getPuserName();
 		
-		$new_metadata = myMetadataUtils::addEntryToMetadata ( $metadata , $entry ,$relevant_kshow_version, $version_info );
+		$new_metadata = myMetadataUtils::addEntryToMetadata ( $metadata , $entry ,$relevant_hshow_version, $version_info );
 		$entry_modified = true;
 		if ( $new_metadata )
 		{
 		    // TODO - add thumbnail only for entries that are worthy - check they are not moderated !
-		    $thumb_modified = myKshowUtils::updateThumbnail ( $kshow , $entry , false );
+		    $thumb_modified = myHshowUtils::updateThumbnail ( $hshow , $entry , false );
 		
 		    if ( $thumb_modified )
 		    {
@@ -83,18 +83,18 @@ class appendentrytoroughcutAction extends defPartnerservices2Action
 		    // it is very important to increment the version count because even if the entry is deferred
 		    // it will be added on the next version
 		
-		 if ( ! $kshow->getHasRoughcut (  ) )
+		 if ( ! $hshow->getHasRoughcut (  ) )
 		 {
-		 	// make sure the kshow now does have a roughcut
-		 	$kshow->setHasRoughcut ( true );	
-		 	$kshow->save();
+		 	// make sure the hshow now does have a roughcut
+		 	$hshow->setHasRoughcut ( true );	
+		 	$hshow->save();
 		 }
 		
-		    $kshow->setMetadata ( $new_metadata, true ) ;
+		    $hshow->setMetadata ( $new_metadata, true ) ;
 		}
 		
 		$this->addMsg ( "entry" , objectWrapperBase::getWrapperClass( $entry ,  objectWrapperBase::DETAIL_LEVEL_REGULAR ) );
-		$this->addMsg ( "kshow" , objectWrapperBase::getWrapperClass( $kshow ,  objectWrapperBase::DETAIL_LEVEL_REGULAR ) );
+		$this->addMsg ( "hshow" , objectWrapperBase::getWrapperClass( $hshow ,  objectWrapperBase::DETAIL_LEVEL_REGULAR ) );
 		$this->addMsg ( "metadata" , $new_metadata );
 		
 	}
