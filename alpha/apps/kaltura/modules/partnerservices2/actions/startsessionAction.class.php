@@ -55,7 +55,7 @@ class startsessionAction extends defPartnerservices2Action
 		$admin = $this->getP ( "admin" , false);
 		$privileges = $this->getP ( "privileges" , null );
 
-		$result = kSessionUtils::startKSession ( $partner_id , $this->getPM ( "secret" ) , $puser_id , $ks , $expiry , $admin , "" , $privileges );
+		$result = hSessionUtils::startHSession ( $partner_id , $this->getPM ( "secret" ) , $puser_id , $ks , $expiry , $admin , "" , $privileges );
 
 		if ( $result >= 0 )
 		{

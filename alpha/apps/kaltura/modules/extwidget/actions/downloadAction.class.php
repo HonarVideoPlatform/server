@@ -134,7 +134,7 @@ class downloadAction extends sfAction
 		if($shouldPreview && $flavorAsset) {
 			$preview = $flavorAsset->estimateFileSize($entry, $securyEntryHelper->getPreviewLength());
 		} else if(kCurrentContext::$ks_object) {
-			$preview = kCurrentContext::$ks_object->getPrivilegeValue(kSessionBase::PRIVILEGE_PREVIEW, 0);
+			$preview = kCurrentContext::$ks_object->getPrivilegeValue(hSessionBase::PRIVILEGE_PREVIEW, 0);
 		}
 		
 		//enable downloading file_name which inside the flavor asset directory 

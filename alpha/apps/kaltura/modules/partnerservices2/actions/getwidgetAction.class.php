@@ -67,7 +67,7 @@ class getwidgetAction extends defPartnerservices2Action
 			$widget->getWidgetHtml();
 			
 			// TODO - call
-//$result = kSessionUtils::startKSession ( $partner_id , $this->getP ( "secret" ) , $puser_id , $ks , $expiry , $admin , "" , $privileges );
+//$result = hSessionUtils::startHSession ( $partner_id , $this->getP ( "secret" ) , $puser_id , $ks , $expiry , $admin , "" , $privileges );
 			$level = ( $detailed ? objectWrapperBase::DETAIL_LEVEL_DETAILED : objectWrapperBase::DETAIL_LEVEL_REGULAR );
 			$this->addMsg ( "widget" , objectWrapperBase::getWrapperClass( $widget , $level ) );
 		}

@@ -508,7 +508,7 @@ $this->benchmarkStart( "beforeImpl" );
 		if ( $ks_str )
 		{
 			// 	1. crack the ks - 
-			$ks = kSessionUtils::crackKs ( $ks_str );
+			$ks = hSessionUtils::crackKs ( $ks_str );
 			
 			// 2. extract partner_id
 			$ks_partner_id= $ks->partner_id;
@@ -544,18 +544,18 @@ $this->benchmarkStart( "beforeImpl" );
 			
 			// 4. validate ticket per service for the ticket's partner
 			$ticket_type = $this->ticketType2();
-			if ( $ticket_type == kSessionUtils::REQUIED_TICKET_NOT_ACCESSIBLE )
+			if ( $ticket_type == hSessionUtils::REQUIED_TICKET_NOT_ACCESSIBLE )
 			{
 				// partner cannot access this service
 				$this->addException( APIErrors::SERVICE_FORBIDDEN );
 			}
 			
-			if ( $this->force_ticket_check && $ticket_type != kSessionUtils::REQUIED_TICKET_NONE )
+			if ( $this->force_ticket_check && $ticket_type != hSessionUtils::REQUIED_TICKET_NONE )
 			{
 				// TODO - which user is this ? from the ks ? from the puser_id ? 
 				$ks_puser_id = $ks->user;
 				//$ks = null;
-				$res = kSessionUtils::validateKSession2 ( $ticket_type , $ks_partner_id , $ks_puser_id , $ks_str , $ks );
+				$res = hSessionUtils::validateHSession2 ( $ticket_type , $ks_partner_id , $ks_puser_id , $ks_str , $ks );
 
 				if ( 0 >= $res )
 				{
@@ -564,10 +564,10 @@ $this->benchmarkStart( "beforeImpl" );
 				}
 				$this->ks = $ks;
 			}
-			elseif ($ticket_type == kSessionUtils::REQUIED_TICKET_NONE && $ks_str) // ticket is not required but we have ks
+			elseif ($ticket_type == hSessionUtils::REQUIED_TICKET_NONE && $ks_str) // ticket is not required but we have ks
 			{
 				$ks_puser_id = $ks->user;
-				$res = kSessionUtils::validateKSession2 ( $ticket_type , $ks_partner_id , $ks_puser_id , $ks_str , $ks );
+				$res = hSessionUtils::validateHSession2 ( $ticket_type , $ks_partner_id , $ks_puser_id , $ks_str , $ks );
 				if ( $res > 0)
 				{
 					$this->ks = $ks;
@@ -624,12 +624,12 @@ $this->benchmarkStart( "beforeImpl" );
 			// 3. make sure the service can be accessed with no ticket
  			$this->setServiceConfigFromPartner( $this->partner );
 			$ticket_type = $this->ticketType2();
-			if ( $ticket_type == kSessionUtils::REQUIED_TICKET_NOT_ACCESSIBLE )
+			if ( $ticket_type == hSessionUtils::REQUIED_TICKET_NOT_ACCESSIBLE )
 			{
 				// partner cannot access this service
 				$this->addException( APIErrors::SERVICE_FORBIDDEN );
 			}
-			if ( $this->force_ticket_check && $ticket_type != kSessionUtils::REQUIED_TICKET_NONE )
+			if ( $this->force_ticket_check && $ticket_type != hSessionUtils::REQUIED_TICKET_NONE )
 			{
 				// NEW: 2008-12-28
 				// Instead of throwing an exception, see if the service allows KN.

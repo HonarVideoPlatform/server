@@ -124,7 +124,7 @@ class adminloginAction extends defPartnerservices2Action
 		$ks = null;
 		// create a ks for this admin_kuser as if entered the admin_secret using the API
 		// ALLOW A KS FOR 30 DAYS
-		kSessionUtils::createKSessionNoValidations ( $partner_id ,  $uid , $ks , 30 * 86400 , 2 , "" , "*" );
+		hSessionUtils::createHSessionNoValidations ( $partner_id ,  $uid , $ks , 30 * 86400 , 2 , "" , "*" );
 		
 		
 		$this->addMsg ( "partner_id" , $partner_id ) ;

@@ -168,7 +168,7 @@ class defKeditorservicesAction extends kalturaAction
 			// this part overhere should be in a more generic place - part of the services
 			$ks = "";
 			// TODO - for now ignore the session
-			$valid = true; // ( 0 >= kSessionUtils::validateKSession ( $this->partner_id , $this->uid , $this->ks_str ,&$ks ) );
+			$valid = true; // ( 0 >= hSessionUtils::validateHSession ( $this->partner_id , $this->uid , $this->ks_str ,&$ks ) );
 			if ( $valid )
 			{
 				$puser_id = $this->uid;

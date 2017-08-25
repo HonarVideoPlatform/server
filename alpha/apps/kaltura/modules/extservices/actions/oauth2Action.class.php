@@ -12,7 +12,7 @@ abstract class oauth2Action extends sfAction{
 	{
 		$partner = $this->getPartner($partnerId);
 		$limitedKs = '';
-		$result = kSessionUtils::startKSession($partnerId, $partner->getAdminSecret(), '', $limitedKs, self::EXPIRY_SECONDS, kSessionBase::SESSION_TYPE_ADMIN, '', $privileges, null, $additionalData);
+		$result = hSessionUtils::startHSession($partnerId, $partner->getAdminSecret(), '', $limitedKs, self::EXPIRY_SECONDS, hSessionBase::SESSION_TYPE_ADMIN, '', $privileges, null, $additionalData);
 		if ($result < 0)
 			throw new Exception('Failed to create limited session for partner '.$partnerId);
 
@@ -21,7 +21,7 @@ abstract class oauth2Action extends sfAction{
 
 	protected function generateTimeLimitedKsWithData($partnerId, $stateData)
 	{
-		$privileges = kSessionBase::PRIVILEGE_ACTIONS_LIMIT.':0';
+		$privileges = hSessionBase::PRIVILEGE_ACTIONS_LIMIT.':0';
 		$additionalData =  json_encode($stateData);
 		return $this->generateKs($partnerId, $additionalData, $privileges);
 	}

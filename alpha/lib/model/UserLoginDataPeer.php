@@ -357,7 +357,7 @@ class UserLoginDataPeer extends BaseUserLoginDataPeer implements IRelatedObjectP
 	// user login by ks
 	public static function userLoginByKs($ks, $requestedPartnerId, $useOwnerIfNoUser = false)
 	{
-		$ksObj = kSessionUtils::crackKs($ks);
+		$ksObj = hSessionUtils::crackKs($ks);
 		
 		$ksUserId = $ksObj->user;
 		$ksPartnerId = $ksObj->partner_id;

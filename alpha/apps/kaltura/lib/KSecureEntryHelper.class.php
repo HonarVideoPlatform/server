@@ -322,7 +322,7 @@ class KSecureEntryHelper
 			try
 			{
 				// todo need to check if partner is within a partner group
-				$ks = kSessionUtils::crackKs($this->ksStr);
+				$ks = hSessionUtils::crackKs($this->ksStr);
 				// if entry is "display_in_search=2" validate partner ID from the KS
 				// => meaning it will alwasy pass on partner_id
 				if($this->entry->getDisplayInSearch() != mySearchUtils::DISPLAY_IN_SEARCH_KALTURA_NETWORK)

@@ -12,7 +12,7 @@ require_once(dirname(__FILE__) . '/../cache/kCacheManager.php');
  * @package server-infra
  * @subpackage request
  */
-class kSessionBase
+class hSessionBase
 {
 	const SESSION_TYPE_NONE		= -1;
 	const SESSION_TYPE_USER		= 0;
@@ -116,14 +116,14 @@ class kSessionBase
 
 	/**
 	 * @param string $encoded_str
-	 * @return kSessionBase
+	 * @return hSessionBase
 	 */
 	public static function getKSObject($encoded_str)
 	{
 		if (empty($encoded_str))
 			return null;
 
-		$ks = new kSessionBase();		
+		$ks = new hSessionBase();		
 		if (!$ks->parseKS($encoded_str))
 			return null;
 

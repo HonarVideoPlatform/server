@@ -76,7 +76,7 @@ class startwidgetsessionAction extends startsessionAction
 
 			$ks_str = $this->getP ( "ks" );
 			$widget_partner_id = $widget->getPartnerId();
-			$res = kSessionUtils::validateKSession2 ( 1 ,$widget_partner_id  , $puser_id , $ks_str , $this->ks );
+			$res = hSessionUtils::validateHSession2 ( 1 ,$widget_partner_id  , $puser_id , $ks_str , $this->ks );
 			
 			if ( 0 >= $res )
 			{
@@ -88,7 +88,7 @@ class startwidgetsessionAction extends startsessionAction
 		{
 			// 	the session will be for NON admins and privileges of view only
 			$puser_id = 0;
-			$result = kSessionUtils::createKSessionNoValidations ( $partner_id , $puser_id , $ks_str , $expiry , false , "" , $privileges );
+			$result = hSessionUtils::createHSessionNoValidations ( $partner_id , $puser_id , $ks_str , $expiry , false , "" , $privileges );
 		}
 
 		if ( $result >= 0 )

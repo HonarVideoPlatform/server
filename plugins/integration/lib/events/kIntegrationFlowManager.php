@@ -101,15 +101,15 @@ class kIntegrationFlowManager implements kBatchJobStatusEventConsumer
 		$userSecret = $partner->getSecret();
 		
 		//actionslimit:1
-		$privileges = kSessionBase::PRIVILEGE_SET_ROLE . ":" . self::EXTERNAL_INTEGRATION_SERVICES_ROLE_NAME;
-		$privileges .= "," . kSessionBase::PRIVILEGE_ACTIONS_LIMIT . ":1";
+		$privileges = hSessionBase::PRIVILEGE_SET_ROLE . ":" . self::EXTERNAL_INTEGRATION_SERVICES_ROLE_NAME;
+		$privileges .= "," . hSessionBase::PRIVILEGE_ACTIONS_LIMIT . ":1";
 		
 		$dcParams = kDataCenterMgr::getCurrentDc();
 		$token = $dcParams["secret"];
 		$additionalData = md5($tokenPrefix . $token);
 		
 		$ks = "";
-		$creationSucces = kSessionUtils::startKSession ($partnerId, $userSecret, "", $ks, self::THREE_DAYS_IN_SECONDS, KalturaSessionType::USER, "", $privileges, null,$additionalData);
+		$creationSucces = hSessionUtils::startHSession ($partnerId, $userSecret, "", $ks, self::THREE_DAYS_IN_SECONDS, KalturaSessionType::USER, "", $privileges, null,$additionalData);
 		if ($creationSucces >= 0 )
 				return $ks;
 		

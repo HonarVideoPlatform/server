@@ -123,7 +123,7 @@ class registerNotificationPostProcessor
 		}
 	}
 	
-	public function updateResponseUrl(&$response, $requestParams, kSessionBase $ksObject)
+	public function updateResponseUrl(&$response, $requestParams, hSessionBase $ksObject)
 	{
 		$urlData = json_encode(array_merge($this->getBasicUrlData(), $this->getKsUrlData($ksObject)));
 		$urlData = urlencode(base64_encode($ksObject->getPartnerId() . ":" . $this->encode($urlData)));		
@@ -155,10 +155,10 @@ class registerNotificationPostProcessor
 		if(!$ks)
 			return null;
 		
-		$ksObj = new kSessionBase();
+		$ksObj = new hSessionBase();
 		$parseResult = $ksObj->parseKS($ks);
 		$ksStatus = $ksObj->tryToValidateKS();
-		if($parseResult && $ksStatus == kSessionBase::OK)
+		if($parseResult && $ksStatus == hSessionBase::OK)
 			return $ksObj;
 		
 		return null;
@@ -187,7 +187,7 @@ class registerNotificationPostProcessor
         );
 	}
 	
-	private function getKsUrlData(kSessionBase $ksObject = null)
+	private function getKsUrlData(hSessionBase $ksObject = null)
 	{
 		if(!$ksObject)
 			return array();

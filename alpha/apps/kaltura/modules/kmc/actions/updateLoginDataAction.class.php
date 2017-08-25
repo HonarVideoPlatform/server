@@ -25,7 +25,7 @@ class updateLoginDataAction extends kalturaAction
 			KExternalErrors::dieError(KExternalErrors::MISSING_PARAMETER, 'ks');
 
 		// Get partner & user info from KS
-		$ksObj = kSessionUtils::crackKs($ks);
+		$ksObj = hSessionUtils::crackKs($ks);
 		$partnerId = $ksObj->partner_id;
 		$userId = $ksObj->user;
 		

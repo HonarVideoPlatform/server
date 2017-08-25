@@ -37,7 +37,7 @@ class supportAction extends kalturaAction
         }
         if (isset($this->ks))
         {
-            $ksObj = kSessionUtils::crackKs($this->ks);
+            $ksObj = hSessionUtils::crackKs($this->ks);
             // Set partnerId from KS
             $this->partner_id = $ksObj->partner_id;
         } else if (isset($_POST['partner_id']))

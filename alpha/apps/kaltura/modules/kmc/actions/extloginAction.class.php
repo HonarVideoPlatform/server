@@ -39,10 +39,10 @@ class extloginAction extends kalturaAction
 		
 		$expired = $this->getP ( "exp" );
 
-		$ksObj = kSessionUtils::crackKs($ks);
+		$ksObj = hSessionUtils::crackKs($ks);
 		$ksPartnerId = $ksObj->partner_id;
 		
-		if($ksObj->getPrivilegeByName(kSessionBase::PRIVILEGE_DISABLE_PARTNER_CHANGE_ACCOUNT) && $requestedPartnerId != $ksPartnerId)
+		if($ksObj->getPrivilegeByName(hSessionBase::PRIVILEGE_DISABLE_PARTNER_CHANGE_ACCOUNT) && $requestedPartnerId != $ksPartnerId)
 			$this->dieOnError  ( APIErrors::PARTNER_CHANGE_ACCOUNT_DISABLED );
 
 		if (!$requestedPartnerId) {
@@ -109,7 +109,7 @@ class extloginAction extends kalturaAction
 		{
 			$ks = null;
 			$sessionType = $adminKuser->getIsAdmin() ? SessionType::ADMIN : SessionType::USER;
-			kSessionUtils::createKSessionNoValidations ( $partner_id ,  $admin_puser_id , $ks , 30 * 86400 , $sessionType , "" , "*," . kSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT );
+			hSessionUtils::createHSessionNoValidations ( $partner_id ,  $admin_puser_id , $ks , 30 * 86400 , $sessionType , "" , "*," . hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT );
 		}
 		
 		

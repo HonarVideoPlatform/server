@@ -1289,7 +1289,7 @@ class Partner extends BasePartner
 		
 		
 		
-		$ksObj = kSessionUtils::crackKs(kCurrentContext::$ks);
+		$ksObj = hSessionUtils::crackKs(kCurrentContext::$ks);
 		$currentKuser = null;
 		if(is_object($ksObj)){
 			$currentKuser = kuserPeer::getKuserByEmail($ksObj->user, -2);

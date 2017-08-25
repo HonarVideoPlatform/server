@@ -48,7 +48,7 @@ abstract class kManifestRenderer
 	public $defaultDeliveryCode = '';
 	
 	/**
-	 * @var kSessionBase
+	 * @var hSessionBase
 	 */
 	protected $ksObject = null;
 	
@@ -111,7 +111,7 @@ abstract class kManifestRenderer
 	abstract protected function replacePlayServerSessionId();
 
 	/**
-	 * @param kSessionBase $ksObject
+	 * @param hSessionBase $ksObject
 	 */
 	public function setKsObject($ksObject)
 	{

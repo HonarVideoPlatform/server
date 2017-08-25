@@ -26,9 +26,9 @@ class varpartnerlistAction extends kalturaAction
 			die('You are not an wuthorized VAR. If you are a VAR, Please contact us at support@kaltura.com');
 		}
 		
-		$ks = kSessionUtils::crackKs($this->getP('ks'));
+		$ks = hSessionUtils::crackKs($this->getP('ks'));
 		$user = $ks->user;
-		$res = kSessionUtils::validateKSession2(kSessionUtils::REQUIED_TICKET_ADMIN, $partner_id, $user, $this->getP('ks'), $ks);
+		$res = hSessionUtils::validateHSession2(hSessionUtils::REQUIED_TICKET_ADMIN, $partner_id, $user, $this->getP('ks'), $ks);
 		if($res != ks::OK)
 		{
 			header("Location: /index.php/kmc/varlogin");
@@ -53,7 +53,7 @@ class varpartnerlistAction extends kalturaAction
 		foreach($partners as $partner)
 		{
 			$ks = null;
-			kSessionUtils::createKSessionNoValidations ( $partner->getId() ,  $partner->getAdminUserId() , $ks , 30 * 86400 , 2 , "" , "*" );
+			hSessionUtils::createHSessionNoValidations ( $partner->getId() ,  $partner->getAdminUserId() , $ks , 30 * 86400 , 2 , "" , "*" );
 			$adminUser_email = $partner->getAdminEmail();
 			$partner_id_param_name = 'pid';
 			$subpid_param_name = 'subpid';

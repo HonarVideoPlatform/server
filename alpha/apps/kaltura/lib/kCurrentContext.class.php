@@ -212,7 +212,7 @@ class kCurrentContext
 		}
 		else
 		{
-			try { $ksObj = kSessionUtils::crackKs ( $ksString ); }
+			try { $ksObj = hSessionUtils::crackKs ( $ksString ); }
 			catch(Exception $ex)
 			{
 				if (strpos($ex->getMessage(), "INVALID_STR") !== null)
@@ -265,15 +265,15 @@ class kCurrentContext
 	public static function getCurrentSessionType()
 	{
 		if(!self::$ks_object)
-			return kSessionBase::SESSION_TYPE_NONE;
+			return hSessionBase::SESSION_TYPE_NONE;
 			
 		if(self::$ks_object->isAdmin())
-			return kSessionBase::SESSION_TYPE_ADMIN;
+			return hSessionBase::SESSION_TYPE_ADMIN;
 			
 		if(self::$ks_object->isWidgetSession())
-			return kSessionBase::SESSION_TYPE_WIDGET;
+			return hSessionBase::SESSION_TYPE_WIDGET;
 			
-		return kSessionBase::SESSION_TYPE_USER;
+		return hSessionBase::SESSION_TYPE_USER;
 	}
 
 	public static function getCurrentPartnerId()

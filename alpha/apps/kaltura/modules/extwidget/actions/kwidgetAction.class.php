@@ -277,13 +277,13 @@ class kwidgetAction extends sfAction
 						
 					if(PermissionPeer::isValidForPartner(PermissionName::FEATURE_ENTITLEMENT, $partner_id) &&
 						!$widget->getEnforceEntitlement() && $widget->getEntryId())
-						$privileges .= ','. kSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $widget->getEntryId();
+						$privileges .= ','. hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $widget->getEntryId();
 						
 					if(PermissionPeer::isValidForPartner(PermissionName::FEATURE_ENTITLEMENT, $partner_id) &&
 						!is_null($widget->getPrivacyContext()) && $widget->getPrivacyContext() != '' )
-						$privileges .= ','. kSessionBase::PRIVILEGE_PRIVACY_CONTEXT . ':' . $widget->getPrivacyContext();
+						$privileges .= ','. hSessionBase::PRIVILEGE_PRIVACY_CONTEXT . ':' . $widget->getPrivacyContext();
 						
-					$result = kSessionUtils::createKSessionNoValidations ( $partner_id , 0 , $ks , 86400 , false , "" , $privileges );
+					$result = hSessionUtils::createHSessionNoValidations ( $partner_id , 0 , $ks , 86400 , false , "" , $privileges );
 					$ks_flashvars = "&$partnerIdStr&uid=0&ts=".microtime(true);
 					if($widget->getSecurityType () != widget::WIDGET_SECURITY_TYPE_FORCE_KS)
 					{

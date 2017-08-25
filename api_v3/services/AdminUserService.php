@@ -141,7 +141,7 @@ class AdminUserService extends KalturaBaseUserService
 		try
 		{
 			$ks = parent::loginImpl(null, $email, $password, $partnerId);
-			$tempKs = kSessionUtils::crackKs($ks);
+			$tempKs = hSessionUtils::crackKs($ks);
 			if (!$tempKs->isAdmin()) {
 				throw new KalturaAPIException(KalturaErrors::ADMIN_KUSER_NOT_FOUND); 
 			}

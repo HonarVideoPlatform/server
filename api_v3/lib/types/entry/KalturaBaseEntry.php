@@ -485,7 +485,7 @@ class KalturaBaseEntry extends KalturaObject implements IRelatedFilterable, IApi
 			$this->categories = null;
 			$this->categoriesIds = null;
 		}
-		if (!kConf::hasParam('protect_userid_in_api') || !in_array($sourceObject->getPartnerId(), kConf::get('protect_userid_in_api')) || !in_array(kCurrentContext::getCurrentSessionType(), array(kSessionBase::SESSION_TYPE_NONE,kSessionBase::SESSION_TYPE_WIDGET))){
+		if (!kConf::hasParam('protect_userid_in_api') || !in_array($sourceObject->getPartnerId(), kConf::get('protect_userid_in_api')) || !in_array(kCurrentContext::getCurrentSessionType(), array(hSessionBase::SESSION_TYPE_NONE,hSessionBase::SESSION_TYPE_WIDGET))){
 			if($this->shouldGet('userId', $responseProfile))
 				$this->userId = $sourceObject->getPuserId();
 			if($this->shouldGet('creatorId', $responseProfile))

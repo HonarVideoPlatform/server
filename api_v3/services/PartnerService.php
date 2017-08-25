@@ -230,7 +230,7 @@ class PartnerService extends KalturaBaseService
 		
 		// user logged in - need to re-init kPermissionManager in order to determine current user's permissions
 		$ks = null;
-		kSessionUtils::createKSessionNoValidations ( $partnerId ,  $adminKuser->getPuserId() , $ks , 86400 , $adminKuser->getIsAdmin() , "" , '*' );
+		hSessionUtils::createHSessionNoValidations ( $partnerId ,  $adminKuser->getPuserId() , $ks , 86400 , $adminKuser->getIsAdmin() , "" , '*' );
 		kCurrentContext::initKsPartnerUser($ks);
 		kPermissionManager::init();		
 		

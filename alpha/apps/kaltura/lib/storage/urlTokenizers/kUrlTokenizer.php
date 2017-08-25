@@ -19,7 +19,7 @@ abstract class kUrlTokenizer
 	protected $playbackContext;
 	
 	/**
-	 * @var kSessionBase
+	 * @var hSessionBase
 	 */
 	protected $ksObject;
 	
@@ -105,7 +105,7 @@ abstract class kUrlTokenizer
 	}
 
 	/**
-	 * @param kSessionBase $ksObject
+	 * @param hSessionBase $ksObject
 	 */
 	public function setKsObject($ksObject) {
 		$this->ksObject = $ksObject;

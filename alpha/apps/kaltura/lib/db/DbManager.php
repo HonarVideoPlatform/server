@@ -190,8 +190,8 @@ class DbManager
 	{
 		$ksObject = kCurrentContext::$ks_object;
 
-		if($ksObject && $ksObject->hasPrivilege(kSessionBase::PRIVILEGE_SESSION_KEY)) 
-			return self::STICKY_SESSION_PREFIX . kCurrentContext::getCurrentPartnerId() . "_" . $ksObject->getPrivilegeValue(kSessionBase::PRIVILEGE_SESSION_KEY);
+		if($ksObject && $ksObject->hasPrivilege(hSessionBase::PRIVILEGE_SESSION_KEY)) 
+			return self::STICKY_SESSION_PREFIX . kCurrentContext::getCurrentPartnerId() . "_" . $ksObject->getPrivilegeValue(hSessionBase::PRIVILEGE_SESSION_KEY);
 		
 		return self::STICKY_SESSION_PREFIX . infraRequestUtils::getRemoteAddress();
 	}

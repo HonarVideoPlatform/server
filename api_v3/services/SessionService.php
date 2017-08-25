@@ -41,7 +41,7 @@ class SessionService extends KalturaBaseService
 		KalturaResponseCacher::disableCache();
 		// make sure the secret fits the one in the partner's table
 		$ks = "";
-		$result = kSessionUtils::startKSession ( $partnerId , $secret , $userId , $ks , $expiry , $type , "" , $privileges );
+		$result = hSessionUtils::startHSession ( $partnerId , $secret , $userId , $ks , $expiry , $type , "" , $privileges );
 
 		if ( $result >= 0 )
 	{
@@ -129,7 +129,7 @@ class SessionService extends KalturaBaseService
 		
 		// make sure the secret fits the one in the partner's table
 		$ks = "";
-		$result = kSessionUtils::startKSession ( $impersonatedPartner->getId() , $impersonatedSecret, $userId , $ks , $expiry , $type , "" , $privileges, $partnerId );
+		$result = hSessionUtils::startHSession ( $impersonatedPartner->getId() , $impersonatedSecret, $userId , $ks , $expiry , $type , "" , $privileges, $partnerId );
 
 		if ( $result >= 0 )
 		{
@@ -214,7 +214,7 @@ class SessionService extends KalturaBaseService
 		
 		$sessionInfo = new KalturaSessionInfo();
 		
-		$result = kSessionUtils::startKSession($impersonatedPartnerId, $impersonatedSecret, $impersonatedUserId, $sessionInfo->ks, $impersonatedExpiry, $impersonatedType, '', $impersonatedPrivileges, $this->getPartnerId());
+		$result = hSessionUtils::startHSession($impersonatedPartnerId, $impersonatedSecret, $impersonatedUserId, $sessionInfo->ks, $impersonatedExpiry, $impersonatedType, '', $impersonatedPrivileges, $this->getPartnerId());
 		if($result < 0)
 		{
 			KalturaLog::err("Failed starting a session with result [$result]");
@@ -297,11 +297,11 @@ class SessionService extends KalturaBaseService
 		
 		if(PermissionPeer::isValidForPartner(PermissionName::FEATURE_ENTITLEMENT, $partnerId) &&
 			!$widget->getEnforceEntitlement() && $widget->getEntryId())
-			$privileges .= ','. kSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $widget->getEntryId();
+			$privileges .= ','. hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $widget->getEntryId();
 			
 		if(PermissionPeer::isValidForPartner(PermissionName::FEATURE_ENTITLEMENT, $partnerId) &&
 			!is_null($widget->getPrivacyContext()) && $widget->getPrivacyContext() != '' )
-			$privileges .= ','. kSessionBase::PRIVILEGE_PRIVACY_CONTEXT . ':' . $widget->getPrivacyContext();
+			$privileges .= ','. hSessionBase::PRIVILEGE_PRIVACY_CONTEXT . ':' . $widget->getPrivacyContext();
 
 		$userId = 0;
 
@@ -311,13 +311,13 @@ class SessionService extends KalturaBaseService
 		{
 			$roles = explode(",", $widget->getRoles());
 			foreach($roles as $role) {
-				$privileges .= ',' . kSessionBase::PRIVILEGE_SET_ROLE . ':' . $role;
+				$privileges .= ',' . hSessionBase::PRIVILEGE_SET_ROLE . ':' . $role;
 			}
 		}
 
 		if ($widget->getEntryId() != null)
 		{
-			$privileges .= ',' . kSessionBase::PRIVILEGE_LIMIT_ENTRY . ':' . $widget->getEntryId();
+			$privileges .= ',' . hSessionBase::PRIVILEGE_LIMIT_ENTRY . ':' . $widget->getEntryId();
 		}
 
 		/*if ( $widget->getSecurityType() == widget::WIDGET_SECURITY_TYPE_FORCE_KS )
@@ -327,7 +327,7 @@ class SessionService extends KalturaBaseService
 				throw new KalturaAPIException ( APIErrors::MISSING_KS );
 
 			$widget_partner_id = $widget->getPartnerId();
-			$res = kSessionUtils::validateKSession2 ( 1 ,$widget_partner_id  , $user->getId() , $ks_str , $this->ks );
+			$res = hSessionUtils::validateHSession2 ( 1 ,$widget_partner_id  , $user->getId() , $ks_str , $this->ks );
 			
 			if ( 0 >= $res )
 			{
@@ -338,7 +338,7 @@ class SessionService extends KalturaBaseService
 		else
 		{*/
 			// 	the session will be for NON admins and privileges of view only
-			$result = kSessionUtils::createKSessionNoValidations ( $partnerId , $userId , $ksStr , $expiry , false , "" , $privileges );
+			$result = hSessionUtils::createHSessionNoValidations ( $partnerId , $userId , $ksStr , $expiry , false , "" , $privileges );
 		//}
 
 		if ( $result >= 0 )

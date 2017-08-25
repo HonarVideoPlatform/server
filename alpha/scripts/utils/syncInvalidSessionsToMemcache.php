@@ -37,7 +37,7 @@ for (;;)
 	{
 		$lastID = $result->getId();
 
-		$ksKey = kSessionBase::INVALID_SESSION_KEY_PREFIX . $result->getKs();
+		$ksKey = hSessionBase::INVALID_SESSION_KEY_PREFIX . $result->getKs();
 		$ksValidUntil = $result->getKsValidUntil(null);
 		$keyExpiry = 0;			// non expiring
 		if ($ksValidUntil !== null)
@@ -53,7 +53,7 @@ for (;;)
 	}
 }
 
-if ($memcache->set(kSessionBase::INVALID_SESSIONS_SYNCED_KEY, true) === false)
-	die("Error: failed to set key [" . kSessionBase::INVALID_SESSIONS_SYNCED_KEY . "]");
+if ($memcache->set(hSessionBase::INVALID_SESSIONS_SYNCED_KEY, true) === false)
+	die("Error: failed to set key [" . hSessionBase::INVALID_SESSIONS_SYNCED_KEY . "]");
 
 print("Done!\n{$setCount} keys set\n");

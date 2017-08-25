@@ -73,7 +73,7 @@ while($distributionProfiles){
 		}
 		else
 		{
-			kSessionUtils::createKSessionNoValidations($currentPartnerId, null, $ks, 2592000, SessionType::ADMIN);
+			hSessionUtils::createHSessionNoValidations($currentPartnerId, null, $ks, 2592000, SessionType::ADMIN);
 			$url .= "?ks=$ks";
 		}
 		

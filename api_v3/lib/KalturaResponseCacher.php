@@ -386,7 +386,7 @@ class KalturaResponseCacher extends kApiCache
 		$type = (int)$type;
 		
 		$partnerId = $params['partnerId'];
-		$secrets = kSessionBase::getSecretsFromCache($partnerId);
+		$secrets = hSessionBase::getSecretsFromCache($partnerId);
 		if (!$secrets)
 		{
 			return;			// can't find the secrets of the partner in the cache
@@ -405,7 +405,7 @@ class KalturaResponseCacher extends kApiCache
 		$expiry = isset($params['expiry']) ? $params['expiry'] : 86400;
 		$privileges = isset($params['privileges']) ? $params['privileges'] : null;
 		
-		$result = kSessionBase::generateSession($ksVersion, $adminSecret, $userId, $type, $partnerId, $expiry, $privileges);
+		$result = hSessionBase::generateSession($ksVersion, $adminSecret, $userId, $type, $partnerId, $expiry, $privileges);
 		
 		$processingTime = microtime(true) - $startTime;
 		$cacheKey = md5("{$partnerId}_{$userId}_{$type}_{$expiry}_{$privileges}");

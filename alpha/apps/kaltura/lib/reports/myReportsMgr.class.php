@@ -581,7 +581,7 @@ class myReportsMgr
 		if(!$expiry || ($expiry > $maxExpiry))
 			$expiry = $maxExpiry;
 		
-		$result = kSessionUtils::startKSession ( $partner_id, $secret, null, $ksStr, $expiry, false, "", $privilege );
+		$result = hSessionUtils::startHSession ( $partner_id, $secret, null, $ksStr, $expiry, false, "", $privilege );
 		
 		if ($result < 0)
 			throw new Exception ( "Failed to generate session for asset [" . $this->getId () . "] of type " . $this->getType () );

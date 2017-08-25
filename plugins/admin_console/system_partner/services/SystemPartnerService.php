@@ -213,7 +213,7 @@ class SystemPartnerService extends KalturaBaseService
 		}
 			
 		$ks = "";
-		kSessionUtils::createKSessionNoValidations($dbPartner->getId(), $userId, $ks, 86400, 2, "", '*,' . ks::PRIVILEGE_DISABLE_ENTITLEMENT);
+		hSessionUtils::createHSessionNoValidations($dbPartner->getId(), $userId, $ks, 86400, 2, "", '*,' . ks::PRIVILEGE_DISABLE_ENTITLEMENT);
 		return $ks;
 	}
 	

@@ -250,7 +250,7 @@ class defPartnerservices2baseAction extends kalturaAction
 		$userId = null;
 		$validUntil = null;
 		
-		$ksObj = kSessionBase::getKSObject($ks);
+		$ksObj = hSessionBase::getKSObject($ks);
 		if ($ksObj)
 		{
 			$partnerId = $ksObj->partner_id;

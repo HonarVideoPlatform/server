@@ -30,7 +30,7 @@ class kmc4Action extends kalturaAction
 			$this->redirect( "kmc/kmc" );
 			die();
 		}
-		$ksObj = kSessionUtils::crackKs($this->ks);
+		$ksObj = hSessionUtils::crackKs($this->ks);
 		// Set partnerId from KS
 		$this->partner_id = $ksObj->partner_id;
 

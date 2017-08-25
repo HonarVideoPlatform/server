@@ -85,13 +85,13 @@ class embedIframeAction extends sfAction
 				$ks_str = $this->getRequestParameter('ks');
 				try
 				{
-					$ks = kSessionUtils::crackKs($ks_str);
+					$ks = hSessionUtils::crackKs($ks_str);
 				}
 				catch (Exception $e)
 				{
 					KExternalErrors::dieError(KExternalErrors::INVALID_KS);
 				}
-				$res = kSessionUtils::validateKSession2(1, $partner_id, 0, $ks_str, $ks);
+				$res = hSessionUtils::validateHSession2(1, $partner_id, 0, $ks_str, $ks);
 				if ($res <= 0)
 					KExternalErrors::dieError(KExternalErrors::INVALID_KS);
 					

@@ -364,7 +364,7 @@ $debug .= "property: $not_property = [$value]\n";
 		}
 		
 		try{
-			$ksObj = kSessionUtils::crackKs(kCurrentContext::$ks);
+			$ksObj = hSessionUtils::crackKs(kCurrentContext::$ks);
 			if($ksObj)
 				$params['ks_data'] = $ksObj->additional_data;
 		}

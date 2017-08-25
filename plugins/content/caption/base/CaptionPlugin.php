@@ -443,11 +443,11 @@ class CaptionPlugin extends KalturaPlugin implements IKalturaServices, IKalturaP
 		$partner = PartnerPeer::retrieveByPK($partnerId);
 		$secret = $partner->getSecret();
 		$privileges = self::KS_PRIVILEGE_CAPTION.":".$captionAsset->getEntryId();
-       	$privileges .= "," . kSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ":" . $captionAsset->getEntryId();
-        	$privileges .= ',' . kSessionBase::PRIVILEGE_URI_RESTRICTION . ':' . self::SERVE_WEBVTT_URL_PREFIX . '*';
+       	$privileges .= "," . hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ":" . $captionAsset->getEntryId();
+        	$privileges .= ',' . hSessionBase::PRIVILEGE_URI_RESTRICTION . ':' . self::SERVE_WEBVTT_URL_PREFIX . '*';
 		$ksStr = '';
 		
-		kSessionUtils::startKSession($partnerId, $secret, null, $ksStr, $expiry, false, "", $privileges);
+		hSessionUtils::startHSession($partnerId, $secret, null, $ksStr, $expiry, false, "", $privileges);
 		
 		return $ksStr;
 	}

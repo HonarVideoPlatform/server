@@ -61,7 +61,7 @@ class KalturaUserEntryFilter extends KalturaUserEntryBaseFilter
 	public function getListResponse(KalturaFilterPager $pager, KalturaDetachedResponseProfile $responseProfile = null)
 	{
 		$response = new KalturaUserEntryListResponse();
-		if ( in_array(kCurrentContext::getCurrentSessionType(), array(kSessionBase::SESSION_TYPE_NONE,kSessionBase::SESSION_TYPE_WIDGET)) )
+		if ( in_array(kCurrentContext::getCurrentSessionType(), array(hSessionBase::SESSION_TYPE_NONE,hSessionBase::SESSION_TYPE_WIDGET)) )
 		{
 			$response->totalCount = 0;
 			return $response;

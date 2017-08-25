@@ -66,18 +66,18 @@ class kKsUrlTokenizer extends kUrlTokenizer
 			$uriRestrict .= '|' . $this->additionalUris;
 		}
 		
-		$privileges = kSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $this->entryId;
-		$privileges .= ',' . kSessionBase::PRIVILEGE_VIEW . ':' . $this->entryId;
-		$privileges .= ',' . kSessionBase::PRIVILEGE_URI_RESTRICTION . ':' . $uriRestrict;
+		$privileges = hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $this->entryId;
+		$privileges .= ',' . hSessionBase::PRIVILEGE_VIEW . ':' . $this->entryId;
+		$privileges .= ',' . hSessionBase::PRIVILEGE_URI_RESTRICTION . ':' . $uriRestrict;
 		if ($this->limitIpAddress)
 		{
-			$privileges .= ',' . kSessionBase::PRIVILEGE_IP_RESTRICTION . ':' . infraRequestUtils::getRemoteAddress();
+			$privileges .= ',' . hSessionBase::PRIVILEGE_IP_RESTRICTION . ':' . infraRequestUtils::getRemoteAddress();
 		}
 
-		$ks = kSessionBase::generateKsV2(
+		$ks = hSessionBase::generateKsV2(
 			$this->key, 
 			$this->ksObject->user, 
-			kSessionBase::SESSION_TYPE_USER, 
+			hSessionBase::SESSION_TYPE_USER, 
 			$this->partnerId, 
 			$this->window, 
 			$privileges, 

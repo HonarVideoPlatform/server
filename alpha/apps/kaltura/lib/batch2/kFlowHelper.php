@@ -2720,7 +2720,7 @@ class kFlowHelper
 		$secret = $partner->getSecret ();
 		$privilege = ks::PRIVILEGE_DOWNLOAD . ":" . $file_name;
 
-		$ksStr = kSessionBase::generateSession($partner->getKSVersion(), $partner->getAdminSecret(), null, ks::TYPE_KS, $partner_id, $expiry, $privilege);
+		$ksStr = hSessionBase::generateSession($partner->getKSVersion(), $partner->getAdminSecret(), null, ks::TYPE_KS, $partner_id, $expiry, $privilege);
 
 		if ($applicationUrlTemplate) {
 			$url = str_replace("[ks]", $ksStr, $applicationUrlTemplate);

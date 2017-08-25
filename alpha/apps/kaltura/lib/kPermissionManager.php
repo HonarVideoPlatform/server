@@ -693,7 +693,7 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 		}
 		
 		$ksObj = null;
-		$res = kSessionUtils::validateKSessionNoTicket(self::$ksPartnerId, self::$ksUserId, self::$ksString, $ksObj);
+		$res = hSessionUtils::validateHSessionNoTicket(self::$ksPartnerId, self::$ksUserId, self::$ksString, $ksObj);
 
 		if ( 0 >= $res )
 		{

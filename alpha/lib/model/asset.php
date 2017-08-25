@@ -601,14 +601,14 @@ class asset extends Baseasset implements ISyncableFile, IRelatedObject
 			$partner = PartnerPeer::retrieveByPK($partnerId);
 			$secret = $partner->getSecret();
 			$privilege = ks::PRIVILEGE_DOWNLOAD.":".$this->getEntryId();
-			$privilege .= ",".kSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY .":". $this->getEntryId();
-			$privilege .= "," . kSessionBase::PRIVILEGE_VIEW . ":" . $this->getEntryId();       
-			$privilege .= "," . kSessionBase::PRIVILEGE_DOWNLOAD_ASSET . ":" . $this->getId();
+			$privilege .= ",".hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY .":". $this->getEntryId();
+			$privilege .= "," . hSessionBase::PRIVILEGE_VIEW . ":" . $this->getEntryId();       
+			$privilege .= "," . hSessionBase::PRIVILEGE_DOWNLOAD_ASSET . ":" . $this->getId();
 			
 			if($preview)
-				$privilege .= "," . kSessionBase::PRIVILEGE_PREVIEW . ":" . $preview;
+				$privilege .= "," . hSessionBase::PRIVILEGE_PREVIEW . ":" . $preview;
 
-			$result = kSessionUtils::startKSession($partnerId, $secret, null, $ksStr, $expiry, false, "", $privilege);
+			$result = hSessionUtils::startHSession($partnerId, $secret, null, $ksStr, $expiry, false, "", $privilege);
 	
 			if ($result < 0)
 				throw new Exception("Failed to generate session for asset [".$this->getId()."] of type ". $this->getType());

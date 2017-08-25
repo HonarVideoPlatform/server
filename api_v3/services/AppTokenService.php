@@ -197,7 +197,7 @@ class AppTokenService extends KalturaBaseService
 		}
 		$privileges = ks::buildPrivileges($privilegesArray);
 		
-		$ks = kSessionUtils::createKSession($partnerId, $secret, $userId, $expiry, $type, $privileges);
+		$ks = hSessionUtils::createHSession($partnerId, $secret, $userId, $expiry, $type, $privileges);
 		if(!$ks)
 			throw new KalturaAPIException(APIErrors::START_SESSION_ERROR, $partnerId);
 			

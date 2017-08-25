@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__) . '/../apps/kaltura/lib/request/kSessionBase.class.php');
+require_once(dirname(__FILE__) . '/../apps/kaltura/lib/request/hSessionBase.class.php');
 
 ini_set("memory_limit", "2048M");
 
@@ -126,7 +126,7 @@ class PartnerSecretPool
 	}
 }
 
-class ks extends kSessionBase
+class ks extends hSessionBase
 {
 	protected function getKSVersionAndSecret($partnerId)
 	{
@@ -153,7 +153,7 @@ function extendKsExpiry($ks)
 	if (!$adminSecret)
 		return null;
 
-	return kSessionBase::generateKsV1($adminSecret, $ksObj->user, $ksObj->type, $ksObj->partner_id, 86400, $ksObj->privileges, $ksObj->master_partner_id, $ksObj->additional_data);
+	return hSessionBase::generateKsV1($adminSecret, $ksObj->user, $ksObj->type, $ksObj->partner_id, 86400, $ksObj->privileges, $ksObj->master_partner_id, $ksObj->additional_data);
 }
 
 function print_r_reverse($in) {

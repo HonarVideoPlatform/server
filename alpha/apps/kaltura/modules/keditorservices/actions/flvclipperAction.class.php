@@ -346,7 +346,7 @@ class flvclipperAction extends kalturaAction
 						KExternalErrors::dieGracefully();
 					}
 					
-					$ks = kSessionUtils::crackKs($ks_str);
+					$ks = hSessionUtils::crackKs($ks_str);
 					if (!$ks)
 					{
 						$this->logMessage( "flvclipper - invalid ks [$ks_str]" );		

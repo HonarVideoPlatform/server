@@ -1,6 +1,6 @@
 <?php
 
-class kSessionUtils
+class hSessionUtils
 {
 	const REQUIED_TICKET_NOT_ACCESSIBLE = 'N';
 	const REQUIED_TICKET_NONE = 0;
@@ -11,7 +11,7 @@ class kSessionUtils
 	 * Will start a ks (always a regular one with view and edit privileges
 	 * verification will be done according to the version
 	 */
-	public static function startKSessionFromLks ( $partner_id , $lks , $puser_id , $version , &$ks_str  , &$ks,	$desired_expiry_in_seconds=86400 )
+	public static function startHSessionFromLks ( $partner_id , $lks , $puser_id , $version , &$ks_str  , &$ks,	$desired_expiry_in_seconds=86400 )
 	{
 		$ks_max_expiry_in_seconds = ""; // see if we want to use the generic setting of the partner
 		
@@ -39,7 +39,7 @@ class kSessionUtils
 		}
 	}
 	
-	public static function createKSession($partner_id, $partner_secret, $puser_id, $expiry, $type, $privileges, $additional_data = null, $master_partner_id = null)
+	public static function createHSession($partner_id, $partner_secret, $puser_id, $expiry, $type, $privileges, $additional_data = null, $master_partner_id = null)
 	{
 		$ks = new ks();
 		$ks->valid_until = kApiCache::getTime() + $expiry; // store in milliseconds to make comparison easier at validation time
@@ -65,7 +65,7 @@ class kSessionUtils
 	*  it can be global and puser_id = null.
 	* In the first case, it will be considered invalid for user that are not the ones that started the session
 	*/
-	public static function startKSession ( $partner_id , $partner_secret , $puser_id , &$ks_str  ,
+	public static function startHSession ( $partner_id , $partner_secret , $puser_id , &$ks_str  ,
 		$desired_expiry_in_seconds=86400 , $admin = false , $partner_key = "" , $privileges = "", $master_partner_id = null, $additional_data = null)
 	{
 		$ks_max_expiry_in_seconds = ""; // see if we want to use the generic setting of the partner
@@ -76,13 +76,13 @@ class kSessionUtils
 			if ( $ks_max_expiry_in_seconds && $ks_max_expiry_in_seconds < $desired_expiry_in_seconds )
 				$desired_expiry_in_seconds = 	$ks_max_expiry_in_seconds;
 
-			//	echo "startKSession: from DB: $ks_max_expiry_in_seconds | desired: $desired_expiry_in_seconds " ;
+			//	echo "startHSession: from DB: $ks_max_expiry_in_seconds | desired: $desired_expiry_in_seconds " ;
 
 			$ks_type = ks::TYPE_KS;
 			if($admin)
 				$ks_type = $admin ; // if the admin > 1 - use it rather than automatially setting it to be 2
 				
-			$ks = self::createKSession($partner_id, $partner_secret, $puser_id, $desired_expiry_in_seconds, $ks_type, $privileges, $additional_data, $master_partner_id);
+			$ks = self::createHSession($partner_id, $partner_secret, $puser_id, $desired_expiry_in_seconds, $ks_type, $privileges, $additional_data, $master_partner_id);
 			$ks_str = $ks->toSecureString();
 			return 0;
 		}
@@ -93,7 +93,7 @@ class kSessionUtils
 
 	}
 
-	public static function createKSessionNoValidations ( $partner_id , $puser_id , &$ks_str  ,
+	public static function createHSessionNoValidations ( $partner_id , $puser_id , &$ks_str  ,
 		$desired_expiry_in_seconds=86400 , $admin = false , $partner_key = "" , $privileges = "")
 	{
 		
@@ -136,7 +136,7 @@ class kSessionUtils
 	public static function startKAdminSession ( $partner_id , $partner_secret , $puser_id , &$ks_str  ,
 		$desired_expiry_in_seconds=86400 , $partner_key = "" , $privileges = "")
 	{
-		return self::startKSession ( $partner_id , $partner_secret , $puser_id , $ks_str  ,	$desired_expiry_in_seconds , true ,  $partner_key , $privileges );
+		return self::startHSession ( $partner_id , $partner_secret , $puser_id , $ks_str  ,	$desired_expiry_in_seconds , true ,  $partner_key , $privileges );
 	}
 
 	/*
@@ -148,7 +148,7 @@ class kSessionUtils
 	 * 		consider it a match !
 	 * if the required_ticket_type is a list - there should be at least one match for the validation to succeed
 	 */
-	public static function validateKSession2 ( $required_ticket_type_str , $partner_id , $puser_id , $ks_str ,&$ks)
+	public static function validateHSession2 ( $required_ticket_type_str , $partner_id , $puser_id , $ks_str ,&$ks)
 	{
 		$res = 0;
 		$required_ticket_type_arr = explode ( ',' , $required_ticket_type_str );
@@ -177,7 +177,7 @@ class kSessionUtils
 		return $res;
 	}
 	
-	public static function validateKSessionNoTicket($partner_id, $puser_id, $ks_str, &$ks)
+	public static function validateHSessionNoTicket($partner_id, $puser_id, $ks_str, &$ks)
 	{
 		if ( !$ks_str )
 		{
@@ -191,7 +191,7 @@ class kSessionUtils
 		validate the time and data of the ks
 		If the puser_id was set in the KS, it is expected to be equal to the puser_id here
 	*/
-	public static function validateKSession ( $partner_id , $puser_id , $ks_str ,&$ks)
+	public static function validateHSession ( $partner_id , $puser_id , $ks_str ,&$ks)
 	{
 		if ( !$ks_str )
 		{
@@ -212,7 +212,7 @@ class kSessionUtils
 		return $kas->isValid( $partner_id , $puser_id  , ks::TYPE_KAS );
 	}
 
-	public static function killKSession ( $ks )
+	public static function killHSession ( $ks )
 	{
 		try
 		{
@@ -224,7 +224,7 @@ class kSessionUtils
 	}
 }
 
-class ks extends kSessionBase
+class ks extends hSessionBase
 {
 	const USER_WILDCARD = "*";
 	const PRIVILEGE_WILDCARD = "*";
@@ -294,7 +294,7 @@ class ks extends kSessionBase
 	public function toSecureString()
 	{
 		list($ksVersion, $secret) = $this->getKSVersionAndSecret($this->partner_id);
-		return kSessionBase::generateSession(
+		return hSessionBase::generateSession(
 			$ksVersion,
 			$secret,
 			$this->user,
