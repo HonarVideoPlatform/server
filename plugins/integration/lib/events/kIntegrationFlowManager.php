@@ -76,13 +76,13 @@ class kIntegrationFlowManager implements kBatchJobStatusEventConsumer
 		if($integrationProvider->shouldSendCallBack())
 		{
 			$jobId = $batchJob->getId();
-			$ks = self::generateKs($partnerId, $jobId);
+			$hs = self::generateHs($partnerId, $jobId);
 			$dcParams = kDataCenterMgr::getCurrentDc();
 			$dcUrl = $dcParams["url"];
 
 			$callBackUrl = $dcUrl;
 			$callBackUrl .= "/api_v3/index.php/service/integration_integration/action/notify";
-			$callBackUrl .= "/id/$jobId/ks/$ks";
+			$callBackUrl .= "/id/$jobId/hs/$hs";
 
 			$data = $batchJob->getData();
 			$data->setCallbackNotificationUrl($callBackUrl);
@@ -95,7 +95,7 @@ class kIntegrationFlowManager implements kBatchJobStatusEventConsumer
 	/**
 	 * @return string
 	 */
-	public static function generateKs($partnerId, $tokenPrefix)
+	public static function generateHs($partnerId, $tokenPrefix)
 	{
 		$partner = PartnerPeer::retrieveByPK($partnerId);
 		$userSecret = $partner->getSecret();
@@ -108,10 +108,10 @@ class kIntegrationFlowManager implements kBatchJobStatusEventConsumer
 		$token = $dcParams["secret"];
 		$additionalData = md5($tokenPrefix . $token);
 		
-		$ks = "";
-		$creationSucces = hSessionUtils::startHSession ($partnerId, $userSecret, "", $ks, self::THREE_DAYS_IN_SECONDS, KalturaSessionType::USER, "", $privileges, null,$additionalData);
+		$hs = "";
+		$creationSucces = hSessionUtils::startHSession ($partnerId, $userSecret, "", $hs, self::THREE_DAYS_IN_SECONDS, KalturaSessionType::USER, "", $privileges, null,$additionalData);
 		if ($creationSucces >= 0 )
-				return $ks;
+				return $hs;
 		
 		return false;
 	}

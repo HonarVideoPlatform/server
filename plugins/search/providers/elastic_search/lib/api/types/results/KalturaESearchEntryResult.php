@@ -15,7 +15,7 @@ class KalturaESearchEntryResult extends KalturaESearchResult
 
 	public function getAPIObject($srcObj)
 	{
-		$isAdmin = kCurrentContext::$ks_object->isAdmin();
+		$isAdmin = kCurrentContext::$hs_object->isAdmin();
 		return KalturaEntryFactory::getInstanceByType($srcObj->getObject()->getType(), $isAdmin);
 	}
 

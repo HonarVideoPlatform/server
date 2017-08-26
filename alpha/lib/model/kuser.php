@@ -26,7 +26,7 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 	
 	const KUSER_ID_THAT_DOES_NOT_EXIST = 0;
 	
-	// different sort orders for browsing kswhos
+	// different sort orders for browsing hswhos
 	const KUSER_SORT_MOST_VIEWED = 1;  
 	const KUSER_SORT_MOST_RECENT = 2;  
 	const KUSER_SORT_NAME = 3;
@@ -382,7 +382,7 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 	
 	public function setHomepageMyspace( $homepage, $myspace )
 	{
-		$this->setUrlList( kString::add_http( $homepage ).'|'. kString::add_http( $myspace) );
+		$this->setUrlList( hString::add_http( $homepage ).'|'. hString::add_http( $myspace) );
 	}
 	
 	public function getIMArray()
@@ -929,7 +929,7 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 	{
 		// full_name column is deprecated
 		KalturaLog::alert('Field [full_name] on object [kuser] is deprecated');
-		list($firstName, $lastName) = kString::nameSplit($v);
+		list($firstName, $lastName) = hString::nameSplit($v);
 		$this->setFirstName($firstName);
 		$this->setLastName($lastName);
 	}

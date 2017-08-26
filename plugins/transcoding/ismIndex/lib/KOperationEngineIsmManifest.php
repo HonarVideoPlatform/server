@@ -1,6 +1,6 @@
 <?php
 
-class KOperationEngineIsmManifest extends KSingleOutputOperationEngine
+class KOperationEngineIsmManifest extends HSingleOutputOperationEngine
 {
 	public function __construct($cmd, $outFilePath)
 	{

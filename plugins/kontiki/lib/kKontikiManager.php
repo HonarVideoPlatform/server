@@ -13,7 +13,7 @@ class kKontikiManager implements kBatchJobStatusEventConsumer
 			case BatchJob::BATCHJOB_STATUS_FINISHED:
 				$data = $dbBatchJob->getData();
 				$kontikiFileSync = FileSyncPeer::retrieveByPK($data->getSrcFileSyncId());
-                /* @var $data kStorageExportJobData */
+                /* @var $data hStorageExportJobData */
                 $asset = assetPeer::retrieveByFileSync($kontikiFileSync);
                 $asset->setTags(KontikiPlugin::KONTIKI_ASSET_TAG);
                 $asset->save();

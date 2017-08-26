@@ -10,7 +10,7 @@ class defKeditorservicesAction extends kalturaAction
 	// the objects bellow are actually the user's session 
 	protected $partner_id;
 	protected $subp_id;
-	protected $ks_str;
+	protected $hs_str;
 	protected $uid; 
 	
 	protected function fetchHshow()
@@ -50,7 +50,7 @@ class defKeditorservicesAction extends kalturaAction
 		
 		$this->partner_id = $this->getRequestParameter( "partner_id" ); 
 		$this->subp_id = $this->getRequestParameter( "subp_id" );
-		$this->ks_str = $this->getRequestParameter( "ks" );
+		$this->hs_str = $this->getRequestParameter( "hs" );
 		$this->uid = $this->getRequestParameter( "uid" );
 		
 		$this->entry_id = $entry_id;
@@ -166,14 +166,14 @@ class defKeditorservicesAction extends kalturaAction
 		if ( $this->partner_id )
 		{
 			// this part overhere should be in a more generic place - part of the services
-			$ks = "";
+			$hs = "";
 			// TODO - for now ignore the session
-			$valid = true; // ( 0 >= hSessionUtils::validateHSession ( $this->partner_id , $this->uid , $this->ks_str ,&$ks ) );
+			$valid = true; // ( 0 >= hSessionUtils::validateHSession ( $this->partner_id , $this->uid , $this->hs_str ,&$hs ) );
 			if ( $valid )
 			{
 				$puser_id = $this->uid;
-				// actually the better user indicator will be placed in the ks - TODO - use it !! 
-				// $puser_id = $ks->user; 
+				// actually the better user indicator will be placed in the hs - TODO - use it !! 
+				// $puser_id = $hs->user; 
 				
 				$kuser_name = $puser_name = $this->getP ( "user_name" );
 				if ( ! $puser_name )

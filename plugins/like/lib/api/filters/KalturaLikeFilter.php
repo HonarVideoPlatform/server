@@ -21,7 +21,7 @@ class KalturaLikeFilter extends KalturaLikeBaseFilter
 		myDbHelper::$use_alternative_con = myDbHelper::DB_HELPER_CONN_PROPEL2;
 	
 		$c = new Criteria();
-		$c->add(kvotePeer::PARTNER_ID, kCurrentContext::$ks_partner_id);
+		$c->add(kvotePeer::PARTNER_ID, kCurrentContext::$hs_partner_id);
 	
 		if($this->entryIdEqual)
 				$c->add(kvotePeer::ENTRY_ID, $this->entryIdEqual);

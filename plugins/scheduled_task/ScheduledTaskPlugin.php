@@ -10,7 +10,7 @@ class ScheduledTaskPlugin extends KalturaPlugin implements IKalturaVersion, IKal
 	const PLUGIN_VERSION_MINOR = 0;
 	const PLUGIN_VERSION_BUILD = 0;
 
-	const BATCH_JOB_FLOW_MANAGER = 'kScheduledTaskBatchJobFlowManager';
+	const BATCH_JOB_FLOW_MANAGER = 'hScheduledTaskBatchJobFlowManager';
 	const MEDIA_REPURPOSING_HANDLER = 'MediaRepurposingHandler';
 
 	public static function getPluginName()

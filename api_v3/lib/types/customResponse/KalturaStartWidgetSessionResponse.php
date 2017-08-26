@@ -15,7 +15,7 @@ class KalturaStartWidgetSessionResponse extends KalturaObject
 	 * @var string
 	 * @readonly
 	 */
-	public $ks;
+	public $hs;
 	
 	/**
 	 * @var string

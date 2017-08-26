@@ -371,7 +371,7 @@ return array(
 	'Kaltura_Client_Enum_UiConfObjType::KMC_ROLES_AND_PERMISSIONS' => 'KMC Roles and Permissions',
 	'Kaltura_Client_Enum_UiConfObjType::PLAYER_SL' => 'Player Silverlight',
 	'Kaltura_Client_Enum_UiConfObjType::CLIENTSIDE_ENCODER' => 'Client Side Encoder',
-	'Kaltura_Client_Enum_UiConfObjType::KSR' => 'Kaltura Screen Recorder',
+	'Kaltura_Client_Enum_UiConfObjType::HSR' => 'Kaltura Screen Recorder',
 	'Kaltura_Client_Enum_UiConfObjType::WEBCASTING' => 'Kaltura Webcasting Studio',
 	'Kaltura_Client_Enum_UiConfObjType::CLIPPER' => 'KMC Clipper',
 	 
@@ -1064,7 +1064,7 @@ return array(
 	'entry-investigate track entry paramStr1 th' => 'Param 1',
 	'entry-investigate track entry paramStr2 th' => 'Param 2',
 	'entry-investigate track entry paramStr3 th' => 'Param 3',
-	'entry-investigate track entry ks th' => 'KS',
+	'entry-investigate track entry hs th' => 'HS',
 	'entry-investigate track entry description th' => 'Description',
 	'entry-investigate track entry createdAt th' => 'Create Time',
 	'entry-investigate track entry updatedAt th' => 'Update Time',

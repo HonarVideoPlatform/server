@@ -25,7 +25,7 @@ class hshow extends Basehshow implements IBaseObject
 
 	const MINIMUM_ID_TO_DISPLAY = 8999;
 
-	// different sort orders for browsing kswhos
+	// different sort orders for browsing hswhos
 	const HSHOW_SORT_MOST_VIEWED = 0;
 	const HSHOW_SORT_MOST_RECENT = 1;
 	const HSHOW_SORT_MOST_COMMENTS = 2;
@@ -220,7 +220,7 @@ class hshow extends Basehshow implements IBaseObject
 		$dc = kDataCenterMgr::getCurrentDc();
 		for ( $i = 0 ; $i < 10 ; ++$i)
 		{
-			$id = $dc["id"].'_'.kString::generateStringId();
+			$id = $dc["id"].'_'.hString::generateStringId();
 			$existing_object = hshowPeer::retrieveByPKNoFilter( $id );
 			
 			if ( ! $existing_object ) return $id;
@@ -387,7 +387,7 @@ class hshow extends Basehshow implements IBaseObject
 		$prop_name = skinContainer::fixClassName( $prop_name );
 		$param_value = 	$skin_container->getParamFromObject(  $prop_name );
 
-		if ( kString::isEmpty( $param_value ) )
+		if ( hString::isEmpty( $param_value ) )
 		{
 			// TODO - i don't think the hack should be here -
 			// i think that the myContentStorage will generate this value if the originqal value is empty

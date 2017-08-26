@@ -304,7 +304,7 @@ class MediaService extends KalturaEntryService
 			"entry_tags" => $dbEntry->getTags(),
 		);
 
-		$token = $this->getKsUniqueString();
+		$token = $this->getHsUniqueString();
 		$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 		$insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 		$insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
@@ -403,7 +403,7 @@ class MediaService extends KalturaEntryService
 				"entry_tags" => $dbEntry->getTags(),
 			);
 
-			$token = $this->getKsUniqueString();
+			$token = $this->getHsUniqueString();
 			$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 			$insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 			$insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
@@ -489,7 +489,7 @@ class MediaService extends KalturaEntryService
 			"entry_tags" => $dbEntry->getTags(),
 		);
 
-		$token = $this->getKsUniqueString();
+		$token = $this->getHsUniqueString();
 		$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 		$insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 		$insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
@@ -562,7 +562,7 @@ class MediaService extends KalturaEntryService
 			"entry_tags" => $dbEntry->getTags(),
 		);
 
-		$token = $this->getKsUniqueString();
+		$token = $this->getHsUniqueString();
 		$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 		$insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 		$insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
@@ -895,12 +895,12 @@ class MediaService extends KalturaEntryService
 	 */
 	function uploadAction($fileData)
 	{
-		$ksUnique = $this->getKsUniqueString();
+		$hsUnique = $this->getHsUniqueString();
 
 		$uniqueId = substr(base_convert(md5(uniqid(rand(), true)), 16, 36), 1, 20);
 
 		$ext = pathinfo($fileData["name"], PATHINFO_EXTENSION);
-		$token = $ksUnique."_".$uniqueId.".".$ext;
+		$token = $hsUnique."_".$uniqueId.".".$ext;
 
 		$res = myUploadUtils::uploadFileByToken($fileData, $token, "", null, true);
 
@@ -1025,7 +1025,7 @@ class MediaService extends KalturaEntryService
 	 * @action flag
 	 * @param string $entryId
 	 * @param KalturaModerationFlag $moderationFlag
-	 * @ksOptional
+	 * @hsOptional
 	 *
  	 * @throws KalturaErrors::ENTRY_ID_NOT_FOUND
 	 */

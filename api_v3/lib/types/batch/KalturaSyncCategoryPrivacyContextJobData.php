@@ -41,7 +41,7 @@ class KalturaSyncCategoryPrivacyContextJobData extends KalturaJobData
 	public function toObject($dbData = null, $props_to_skip = array()) 
 	{
 		if(is_null($dbData))
-			$dbData = new kSyncCategoryPrivacyContextJobData();
+			$dbData = new hSyncCategoryPrivacyContextJobData();
 			
 		return parent::toObject($dbData);
 	}

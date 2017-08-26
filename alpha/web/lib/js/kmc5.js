@@ -50,7 +50,7 @@ kmc.functions = {
 			protocol 			: window.location.protocol + '//',
 			partnerid			: kmc.vars.partner_id,
 			subpid				: kmc.vars.partner_id + '00',
-			ks					: kmc.vars.ks,
+			hs					: kmc.vars.hs,
 			entryId				: "-1",
 			hshowId				: "-1",
 			debugmode			: "true",
@@ -109,7 +109,7 @@ kmc.functions = {
 			protocol 		: window.location.protocol.slice(0, -1),
 			partnerid		: kmc.vars.partner_id,
 			subPartnerId	: kmc.vars.partner_id + '00',
-			sessionId		: kmc.vars.ks,
+			sessionId		: kmc.vars.hs,
 			devFlag			: "true",
 			entryId			: "-1",
 			hshow_id		: "-1",
@@ -351,7 +351,7 @@ kmc.utils = {
 	},
 	debug : function() {
 		try{
-			console.info(" ks: ",kmc.vars.ks);
+			console.info(" hs: ",kmc.vars.hs);
 			console.info(" partner_id: ",kmc.vars.partner_id);
 		}
 		catch(err) {}
@@ -602,7 +602,7 @@ kmc.preview_embed = {
 
 		var https_embed_code = (window.location.protocol == 'https:') ? true : false;
 		embed_code = kmc.preview_embed.buildKalturaEmbed(id, name, description, is_playlist, uiconf_id, true, https_embed_code);
-		preview_player = embed_code.replace('{FLAVOR}','ks=' + kmc.vars.ks + '&');
+		preview_player = embed_code.replace('{FLAVOR}','hs=' + kmc.vars.hs + '&');
 
 		embed_code = kmc.preview_embed.buildKalturaEmbed(id, name, description, is_playlist, uiconf_id);
 		embed_code = embed_code.replace('{FLAVOR}','');
@@ -871,7 +871,7 @@ kmc.preview_embed = {
 
 		var https_embed_code = (window.location.protocol == 'https:') ? true : false;
 		var player_code = kmc.preview_embed.buildKalturaEmbed(entry_id,entry_name,null,false,kmc.vars.default_kdp, true, https_embed_code);
-		player_code = player_code.replace('&{FLAVOR}', '&flavorId=' + flavor_details.asset_id + '&ks=' + kmc.vars.ks);
+		player_code = player_code.replace('&{FLAVOR}', '&flavorId=' + flavor_details.asset_id + '&hs=' + kmc.vars.hs);
 
 		var modal_content = '<div class="center">' + player_code + '</div><dl>' +
 		'<dt>Entry Name:</dt><dd>&nbsp;' + entry_name + '</dd>' +
@@ -936,7 +936,7 @@ kmc.preview_embed = {
 				flashVars['playlistAPI.kpl0Name'] = name;
 				flashVars['playlistAPI.kpl0Url'] = protocol + '://' + embed_host + '/index.php/partnerservices2/executeplaylist?' + 
 													'partner_id=' + kmc.vars.partner_id + '&subp_id=' + kmc.vars.partner_id + '00' + 
-													'&format=8&ks={ks}&playlist_id=' + id;
+													'&format=8&hs={hs}&playlist_id=' + id;
 			}
 		}
 		return flashVars;
@@ -1074,7 +1074,7 @@ kmc.preview_embed = {
 			data: {
 				"type": type,
 				"partner_id": kmc.vars.partner_id,
-				"ks": kmc.vars.ks
+				"hs": kmc.vars.hs
 				},
 			dataType: "json",
 			success: function(data) {
@@ -1105,13 +1105,13 @@ kmc.client = {
 	makeRequest: function( service, action, params, callback ) {
 		var serviceUrl = kmc.vars.api_url + '/api_v3/index.php?service='+service+'&action='+action;
 		var defaultParams = {
-			"ks"		: kmc.vars.ks,
+			"hs"		: kmc.vars.hs,
 			"format"	: 9
 		};
 		// Merge params and defaults
 		$.extend( params, defaultParams);
 		
-		var ksort = function ( arr ) {
+		var hsort = function ( arr ) {
 			var sArr = [];
 			var tArr = [];
 			var n = 0;
@@ -1127,7 +1127,7 @@ kmc.client = {
 		};
 		
 		var getSignature = function( params ){
-			params = ksort(params);
+			params = hsort(params);
 			var str = "";
 			for(var v in params) {
 				var k = params[v];
@@ -1400,7 +1400,7 @@ kmc.user = {
 			url: kmc.vars.base_url + "/index.php/kmc/logout",
 			type: "POST",
 			data: {
-				"ks": kmc.vars.ks
+				"hs": kmc.vars.hs
 				},
 			dataType: "json",
 			complete: function() {
@@ -1490,10 +1490,10 @@ kmc.user = {
 			var url = kmc.vars.base_url + '/index.php/kmc/extlogin';
 
 			// Setup input fields
-			var ks_input = $('<input />').attr({
+			var hs_input = $('<input />').attr({
 				'type': 'hidden',
-				'name': 'ks',
-				'value': kmc.vars.ks
+				'name': 'hs',
+				'value': kmc.vars.hs
 			});
 			var partner_id_input = $('<input />').attr({
 				'type': 'hidden',
@@ -1507,7 +1507,7 @@ kmc.user = {
 							'method': 'post',
 							'style': 'display: none'
 						})
-						.append( ks_input, partner_id_input );
+						.append( hs_input, partner_id_input );
 
 			// Submit the form
 			$('body').append( $form );

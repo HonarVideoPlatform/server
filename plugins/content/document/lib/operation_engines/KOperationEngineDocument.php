@@ -1,6 +1,6 @@
 <?php
 
-abstract class KOperationEngineDocument extends KSingleOutputOperationEngine {
+abstract class KOperationEngineDocument extends HSingleOutputOperationEngine {
 
 	protected function getPdfInfo($file) {
 		$pdfInfoExe = KBatchBase::$taskConfig->params->pdfInfo;

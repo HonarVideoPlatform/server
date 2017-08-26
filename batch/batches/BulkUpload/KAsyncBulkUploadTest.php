@@ -40,9 +40,9 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 			
 			$content .= "BEGIN:VEVENT\r\n";
 			$content .= "UID:$id\r\n";
-			$content .= "DTSTAMP:" .  kSchedulingICal::formatDate($now). "\r\n";
-			$content .= "DTSTART:" .  kSchedulingICal::formatDate($now + (60 * 60 * $i)). "\r\n";
-			$content .= "DTEND:" .  kSchedulingICal::formatDate($now + (60 * 60 * ($i + 1))). "\r\n";
+			$content .= "DTSTAMP:" .  hSchedulingICal::formatDate($now). "\r\n";
+			$content .= "DTSTART:" .  hSchedulingICal::formatDate($now + (60 * 60 * $i)). "\r\n";
+			$content .= "DTEND:" .  hSchedulingICal::formatDate($now + (60 * 60 * ($i + 1))). "\r\n";
 			$content .= "SUMMARY:Test $i - $id\r\n";
 			$content .= "END:VEVENT\r\n";
 		}
@@ -63,9 +63,9 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 			
 		$content .= "BEGIN:VEVENT\r\n";
 		$content .= "UID:$id\r\n";
-		$content .= "DTSTAMP:" .  kSchedulingICal::formatDate($now). "\r\n";
-		$content .= "DTSTART:" .  kSchedulingICal::formatDate($now + (60 * 60 * 2)). "\r\n";
-		$content .= "DTEND:" .  kSchedulingICal::formatDate($now + (60 * 60 * 3)). "\r\n";
+		$content .= "DTSTAMP:" .  hSchedulingICal::formatDate($now). "\r\n";
+		$content .= "DTSTART:" .  hSchedulingICal::formatDate($now + (60 * 60 * 2)). "\r\n";
+		$content .= "DTEND:" .  hSchedulingICal::formatDate($now + (60 * 60 * 3)). "\r\n";
 		$content .= "SUMMARY:Test $id\r\n";
 		
 		foreach($fields as $field => $value)
@@ -82,15 +82,15 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 	{
 		var_dump($content);
 		
-		$calendar = kSchedulingICal::parse($content, KalturaScheduleEventType::RECORD);
+		$calendar = hSchedulingICal::parse($content, KalturaScheduleEventType::RECORD);
 		$components = $calendar->getComponents();
 		
 		$events = array();
 		foreach($components as $component)
 		{
-			/* @var $component kSchedulingICalEvent */
+			/* @var $component hSchedulingICalEvent */
 			$this->assertTrue(is_object($component));
-			$this->assertEquals('kSchedulingICalEvent', get_class($component));
+			$this->assertEquals('hSchedulingICalEvent', get_class($component));
 			
 			$event = $component->toObject();
 			$this->assertEquals('KalturaRecordScheduleEvent', get_class($event));
@@ -131,7 +131,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::YEARLY, $rule->frequency, "frequency [$rule->frequency]");
 		
 		$until = time() + (60 * 60 * 24 * 365 * 6);
-		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYMONTH=4;BYDAY=-1SU;UNTIL=' . kSchedulingICal::formatDate($until));
+		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYMONTH=4;BYDAY=-1SU;UNTIL=' . hSchedulingICal::formatDate($until));
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::YEARLY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals(4, $rule->byMonth, "byMonth [$rule->byMonth]");
 		$this->assertEquals('-1SU', $rule->byDay, "byDay [$rule->byDay]");
@@ -139,7 +139,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		
 
 		$until = time() - (60 * 60 * 24 * 365 * 6);
-		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU;UNTIL=' . kSchedulingICal::formatDate($until));
+		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU;UNTIL=' . hSchedulingICal::formatDate($until));
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::YEARLY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals(10, $rule->byMonth, "byMonth [$rule->byMonth]");
 		$this->assertEquals('-1SU', $rule->byDay, "byDay [$rule->byDay]");
@@ -147,7 +147,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		
 
 		$until = time() - (60 * 60 * 24 * 365 * 3);
-		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYMONTH=4;BYDAY=-1SU;UNTIL=' . kSchedulingICal::formatDate($until));
+		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYMONTH=4;BYDAY=-1SU;UNTIL=' . hSchedulingICal::formatDate($until));
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::YEARLY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals(4, $rule->byMonth, "byMonth [$rule->byMonth]");
 		$this->assertEquals('-1SU', $rule->byDay, "byDay [$rule->byDay]");
@@ -155,7 +155,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		
 
 		$until = time() + (60 * 60 * 24 * 365 * 5);
-		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYMONTH=4;BYDAY=1SU;UNTIL=' . kSchedulingICal::formatDate($until));
+		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYMONTH=4;BYDAY=1SU;UNTIL=' . hSchedulingICal::formatDate($until));
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::YEARLY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals(4, $rule->byMonth, "byMonth [$rule->byMonth]");
 		$this->assertEquals('1SU', $rule->byDay, "byDay [$rule->byDay]");
@@ -193,7 +193,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		
 
 		$until = time() + (60 * 60 * 24 * 365);
-		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYDAY=1SU;BYMONTH=4;UNTIL=' . kSchedulingICal::formatDate($until));
+		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYDAY=1SU;BYMONTH=4;UNTIL=' . hSchedulingICal::formatDate($until));
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::YEARLY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals(4, $rule->byMonth, "byMonth [$rule->byMonth]");
 		$this->assertEquals('1SU', $rule->byDay, "byDay [$rule->byDay]");
@@ -207,7 +207,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		
 
 		$until = time() + (60 * 60 * 24 * 365 * 2);
-		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYDAY=1SU;BYMONTH=4;UNTIL=' . kSchedulingICal::formatDate($until));
+		$rule = $this->doTestICalWithRules('FREQ=YEARLY;BYDAY=1SU;BYMONTH=4;UNTIL=' . hSchedulingICal::formatDate($until));
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::YEARLY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals(4, $rule->byMonth, "byMonth [$rule->byMonth]");
 		$this->assertEquals('1SU', $rule->byDay, "byDay [$rule->byDay]");
@@ -226,7 +226,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		
 
 		$until = time() + (60 * 60 * 24 * 365 * 6);
-		$rule = $this->doTestICalWithRules('FREQ=DAILY;UNTIL=' . kSchedulingICal::formatDate($until));
+		$rule = $this->doTestICalWithRules('FREQ=DAILY;UNTIL=' . hSchedulingICal::formatDate($until));
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::DAILY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals($until, $rule->until, "until [$rule->until]");
 		
@@ -242,12 +242,12 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(5, $rule->count, "count [$rule->count]");
 		
 
-		$rule = $this->doTestICalWithRules('FREQ=YEARLY;UNTIL=' . kSchedulingICal::formatDate($until) . ';BYMONTH=1;BYDAY=SU,MO,TU,WE,TH,FR,SA');
+		$rule = $this->doTestICalWithRules('FREQ=YEARLY;UNTIL=' . hSchedulingICal::formatDate($until) . ';BYMONTH=1;BYDAY=SU,MO,TU,WE,TH,FR,SA');
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::YEARLY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals($until, $rule->until, "until [$rule->until]");
 		
 
-		$rule = $this->doTestICalWithRules('FREQ=DAILY;UNTIL=' . kSchedulingICal::formatDate($until) . ';BYMONTH=1');
+		$rule = $this->doTestICalWithRules('FREQ=DAILY;UNTIL=' . hSchedulingICal::formatDate($until) . ';BYMONTH=1');
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::DAILY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals(1, $rule->byMonth, "byMonth [$rule->byMonth]");
 		$this->assertEquals($until, $rule->until, "until [$rule->until]");
@@ -259,7 +259,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		
 
 		$until = time() + (60 * 60 * 24 * 365 * 6);
-		$rule = $this->doTestICalWithRules('FREQ=WEEKLY;UNTIL=' . kSchedulingICal::formatDate($until));
+		$rule = $this->doTestICalWithRules('FREQ=WEEKLY;UNTIL=' . hSchedulingICal::formatDate($until));
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::WEEKLY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals($until, $rule->until, "until [$rule->until]");
 		
@@ -271,7 +271,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 		
 
 		$until = time() + (60 * 60 * 24 * 365 * 6);
-		$rule = $this->doTestICalWithRules('FREQ=WEEKLY;UNTIL=' . kSchedulingICal::formatDate($until) . ';WKST=SU;BYDAY=TU,TH');
+		$rule = $this->doTestICalWithRules('FREQ=WEEKLY;UNTIL=' . hSchedulingICal::formatDate($until) . ';WKST=SU;BYDAY=TU,TH');
 		$this->assertEquals(KalturaScheduleEventRecurrenceFrequency::WEEKLY, $rule->frequency, "frequency [$rule->frequency]");
 		$this->assertEquals($until, $rule->until, "until [$rule->until]");
 		
@@ -503,7 +503,7 @@ class KAsyncBulkUploadTest extends PHPUnit_Framework_TestCase
 	public function doTest($subType, $content, $expectedStatus = KalturaBatchJobStatus::ALMOST_DONE)
 	{
 		$iniFile = realpath(__DIR__ . "/../../../configurations/batch");
-		$schedulerConfig = new KSchedulerConfig($iniFile);
+		$schedulerConfig = new HSchedulerConfig($iniFile);
 	
 		$taskConfigs = $schedulerConfig->getTaskConfigList();
 		$config = null;

@@ -318,12 +318,12 @@ class DocumentsService extends KalturaEntryService
 	 */
 	function uploadAction($fileData)
 	{
-		$ksUnique = $this->getKsUniqueString();
+		$hsUnique = $this->getHsUniqueString();
 		
 		$uniqueId = substr(base_convert(md5(uniqid(rand(), true)), 16, 36), 1, 20);
 		
 		$ext = pathinfo($fileData["name"], PATHINFO_EXTENSION);
-		$token = $ksUnique."_".$uniqueId.".".$ext;
+		$token = $hsUnique."_".$uniqueId.".".$ext;
 		
 		$res = myUploadUtils::uploadFileByToken($fileData, $token, "", null, true);
 	
@@ -390,7 +390,7 @@ class DocumentsService extends KalturaEntryService
 	 * @param string $flavorAssetId Flavor asset id
 	 * @param bool $forceProxy force to get the content without redirect
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 * 
 	 * @throws KalturaErrors::ENTRY_ID_NOT_FOUND
 	 * @throws KalturaErrors::FLAVOR_ASSET_IS_NOT_READY
@@ -406,9 +406,9 @@ class DocumentsService extends KalturaEntryService
 		if (!$dbEntry || ($dbEntry->getType() != entryType::DOCUMENT))
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
 		
-		$ksObj = $this->getKs();
-		$ks = ($ksObj) ? $ksObj->getOriginalString() : null;
-		$securyEntryHelper = new KSecureEntryHelper($dbEntry, $ks, null, ContextType::DOWNLOAD);
+		$hsObj = $this->getHs();
+		$hs = ($hsObj) ? $hsObj->getOriginalString() : null;
+		$securyEntryHelper = new HSecureEntryHelper($dbEntry, $hs, null, ContextType::DOWNLOAD);
 		$securyEntryHelper->validateForDownload();	
 					
 		$flavorAsset = null;
@@ -442,7 +442,7 @@ class DocumentsService extends KalturaEntryService
 	 * @param string $flavorParamsId Flavor params id
 	 * @param bool $forceProxy force to get the content without redirect
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 * 
 	 * @throws KalturaErrors::ENTRY_ID_NOT_FOUND
 	 * @throws KalturaErrors::FLAVOR_ASSET_IS_NOT_READY
@@ -452,7 +452,7 @@ class DocumentsService extends KalturaEntryService
 	{
 		// temporary workaround for getting the referrer from a url with the format ....&forceProxy/true/referrer/...
 		$referrer = null;
-		if (isset($_GET["forceProxy"]) && kString::beginsWith($_GET["forceProxy"], "true/referrer/"))
+		if (isset(		if (isset($_GET["forceProxy"]) && kString::beginsWith($_GET["forceProxy"], "true/referrer/"))GET["forceProxy"]) && hString::beginsWith(		if (isset($_GET["forceProxy"]) && kString::beginsWith($_GET["forceProxy"], "true/referrer/"))GET["forceProxy"], "true/referrer/"))
 		{
 			$referrer = substr($_GET["forceProxy"], strlen("true/referrer/"));
 			$referrer = base64_decode($referrer);
@@ -466,9 +466,9 @@ class DocumentsService extends KalturaEntryService
 		if (!$dbEntry || ($dbEntry->getType() != entryType::DOCUMENT))
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
 					
-		$ksObj = $this->getKs();
-		$ks = ($ksObj) ? $ksObj->getOriginalString() : null;
-		$securyEntryHelper = new KSecureEntryHelper($dbEntry, $ks, $referrer, ContextType::DOWNLOAD);
+		$hsObj = $this->getHs();
+		$hs = ($hsObj) ? $hsObj->getOriginalString() : null;
+		$securyEntryHelper = new HSecureEntryHelper($dbEntry, $hs, $referrer, ContextType::DOWNLOAD);
 		$securyEntryHelper->validateForDownload();			
 			
 		$flavorAsset = null;

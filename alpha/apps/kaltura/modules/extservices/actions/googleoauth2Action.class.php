@@ -21,7 +21,7 @@ class googleoauth2Action extends oauth2Action
 		set_include_path(get_include_path().PATH_SEPARATOR.KALTURA_ROOT_PATH.'/vendor/google-api-php-client/src/');
 		require_once 'Google_Client.php';
 
-		$ks    = $this->getRequestParameter('ks');
+		$hs    = $this->getRequestParameter('hs');
 		$state = $this->getRequestParameter('state');
 		$status = $this->getRequestParameter('status');
 
@@ -31,7 +31,7 @@ class googleoauth2Action extends oauth2Action
 			$this->subAction = self::SUB_ACTION_STATUS;
 			$this->executeStatus();
 		}
-		elseif ($ks)
+		elseif ($hs)
 		{
 			$this->subAction = self::SUB_ACTION_REDIRECT_SCREEN;
 			$this->executeRedirectScreen();
@@ -74,7 +74,7 @@ class googleoauth2Action extends oauth2Action
 			'ytid' => $appId,
 			'subid' => $subId,
 		);
-		$this->nextUrl = $this->getController()->genUrl('extservices/googleoauth2?'.http_build_query($params, null, '&')).'?ks=';
+		$this->nextUrl = $this->getController()->genUrl('extservices/googleoauth2?'.http_build_query($params, null, '&')).'?hs=';
 		if ($appConfig === null)
 		{
 			$this->invalidConfig = true;
@@ -88,31 +88,31 @@ class googleoauth2Action extends oauth2Action
 	{
 		$appId = $this->getRequestParameter('ytid');
 		$subId = $this->getRequestParameter('subid');
-		$ksStr = $this->getRequestParameter('ks');
+		$hsStr = $this->getRequestParameter('hs');
 
 		$appConfig = $this->getFromGoogleAuthConfig($appId);
 		$client = $this->getGoogleClient();
-		$this->ksError = null;
-		$ksValid = $this->processKs($ksStr);
-		if (!$ksValid)
+		$this->hsError = null;
+		$hsValid = $this->processHs($hsStr);
+		if (!$hsValid)
 		{
-			$this->ksError = true;
+			$this->hsError = true;
 			return;
 		}
 
-		/** @var ks $ks */
-		$ks = kCurrentContext::$ks_object;
-		$partnerId = $ks->partner_id;
+		/** @var hs $hs */
+		$hs = kCurrentContext::$hs_object;
+		$partnerId = $hs->partner_id;
 
 		$state = array(
 			'ytid' => $appId,
 			'subid' => $subId,
 		);
 
- 		// let's create a limited ks and pass it as a state parameter to google
-		$limitedKs = $this->generateTimeLimitedKsWithData($partnerId, $state);
+ 		// let's create a limited hs and pass it as a state parameter to google
+		$limitedHs = $this->generateTimeLimitedHsWithData($partnerId, $state);
 
-		$state = $limitedKs;
+		$state = $limitedHs;
 		$redirect = $this->getController()->genUrl('extservices/googleoauth2', true);
 		$client->setRedirectUri($redirect);
 
@@ -128,28 +128,28 @@ class googleoauth2Action extends oauth2Action
 	 */
 	protected function executeProcessOAuth2Response()
 	{
-		$this->ksError = null;
+		$this->hsError = null;
 		$this->tokenError = null;
 
-		$limitedKsStr = $this->getRequestParameter('state');
-		$ksValid = $this->processKs($limitedKsStr);
-		if (!$ksValid)
+		$limitedHsStr = $this->getRequestParameter('state');
+		$hsValid = $this->processHs($limitedHsStr);
+		if (!$hsValid)
 		{
-			$this->ksError = true;
+			$this->hsError = true;
 			return;
 		}
-		$limitedKs = kCurrentContext::$ks_object;
-		$additionalData = $limitedKs->additional_data;
+		$limitedHs = kCurrentContext::$hs_object;
+		$additionalData = $limitedHs->additional_data;
 		$stateObject = json_decode($additionalData);
 		if (!$stateObject)
 		{
-			$this->ksError = true;
+			$this->hsError = true;
 			return;
 		}
 		$appId = isset($stateObject->ytid) ? $stateObject->ytid : null;
 		$subId = isset($stateObject->subid) ? $stateObject->subid : null;
 
-		$partner = $this->getPartner($limitedKs->partner_id);
+		$partner = $this->getPartner($limitedHs->partner_id);
 
 		$client = $this->getGoogleClient($appId);
 		$redirect = $this->getController()->genUrl('extservices/googleoauth2', true);
@@ -173,7 +173,7 @@ class googleoauth2Action extends oauth2Action
 		$params = array(
 			'ytid' => $appId,
 			'status' => 1,
-			'ks' => $limitedKsStr
+			'hs' => $limitedHsStr
 		);
 		if ($subId)
 			$params['subid'] = $subId;
@@ -185,26 +185,26 @@ class googleoauth2Action extends oauth2Action
 	{
 		$this->paramsError = null;
 		$this->tokenError = null;
-		$this->ksError = null;
-		$ksStr = $this->getRequestParameter('ks');
+		$this->hsError = null;
+		$hsStr = $this->getRequestParameter('hs');
 		$appId = $this->getRequestParameter('ytid');
 		$subId = $this->getRequestParameter('subid');
 		$appConfig = $this->getFromGoogleAuthConfig($appId);
-		$ksValid = $this->processKs($ksStr);
-		if (!$ksValid)
+		$hsValid = $this->processHs($hsStr);
+		if (!$hsValid)
 		{
-			$this->ksError = true;
+			$this->hsError = true;
 			return;
 		}
 
-		$ks = kCurrentContext::$ks_object;
-		if ($ks == null || $appConfig == null)
+		$hs = kCurrentContext::$hs_object;
+		if ($hs == null || $appConfig == null)
 		{
 			$this->paramsError = true;
 			return;
 		}
 
-		$partnerId = $ks->partner_id;
+		$partnerId = $hs->partner_id;
 		$partner = $this->getPartner($partnerId);
 		$tokenData = $partner->getGoogleOAuth2($appId, $subId);
 		$client = $this->getGoogleClient($appId);

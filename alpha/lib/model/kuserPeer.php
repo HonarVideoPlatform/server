@@ -489,9 +489,9 @@ class kuserPeer extends BasekuserPeer implements IRelatedObjectPeer
 	{
 		$partnerId = $user->getPartnerId();
 		$creatorUserName = 'Unknown';
-		if (!is_null(kCurrentContext::$ks_uid))
+		if (!is_null(kCurrentContext::$hs_uid))
 		{
-			$creatorUser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$ks_uid);
+			$creatorUser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$hs_uid);
 			if ($creatorUser) {
 				$creatorUserName = $creatorUser->getFullName();
 			}
@@ -563,9 +563,9 @@ class kuserPeer extends BasekuserPeer implements IRelatedObjectPeer
 		$userName = $user->getFullName();
 		if (!$userName) { $userName = $user->getPuserId(); }
 		$creatorUserName = 'Unknown';
-		if (!is_null(kCurrentContext::$ks_uid))
+		if (!is_null(kCurrentContext::$hs_uid))
 		{
-			$creatorUser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$ks_uid);
+			$creatorUser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$hs_uid);
 			if ($creatorUser) {
 				$creatorUserName = $creatorUser->getFullName();
 			}

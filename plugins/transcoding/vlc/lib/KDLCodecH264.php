@@ -59,14 +59,14 @@ class KDLCodecH264 extends KDLBaseCodec{
 								to maximize PSNR relative to bitrate."
 								BP does not support it.
 							*/
-	public	$_chroma_me=1;	/* "Normally, motion estimation works off both the luma and 
+	public		public	$_chroma_me=1;	/* "Normally, motion estimation works off both the luma and chroma_me=1;	/* "Normally, motion estimation works off both the luma and 
 								chroma planes."
 								can be turned on to gain speed. relevant for mencoder
 							*/
 	public	$_dct8x8;		/* "the only reason to disable it is when one needs support 
 								on a device not compatible with High Profile."
 							*/
-	public	$_fastskip=0;	/* "By default, x264 will skip macroblocks in P-frames that 
+	public		public	$_fastskip=0;	/* "By default, x264 will skip macroblocks in P-frames that fastskip=0;	/* "By default, x264 will skip macroblocks in P-frames that 
 								don't appear to	have changed enough between two frames 
 								to justify encoding the difference. This considerably speeds
 								 up encoding. However, for a slight quality boost, 

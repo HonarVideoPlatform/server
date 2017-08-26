@@ -8,9 +8,9 @@
 		array ( "request2_service" , "" , "15" , "getentry" ) ,
 		array ( "request2_entry_id" ),
 		array ( "request2_detailed" , "" , "1" ),
-		array ( "request2_ks" , "" , "40" , "{response1.result.ks}" ) ,
+		array ( "request2_hs" , "" , "40" , "{response1.result.hs}" ) ,
 		array ( "request3_service" , "" , "15" , "updateentry" ) ,
-		array ( "request3_ks" , "" , "40" , "{response1.result.ks}" ) ,
+		array ( "request3_hs" , "" , "40" , "{response1.result.hs}" ) ,
 		array ( "request3_entry_id" , "" , "30" , "{response2.result.entry.id}" ) ,
 		array ( "request3_entry_name" , "" , "40" , "{response2.result.entry.name}4" ) ,
 

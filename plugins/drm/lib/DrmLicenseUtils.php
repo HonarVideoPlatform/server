@@ -14,7 +14,7 @@ class DrmLicenseUtils {
 
     public function __construct($entry, $referrer)
     {
-        $this->secureEntryHelper = new KSecureEntryHelper($entry, kCurrentContext::$ks, $referrer, ContextType::PLAY);
+        $this->secureEntryHelper = new HSecureEntryHelper($entry, kCurrentContext::$hs, $referrer, ContextType::PLAY);
         $this->secureEntryHelper->validateForPlay();
     }
 
@@ -87,7 +87,7 @@ class DrmLicenseUtils {
 
         $innerData = array();
         $innerData["ca_system"] = self::SYSTEM_NAME;
-        $innerData["user_token"] = kCurrentContext::$ks;
+        $innerData["user_token"] = kCurrentContext::$hs;
         $innerData["account_id"] = kCurrentContext::getCurrentPartnerId();
         $innerData["content_id"] = $entryId;
         $innerData["files"] = $flavorIds;

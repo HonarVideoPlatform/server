@@ -37,11 +37,11 @@ class addpartnerentryAction extends addentryAction
         */
                         ) ,
                     "optional" => array (
-                        "uid" => array("type" => "string", "desc" => "The user id of the partner. Is exists, the ks will be generated for this user and "),
+                        "uid" => array("type" => "string", "desc" => "The user id of the partner. Is exists, the hs will be generated for this user and "),
                         )
                     ),
                 "out" => array (
-                    "ks" => array("type" => "string", "desc" => "Kaltura Session - a token used as an input for the rest of the services") ,
+                    "hs" => array("type" => "string", "desc" => "Kaltura Session - a token used as an input for the rest of the services") ,
                     ),
                 "errors" => array (
                     APIErrors::INVALID_HSHOW_ID,

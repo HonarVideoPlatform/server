@@ -76,13 +76,13 @@ class helperAction extends kalturaSystemAction
 			$res = ($encrypted_data )		;
 			$this->des_key = $key;
 		}
-		elseif ( $algo == "ks" )
+		elseif ( $algo == "hs" )
 		{
-			$ks = ks::fromSecureString ( $str );
-			$res = print_r ( $ks , true );
-			if ( $ks != null )
+			$hs = hs::fromSecureString ( $str );
+			$res = print_r ( $hs , true );
+			if ( $hs != null )
 			{
-				$expired = $ks->valid_until;
+				$expired = $hs->valid_until;
 				$expired_str = self::formatThisData($expired);
 				$now = time();
 				$now_str = self::formatThisData($now);

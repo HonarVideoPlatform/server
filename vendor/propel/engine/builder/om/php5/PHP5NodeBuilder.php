@@ -898,7 +898,7 @@ abstract class ".$this->getClassname()." implements IteratorAggregate {
 			throw new PropelException('Failed to attach child node. Node path mismatch.');
 
 		\$this->childNodes[\$node->getNodeIndex()] = \$node;
-		ksort(\$this->childNodes);
+		hsort(\$this->childNodes);
 
 		\$node->attachParentNode(\$this);
 	}
@@ -1028,7 +1028,7 @@ abstract class ".$this->getClassname()." implements IteratorAggregate {
 			\$i -= \$direction;
 		}
 
-		ksort(\$this->childNodes);
+		hsort(\$this->childNodes);
 	}
 ";
 	}

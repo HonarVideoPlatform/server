@@ -28,7 +28,7 @@ class HTMLPurifier_Printer_CSSDefinition extends HTMLPurifier_Printer
         $ret .= $this->end('tr');
         $ret .= $this->end('thead');
 
-        ksort($this->def->info);
+        hsort($this->def->info);
         foreach ($this->def->info as $property => $obj) {
             $name = $this->getClass($obj, 'AttrDef_');
             $ret .= $this->row($property, $name);

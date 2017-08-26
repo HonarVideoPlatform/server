@@ -37,7 +37,7 @@ class updatedataentryAction extends updateentryAction
 	
 	public function verifyEntryPrivileges ( $entry ) 
 	{
-		return $this->verifyPrivileges ( "edit" , $entry->getId() ); // user was granted explicit permissions when initiatd the ks
+		return $this->verifyPrivileges ( "edit" , $entry->getId() ); // user was granted explicit permissions when initiatd the hs
 	}
 	
 	

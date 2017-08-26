@@ -71,7 +71,7 @@ abstract class CuePoint extends BaseCuePoint implements IIndexable, IRelatedObje
 		$currentDcId = kDataCenterMgr::getCurrentDcId();
 		for ($i = 0; $i < 10; $i++)
 		{
-			$id = $currentDcId.'_'.kString::generateStringId();
+			$id = $currentDcId.'_'.hString::generateStringId();
 			$existingObject = CuePointPeer::retrieveByPKNoFilter($id);
 			if ($existingObject){
 				KalturaLog::log(__METHOD__ . ": id [$id] already exists");

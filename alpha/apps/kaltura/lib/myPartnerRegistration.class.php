@@ -195,7 +195,7 @@ class myPartnerRegistration
 		else //($ID_is_for == "non-commercial_use") || $ID_is_for === CommercialUseType::NON_COMMERCIAL_USE)
 			$newPartner->setCommercialUse(false);
 		$newPartner->setDescription($description);
-		$newPartner->setKsMaxExpiryInSeconds(86400);
+		$newPartner->setHsMaxExpiryInSeconds(86400);
 		$newPartner->setModerateContent(false);
 		$newPartner->setNotify(false);
 		$newPartner->setAppearInSearch(mySearchUtils::DISPLAY_IN_SEARCH_PARTNER_ONLY);
@@ -283,7 +283,7 @@ class myPartnerRegistration
 		$kuser = new kuser();
 		$kuser->setEmail($newPartner->getAdminEmail());
 		
-		list($firstName, $lastName) = kString::nameSplit($newPartner->getAdminName());
+		list($firstName, $lastName) = hString::nameSplit($newPartner->getAdminName());
 		$kuser->setFirstName($firstName);
 		$kuser->setLastName($lastName);
 
@@ -311,7 +311,7 @@ class myPartnerRegistration
 			throw new SignupException('Please fill in Administrator\'s Email Address', SignupException::INVALID_FIELD_VALUE);
 		
 			
-		if(!kString::isEmailString($email))
+		if(!hString::isEmailString($email))
 			throw new SignupException('Invalid email address', SignupException::INVALID_FIELD_VALUE);
 
 		if ($description == "")

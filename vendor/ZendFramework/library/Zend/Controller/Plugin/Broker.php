@@ -80,7 +80,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
             $this->_plugins[$stackIndex]->setResponse($response);
         }
 
-        ksort($this->_plugins);
+        hsort($this->_plugins);
 
         return $this;
     }

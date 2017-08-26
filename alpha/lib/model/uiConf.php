@@ -31,7 +31,7 @@ class uiConf extends BaseuiConf implements ISyncableFile, IRelatedObject
 	const UI_CONF_KMC_GENERAL = 16;
 	const UI_CONF_KMC_ROLES_AND_PERMISSIONS = 17;
 	const UI_CONF_CLIPPER = 18;
-	const UI_CONF_TYPE_KSR = 19;
+	const UI_CONF_TYPE_HSR = 19;
 	const UI_CONF_TYPE_KUPLOAD = 20;
 	const UI_CONF_TYPE_WEBCASTING = 21;
 
@@ -60,7 +60,7 @@ class uiConf extends BaseuiConf implements ISyncableFile, IRelatedObject
 
 	private $swf_url_version = null;
 
-	//UI_CONF_TYPE_KSR:: This is a general path value the actual jar file should be symlinked under each KSR version dir
+	//UI_CONF_TYPE_HSR:: This is a general path value the actual jar file should be symlinked under each HSR version dir
 	private static $swf_names = array ( self::UI_CONF_TYPE_WIDGET => "kdp.swf" ,
 										self::UI_CONF_TYPE_CW => "ContributionWizard.swf" ,
 										self::UI_CONF_TYPE_EDITOR => "simpleeditor.swf" ,
@@ -78,7 +78,7 @@ class uiConf extends BaseuiConf implements ISyncableFile, IRelatedObject
 										self::UI_CONF_KMC_GENERAL => "kmc.swf",
 										self::UI_CONF_KMC_ROLES_AND_PERMISSIONS => "",
 										self::UI_CONF_CLIPPER => "",
-										self::UI_CONF_TYPE_KSR => "ScreencastOMaticRun.jar",
+										self::UI_CONF_TYPE_HSR => "ScreencastOMaticRun.jar",
 										self::UI_CONF_TYPE_KRECORD => "KRecord.swf",
 										self::UI_CONF_TYPE_KUPLOAD => "KUpload.swf",
 										self::UI_CONF_TYPE_WEBCASTING => "",
@@ -87,7 +87,7 @@ class uiConf extends BaseuiConf implements ISyncableFile, IRelatedObject
 	private static $swf_directory_map = array (
 		self::UI_CONF_TYPE_WIDGET => "kdp",
 		self::UI_CONF_TYPE_CW => "kcw",
-		self::UI_CONF_TYPE_EDITOR => "kse",
+		self::UI_CONF_TYPE_EDITOR => "hse",
 		self::UI_CONF_TYPE_ADVANCED_EDITOR => "kae",
 		self::UI_CONF_TYPE_PLAYLIST => "kdp",
 		self::UI_CONF_TYPE_KMC_APP_STUDIO => "kmc/appstudio",
@@ -102,7 +102,7 @@ class uiConf extends BaseuiConf implements ISyncableFile, IRelatedObject
 		self::UI_CONF_KMC_GENERAL => "kmc",
 		self::UI_CONF_KMC_ROLES_AND_PERMISSIONS => "",
 		self::UI_CONF_CLIPPER => "kclip",
-		self::UI_CONF_TYPE_KSR => "ksr",
+		self::UI_CONF_TYPE_HSR => "hsr",
 		self::UI_CONF_TYPE_KRECORD => 'krecord',
 		self::UI_CONF_TYPE_KUPLOAD => "kupload",
 		self::UI_CONF_TYPE_WEBCASTING => "",
@@ -204,7 +204,7 @@ class uiConf extends BaseuiConf implements ISyncableFile, IRelatedObject
 				self::UI_CONF_KMC_GENERAL => "KMC",
 				self::UI_CONF_KMC_ROLES_AND_PERMISSIONS => "KMC Roles and Permissions",
 				self::UI_CONF_CLIPPER => "Kaltura Clipper",
-				self::UI_CONF_TYPE_KSR => "Kaltura Screen Recorder",
+				self::UI_CONF_TYPE_HSR => "Kaltura Screen Recorder",
 				self::UI_CONF_TYPE_KUPLOAD => "Kaltura Simple Uploader",
 				self::UI_CONF_TYPE_WEBCASTING => "Kaltura Webcasting Studio",
 			);
@@ -547,7 +547,7 @@ class uiConf extends BaseuiConf implements ISyncableFile, IRelatedObject
 	 */
 	public function setConfFilePath( $v )
 	{
-		if ( kString::beginsWith( $v , ".." ) )
+		if ( hString::beginsWith( $v , ".." ) )
 		{
 			$err = "Error in " . __METHOD__ . ": attmpting to set ConfFilePath to [$v]";
 			KalturaLog::log( $err );
@@ -556,7 +556,7 @@ class uiConf extends BaseuiConf implements ISyncableFile, IRelatedObject
 
 		if ( $this->getCreationMode() == self::UI_CONF_CREATION_MODE_MANUAL )
 		{
-			if ( ! kString::beginsWith( $v , $this->getUiConfRootDirectory() . "uiconf/" ) )
+			if ( ! hString::beginsWith( $v , $this->getUiConfRootDirectory() . "uiconf/" ) )
 			{
 				$v =  $this->getUiConfRootDirectory() . "uiconf/" . $v ;
 			}

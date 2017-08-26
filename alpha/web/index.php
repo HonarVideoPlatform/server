@@ -79,11 +79,11 @@ function checkCache()
 	else if(strpos($uri, "/partnerservices2") !== false)
 	{
 		$params = $_GET + $_POST;
-		unset($params['ks']);
+		unset($params['hs']);
 		unset($params['kalsig']);
 		$params['uri'] = $_SERVER['PATH_INFO'];
 		$params['__protocol'] = $protocol;
-		ksort($params);
+		hsort($params);
 
 		$keys = array_keys($params);
 		$key = md5(implode("|", $params).implode("|", $keys));

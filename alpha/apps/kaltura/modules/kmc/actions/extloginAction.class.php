@@ -31,26 +31,26 @@ class extloginAction extends kalturaAction
 	
 	public function execute()
 	{
-		$ks = $this->getP ( "ks" );
-		if(!$ks)
-			$this->dieOnError  ( APIErrors::MISSING_KS );
+		$hs = $this->getP ( "hs" );
+		if(!$hs)
+			$this->dieOnError  ( APIErrors::MISSING_HS );
 			
 		$requestedPartnerId = $this->getP ( "partner_id" );
 		
 		$expired = $this->getP ( "exp" );
 
-		$ksObj = hSessionUtils::crackKs($ks);
-		$ksPartnerId = $ksObj->partner_id;
+		$hsObj = hSessionUtils::crackHs($hs);
+		$hsPartnerId = $hsObj->partner_id;
 		
-		if($ksObj->getPrivilegeByName(hSessionBase::PRIVILEGE_DISABLE_PARTNER_CHANGE_ACCOUNT) && $requestedPartnerId != $ksPartnerId)
+		if($hsObj->getPrivilegeByName(hSessionBase::PRIVILEGE_DISABLE_PARTNER_CHANGE_ACCOUNT) && $requestedPartnerId != $hsPartnerId)
 			$this->dieOnError  ( APIErrors::PARTNER_CHANGE_ACCOUNT_DISABLED );
 
 		if (!$requestedPartnerId) {
-			$requestedPartnerId = $ksPartnerId;
+			$requestedPartnerId = $hsPartnerId;
 		}
 		
 		try {
-			$adminKuser = UserLoginDataPeer::userLoginByKs($ks, $requestedPartnerId, true);
+			$adminKuser = UserLoginDataPeer::userLoginByHs($hs, $requestedPartnerId, true);
 		}
 		catch (kUserException $e) {
 			$code = $e->getCode();
@@ -104,12 +104,12 @@ class extloginAction extends kalturaAction
 		
 		$exp = (isset($expired) && is_numeric($expired)) ? time() + $expired: 0;
 		
-		$noUserInKs = is_null($ksObj->user) || $ksObj->user === '';
-		if ( ($ksPartnerId != $partner_id) || ($partner->getKmcVersion() >= 4 && $noUserInKs) )
+		$noUserInHs = is_null($hsObj->user) || $hsObj->user === '';
+		if ( ($hsPartnerId != $partner_id) || ($partner->getKmcVersion() >= 4 && $noUserInHs) )
 		{
-			$ks = null;
+			$hs = null;
 			$sessionType = $adminKuser->getIsAdmin() ? SessionType::ADMIN : SessionType::USER;
-			hSessionUtils::createHSessionNoValidations ( $partner_id ,  $admin_puser_id , $ks , 30 * 86400 , $sessionType , "" , "*," . hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT );
+			hSessionUtils::createHSessionNoValidations ( $partner_id ,  $admin_puser_id , $hs , 30 * 86400 , $sessionType , "" , "*," . hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT );
 		}
 		
 		
@@ -121,7 +121,7 @@ class extloginAction extends kalturaAction
 		
 		$this->getResponse()->setCookie("pid", $partner_id, $exp, $path, $domain, $secure, $http_only);
 		$this->getResponse()->setCookie("subpid", $subp_id, $exp, $path, $domain, $secure, $http_only);
-		$this->getResponse()->setCookie("kmcks", $ks, $exp, $path, $domain, $secure, $http_only);
+		$this->getResponse()->setCookie("kmchs", $hs, $exp, $path, $domain, $secure, $http_only);
 
 		$redirect_url =  ($force_ssl) ? 'https' : 'http';
 		$redirect_url .= '://' . $_SERVER["HTTP_HOST"] . '/index.php/kmc/kmc2';

@@ -124,7 +124,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
         $ret = '';
         $ret .= $this->start('table');
         $ret .= $this->element('caption', 'Elements ($info)');
-        ksort($this->def->info);
+        hsort($this->def->info);
         $ret .= $this->heavyHeader('Allowed tags', 2);
         $ret .= $this->start('tr');
         $ret .= $this->element('td', $this->listifyTagLookup($this->def->info), array('colspan' => 2));
@@ -260,7 +260,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      */
     protected function listifyTagLookup($array)
     {
-        ksort($array);
+        hsort($array);
         $list = array();
         foreach ($array as $name => $discard) {
             if ($name !== '#PCDATA' && !isset($this->def->info[$name])) {
@@ -279,7 +279,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      */
     protected function listifyObjectList($array)
     {
-        ksort($array);
+        hsort($array);
         $list = array();
         foreach ($array as $obj) {
             $list[] = $this->getClass($obj, 'AttrTransform_');
@@ -294,7 +294,7 @@ class HTMLPurifier_Printer_HTMLDefinition extends HTMLPurifier_Printer
      */
     protected function listifyAttr($array)
     {
-        ksort($array);
+        hsort($array);
         $list = array();
         foreach ($array as $name => $obj) {
             if ($obj === false) {

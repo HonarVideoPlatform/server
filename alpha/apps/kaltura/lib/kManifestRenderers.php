@@ -50,7 +50,7 @@ abstract class kManifestRenderer
 	/**
 	 * @var hSessionBase
 	 */
-	protected $ksObject = null;
+	protected $hsObject = null;
 	
 	/**
 	 * Array of classes required for load into the renderer scope in order to expand the manifest
@@ -111,14 +111,14 @@ abstract class kManifestRenderer
 	abstract protected function replacePlayServerSessionId();
 
 	/**
-	 * @param hSessionBase $ksObject
+	 * @param hSessionBase $hsObject
 	 */
-	public function setKsObject($ksObject)
+	public function setHsObject($hsObject)
 	{
-		$this->ksObject = $ksObject;
+		$this->hsObject = $hsObject;
 		if ($this->tokenizer)
 		{
-			$this->tokenizer->setKsObject($ksObject);
+			$this->tokenizer->setHsObject($hsObject);
 		}
 	}
 	
@@ -155,7 +155,7 @@ abstract class kManifestRenderer
 
 		$params = infraRequestUtils::getRequestParams();
 		$mapping = array(
-			'ks' => 'ks',
+			'hs' => 'hs',
 			'format' => 'deliveryType',
 			'uiConfId' => 'uiConfId',
 			'playSessionId' => 'sessionId',
@@ -333,7 +333,7 @@ abstract class kManifestRenderer
 	}
 }
 
-class kSingleUrlManifestRenderer extends kManifestRenderer
+class hSingleUrlManifestRenderer extends kManifestRenderer
 {
 	/**
 	 * @var array
@@ -714,7 +714,7 @@ class kF4Mv2ManifestRenderer extends kMultiFlavorManifestRenderer
 
 }
 	
-class kSilverLightManifestRenderer extends kSingleUrlManifestRenderer
+class hSilverLightManifestRenderer extends hSingleUrlManifestRenderer
 {
 	/**
 	 * @var string
@@ -750,7 +750,7 @@ class kSilverLightManifestRenderer extends kSingleUrlManifestRenderer
 	}
 }
 
-class kSmilManifestRenderer extends kMultiFlavorManifestRenderer
+class hSmilManifestRenderer extends kMultiFlavorManifestRenderer
 {
 	/**
 	 * @return array<string>
@@ -908,7 +908,7 @@ class kM3U8ManifestRenderer extends kMultiFlavorManifestRenderer
 
 }
 
-class kRtspManifestRenderer extends kSingleUrlManifestRenderer
+class kRtspManifestRenderer extends hSingleUrlManifestRenderer
 {
 	/**
 	 * @return array<string>
@@ -977,7 +977,7 @@ class kDashRedirectManifestRenderer extends kDashBaseManifestRenderer
 	}
 }
 
-class kRedirectManifestRenderer extends kSingleUrlManifestRenderer
+class kRedirectManifestRenderer extends hSingleUrlManifestRenderer
 {
 	/**
 	 * @return array<string>

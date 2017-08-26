@@ -13,7 +13,7 @@ class kmcAction extends kalturaAction
 		header( 'X-Frame-Options: DENY' );
 
 		// Check if user already logged in and redirect to kmc2
-		if( $this->getRequest()->getCookie('kmcks') ) {
+		if( $this->getRequest()->getCookie('kmchs') ) {
 			$this->redirect('kmc/kmc2');
 		}
 

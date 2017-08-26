@@ -330,7 +330,7 @@ class SignatureV4 extends AbstractSignature implements EndpointSignatureInterfac
             }
         }
 
-        ksort($canonHeaders);
+        hsort($canonHeaders);
         $signedHeadersString = implode(';', array_keys($canonHeaders));
         $canon .= implode("\n", $canonHeaders) . "\n\n"
             . $signedHeadersString . "\n"
@@ -388,7 +388,7 @@ class SignatureV4 extends AbstractSignature implements EndpointSignatureInterfac
         }
 
         $qs = '';
-        ksort($queryParams);
+        hsort($queryParams);
         foreach ($queryParams as $key => $values) {
             if (is_array($values)) {
                 sort($values);

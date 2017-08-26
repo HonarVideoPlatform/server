@@ -130,7 +130,7 @@ class kwidgetAction extends sfAction
 				}
 			}
 		}
-		elseif ( $widget->getSecurityType () == widget::WIDGET_SECURITY_TYPE_FORCE_KS )
+		elseif ( $widget->getSecurityType () == widget::WIDGET_SECURITY_TYPE_FORCE_HS )
 		{
 
 		}
@@ -182,7 +182,7 @@ class kwidgetAction extends sfAction
 		if ($uiConf)
 		{
 			$ui_conf_swf_url = $uiConf->getSwfUrl();
-			if( kString::beginsWith( $ui_conf_swf_url , "http") )
+			if( hString::beginsWith( $ui_conf_swf_url , "http") )
 			{
 				$swf_url = 	$ui_conf_swf_url; // absolute URL
 			}
@@ -222,7 +222,7 @@ class kwidgetAction extends sfAction
 		
 		if ($uiConf)
 		{
-			$ks_flashvars = "";
+			$hs_flashvars = "";
 			$conf_vars = $uiConf->getConfVars();
 			if ($conf_vars)
 			$conf_vars = "&".$conf_vars;
@@ -248,7 +248,7 @@ class kwidgetAction extends sfAction
 			}
 			
 			// if we are loaded without a wrapper (directly in flex)
-			// 1. dont create the ks - keep url the same for caching
+			// 1. dont create the hs - keep url the same for caching
 			// 2. dont patch the uiconf - patching is done only to wrapper anyway
 			if ($nowrapper)
 			{
@@ -269,7 +269,7 @@ class kwidgetAction extends sfAction
 				if (version_compare($uiConf->getSwfUrlVersion(), "2.5", ">="))
 				{
 					// create an anonymous session
-					$ks = "";
+					$hs = "";
 					
 					$privileges = "view:*,widget:1";
 					if($widget->getIsPlayList())
@@ -283,11 +283,11 @@ class kwidgetAction extends sfAction
 						!is_null($widget->getPrivacyContext()) && $widget->getPrivacyContext() != '' )
 						$privileges .= ','. hSessionBase::PRIVILEGE_PRIVACY_CONTEXT . ':' . $widget->getPrivacyContext();
 						
-					$result = hSessionUtils::createHSessionNoValidations ( $partner_id , 0 , $ks , 86400 , false , "" , $privileges );
-					$ks_flashvars = "&$partnerIdStr&uid=0&ts=".microtime(true);
-					if($widget->getSecurityType () != widget::WIDGET_SECURITY_TYPE_FORCE_KS)
+					$result = hSessionUtils::createHSessionNoValidations ( $partner_id , 0 , $hs , 86400 , false , "" , $privileges );
+					$hs_flashvars = "&$partnerIdStr&uid=0&ts=".microtime(true);
+					if($widget->getSecurityType () != widget::WIDGET_SECURITY_TYPE_FORCE_HS)
 					{
-						$ks_flashvars = "&ks=$ks".$ks_flashvars;
+						$hs_flashvars = "&hs=$hs".$hs_flashvars;
 					}
 					
 		
@@ -307,8 +307,8 @@ class kwidgetAction extends sfAction
 						$dispatcher = KalturaDispatcher::getInstance();
 						try
 						{
-							$widget_result = $dispatcher->dispatch("widget", "get", array("ks"=> $ks, "id" => $widget_id));
-							$ui_conf_result = $dispatcher->dispatch("uiConf", "get", array("ks"=> $ks, "id" => $widget_type));
+							$widget_result = $dispatcher->dispatch("widget", "get", array("hs"=> $hs, "id" => $widget_id));
+							$ui_conf_result = $dispatcher->dispatch("uiConf", "get", array("hs"=> $hs, "id" => $widget_type));
 						}
 						catch(Exception $ex)
 						{
@@ -400,7 +400,7 @@ class kwidgetAction extends sfAction
 					( $hshow_id ? "&hshowId=$hshow_id" : "" ).
 					( $entry_id ? "&$entryVarName=$entry_id" : "" ) .
 					$uiconf_id_str  . // will be empty if nothing to add
-					$ks_flashvars.
+					$hs_flashvars.
 					($cache_st ? "&clientTag=cache_st:$cache_st" : "").
 					$conf_vars;
 					
@@ -459,7 +459,7 @@ class kwidgetAction extends sfAction
 		if (!$nowrapper && $uiConf && version_compare($uiConf->getSwfUrlVersion(), "2.6.6", ">="))
 		{
 			// apart from the /swfparam/ format, add .swf suffix to the end of the stream in case
-			// a corporate firewall looks at the file suffix
+			// a corporate firewall loohs at the file suffix
 			$pos = strpos($url, "?");
 			$url = substr($url, 0, $pos)."/swfparams/".urlencode(substr($url, $pos + 1)).".swf";			
 		}

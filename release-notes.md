@@ -619,7 +619,7 @@ None.
 	php /opt/kaltura/app/deployment/updates/scripts/add_permissions/2017_03_05_add_batch_thumbasset_delete_permission.php
 
 
-## User KS allow specific permission to approveReplace ##
+## User HS allow specific permission to approveReplace ##
 
  - Issue Type: New Feature
  - Issue ID: PLAT-6663
@@ -2380,7 +2380,7 @@ None.
 
 #### Deployment Scripts ####
 
-	php /opt/kaltura/app/deployment/updates/scripts/add_permissions/2015_08_16_allow_adding_answer_cue_points_with_widget_ks.php
+	php /opt/kaltura/app/deployment/updates/scripts/add_permissions/2015_08_16_allow_adding_answer_cue_points_with_widget_hs.php
 	 
 #### Known Issues & Limitations ####
 
@@ -3870,7 +3870,7 @@ None.
 
 **workers.ini**
 
-under 'KScheduledTaskRunner' add
+under 'HScheduledTaskRunner' add
 
 		maxProfiles = 50
 		maxTotalCountAllowed = 10
@@ -4008,7 +4008,7 @@ None.
 
 None.
 
-##add new XML drop folder configuration - KS validation##
+##add new XML drop folder configuration - HS validation##
 - Issue Type: Back-End Request
 - Issue ID: PLAT-1978
 
@@ -4081,7 +4081,7 @@ None.
 
 # IX-9.19.4 #
 
-## KS invalidation : PLAT-1556 ##
+## HS invalidation : PLAT-1556 ##
 
 - Issue Type: Bug fix
 - Issue ID: PLAT-1556
@@ -4172,10 +4172,10 @@ None.
 
 
 #### Known Issues & Limitations ####
-Requires validating all the partners with ks_max_expiry_in_seconds different than 86400 and either nullify them or set them to 86400.
+Requires validating all the partners with hs_max_expiry_in_seconds different than 86400 and either nullify them or set them to 86400.
 
-	mysql> select id, partner_name, status, ks_max_expiry_in_seconds from partner where ks_max_expiry_in_seconds != 86400 and status = 1;
-	mysql> select id, partner_name, status, ks_max_expiry_in_seconds from partner where ks_max_expiry_in_seconds is null and status = 1;
+	mysql> select id, partner_name, status, hs_max_expiry_in_seconds from partner where hs_max_expiry_in_seconds != 86400 and status = 1;
+	mysql> select id, partner_name, status, hs_max_expiry_in_seconds from partner where hs_max_expiry_in_seconds is null and status = 1;
 
 ## BOA - PLAT-1649 ##
 

@@ -29,7 +29,7 @@ class kEmailNotificationUserRecipientProvider extends kEmailNotificationRecipien
 	/* (non-PHPdoc)
 	 * @see kEmailNotificationRecipientProvider::getScopedProviderJobData()
 	 */
-	public function getScopedProviderJobData(kScope $scope = null) {
+	public function getScopedProviderJobData(hScope $scope = null) {
 		$ret = new kEmailNotificationUserRecipientJobData();
 
 		$ret->setFilter($this->filter);

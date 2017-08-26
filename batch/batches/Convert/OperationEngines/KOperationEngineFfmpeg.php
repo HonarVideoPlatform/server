@@ -3,7 +3,7 @@
  * @package Scheduler
  * @subpackage Conversion
  */
-class KOperationEngineFfmpeg  extends KSingleOutputOperationEngine
+class KOperationEngineFfmpeg  extends HSingleOutputOperationEngine
 {
 	protected function getCmdLine()
 	{

@@ -1,5 +1,5 @@
 <?php
-class kScheduleEventsConsumer implements kObjectChangedEventConsumer, kObjectDeletedEventConsumer, kObjectCreatedEventConsumer, kObjectErasedEventConsumer
+class hScheduleEventsConsumer implements kObjectChangedEventConsumer, kObjectDeletedEventConsumer, kObjectCreatedEventConsumer, kObjectErasedEventConsumer
 {
     public function shouldConsumeCreatedEvent(BaseObject $object)
     {

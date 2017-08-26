@@ -54,7 +54,7 @@ class mrssAction extends defPartnerservices2Action
 		header ( "Content-Type: text/xml; charset=utf-8" );
 		
 		// TODO -  verify permissions for viewing lists
-		// validate the ks of the caller 
+		// validate the hs of the caller 
 		$code = $this->getP ( "code" );
 		if ( $code != 'fsalh5423a43g' ) 
 		{	

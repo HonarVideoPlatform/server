@@ -21,8 +21,8 @@ try
 {
 	$apiCall = 'session.start';
 	$start = microtime(true);
-	$ks = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
-	$client->setKs($ks);
+	$hs = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
+	$client->setHs($hs);
 		
 	// create add entries csv
 	$csvPath = tempnam(sys_get_temp_dir(), 'csv');

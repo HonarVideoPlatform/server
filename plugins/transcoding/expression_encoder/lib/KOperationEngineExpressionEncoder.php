@@ -3,7 +3,7 @@
  * @package plugins.expressionEncoder
  * @subpackage lib
  */
-class KOperationEngineExpressionEncoder  extends KSingleOutputOperationEngine
+class KOperationEngineExpressionEncoder  extends HSingleOutputOperationEngine
 {
 	/**
 	 * @var string

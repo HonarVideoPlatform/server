@@ -32,12 +32,12 @@ class addentryAction extends defPartnerservices2Action
         */
                         ) ,
                     "optional" => array (
-                        "uid" => array("type" => "string", "desc" => "The user id of the partner. Is exists, the ks will be generated for this user and "),
+                        "uid" => array("type" => "string", "desc" => "The user id of the partner. Is exists, the hs will be generated for this user and "),
                			"quick_edit" => array("type" => "boolean", "desc" => "automatically add the entry to the roughcut"),
                         )
                     ),
                 "out" => array (
-                    "ks" => array("type" => "string", "desc" => "Kaltura Session - a token used as an input for the rest of the services") ,
+                    "hs" => array("type" => "string", "desc" => "Kaltura Session - a token used as an input for the rest of the services") ,
                     ),
                 "errors" => array (
                     APIErrors::INVALID_HSHOW_ID,
@@ -238,7 +238,7 @@ class addentryAction extends defPartnerservices2Action
             if (!$entry->getType()) // this is the default for backward compatiblity
 	            $entry->setType(entryType::MEDIA_CLIP);
 	            
-			$token = $this->getKsUniqueString();
+			$token = $this->getHsUniqueString();
             
 	        $entry_full_path = "";
 			if ( $entry_source == entry::ENTRY_MEDIA_SOURCE_FILE )
@@ -285,7 +285,7 @@ class addentryAction extends defPartnerservices2Action
             	// see if the partner_data holds a hack - string that starts with conversionQuality= - this is set when the CW is opened in the KMC
             	// the conversionQuality is of format conversionQuality=XXX;<the rest of the text>
             	// 
-            	if ( kString::beginsWith( $entry->getPartnerData() , "conversionQuality:" ) )
+            	if ( hString::beginsWith( $entry->getPartnerData() , "conversionQuality:" ) )
             	{
             		$partner_data_arr = explode ( ";" , $entry->getPartnerData() , 2 );
             		$conversion_quality_arr = explode ( ":" , $partner_data_arr[0] );

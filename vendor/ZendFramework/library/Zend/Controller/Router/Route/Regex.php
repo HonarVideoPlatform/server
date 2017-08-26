@@ -187,7 +187,7 @@ class Zend_Controller_Router_Route_Regex extends Zend_Controller_Router_Route_Ab
             }
         }
 
-        ksort($mergedData);
+        hsort($mergedData);
 
         $return = @vsprintf($this->_reverse, $mergedData);
 

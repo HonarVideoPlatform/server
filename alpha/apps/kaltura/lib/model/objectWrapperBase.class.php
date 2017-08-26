@@ -366,7 +366,7 @@ abstract class objectWrapperBase implements Iterator
 				$id = $this->get ( $obj_id_field );
 
 				// this indicates the field is an array of objects
-				if ( kString::beginsWith( $obj_clazz , "*" ) )
+				if ( hString::beginsWith( $obj_clazz , "*" ) )
 				{
 					//				echo "\nfetchFromCache [$field_name] $obj_clazz\n";
 					$obj_clazz = substr ( $obj_clazz , 1 );

@@ -35,7 +35,7 @@ abstract class KalturaAuditTrailBaseFilter extends KalturaRelatedFilter
 		"userIdIn" => "_in_user_id",
 		"actionEqual" => "_eq_action",
 		"actionIn" => "_in_action",
-		"ksEqual" => "_eq_ks",
+		"hsEqual" => "_eq_hs",
 		"contextEqual" => "_eq_context",
 		"contextIn" => "_in_context",
 		"entryPointEqual" => "_eq_entry_point",
@@ -203,7 +203,7 @@ abstract class KalturaAuditTrailBaseFilter extends KalturaRelatedFilter
 	/**
 	 * @var string
 	 */
-	public $ksEqual;
+	public $hsEqual;
 
 	/**
 	 * @var KalturaAuditTrailContext

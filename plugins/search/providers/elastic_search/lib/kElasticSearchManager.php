@@ -211,7 +211,7 @@ class kElasticSearchManager implements kObjectReadyForIndexEventConsumer, kObjec
      */
     public function shouldConsumeAddedEvent(BaseObject $object)
     {
-        //prevent indexing 2 times- if object is IIndexable we raise the event in kSphinxSearchManager
+        //prevent indexing 2 times- if object is IIndexable we raise the event in hSphinxSearchManager
         if($object instanceof IElasticIndexable && !($object instanceof IIndexable))
             return true;
 
@@ -236,7 +236,7 @@ class kElasticSearchManager implements kObjectReadyForIndexEventConsumer, kObjec
      */
     public function shouldConsumeUpdatedEvent(BaseObject $object)
     {
-        //prevent indexing 2 times- if object is IIndexable we raise the event in kSphinxSearchManager
+        //prevent indexing 2 times- if object is IIndexable we raise the event in hSphinxSearchManager
         if($object instanceof IElasticIndexable && !($object instanceof IIndexable))
             return true;
 

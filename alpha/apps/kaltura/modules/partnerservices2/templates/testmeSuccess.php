@@ -158,8 +158,8 @@ function createSelect ( $id , $name , $default_value , $list_name , $pid_str = n
 		
 		"conversion_profile_type" => array ( "low" => "low" , "med" => "med" , "high" => "high" , "hd" => "HD" ) ,
 		"conversion_profile_aspect_ratio" => array ( "1" => "keep aspect ratio" , "2" => "keep original size" , "3" => "4:3" , "4" => "16:9" ) ,
-		"uiconf_obj_type" => array ( "1" => "kdp" , "2" => "kcw" , "3" => "kse" , "4" => "kae" , "6" => "app-studio" ) ,
-		"uiconf_obj_type_filter" => array ( "" => "ALL" , "1" => "kdp" , "2" => "kcw" , "3" => "kse" , "4" => "kae" , "6" => "app-studio" ) ,
+		"uiconf_obj_type" => array ( "1" => "kdp" , "2" => "kcw" , "3" => "hse" , "4" => "kae" , "6" => "app-studio" ) ,
+		"uiconf_obj_type_filter" => array ( "" => "ALL" , "1" => "kdp" , "2" => "kcw" , "3" => "hse" , "4" => "kae" , "6" => "app-studio" ) ,
 		"uiconf_filter_order_by" => array ( "" => "None" ,
 			"+id" => "id asc" , "-id" => "id desc" , 
 			"+created_at" => "created_at asc" , "-created_at" => "created_at desc",
@@ -222,7 +222,7 @@ function createInput ( $name , $type="text" , $size=7 , $default_value=null , $l
 
 	$copyToClipboard = "";
 	
-	if ($name == "ks" || $name == "ks2")
+	if ($name == "hs" || $name == "hs2")
 	{
 		$copyToClipboard = "<a href='#' onclick='copyToClipboard(\"$id\"); return false;'>(copy)</a>";
 	}
@@ -324,8 +324,8 @@ $limited = getLimited();
 		array ( "partner_id" , "" , "5" , "1" ) ,
 		array ( "subp_id" , "" , "5" , "100") ,
 		array ( "uid" , "" , "10" , "2" ) ,
-		array ( "ks" , "" , "34" , "" ) ,
-		array ( "ks2" , "" , "34" , "" ) ,
+		array ( "hs" , "" , "34" , "" ) ,
+		array ( "hs2" , "" , "34" , "" ) ,
 		array ( "kalsig" , "" , "34" , "" ) ,
 	);
 	
@@ -339,7 +339,7 @@ $limited = getLimited();
 
 	echo "<tr><td></td><td><input type='submit' name='submit' value='submit' onclick='return submitForm()'>" .
 			( $limited ? "" :
-			" <button onclick='return switchKs()'>switchKs</button>" . 
+			" <button onclick='return switchHs()'>switchHs</button>" . 
 			" <button style='color:#050;font-family:arial;font-size:11px; width:40px; border-style:none;' onMouseOver='over(this);' onMouseOut='out(this);' onclick='return save()'>save</button>".
 			" <button style='color:#050;font-family:arial;font-size:11px; width:45px; border-style:none;' onMouseOver='over(this);' onMouseOut='out(this);' onclick='return restore(true)'>restore</button>" ) . 
 		"</td></tr>";

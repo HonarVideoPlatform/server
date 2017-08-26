@@ -3,7 +3,7 @@
  * @package Core
  * @subpackage model.data
  */
-class kScope
+class hScope
 {
 	/**
 	 * @var string
@@ -16,9 +16,9 @@ class kScope
 	protected $ip;
 	
 	/**
-	 * @var ks
+	 * @var hs
 	 */
-	protected $ks;
+	protected $hs;
 	
 	/**
 	 * @var string
@@ -56,7 +56,7 @@ class kScope
 		$this->setIp(requestUtils::getRemoteAddress());
 		$this->setReferrer(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : null);
 		$this->setUserAgent(isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);	
-		$this->setKs(kCurrentContext::$ks_object ? kCurrentContext::$ks_object : null);
+		$this->setHs(kCurrentContext::$hs_object ? kCurrentContext::$hs_object : null);
 	}
 	
 	/**
@@ -76,14 +76,14 @@ class kScope
 	}
 	
 	/**
-	 * @param ks $v
+	 * @param hs $v
 	 */
-	public function setKs($v)
+	public function setHs($v)
 	{
 		if(is_string($v))
-			$v = ks::fromSecureString($v);
+			$v = hs::fromSecureString($v);
 			
-		$this->ks = $v;
+		$this->hs = $v;
 	}
 	
 	/**
@@ -111,11 +111,11 @@ class kScope
 	}
 	
 	/**
-	 * @return ks
+	 * @return hs
 	 */
-	public function getKs()
+	public function getHs()
 	{
-		return $this->ks;
+		return $this->hs;
 	}
 	
 	/**

@@ -179,18 +179,18 @@ class ReportAdminService extends KalturaBaseService
 		if ($dbReport->getPartnerId() !== 0 && $dbReport->getPartnerId() !== $reportPartnerId) 
 			throw new KalturaAPIException(KalturaErrors::REPORT_NOT_PUBLIC, $id); 
 		
-		$ks = new ks();
-		$ks->valid_until = time() + 2 * 365 * 24 * 60 * 60; // 2 years 
-		$ks->type = ks::TYPE_KS;
-		$ks->partner_id = $reportPartnerId;
-		$ks->master_partner_id = null;
-		$ks->partner_pattern = $reportPartnerId;
-		$ks->error = 0;
-		$ks->rand = microtime(true);
-		$ks->user = '';
-		$ks->privileges = 'setrole:REPORT_VIEWER_ROLE';
-		$ks->additional_data = null;
-		$ks_str = $ks->toSecureString();
+		$hs = new hs();
+		$hs->valid_until = time() + 2 * 365 * 24 * 60 * 60; // 2 years 
+		$hs->type = hs::TYPE_HS;
+		$hs->partner_id = $reportPartnerId;
+		$hs->master_partner_id = null;
+		$hs->partner_pattern = $reportPartnerId;
+		$hs->error = 0;
+		$hs->rand = microtime(true);
+		$hs->user = '';
+		$hs->privileges = 'setrole:REPORT_VIEWER_ROLE';
+		$hs->additional_data = null;
+		$hs_str = $hs->toSecureString();
 		
 		$paramsArray = $this->getParametersAction($id);
 		$paramsStrArray = array();
@@ -199,7 +199,7 @@ class ReportAdminService extends KalturaBaseService
 			$paramsStrArray[] = ($param->value.'={'.$param->value.'}');
 		}
 
-		$url = "http://" . kConf::get("www_host") . "/api_v3/index.php/service/report/action/getCsvFromStringParams/id/{$id}/ks/" . $ks_str . "/params/" . implode(';', $paramsStrArray);
+		$url = "http://" . kConf::get("www_host") . "/api_v3/index.php/service/report/action/getCsvFromStringParams/id/{$id}/hs/" . $hs_str . "/params/" . implode(';', $paramsStrArray);
 		return $url;
 	}
 }

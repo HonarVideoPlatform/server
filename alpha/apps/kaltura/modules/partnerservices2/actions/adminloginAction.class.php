@@ -23,7 +23,7 @@ class adminloginAction extends defPartnerservices2Action
 					"partner_id" => array ( "type" => "string" , "desc" => "" ),
 					"subp_id" => array ( "type" => "string" , "desc" => "" ),
 					"uid" => array ( "type" => "string" , "desc" => "" ),
-					"ks" => array ( "type" => "string" , "desc" => "" ),
+					"hs" => array ( "type" => "string" , "desc" => "" ),
 					),
 				"errors" => array (
 					APIErrors::ADMIN_KUSER_NOT_FOUND,
@@ -121,16 +121,16 @@ class adminloginAction extends defPartnerservices2Action
 		// get the puser_kuser for this admin if exists, if not - creae it and return it - create a kuser too
 		$puser_kuser = PuserKuserPeer::createPuserKuser ( $partner_id , $subp_id, $admin_puser_id , $adminKuser->getScreenName() , $adminKuser->getScreenName(), true);
 		$uid = $puser_kuser->getPuserId();
-		$ks = null;
-		// create a ks for this admin_kuser as if entered the admin_secret using the API
-		// ALLOW A KS FOR 30 DAYS
-		hSessionUtils::createHSessionNoValidations ( $partner_id ,  $uid , $ks , 30 * 86400 , 2 , "" , "*" );
+		$hs = null;
+		// create a hs for this admin_kuser as if entered the admin_secret using the API
+		// ALLOW A HS FOR 30 DAYS
+		hSessionUtils::createHSessionNoValidations ( $partner_id ,  $uid , $hs , 30 * 86400 , 2 , "" , "*" );
 		
 		
 		$this->addMsg ( "partner_id" , $partner_id ) ;
 		$this->addMsg ( "subp_id" , $subp_id );		
 		$this->addMsg ( "uid" , $uid );
-		$this->addMsg ( "ks" , $ks );
+		$this->addMsg ( "hs" , $hs );
 		$this->addMsg ( "screenName" , $adminKuser->getFullName() );
 		$this->addMsg ( "fullName" , $adminKuser->getFullName() );
 		$this->addMsg ( "email" , $adminKuser->getEmail() );

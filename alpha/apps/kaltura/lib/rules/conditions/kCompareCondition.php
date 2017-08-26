@@ -54,10 +54,10 @@ abstract class kCompareCondition extends kCondition
 
 	/**
 	 * Return single integer or array of integers
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return int|array<int> the field content
 	 */
-	abstract public function getFieldValue(kScope $scope);
+	abstract public function getFieldValue(hScope $scope);
 	
 	/**
 	 * @return int
@@ -110,7 +110,7 @@ abstract class kCompareCondition extends kCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::internalFulfilled()
 	 */
-	protected function internalFulfilled(kScope $scope)
+	protected function internalFulfilled(hScope $scope)
 	{
 		$field = $this->getFieldValue($scope);
 		$value = $this->getIntegerValue($scope);
@@ -155,7 +155,7 @@ abstract class kCompareCondition extends kCondition
 	}
 
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool
 	 */
 	public function shouldFieldDisableCache($scope)

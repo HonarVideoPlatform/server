@@ -5,7 +5,7 @@
 class SynacorHboDistributionPlugin extends KalturaPlugin implements IKalturaPermissions, IKalturaEnumerator, IKalturaPending, IKalturaObjectLoader, IKalturaContentDistributionProvider, IKalturaEventConsumers, IKalturaServices
 {
 	const PLUGIN_NAME = 'synacorHboDistribution';
-	const SYNACOR_HBO_EVENT_CONSUMER = 'kSynacorHboFlowManager';
+	const SYNACOR_HBO_EVENT_CONSUMER = 'hSynacorHboFlowManager';
 	const CONTENT_DSTRIBUTION_VERSION_MAJOR = 1;
 	const CONTENT_DSTRIBUTION_VERSION_MINOR = 0;
 	const CONTENT_DSTRIBUTION_VERSION_BUILD = 0;

@@ -63,28 +63,28 @@ class KalturaAppToken extends KalturaObject implements IFilterable
 	public $expiry;
 
 	/**
-	 * Type of KS (Kaltura Session) that created using the current token
+	 * Type of HS (Kaltura Session) that created using the current token
 	 * 
 	 * @var KalturaSessionType
 	 */
 	public $sessionType;
 
 	/**
-	 * User id of KS (Kaltura Session) that created using the current token
+	 * User id of HS (Kaltura Session) that created using the current token
 	 * 
 	 * @var string
 	 */
 	public $sessionUserId;
 
 	/**
-	 * Expiry duration of KS (Kaltura Session) that created using the current token (in seconds)
+	 * Expiry duration of HS (Kaltura Session) that created using the current token (in seconds)
 	 * 
 	 * @var int
 	 */
 	public $sessionDuration;
 
 	/**
-	 * Comma separated privileges to be applied on KS (Kaltura Session) that created using the current token
+	 * Comma separated privileges to be applied on HS (Kaltura Session) that created using the current token
 	 * @var string
 	 */
 	public $sessionPrivileges;
@@ -138,7 +138,7 @@ class KalturaAppToken extends KalturaObject implements IFilterable
 		$partner = PartnerPeer::retrieveByPK($partnerId);
 		if($this->isNull('sessionDuration'))
 		{
-			$this->sessionDuration = $partner->getKsMaxExpiryInSeconds();
+			$this->sessionDuration = $partner->getHsMaxExpiryInSeconds();
 		}
 		
 		$dbAppToken = parent::toInsertableObject($dbAppToken, $skip);

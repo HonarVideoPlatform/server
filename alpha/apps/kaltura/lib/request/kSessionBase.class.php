@@ -20,7 +20,7 @@ class hSessionBase
 	const SESSION_TYPE_ADMIN	= 2;
 	
 	// Common constants
-	const TYPE_KS =  0; // change to be 1
+	const TYPE_HS =  0; // change to be 1
 	const TYPE_KAS = 1; // change to be 2
 
 	const PRIVILEGE_EDIT = "edit";
@@ -50,7 +50,7 @@ class hSessionBase
 	const PRIVILEGE_DISABLE_PARTNER_CHANGE_ACCOUNT = "disablechangeaccount";
 	const PRIVILEGE_EDIT_USER = "edituser";
 
-	const SECRETS_CACHE_PREFIX = 'partner_secrets_ksver_';
+	const SECRETS_CACHE_PREFIX = 'partner_secrets_hsver_';
 	
 	const INVALID_SESSION_KEY_PREFIX = 'invalid_session_';
 	const INVALID_SESSIONS_SYNCED_KEY = 'invalid_sessions_synched';
@@ -61,17 +61,17 @@ class hSessionBase
 	const INVALID_TYPE = -4;
 	const EXPIRED = -5;
 	const LOGOUT = -6;
-	const INVALID_LKS = -7;
+	const INVALID_LHS = -7;
 	const EXCEEDED_ACTIONS_LIMIT = -8;
 	const EXCEEDED_RESTRICTED_IP = -9;
-	const EXCEEDED_RESTRICTED_URI = -11;		// skipping -10 since it's Partner::VALIDATE_LKS_DISABLED
+	const EXCEEDED_RESTRICTED_URI = -11;		// skipping -10 since it's Partner::VALIDATE_LHS_DISABLED
 	const UNKNOWN = 0;
 	const OK = 1;
 	
-	// KS V1 constants
+	// HS V1 constants
 	const SEPARATOR = ";";
 	
-	// KS V2 constants
+	// HS V2 constants
 	const SHA1_SIZE = 20;
 	const RANDOM_SIZE = 16;
 	const AES_IV = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";	// no need for an IV since we add a random string to the message anyway
@@ -118,43 +118,43 @@ class hSessionBase
 	 * @param string $encoded_str
 	 * @return hSessionBase
 	 */
-	public static function getKSObject($encoded_str)
+	public static function getHSObject($encoded_str)
 	{
 		if (empty($encoded_str))
 			return null;
 
-		$ks = new hSessionBase();		
-		if (!$ks->parseKS($encoded_str))
+		$hs = new hSessionBase();		
+		if (!$hs->parseHS($encoded_str))
 			return null;
 
-		return $ks;
+		return $hs;
 	}
 	
 	/**
 	 * @param string $encoded_str
 	 * @return boolean - true = success, false = error, null = failed to get secret
 	 */
-	public function parseKS($encoded_str)
+	public function parseHS($encoded_str)
 	{
 		// Convert to a string in order to ensure str_replace below won't break.
 		// If the input is an array for example (entered by mistake), the string conversion will yield "Array"
-		// which will be parsed as a bad KS (this is the expected behavior in this case).
+		// which will be parsed as a bad HS (this is the expected behavior in this case).
 		$encoded_str = (string)$encoded_str;
 
-		$decodedKs = base64_decode(str_replace(array('-', '_'), array('+', '/'), $encoded_str), true);
-		if (!$decodedKs)
+		$decodedHs = base64_decode(str_replace(array('-', '_'), array('+', '/'), $encoded_str), true);
+		if (!$decodedHs)
 		{
-			$this->logError("Couldn't base 64 decode the KS.");
+			$this->logError("Couldn't base 64 decode the HS.");
 			return false;
 		}
 		
-		if (substr($decodedKs, 0, 3) == 'v2|')
+		if (substr($decodedHs, 0, 3) == 'v2|')
 		{		
-			$parseResult = $this->parseKsV2($decodedKs);
+			$parseResult = $this->parseHsV2($decodedHs);
 		}
 		else
 		{
-			$parseResult = $this->parseKsV1($decodedKs);
+			$parseResult = $this->parseHsV1($decodedHs);
 		}
 		
 		if (!$parseResult)
@@ -207,12 +207,12 @@ class hSessionBase
 		return $parsedPrivileges;
 	}
 	
-	public function parseKsV1($str)
+	public function parseHsV1($str)
 	{
 		$explodedStr = explode( "|" , $str , 2 );
 		if (count($explodedStr) != 2)
 		{
-			$this->logError("Couldn't find | seperator in the KS");
+			$this->logError("Couldn't find | seperator in the HS");
 			return false;
 		}
 			
@@ -221,7 +221,7 @@ class hSessionBase
 		$parts = explode(self::SEPARATOR, $real_str);
 		if (count($parts) < 3)
 		{
-			$this->logError("Couldn't find 3 seperated parts in the KS");
+			$this->logError("Couldn't find 3 seperated parts in the HS");
 			return false;
 		}
 		
@@ -278,7 +278,7 @@ class hSessionBase
 	
 	public function isWidgetSession()
 	{
-		return ($this->type == self::TYPE_KS) && $this->isAnonymousSession() && (strstr($this->privileges,'widget:1') !== false);
+		return ($this->type == self::TYPE_HS) && $this->isAnonymousSession() && (strstr($this->privileges,'widget:1') !== false);
 	}
 	
 	public function isAnonymousSession()
@@ -329,36 +329,36 @@ class hSessionBase
 	}
 
 	// overridable
-	protected function getKSVersionAndSecret($partnerId)
+	protected function getHSVersionAndSecret($partnerId)
 	{
 		$secrets = self::getSecretsFromCache($partnerId);
 		if (!$secrets)
 			return null;
 		
-		list($adminSecret, $userSecret, $ksVersion) = $secrets;
-		return array($ksVersion, $adminSecret);
+		list($adminSecret, $userSecret, $hsVersion) = $secrets;
+		return array($hsVersion, $adminSecret);
 	}
 	
 	protected function getAdminSecret($partnerId)
 	{
-		$versionAndSecret = $this->getKSVersionAndSecret($partnerId);
+		$versionAndSecret = $this->getHSVersionAndSecret($partnerId);
 		if (!$versionAndSecret)
 			return null;
-		list($ksVersion, $adminSecret) = $versionAndSecret;
+		list($hsVersion, $adminSecret) = $versionAndSecret;
 		return $adminSecret;
 	}
 	
-	protected function isKSInvalidated()
+	protected function isHSInvalidated()
 	{
 		if (strpos($this->privileges, self::PRIVILEGE_ACTIONS_LIMIT) !== false)
-			return null;			// cannot validate action limited KS at this level
+			return null;			// cannot validate action limited HS at this level
 		
 		$memcache = kCacheManager::getSingleLayerCache(kCacheManager::CACHE_TYPE_QUERY_CACHE_KEYS);
 		if (!$memcache)
 			return null;			// failed to connect to memcache or memcache not enabled
 
-		$ksKey = self::INVALID_SESSION_KEY_PREFIX . $this->hash;
-		$keysToGet = array(self::INVALID_SESSIONS_SYNCED_KEY, $ksKey);
+		$hsKey = self::INVALID_SESSION_KEY_PREFIX . $this->hash;
+		$keysToGet = array(self::INVALID_SESSIONS_SYNCED_KEY, $hsKey);
 		
 		$sessionIdKey = $this->getSessionIdHash();
 		if ($sessionIdKey)
@@ -412,10 +412,10 @@ class hSessionBase
 	public function isValidBase()
 	{
 		if (!$this->real_str || !$this->hash)
-			return self::INVALID_STR;			// KS parsing failed
+			return self::INVALID_STR;			// HS parsing failed
 		
 		if ($this->valid_until <= time())
-			return self::EXPIRED;				// KS is expired
+			return self::EXPIRED;				// HS is expired
 			
 		if (array_key_exists(self::PRIVILEGE_IP_RESTRICTION, $this->parsedPrivileges) &&
 			!in_array(infraRequestUtils::getRemoteAddress(), $this->parsedPrivileges[self::PRIVILEGE_IP_RESTRICTION]))
@@ -434,17 +434,17 @@ class hSessionBase
 		return self::OK;
 	}
 	
-	public function tryToValidateKS()
+	public function tryToValidateHS()
 	{
 		$result = $this->isValidBase();
 		if ($result != self::OK)
 			return $result;
 		
-		if ($this->partner_id == -1 ||			// Batch KS are never invalidated
+		if ($this->partner_id == -1 ||			// Batch HS are never invalidated
 			$this->isWidgetSession())			// Since anyone can create a widget session, no need to check for invalidation
 			return self::OK;
 		
-		$isInvalidated = $this->isKSInvalidated();
+		$isInvalidated = $this->isHSInvalidated();
 		if ($isInvalidated)
 			return self::LOGOUT;
 		else if ($isInvalidated === null)
@@ -453,15 +453,15 @@ class hSessionBase
 		return self::OK;
 	}
 
-	public static function generateSession($ksVersion, $adminSecretForSigning, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId = null, $additionalData = null)
+	public static function generateSession($hsVersion, $adminSecretForSigning, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId = null, $additionalData = null)
 	{
-		if ($ksVersion == 2)
-			return self::generateKsV2($adminSecretForSigning, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId, $additionalData);
+		if ($hsVersion == 2)
+			return self::generateHsV2($adminSecretForSigning, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId, $additionalData);
 
-		return self::generateKsV1($adminSecretForSigning, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId, $additionalData);
+		return self::generateHsV1($adminSecretForSigning, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId, $additionalData);
 	}
 	
-	public static function generateKsV1($adminSecret, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId, $additionalData)
+	public static function generateHsV1($adminSecret, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId, $additionalData)
 	{
 		$rand = microtime(true);
 		$expiry = time() + $expiry;
@@ -485,7 +485,7 @@ class hSessionBase
 		return $encoded_str;
 	}
 
-	// KS V2 functions
+	// HS V2 functions
 	protected static function aesEncrypt($key, $message)
 	{
 		return mcrypt_encrypt(
@@ -508,7 +508,7 @@ class hSessionBase
 		);
 	}
 
-	public static function generateKsV2($adminSecret, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId, $additionalData)
+	public static function generateHsV2($adminSecret, $userId, $type, $partnerId, $expiry, $privileges, $masterPartnerId, $additionalData)
 	{
 		// build fields array
 		$fields = array();
@@ -541,33 +541,33 @@ class hSessionBase
 		
 		// encrypt and encode
 		$encryptedFields = self::aesEncrypt($adminSecret, $fieldsStr);
-		$decodedKs = "v2|{$partnerId}|" . $encryptedFields;
-		return str_replace(array('+', '/'), array('-', '_'), base64_encode($decodedKs));
+		$decodedHs = "v2|{$partnerId}|" . $encryptedFields;
+		return str_replace(array('+', '/'), array('-', '_'), base64_encode($decodedHs));
 	}
 	
-	public function parseKsV2($decodedKs)
+	public function parseHsV2($decodedHs)
 	{
-		$explodedKs = explode('|', $decodedKs , 3);
-		if (count($explodedKs) != 3)
+		$explodedHs = explode('|', $decodedHs , 3);
+		if (count($explodedHs) != 3)
 		{
-			$this->logError("Not enough | delimiters in the KS");
-			return false;						// not KS V2
+			$this->logError("Not enough | delimiters in the HS");
+			return false;						// not HS V2
 		}
 		
-		list($version, $partnerId, $encKs) = $explodedKs;
+		list($version, $partnerId, $encHs) = $explodedHs;
 		
 		$adminSecret = $this->getAdminSecret($partnerId);
 		if (!$adminSecret)
 		{
 			$this->logError("Couldn't get secret for partner [$partnerId].");
-			return null;						// admin secret not found, can't decrypt the KS
+			return null;						// admin secret not found, can't decrypt the HS
 		}
 				
-		$decKs = self::aesDecrypt($adminSecret, $encKs);
-		$decKs = rtrim($decKs, "\0");
+		$decHs = self::aesDecrypt($adminSecret, $encHs);
+		$decHs = rtrim($decHs, "\0");
 		
-		$hash = substr($decKs, 0, self::SHA1_SIZE);
-		$fields = substr($decKs, self::SHA1_SIZE);
+		$hash = substr($decHs, 0, self::SHA1_SIZE);
+		$fields = substr($decHs, self::SHA1_SIZE);
 		if ($hash !== sha1($fields, true))
 		{
 			$this->logError("Hash [$hash] doesn't match sha1 on partner [$partnerId].");
@@ -580,8 +580,8 @@ class hSessionBase
 		$fieldsArr = null;
 		parse_str($fields, $fieldsArr);
 		
-		// TODO: the following code translates a KS v2 into members that are more suitable for V1
-		//	in the future it makes sense to change the structure of the ks class
+		// TODO: the following code translates a HS v2 into members that are more suitable for V1
+		//	in the future it makes sense to change the structure of the hs class
 		$privileges = array();
 		$this->parsedPrivileges = array();
 		foreach ($fieldsArr as $fieldName => $fieldValue)

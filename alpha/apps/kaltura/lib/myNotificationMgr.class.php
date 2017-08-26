@@ -364,13 +364,13 @@ $debug .= "property: $not_property = [$value]\n";
 		}
 		
 		try{
-			$ksObj = hSessionUtils::crackKs(kCurrentContext::$ks);
-			if($ksObj)
-				$params['ks_data'] = $ksObj->additional_data;
+			$hsObj = hSessionUtils::crackHs(kCurrentContext::$hs);
+			if($hsObj)
+				$params['hs_data'] = $hsObj->additional_data;
 		}
 		catch(Exception $ex)
 		{
-			KalturaLog::log('could not crack KS ['.kCurrentContext::$ks.'] for adding to notification param');
+			KalturaLog::log('could not crack HS ['.kCurrentContext::$hs.'] for adding to notification param');
 		}
 		
 		return serialize( $params );
@@ -433,7 +433,7 @@ $debug .= "property: $not_property = [$value]\n";
 	
 	private static function signature ( $signature_key , $params )
 	{
-		ksort($params);
+		hsort($params);
 		$str = "";
 		foreach ($params as $k => $v)
 		{

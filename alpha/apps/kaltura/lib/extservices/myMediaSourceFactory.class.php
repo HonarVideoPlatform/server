@@ -94,7 +94,7 @@ class myMediaSourceFactory
 				$result = new mySearchProxyServices();
 				break;
 			case entry::ENTRY_MEDIA_SOURCE_PARTNER_SPECIFIC:
-				$pid = kCurrentContext::$ks_partner_id;
+				$pid = kCurrentContext::$hs_partner_id;
 				$partner = PartnerPeer::retrieveByPK($pid);
 				if(!$partner)
 					throw new Exception("Cannot find partner id [$pid]");
@@ -121,8 +121,8 @@ class myMediaSourceFactory
 				if ( $media_source == 100 ) // hard coded for Stroome
 				{
 					//class_exists('ext'.$pid.'Services')
-					// depending on the ks partner - choose the service. This map will have to be registered somewhere in the config / DB
-					// for now - it will be redirected to stroome and stroome will validate the ks's partner
+					// depending on the hs partner - choose the service. This map will have to be registered somewhere in the config / DB
+					// for now - it will be redirected to stroome and stroome will validate the hs's partner
 					$result = new extStroomeServices(); //STROOME
 					return $result;
 				}

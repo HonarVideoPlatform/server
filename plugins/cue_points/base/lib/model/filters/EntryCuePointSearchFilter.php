@@ -85,7 +85,7 @@ class EntryCuePointSearchFilter extends AdvancedSearchFilterItem
 	
 	private function createSphinxMatchPhrase($conditionStr) 
 	{	
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		
 		if(isset($this->cuePointTypeIn))
 		{

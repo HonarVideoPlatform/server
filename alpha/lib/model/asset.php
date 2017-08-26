@@ -457,7 +457,7 @@ class asset extends Baseasset implements ISyncableFile, IRelatedObject
 		$dc = kDataCenterMgr::getCurrentDc();
 		for ($i = 0; $i < 10; $i++)
 		{
-			$id = $dc["id"].'_'.kString::generateStringId();
+			$id = $dc["id"].'_'.hString::generateStringId();
 			$existingObject = assetPeer::retrieveByIdNoFilter($id);
 			
 			if ($existingObject)
@@ -579,7 +579,7 @@ class asset extends Baseasset implements ISyncableFile, IRelatedObject
 	    return $url;
 	}
 	
-	public function isKsNeededForDownload()
+	public function isHsNeededForDownload()
 	{
 		$entry = $this->getentry();
 		if(!$entry)
@@ -593,14 +593,14 @@ class asset extends Baseasset implements ISyncableFile, IRelatedObject
 	
 	public function getDownloadUrlWithExpiry($expiry, $useCdn = false, $forceProxy = false, $preview = null)
 	{
-		$ksStr = "";
+		$hsStr = "";
 		$partnerId = $this->getPartnerId();
 		
-		if ($this->isKsNeededForDownload() || $preview)
+		if ($this->isHsNeededForDownload() || $preview)
 		{
 			$partner = PartnerPeer::retrieveByPK($partnerId);
 			$secret = $partner->getSecret();
-			$privilege = ks::PRIVILEGE_DOWNLOAD.":".$this->getEntryId();
+			$privilege = hs::PRIVILEGE_DOWNLOAD.":".$this->getEntryId();
 			$privilege .= ",".hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY .":". $this->getEntryId();
 			$privilege .= "," . hSessionBase::PRIVILEGE_VIEW . ":" . $this->getEntryId();       
 			$privilege .= "," . hSessionBase::PRIVILEGE_DOWNLOAD_ASSET . ":" . $this->getId();
@@ -608,16 +608,16 @@ class asset extends Baseasset implements ISyncableFile, IRelatedObject
 			if($preview)
 				$privilege .= "," . hSessionBase::PRIVILEGE_PREVIEW . ":" . $preview;
 
-			$result = hSessionUtils::startHSession($partnerId, $secret, null, $ksStr, $expiry, false, "", $privilege);
+			$result = hSessionUtils::startHSession($partnerId, $secret, null, $hsStr, $expiry, false, "", $privilege);
 	
 			if ($result < 0)
 				throw new Exception("Failed to generate session for asset [".$this->getId()."] of type ". $this->getType());
 		}
 		
-		$finalPath = $this->getFinalDownloadUrlPathWithoutKs();
+		$finalPath = $this->getFinalDownloadUrlPathWithoutHs();
 		
-		if ($ksStr)
-			$finalPath .= "/ks/".$ksStr;
+		if ($hsStr)
+			$finalPath .= "/hs/".$hsStr;
 		
 		if ($forceProxy)
 			$finalPath .= "/relocate/".$this->getEntryId().".".$this->getFileExt();
@@ -637,7 +637,7 @@ class asset extends Baseasset implements ISyncableFile, IRelatedObject
 		return $downloadUrl;
 	}
 	
-	public function getFinalDownloadUrlPathWithoutKs()
+	public function getFinalDownloadUrlPathWithoutHs()
 	{
 		$finalPath = myPartnerUtils::getUrlForPartner($this->getPartnerId(),$this->getPartnerId()*100).
 					"/download".

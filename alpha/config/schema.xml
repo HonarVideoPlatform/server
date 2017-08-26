@@ -889,7 +889,7 @@
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="created_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="updated_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="anonymous_kuser_id" type="integer" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="ks_max_expiry_in_seconds" type="integer" default="86400" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hs_max_expiry_in_seconds" type="integer" default="86400" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="create_user_on_demand" type="tinyint" default="1" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="prefix" type="varchar" size="32" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="admin_name" type="varchar" size="50" />
@@ -1278,7 +1278,7 @@
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="site_restrict_list" type="varchar" size="1024" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="country_restrict_type" type="tinyint" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="country_restrict_list" type="varchar" size="1024" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="ks_restrict_privilege" type="varchar" size="20" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hs_restrict_privilege" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="prv_restrict_privilege" type="varchar" size="20" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="prv_restrict_length" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="kdir_restrict_type" type="tinyint" />
@@ -1636,7 +1636,7 @@
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="param_1_str" type="varchar" size="255" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="param_2_str" type="varchar" size="511" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="param_3_str" type="varchar" size="511" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="ks" type="varchar" size="511" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hs" type="varchar" size="511" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="description" type="varchar" size="127" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="created_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="updated_at" type="timestamp" />
@@ -1805,13 +1805,13 @@
 	</table>
 	<table skipSql="false" abstract="false" name="invalid_session" phpName="invalidSession" raiseEvents="false">
 		<column lazyLoad="false" name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="ks" type="varchar" size="300" />
-		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="ks_valid_until" type="timestamp" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hs" type="varchar" size="300" />
+		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="hs_valid_until" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="created_at" type="timestamp" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="actions_limit" type="integer" />
 		<column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="type" type="integer" />
-		<index name="ks_index">
-			<index-column name="ks" />
+		<index name="hs_index">
+			<index-column name="hs" />
 		</index>
 	</table>
 	<table skipSql="false" abstract="false" name="dynamic_enum">

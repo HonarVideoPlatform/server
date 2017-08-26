@@ -56,7 +56,7 @@ function copyToClipboard(inElementId){
 function onTabChange()
 {
 	kalturaCloseModalBox();
-	loadModule(next_module, partner_id, subpid, user_id, ks, screen_name, email);
+	loadModule(next_module, partner_id, subpid, user_id, hs, screen_name, email);
 }
     
 $(document).ready(function(){
@@ -76,7 +76,7 @@ $(document).ready(function(){
 		{
 		  $('#server_wrap').hide();
 		  $('#flash_wrap').show();
-		  loadModule(this.id, partner_id, subpid, user_id, ks, screen_name, email);
+		  loadModule(this.id, partner_id, subpid, user_id, hs, screen_name, email);
 		  //document.getElementById("kcms").saveAndClose();
 		  return false;
 		}

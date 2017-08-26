@@ -71,7 +71,7 @@ api_v3/lib/types/enums/KalturaConversionEngineType.class.php - revert - EXPRESSI
 
 admin_console/lib/Klatura/KlaturaClient.php - reverted EXPRESSION_ENCODER to 55, EXPRESSION_ENCODER3 to 5
 alpha/apps/kaltura/lib/batch2/kJobsManager - reverted EXPRESSION_ENCODER3 (instead of EXPRESSION_ENCODER)
-alpha/apps/kaltura/lib/storage/kStorageExporter.php - reverted EXPRESSION_ENCODER3 (instead of EXPRESSION_ENCODER)
+alpha/apps/kaltura/lib/storage/hStorageExporter.php - reverted EXPRESSION_ENCODER3 (instead of EXPRESSION_ENCODER)
 batch/batches/Convert/KAsyncConvertCollection.class.php - reverted EXPRESSION_ENCODER3 (instead of EXPRESSION_ENCODER), keep the log
 batch/batches/Convert/OperationEngines/KOperationManager.php - reverted
 batch\client\KalturaClient.php - reverted - EXPRESSION_ENCODER enum = 55, EXPRESSION_ENCODER3=5

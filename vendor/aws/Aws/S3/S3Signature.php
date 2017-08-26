@@ -177,7 +177,7 @@ class S3Signature implements S3SignatureInterface
             return '';
         }
 
-        ksort($headers);
+        hsort($headers);
 
         return implode("\n", $headers) . "\n";
     }

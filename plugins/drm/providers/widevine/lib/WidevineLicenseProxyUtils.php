@@ -27,8 +27,8 @@ class WidevineLicenseProxyUtils
 	/**
 	* Signs the input and forwards license request to Widevine license server
 	* @param $requestParams - original parameters
-	* @param $overrideParamsStr - additional parameters passed on KS
-	* @param $isAdmin - true/false, identifies if called with admin KS
+	* @param $overrideParamsStr - additional parameters passed on HS
+	* @param $isAdmin - true/false, identifies if called with admin HS
 	* @return byte sequence
 	*/
 	public static function sendLicenseRequest($requestParams, $overrideParamsStr = null, $isAdmin = false)

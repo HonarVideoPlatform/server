@@ -61,7 +61,7 @@ class KalturaEventNotificationParameter extends KalturaObject
 				$this->value = new KalturaMetadataField();
 				break;
 				
-			case 'kStringValue':
+			case 'hStringValue':
 				$this->value = new KalturaStringValue();
 				break;
 				

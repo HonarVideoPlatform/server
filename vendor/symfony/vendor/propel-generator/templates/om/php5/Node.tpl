@@ -621,7 +621,7 @@ class <?php echo $basePrefix . $table->getPhpName() ?>Node implements IteratorAg
             throw new PropelException('Failed to attach child node. Node path mismatch.');
         
         $this->childNodes[$node->getNodeIndex()] = $node;
-        ksort($this->childNodes);
+        hsort($this->childNodes);
         
         $node->attachParentNode($this);
     }
@@ -733,7 +733,7 @@ class <?php echo $basePrefix . $table->getPhpName() ?>Node implements IteratorAg
             $i -= $direction;
         }
         
-        ksort($this->childNodes);
+        hsort($this->childNodes);
     }
     
     /**

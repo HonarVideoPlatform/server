@@ -5,7 +5,7 @@
  * @subpackage Conversion
  *
  */
-class KOperationEngineInletArmada  extends KSingleOutputOperationEngine
+class KOperationEngineInletArmada  extends HSingleOutputOperationEngine
 {
 /*
 	protected $url=null;

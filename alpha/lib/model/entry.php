@@ -208,7 +208,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 		$dc = kDataCenterMgr::getCurrentDc();
 		for ( $i = 0 ; $i < 10 ; ++$i)
 		{
-			$id = $dc["id"].'_'.kString::generateStringId();
+			$id = $dc["id"].'_'.hString::generateStringId();
 			$existing_object = entryPeer::retrieveByPKNoFilter( $id );
 			
 			if ( ! $existing_object ) return $id;
@@ -1255,9 +1255,9 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 			$maxCategoriesPerEntry = entry::MAX_CATEGORIES_PER_ENTRY_DISABLE_LIMIT_FEATURE;
 			
 		// When batch move entry between categories it's adding the new category before deleting the old one
-		if(kCurrentContext::$ks_partner_id == Partner::BATCH_PARTNER_ID && kCurrentContext::$ks_object)
+		if(kCurrentContext::$hs_partner_id == Partner::BATCH_PARTNER_ID && kCurrentContext::$hs_object)
 		{
-			$batchJobType = kCurrentContext::$ks_object->getPrivilegeValue(ks::PRIVILEGE_BATCH_JOB_TYPE);
+			$batchJobType = kCurrentContext::$hs_object->getPrivilegeValue(hs::PRIVILEGE_BATCH_JOB_TYPE);
 			if(intval($batchJobType) == BatchJobType::MOVE_CATEGORY_ENTRIES)
 			{
 				$maxCategoriesPerEntry *= 2;
@@ -1926,7 +1926,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 				continue;
 			}
 
-			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 			$kuser = kuserPeer::getActiveKuserByPartnerAndUid($partnerId, $puserId);
 			if (!$kuser)
 				throw new kCoreException('Invalid user id', kCoreException::INVALID_USER_ID);
@@ -1987,7 +1987,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 
 	public function setEntitledPusersPublish($v)
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$entitledUserPuserPublish = array();
 	
 		$v = trim($v);
@@ -2559,7 +2559,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 		if (!$this->is_categories_modified)
 			return;
 		
-		if(!kEntitlementUtils::getEntitlementEnforcement() || !kEntitlementUtils::isKsPrivacyContextSet())
+		if(!kEntitlementUtils::getEntitlementEnforcement() || !kEntitlementUtils::isHsPrivacyContextSet())
 			categoryEntryPeer::syncEntriesCategories($this, $this->is_categories_names_modified);
 		
 		parent::save ();

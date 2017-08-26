@@ -26,7 +26,7 @@ class entryPeer extends BaseentryPeer
 
 	private static $kuserBlongToMoreThanMaxCategoriesForSearch = false;
 	
-	private static $lastInitializedContext = null; // last initialized security context (ks + partner id)
+	private static $lastInitializedContext = null; // last initialized security context (hs + partner id)
 	private static $validatedEntries = array();
 
 	// cache classes by their type
@@ -378,7 +378,7 @@ class entryPeer extends BaseentryPeer
 
 		$critEntitled = null;
 
-		$ks = ks::fromSecureString(kCurrentContext::$ks);
+		$hs = hs::fromSecureString(kCurrentContext::$hs);
 
 		//when entitlement is enable and admin session or user session with list:* privilege
 		if (kEntitlementUtils::getEntitlementEnforcement() &&
@@ -388,7 +388,7 @@ class entryPeer extends BaseentryPeer
 			$critEntitled = $c->getNewCriterion (self::PRIVACY_BY_CONTEXTS, $privacyContexts, KalturaCriteria::IN_LIKE);
 			$critEntitled->addTag(KalturaCriterion::TAG_ENTITLEMENT_ENTRY);
 
-			if(kCurrentContext::getCurrentKsKuserId())
+			if(kCurrentContext::getCurrentHsKuserId())
 			{
 				//ENTITLED_KUSERS field includes $this->entitledUserEdit, $this->entitledUserEdit, and users on work groups categories.
 				$entitledKuserByPrivacyContext = kEntitlementUtils::getEntitledKuserByPrivacyContext();
@@ -396,7 +396,7 @@ class entryPeer extends BaseentryPeer
 				$critEntitledKusers->addTag(KalturaCriterion::TAG_ENTITLEMENT_ENTRY);
 
 				$categoriesIds = array();
-				$categoriesIds = categoryPeer::retrieveEntitledAndNonIndexedByKuser(kCurrentContext::getCurrentKsKuserId(), kConf::get('category_search_limit'));
+				$categoriesIds = categoryPeer::retrieveEntitledAndNonIndexedByKuser(kCurrentContext::getCurrentHsKuserId(), kConf::get('category_search_limit'));
 				if(count($categoriesIds) >= kConf::get('category_search_limit'))
 					self::$kuserBlongToMoreThanMaxCategoriesForSearch = true;
 
@@ -412,7 +412,7 @@ class entryPeer extends BaseentryPeer
 			}
 
 			//user should be able to get all entries s\he uploaded - outside the privacy context
-			$kuser = kCurrentContext::getCurrentKsKuserId();
+			$kuser = kCurrentContext::getCurrentHsKuserId();
 			if($kuser !== 0) {
 				$critKuser = $c->getNewCriterion(entryPeer::KUSER_ID , $kuser , Criteria::EQUAL);
 				$critKuser->addTag(KalturaCriterion::TAG_ENTITLEMENT_ENTRY);
@@ -421,13 +421,13 @@ class entryPeer extends BaseentryPeer
 		}
 		elseif(self::$userContentOnly) // when session is not admin and without list:* privilege, allow access to user entries only
 		{
-			$critEntitled = $c->getNewCriterion(entryPeer::KUSER_ID , kCurrentContext::getCurrentKsKuserId(), Criteria::EQUAL);
+			$critEntitled = $c->getNewCriterion(entryPeer::KUSER_ID , kCurrentContext::getCurrentHsKuserId(), Criteria::EQUAL);
 			$critEntitled->addTag(KalturaCriterion::TAG_WIDGET_SESSION);
 		}
 
-		if($ks && count($ks->getDisableEntitlementForEntry()))
+		if($hs && count($hs->getDisableEntitlementForEntry()))
 		{
-			$entryCrit = $c->getNewCriterion(entryPeer::ENTRY_ID, $ks->getDisableEntitlementForEntry(), Criteria::IN);
+			$entryCrit = $c->getNewCriterion(entryPeer::ENTRY_ID, $hs->getDisableEntitlementForEntry(), Criteria::IN);
 			$entryCrit->addTag(KalturaCriterion::TAG_ENTITLEMENT_ENTRY);
 
 			if($critEntitled)
@@ -755,12 +755,12 @@ class entryPeer extends BaseentryPeer
 		}
 
 		$removedRecordsCount = 0;
-		if ((!kEntitlementUtils::getEntitlementEnforcement() && !is_null(kCurrentContext::$ks))||
+		if ((!kEntitlementUtils::getEntitlementEnforcement() && !is_null(kCurrentContext::$hs))||
 			!self::$filterResults ||
 			!kEntitlementUtils::getInitialized()) // if initEntitlement hasn't run - skip filters.
 			return parent::filterSelectResults($selectResults, $criteria);
 
-		if(is_null(kCurrentContext::$ks) && count($selectResults))
+		if(is_null(kCurrentContext::$hs) && count($selectResults))
 		{
 			$entry = $selectResults[0];
 			$partner = $entry->getPartner();
@@ -808,7 +808,7 @@ class entryPeer extends BaseentryPeer
 
 	public static function addValidatedEntry($entryId)
 	{
-		$securityContext = array(kCurrentContext::$partner_id, kCurrentContext::$ks);
+		$securityContext = array(kCurrentContext::$partner_id, kCurrentContext::$hs);
 		if (self::$lastInitializedContext && self::$lastInitializedContext !== $securityContext) {
 			self::$validatedEntries = array();
 		}

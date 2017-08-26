@@ -64,7 +64,7 @@ abstract class SyndicationFeedRenderer {
 	protected function stringToSafeXml($string, $now = false)
 	{
 		$string = @iconv('utf-8', 'utf-8', $string);
-		$safe = kString::xmlEncode($string);
+		$safe = hString::xmlEncode($string);
 		return $safe;
 	}
 	
@@ -73,7 +73,7 @@ abstract class SyndicationFeedRenderer {
 	{
 		$res = '';
 		$res .= $this->writeOpenXmlNode($nodeName, $level, $attributes, false);
-		$res .= kString::xmlEncode(kString::xmlDecode("$value")); //to create a valid XML (without unescaped special chars)
+		$res .= hString::xmlEncode(hString::xmlDecode("$value")); //to create a valid XML (without unescaped special chars)
 		//we decode before encoding to avoid breaking an xml which its special chars had already been escaped
 		$res .= $this->writeClosingXmlNode($nodeName, 0);
 		return $res;

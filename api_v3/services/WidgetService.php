@@ -141,7 +141,7 @@ class WidgetService extends KalturaBaseService
 	 * @action get
 	 * @param string $id 
 	 * @return KalturaWidget
-	 * @ksOptional
+	 * @hsOptional
 	 */		
 	function getAction( $id )
 	{

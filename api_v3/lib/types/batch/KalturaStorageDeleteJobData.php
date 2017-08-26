@@ -18,7 +18,7 @@ class KalturaStorageDeleteJobData extends KalturaStorageJobData
 	public function toObject($dbData = null, $props_to_skip = array()) 
 	{
 		if(is_null($dbData))
-			$dbData = new kStorageDeleteJobData();
+			$dbData = new hStorageDeleteJobData();
 			
 		return parent::toObject($dbData);
 	}

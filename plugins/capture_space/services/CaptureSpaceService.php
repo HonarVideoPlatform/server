@@ -14,7 +14,7 @@ class CaptureSpaceService extends KalturaBaseService
 	 * @param string $version
 	 * @param KalturaCaptureSpaceHashAlgorithm $hashAlgorithm
 	 * @return KalturaCaptureSpaceUpdateResponse
-	 * @ksIgnored
+	 * @hsIgnored
 	 * 
 	 * @throws CaptureSpaceErrors::ALREADY_LATEST_VERSION
 	 * @throws CaptureSpaceErrors::NO_UPDATE_IS_AVAILABLE
@@ -47,7 +47,7 @@ class CaptureSpaceService extends KalturaBaseService
 	 * @action serveInstall
 	 * @param string $os
 	 * @return file
-	 * @ksIgnored
+	 * @hsIgnored
 	 * 
 	 * @throws CaptureSpaceErrors::NO_INSTALL_IS_AVAILABLE
 	 */
@@ -74,7 +74,7 @@ class CaptureSpaceService extends KalturaBaseService
 	 * @param string $os
 	 * @param string $version
 	 * @return file
-	 * @ksIgnored
+	 * @hsIgnored
 	 * 
 	 * @throws CaptureSpaceErrors::NO_UPDATE_IS_AVAILABLE
 	 */

@@ -8,7 +8,7 @@
 
 
 <tr><td colspan=2>
-	<input type="hidden" name="ks_str" value="<?php echo $ks_str ?>">
+	<input type="hidden" name="hs_str" value="<?php echo $hs_str ?>">
 	<input type="hidden" name="act" value="login">
 </td></tr>
 <tr>

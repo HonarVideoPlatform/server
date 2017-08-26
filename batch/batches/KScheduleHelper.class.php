@@ -14,7 +14,7 @@
  *
  * @package Scheduler
  */
-class KScheduleHelper extends KPeriodicWorker
+class HScheduleHelper extends KPeriodicWorker
 {
 	/* (non-PHPdoc)
 	 * @see KBatchBase::getType()
@@ -46,27 +46,27 @@ class KScheduleHelper extends KPeriodicWorker
 		$scheduler = new KalturaScheduler();
 		$scheduler->configuredId = $this->getSchedulerId();
 		$scheduler->name = $this->getSchedulerName();
-		$scheduler->host = KSchedulerConfig::getHostname();
+		$scheduler->host = HSchedulerConfig::getHostname();
 		
 		// get command results from the scheduler
-		$commandResults = KScheduleHelperManager::loadResultsCommandsFile();
+		$commandResults = HScheduleHelperManager::loadResultsCommandsFile();
 		KalturaLog::info(count($commandResults) . " command results returned from the scheduler");
 		if(count($commandResults))
 			$this->sendCommandResults($commandResults);
 		
 		// get config from the schduler
-		$configItems = KScheduleHelperManager::loadConfigItems();
+		$configItems = HScheduleHelperManager::loadConfigItems();
 		if(count($configItems))
 		{
 			KalturaLog::info(count($configItems) . " config records sent from the scheduler");
 			$this->sendConfigItems($scheduler, $configItems);
 		}
 		
-		$filters = KScheduleHelperManager::loadFilters();
+		$filters = HScheduleHelperManager::loadFilters();
 		KalturaLog::info(count($filters) . " filter records found for the scheduler");
 		
 		// get status from the schduler
-		$statuses = KScheduleHelperManager::loadStatuses();
+		$statuses = HScheduleHelperManager::loadStatuses();
 		KalturaLog::info(count($statuses) . " status records sent from the scheduler");
 		
 		// send status to the server

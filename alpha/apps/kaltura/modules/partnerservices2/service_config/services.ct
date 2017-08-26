@@ -72,7 +72,7 @@ getplaylist					|			|1,2	|1	|0		|0		|1		|	|		|	|   |kpl
 getplayliststatsfromcontent	|			|2		|1	|0		|0		|1		|	|		|1	|   |kmc
 getroughcut					|			|1		|1	|0		|0		|1		|	|		|1	|   |
 getthumbnail				|			|1		|1	|0		|0		|1		|	|		|1	|   |
-getuiconf					|			|0		|1	|0		|0		|1		|	|		|1	|   |kdp,kcw,kse
+getuiconf					|			|0		|1	|0		|0		|1		|	|		|1	|   |kdp,kcw,hse
 getuser						|			|2		|1	|0		|0		|1		|	|		|	|   |
 getwidget					|			|0		|1	|0		|0		|1		|	|		|	|   |kdp
 handlemoderation			|			|2		|1	|0		|0		|1		|	|		|	|   |
@@ -135,7 +135,7 @@ updateuser					|			|2		|1	|2		|1		|1		|	|		|	|   |
 updateuserid				|			|2		|1	|0		|0		|1		|	|		|	|   |
 updateuiconf				|			|2		|1	|0		|0		|1		|	|		|	|   |app-studio
 upload						|			|1		|1	|0		|0		|1		|	|		|	|   |
-uploadjpeg					|			|1		|1	|0		|0		|1		|	|		|	|   |kse?
+uploadjpeg					|			|1		|1	|0		|0		|1		|	|		|	|   |hse?
 viewwidget					|			|1		|1	|1		|1		|1		|	|		|	|   |
 webcamdummy					|			|1		|1	|0		|0		|1		|	|		|	|   |
 ---------------------------------------------------------------------------------------------------

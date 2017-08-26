@@ -1,6 +1,6 @@
 <?php
 
-class kSchedulingICalCalendar extends kSchedulingICalComponent
+class hSchedulingICalCalendar extends hSchedulingICalComponent
 {
 	/**
 	 * @param string $data
@@ -14,10 +14,10 @@ class kSchedulingICalCalendar extends kSchedulingICalComponent
 	
 	/**
 	 * {@inheritDoc}
-	 * @see kSchedulingICalComponent::getType()
+	 * @see hSchedulingICalComponent::getType()
 	 */
 	protected function getType()
 	{
-		return kSchedulingICal::TYPE_CALENDAR;
+		return hSchedulingICal::TYPE_CALENDAR;
 	}
 }

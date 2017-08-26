@@ -3,17 +3,17 @@ var baseUrl = (options.secureLogin) ? 'https:' : window.location.protocol;
 	baseUrl += '//' + window.location.hostname;
 	baseUrl += (window.location.port) ? ':' + window.location.port : '';
 
-function loginF( remMe, partner_id, subp_id, uid, ks , screen_name, email ) {
+function loginF( remMe, partner_id, subp_id, uid, hs , screen_name, email ) {
 
 	// Extlogin URL
 	var hash = window.location.hash || ''; 
 	var url = baseUrl + '/index.php/kmc/extlogin' + hash;
 
 	// Setup input fields
-	var ks_input = $('<input />').attr({
+	var hs_input = $('<input />').attr({
 		'type': 'hidden',
-		'name': 'ks',
-		'value': ks
+		'name': 'hs',
+		'value': hs
 	});
 	var partner_id_input = $('<input />').attr({
 		'type': 'hidden',
@@ -27,7 +27,7 @@ function loginF( remMe, partner_id, subp_id, uid, ks , screen_name, email ) {
 					'method': 'post',
 					'style': 'display: none'
 				})
-				.append( ks_input, partner_id_input );
+				.append( hs_input, partner_id_input );
 
 	// Submit the form
 	$('body').append( $form );

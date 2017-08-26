@@ -23,7 +23,7 @@ class Partner extends BasePartner
 	const VALIDATE_WRONG_PASSWORD = -2;
 	const VALIDATE_TOO_MANY_INVALID_LOGINS = -3;
 	const VALIDATE_PARTNER_BLOCKED = -4;
-	const VALIDATE_LKS_DISABLED = -10;
+	const VALIDATE_LHS_DISABLED = -10;
 	
 	const PARTNER_STATUS_DELETED = 0;
 	const PARTNER_STATUS_ACTIVE = 1;
@@ -71,12 +71,12 @@ class Partner extends BasePartner
 		return parent::save ( $con ) ;		
 	}
 	
-	public function validateSecret ( $partner_secret , $partner_key , &$ks_max_expiry_in_seconds , $admin = false )
+	public function validateSecret ( $partner_secret , $partner_key , &$hs_max_expiry_in_seconds , $admin = false )
 	{
 		if ($partner_secret === $this->getAdminSecret() || 
 			(!$admin && $partner_secret === $this->getSecret()))
 		{
-			$ks_max_expiry_in_seconds = $this->getKsMaxExpiryInSeconds();
+			$hs_max_expiry_in_seconds = $this->getHsMaxExpiryInSeconds();
 			return true;
 		}
 		else
@@ -394,14 +394,14 @@ class Partner extends BasePartner
 		return $this->putInCustomData( "allowMultiNotification", $v );
 	}
 
-	public function getAllowLks()
+	public function getAllowLhs()
 	{
-		return $this->getFromCustomData( "allowLks" , false  );
+		return $this->getFromCustomData( "allowLhs" , false  );
 	}
 	
-	public function setAllowLks( $v )
+	public function setAllowLhs( $v )
 	{
-		return $this->putInCustomData( "allowLks", $v );
+		return $this->putInCustomData( "allowLhs", $v );
 	}		
 	
 	public function getMaxUploadSize()
@@ -562,13 +562,13 @@ class Partner extends BasePartner
 	 * @return bool
 	 * @deprecated
 	 */
-	public function getRestrictThumbnailByKs()	{		return $this->getFromCustomData( "restrictThumbnailByKs" , null, false  );	}
+	public function getRestrictThumbnailByHs()	{		return $this->getFromCustomData( "restrictThumbnailByHs" , null, false  );	}
 	
 	/**
 	 * @return bool
 	 * @deprecated
 	 */
-	public function setRestrictThumbnailByKs( $v )	{		return $this->putInCustomData( "restrictThumbnailByKs", $v );	}
+	public function setRestrictThumbnailByHs( $v )	{		return $this->putInCustomData( "restrictThumbnailByHs", $v );	}
 
 	public function getSupportAnimatedThumbnails()	{		return $this->getFromCustomData( "supportAnimatedThumbnails" , null, false  );	}
 	public function setSupportAnimatedThumbnails( $v )	{		return $this->putInCustomData( "supportAnimatedThumbnails", $v );	}
@@ -657,8 +657,8 @@ class Partner extends BasePartner
 	public function getEnableBulkUploadNotificationsEmails() {return $this->getFromCustomData("enableBulkUploadNotificationsEmails", null, false); }
 	public function setEnableBulkUploadNotificationsEmails($v) { $this->putInCustomData("enableBulkUploadNotificationsEmails", $v); }
 	
-	public function getKSVersion() { return $this->getFromCustomData( "ksVersion" , null, 1  );	}
-	public function setKSVersion( $v ) { return $this->putInCustomData( "ksVersion", $v );	}
+	public function getHSVersion() { return $this->getFromCustomData( "hsVersion" , null, 1  );	}
+	public function setHSVersion( $v ) { return $this->putInCustomData( "hsVersion", $v );	}
 	
 	public function getShouldApplyAccessControlOnEntryMetadata() { return $this->getFromCustomData( "shouldApplyAccessControlOnEntryMetadata" , null, false ); }
 	public function setShouldApplyAccessControlOnEntryMetadata( $v ) { return $this->putInCustomData( "shouldApplyAccessControlOnEntryMetadata", $v ); }
@@ -838,7 +838,7 @@ class Partner extends BasePartner
 	public function setKMCLanguage($v) { $this->putInCustomData('language', $v, 'KMC');}
 	public function getKMCLanguage() { return $this->getFromCustomData('language', 'KMC', null);}
 	
-	//default entitlement scope for ks
+	//default entitlement scope for hs
 	public function setDefaultEntitlementEnforcement($v) { $this->putInCustomData('defaultEntitlementEnforcement', $v, 'entitlement');}
 	public function getDefaultEntitlementEnforcement() 
 	{
@@ -1289,10 +1289,10 @@ class Partner extends BasePartner
 		
 		
 		
-		$ksObj = hSessionUtils::crackKs(kCurrentContext::$ks);
+		$hsObj = hSessionUtils::crackHs(kCurrentContext::$hs);
 		$currentKuser = null;
-		if(is_object($ksObj)){
-			$currentKuser = kuserPeer::getKuserByEmail($ksObj->user, -2);
+		if(is_object($hsObj)){
+			$currentKuser = kuserPeer::getKuserByEmail($hsObj->user, -2);
 		}
 		if ($currentKuser) 
 		{
@@ -1651,7 +1651,7 @@ class Partner extends BasePartner
 		$context = new kEntryContextDataResult();
 		
 		$scope = new accessControlScope();
-		$scope->setKs(kCurrentContext::$ks);
+		$scope->setHs(kCurrentContext::$hs);
 		$scope->setContexts(array(ContextType::PLAY));
 		
 		$disableCache = $accessControl->applyContext($context, $scope);

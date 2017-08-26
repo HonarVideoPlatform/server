@@ -202,7 +202,7 @@ class myKalturaHshowServices extends myBaseMediaSource implements IMediaSource
 
 	private static function createHashString ( $kuser_id )	
 	{
-		$hash = kString::expiryHash($kuser_id , self::AUTH_SALT  , self::AUTH_INTERVAL  ) ;
+		$hash = hString::expiryHash($kuser_id , self::AUTH_SALT  , self::AUTH_INTERVAL  ) ;
 		$authData= $kuser_id . "I" . $hash;
 		return $authData;
 	}

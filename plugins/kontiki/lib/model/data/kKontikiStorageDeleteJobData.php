@@ -4,7 +4,7 @@
  * @package plugins.kontiki
  * @subpackage model
  * */
-class kKontikiStorageDeleteJobData extends kStorageDeleteJobData
+class kKontikiStorageDeleteJobData extends hStorageDeleteJobData
 {
     /**
      * Unique Kontiki MOID for the content uploaded to Kontiki

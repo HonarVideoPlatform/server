@@ -77,7 +77,7 @@ $APIV3_BLOCKED_ACTIONS = array(
 		'widevine_widevinedrm.getlicense',		// contains random
 		);
 
-$KS_PATTERNS = array('/\/ks\/([a-zA-Z0-9+_\-]+=*)/', '/&ks=([a-zA-Z0-9+\/_\-]+=*)/', '/\?ks=([a-zA-Z0-9+\/_\-]+=*)/');
+$HS_PATTERNS = array('/\/hs\/([a-zA-Z0-9+_\-]+=*)/', '/&hs=([a-zA-Z0-9+\/_\-]+=*)/', '/\?hs=([a-zA-Z0-9+\/_\-]+=*)/');
 
 // compare modes
 define('CM_XML', 0);
@@ -126,9 +126,9 @@ class PartnerSecretPool
 	}
 }
 
-class ks extends hSessionBase
+class hs extends hSessionBase
 {
-	protected function getKSVersionAndSecret($partnerId)
+	protected function getHSVersionAndSecret($partnerId)
 	{
 		global $partnerSecretPool;
 		/* @var $partnerSecretPool PartnerSecretPool */
@@ -140,20 +140,20 @@ class ks extends hSessionBase
 	}
 }
 
-function extendKsExpiry($ks)
+function extendHsExpiry($hs)
 {
 	global $partnerSecretPool;
 	/* @var $partnerSecretPool PartnerSecretPool */
 
-	$ksObj = new ks();
-	if (!$ksObj->parseKS($ks))
+	$hsObj = new hs();
+	if (!$hsObj->parseHS($hs))
 		return null;
 
-	$adminSecret = $partnerSecretPool->getPartnerSecret($ksObj->partner_id);
+	$adminSecret = $partnerSecretPool->getPartnerSecret($hsObj->partner_id);
 	if (!$adminSecret)
 		return null;
 
-	return hSessionBase::generateKsV1($adminSecret, $ksObj->user, $ksObj->type, $ksObj->partner_id, 86400, $ksObj->privileges, $ksObj->master_partner_id, $ksObj->additional_data);
+	return hSessionBase::generateHsV1($adminSecret, $hsObj->user, $hsObj->type, $hsObj->partner_id, 86400, $hsObj->privileges, $hsObj->master_partner_id, $hsObj->additional_data);
 }
 
 function print_r_reverse($in) {
@@ -358,26 +358,26 @@ function xmlToArray($xmlstring)
 	return $array;
 }
 
-function normalizeKS($value, $ks)
+function normalizeHS($value, $hs)
 {
-	$ksObj = new ks();
-	if (!$ksObj->parseKS($ks))
+	$hsObj = new hs();
+	if (!$hsObj->parseHS($hs))
 		return $value;
 
-	$ksFields = array(
-		$ksObj->partner_id,
-		$ksObj->partner_id,
+	$hsFields = array(
+		$hsObj->partner_id,
+		$hsObj->partner_id,
 		0,		// expiry
-		$ksObj->type,
+		$hsObj->type,
 		0,		// rand
-		$ksObj->user,
-		$ksObj->privileges,
-		$ksObj->master_partner_id,
-		$ksObj->additional_data,
+		$hsObj->user,
+		$hsObj->privileges,
+		$hsObj->master_partner_id,
+		$hsObj->additional_data,
 	);
 
-	$ksFields = implode(';', $ksFields);
-	return str_replace($ks, $ksFields, $value);
+	$hsFields = implode(';', $hsFields);
+	return str_replace($hs, $hsFields, $value);
 }
 
 function compareValues($newValue, $oldValue)
@@ -533,7 +533,7 @@ function compareArrays($resultNew, $resultOld, $path)
 
 function normalizeResultBuffer($result)
 {
-	global $serviceUrlNew, $serviceUrlOld, $KS_PATTERNS;
+	global $serviceUrlNew, $serviceUrlOld, $HS_PATTERNS;
 
 	$result = preg_replace('/<executionTime>[0-9\.]+<\/executionTime>/', '', $result);
 	$result = preg_replace('/<serverTime>[0-9\.]+<\/serverTime>/', '', $result);
@@ -550,13 +550,13 @@ function normalizeResultBuffer($result)
 	else
 		$result = str_replace($serviceUrlOld, $serviceUrlNew, $result);
 
-	$patterns = $KS_PATTERNS;
+	$patterns = $HS_PATTERNS;
 	foreach ($patterns as $pattern)
 	{
 		preg_match_all($pattern, $result, $matches);
 		foreach ($matches[1] as $match)
 		{
-			$result = normalizeKS($result, $match);
+			$result = normalizeHS($result, $match);
 		}
 	}
 	return $result;
@@ -647,7 +647,7 @@ function getRequestHash($fullActionName, $paramsForHash)
 {
 	foreach ($paramsForHash as $paramName => $paramValue)
 	{
-		preg_match('/^\d+\:ks$/', $paramName, $matches);
+		preg_match('/^\d+\:hs$/', $paramName, $matches);
 		if ($matches)
 		{
 			unset($paramsForHash[$paramName]);
@@ -656,7 +656,7 @@ function getRequestHash($fullActionName, $paramsForHash)
 	}
 
 	$paramsToUnset = array(
-		"ks",
+		"hs",
 		"kalsig",
 		"clientTag",
 		"callback",
@@ -673,7 +673,7 @@ function getRequestHash($fullActionName, $paramsForHash)
 	{
 		unset($paramsForHash[$paramToUnset]);
 	}
-	ksort($paramsForHash);
+	hsort($paramsForHash);
 	return md5($fullActionName . serialize($paramsForHash));
 }
 
@@ -812,10 +812,10 @@ function testAction($ipAddress, $fullActionName, $parsedParams, $uri, $postParam
 					$sig = $parsedParams['kalsig'];
 				else if (isset($parsedParams['sig']))
 					$sig = $parsedParams['sig'];
-				else if (isset($parsedParams['ks']))
-					$sig = substr($parsedParams['ks'], 0, 20);
-				else if (isset($parsedParams['1:ks']))
-					$sig = substr($parsedParams['1:ks'], 0, 20);
+				else if (isset($parsedParams['hs']))
+					$sig = substr($parsedParams['hs'], 0, 20);
+				else if (isset($parsedParams['1:hs']))
+					$sig = substr($parsedParams['1:hs'], 0, 20);
 				else
 					$sig = print_r($parsedParams, true);
 
@@ -910,28 +910,28 @@ function testAction($ipAddress, $fullActionName, $parsedParams, $uri, $postParam
 	}
 }
 
-function extendRequestKss(&$parsedParams)
+function extendRequestHss(&$parsedParams)
 {
-	if (array_key_exists('ks', $parsedParams))
+	if (array_key_exists('hs', $parsedParams))
 	{
-		$ks = $parsedParams['ks'];
-		$ks = extendKsExpiry($ks);
-		if (is_null($ks))
+		$hs = $parsedParams['hs'];
+		$hs = extendHsExpiry($hs);
+		if (is_null($hs))
 			return false;
-		$parsedParams['ks'] = $ks;
+		$parsedParams['hs'] = $hs;
 	}
 
 	for ($i = 1; ; $i++)
 	{
-		$ksKey = "{$i}:ks";
-		if (!array_key_exists($ksKey, $parsedParams))
+		$hsKey = "{$i}:hs";
+		if (!array_key_exists($hsKey, $parsedParams))
 			break;
 
-		$ks = $parsedParams[$ksKey];
-		$ks = extendKsExpiry($ks);
-		if (is_null($ks))
+		$hs = $parsedParams[$hsKey];
+		$hs = extendHsExpiry($hs);
+		if (is_null($hs))
 			return false;
-		$parsedParams[$ksKey] = $ks;
+		$parsedParams[$hsKey] = $hs;
 	}
 
 	return true;
@@ -1059,7 +1059,7 @@ function processMultiRequest($ipAddress, $parsedParams)
 		$fullActionName .= '/'.$curFullActionName;
 	}
 
-	if (!extendRequestKss($parsedParams))
+	if (!extendRequestHss($parsedParams))
 	{
 		return;
 	}
@@ -1074,7 +1074,7 @@ function processMultiRequest($ipAddress, $parsedParams)
 	}
 
 	$parsedParams['format'] = '2';		# XML
-	ksort($parsedParams);
+	hsort($parsedParams);
 
 	$uri = "/api_v3/index.php?service=multirequest";
 
@@ -1124,7 +1124,7 @@ function processRequest($ipAddress, $parsedParams)
 
 	if (!isServiceApproved($service) ||
 		!isActionApproved($fullActionName, $action) ||
-		!extendRequestKss($parsedParams))
+		!extendRequestHss($parsedParams))
 	{
 		return;
 	}
@@ -1138,7 +1138,7 @@ function processRequest($ipAddress, $parsedParams)
 		return;
 	}
 
-	ksort($parsedParams);
+	hsort($parsedParams);
 
 	$kalcliCmd = generateKalcliCommand($ipAddress, $service, $action, $parsedParams);
 
@@ -1153,7 +1153,7 @@ function processFeedRequest($ipAddress, $parsedParams)
 
 	if (!isServiceApproved('syndicationFeed') ||
 		!isActionApproved('syndicationFeed.execute', 'execute') ||
-		!extendRequestKss($parsedParams))
+		!extendRequestHss($parsedParams))
 	{
 		return;
 	}
@@ -1168,7 +1168,7 @@ function processFeedRequest($ipAddress, $parsedParams)
 	}
 
 	$parsedParams['nocache'] = '1';
-	ksort($parsedParams);
+	hsort($parsedParams);
 
 	$uri = "/api_v3/getFeed.php?" . http_build_query($parsedParams, null, "&");
 
@@ -1283,7 +1283,7 @@ function processPS2Request($ipAddress, $parsedParams)
 		return;
 	}
 
-	if (!extendRequestKss($parsedParams))
+	if (!extendRequestHss($parsedParams))
 	{
 		return;
 	}
@@ -1297,7 +1297,7 @@ function processPS2Request($ipAddress, $parsedParams)
 		return;
 	}
 
-	ksort($parsedParams);
+	hsort($parsedParams);
 	$uri = "/index.php/$module/$action?" . http_build_query($parsedParams, null, "&");
 
 	if (in_array($fullActionName, $PS2_TESTED_XML_ACTIONS))
@@ -1349,7 +1349,7 @@ class LogProcessorUriList implements LogProcessor
 	{
 		$uri = trim($buffer);
 
-		// TODO: call extendRequestKss
+		// TODO: call extendRequestHss
 
 		$service = '';
 		if (preg_match('/service=([\w_]+)/', $uri, $matches))

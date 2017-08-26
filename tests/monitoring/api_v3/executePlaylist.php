@@ -23,8 +23,8 @@ $apiCall = null;
 try
 {
 	$apiCall = 'session.start';
-	$ks = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
-	$client->setKs($ks);
+	$hs = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
+	$client->setHs($hs);
 		
 	$playlistId = null;
 	if(isset($options['playlist-id']))

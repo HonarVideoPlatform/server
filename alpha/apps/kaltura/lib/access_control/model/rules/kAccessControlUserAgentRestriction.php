@@ -71,7 +71,7 @@ class kAccessControlUserAgentRestriction extends kAccessControlRestriction
 		$values = explode(',', $values);
 		$stringValues = array();
 		foreach($values as $value)
-			$stringValues[] = new kStringValue($value);
+			$stringValues[] = new hStringValue($value);
 			
 		$this->getCondition()->setValues($stringValues);
 	}

@@ -930,7 +930,7 @@ CREATE TABLE `partner`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	`anonymous_kuser_id` INTEGER,
-	`ks_max_expiry_in_seconds` INTEGER default 86400,
+	`hs_max_expiry_in_seconds` INTEGER default 86400,
 	`create_user_on_demand` TINYINT default 1,
 	`prefix` VARCHAR(32),
 	`admin_name` VARCHAR(50),
@@ -1378,7 +1378,7 @@ CREATE TABLE `access_control`
 	`site_restrict_list` VARCHAR(1024),
 	`country_restrict_type` TINYINT,
 	`country_restrict_list` VARCHAR(1024),
-	`ks_restrict_privilege` VARCHAR(20),
+	`hs_restrict_privilege` VARCHAR(20),
 	`prv_restrict_privilege` VARCHAR(20),
 	`prv_restrict_length` INTEGER,
 	`kdir_restrict_type` TINYINT,
@@ -1821,7 +1821,7 @@ CREATE TABLE `track_entry`
 	`param_1_str` VARCHAR(255),
 	`param_2_str` VARCHAR(511),
 	`param_3_str` VARCHAR(511),
-	`ks` VARCHAR(511),
+	`hs` VARCHAR(511),
 	`description` VARCHAR(127),
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
@@ -2027,13 +2027,13 @@ DROP TABLE IF EXISTS `invalid_session`;
 CREATE TABLE `invalid_session`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`ks` VARCHAR(300),
-	`ks_valid_until` DATETIME,
+	`hs` VARCHAR(300),
+	`hs_valid_until` DATETIME,
 	`created_at` DATETIME,
 	`actions_limit` INTEGER,
 	`type` INTEGER,
 	PRIMARY KEY (`id`),
-	KEY `ks_index`(`ks`)
+	KEY `hs_index`(`hs`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------

@@ -267,7 +267,7 @@ if ( count ( $partner_list ) > 1 )
 
 <tr><td style="font-weight:bold; text-" colspan="3"><hr/>Misc</td></tr>
 <?php echo  prop ( $partner , "mergeEntryLists"  , "select" , "1" , "0" , "boolean_int_type" ,"for service getallentries- merge the hshow & user lists" ) ?>
-<?php echo  prop ( $partner , "allowLks"  , "select" , "1" , "0" , "boolean_int_type" ,"enables the lite-ks feature" ) ?>
+<?php echo  prop ( $partner , "allowLhs"  , "select" , "1" , "0" , "boolean_int_type" ,"enables the lite-hs feature" ) ?>
 <?php echo  prop ( $partner , "matchIp"  , "text" , "30" , ""  , "" , "ip to match for specific services"  ) ?>
 <?php echo  prop ( $partner , "allowAnonymousRanking"  , "select" , "1" , "0" , "boolean_int_type" ,"enables anonymous comments" ) ?>
 <?php echo  prop ( $partner , "landingPage"  , "text" , "60" , ""  , "" ,  "landing page for the entry on the partner's site"  ) ?>

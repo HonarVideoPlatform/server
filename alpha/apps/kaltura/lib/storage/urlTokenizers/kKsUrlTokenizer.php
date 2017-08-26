@@ -1,6 +1,6 @@
 <?php
 
-class kKsUrlTokenizer extends kUrlTokenizer
+class kHsUrlTokenizer extends kUrlTokenizer
 {
 	/**
 	 * @var bool
@@ -51,11 +51,11 @@ class kKsUrlTokenizer extends kUrlTokenizer
 	 */
 	public function tokenizeSingleUrl($url, $urlPrefix = null)
 	{
-		if (!$this->ksObject || !$this->ksObject->user)
+		if (!$this->hsObject || !$this->hsObject->user)
 		{
 			require_once(__DIR__ . '/../../KExternalErrors.class.php');
 			
-			KExternalErrors::dieError(KExternalErrors::MISSING_PARAMETER, 'ks user');
+			KExternalErrors::dieError(KExternalErrors::MISSING_PARAMETER, 'hs user');
 		}
 		
 		$uriRestrict = explode(',', $url);		// cannot contain commas, since it's used as the privileges delimiter
@@ -74,9 +74,9 @@ class kKsUrlTokenizer extends kUrlTokenizer
 			$privileges .= ',' . hSessionBase::PRIVILEGE_IP_RESTRICTION . ':' . infraRequestUtils::getRemoteAddress();
 		}
 
-		$ks = hSessionBase::generateKsV2(
+		$hs = hSessionBase::generateHsV2(
 			$this->key, 
-			$this->ksObject->user, 
+			$this->hsObject->user, 
 			hSessionBase::SESSION_TYPE_USER, 
 			$this->partnerId, 
 			$this->window, 
@@ -89,9 +89,9 @@ class kKsUrlTokenizer extends kUrlTokenizer
 			$insertPos = strpos($url, '/name/');
 			if ($insertPos !== false)
 			{
-				return substr($url, 0, $insertPos) . '/ks/' . $ks . substr($url, $insertPos);
+				return substr($url, 0, $insertPos) . '/hs/' . $hs . substr($url, $insertPos);
 			}
 		}
-		return $url . '?ks=' . $ks;
+		return $url . '?hs=' . $hs;
 	}
 }

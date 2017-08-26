@@ -51,7 +51,7 @@ class getmetadataAction extends defPartnerservices2Action
 		}
 
 		$version = $this->getP ( "version" ); // it's a path on the disk
-		if ( kString::beginsWith( $version , "." ) )
+		if ( hString::beginsWith( $version , "." ) )
 		{
 			// someone is trying to hack in the system 
 			return sfView::ERROR;	
@@ -70,7 +70,7 @@ class getmetadataAction extends defPartnerservices2Action
 		$file_name = kFileSyncUtils::getReadyLocalFilePathForKey( $sync_key , false );
 			
 		// fetch content of file from disk - it should hold the XML
-		if ( kString::endsWith( $file_name  , "xml" ))
+		if ( hString::endsWith( $file_name  , "xml" ))
 		{
 			$xml_content = kFileSyncUtils::file_get_contents( $sync_key , false  , false );
 			if ( ! $xml_content)

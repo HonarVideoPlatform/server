@@ -414,7 +414,7 @@ class KAsyncFileSyncImport extends KPeriodicWorker
 
 	static protected function parseMultiPart($contentType, $contents)
 	{
-		if (!kString::beginsWith($contentType, 'multipart/form-data; boundary='))
+		if (!hString::beginsWith($contentType, 'multipart/form-data; boundary='))
 		{
 			KalturaLog::err("failed to parse multipart content type [$contentType]");
 			return false;
@@ -452,7 +452,7 @@ class KAsyncFileSyncImport extends KPeriodicWorker
 			$name = null;
 			foreach ($headers as $header)
 			{
-				if (!kString::beginsWith($header, 'Content-Disposition: form-data; name="'))
+				if (!hString::beginsWith($header, 'Content-Disposition: form-data; name="'))
 				{
 					continue;
 				}

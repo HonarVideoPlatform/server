@@ -37,17 +37,17 @@ for (;;)
 	{
 		$lastID = $result->getId();
 
-		$ksKey = hSessionBase::INVALID_SESSION_KEY_PREFIX . $result->getKs();
-		$ksValidUntil = $result->getKsValidUntil(null);
+		$hsKey = hSessionBase::INVALID_SESSION_KEY_PREFIX . $result->getHs();
+		$hsValidUntil = $result->getHsValidUntil(null);
 		$keyExpiry = 0;			// non expiring
-		if ($ksValidUntil !== null)
+		if ($hsValidUntil !== null)
 		{
-			if ($ksValidUntil + EXPIRY_TIME_MARGIN < time())
+			if ($hsValidUntil + EXPIRY_TIME_MARGIN < time())
 				continue;		// already expired
-			$keyExpiry = $ksValidUntil + EXPIRY_TIME_MARGIN;
+			$keyExpiry = $hsValidUntil + EXPIRY_TIME_MARGIN;
 		}
-		if ($memcache->set($ksKey, true, 0, $keyExpiry) === false)
-			die("Error: failed to set key [{$ksKey}] with expiry [{$keyExpiry}]");
+		if ($memcache->set($hsKey, true, 0, $keyExpiry) === false)
+			die("Error: failed to set key [{$hsKey}] with expiry [{$keyExpiry}]");
 			
 		$setCount++;
 	}

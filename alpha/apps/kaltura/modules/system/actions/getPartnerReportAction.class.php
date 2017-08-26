@@ -99,7 +99,7 @@ class getPartnerReportAction extends kalturaSystemAction
 	        }
 	    }
 	    
-		ksort($dates);
+		hsort($dates);
 		
 		for($i = 0; $i < 2; $i++)
 		{

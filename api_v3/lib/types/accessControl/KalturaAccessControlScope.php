@@ -21,7 +21,7 @@ class KalturaAccessControlScope extends KalturaObject
 	 * Kaltura session to be used to test session and user conditions.
 	 * @var string
 	 */
-	public $ks;
+	public $hs;
 	
 	/**
 	 * Browser or client application to be used to test agent conditions.
@@ -52,7 +52,7 @@ class KalturaAccessControlScope extends KalturaObject
 	(
 		'referrer',
 		'ip',
-		'ks',
+		'hs',
 		'userAgent',
 		'time',
 		'contexts',

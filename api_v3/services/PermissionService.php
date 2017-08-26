@@ -213,12 +213,12 @@ class PermissionService extends KalturaBaseService
 	}
 	
 	/**
-	 * Retrieves a list of permissions that apply to the current KS.
+	 * Retrieves a list of permissions that apply to the current HS.
 	 * 
 	 * @action getCurrentPermissions
 	 * 
 	 * @return string A comma-separated list of current permission names
-	 * @ksOptional
+	 * @hsOptional
 	 * 
 	 */	
 	public function getCurrentPermissions()

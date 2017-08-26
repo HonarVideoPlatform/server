@@ -486,7 +486,7 @@ file_sizeint(11)
 	
 	private static $trackEntryParams =  array ( 
     "id",    "track_event_type_id",   "created_at",    "updated_at",   "ps_version",    "context",    "partner_id",    "entry_id",    "host_name",    "uid",
-    "track_event_status_id",    "changed_properties",    "param_1_str",    "param_2_str",    "param_3_str",    "ks",
+    "track_event_status_id",    "changed_properties",    "param_1_str",    "param_2_str",    "param_3_str",    "hs",
     "description",  "user_ip" ,
 	);
 	

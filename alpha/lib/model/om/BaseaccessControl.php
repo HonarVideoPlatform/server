@@ -95,10 +95,10 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 	protected $country_restrict_list;
 
 	/**
-	 * The value for the ks_restrict_privilege field.
+	 * The value for the hs_restrict_privilege field.
 	 * @var        string
 	 */
-	protected $ks_restrict_privilege;
+	protected $hs_restrict_privilege;
 
 	/**
 	 * The value for the prv_restrict_privilege field.
@@ -409,13 +409,13 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [ks_restrict_privilege] column value.
+	 * Get the [hs_restrict_privilege] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getKsRestrictPrivilege()
+	public function getHsRestrictPrivilege()
 	{
-		return $this->ks_restrict_privilege;
+		return $this->hs_restrict_privilege;
 	}
 
 	/**
@@ -826,27 +826,27 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 	} // setCountryRestrictList()
 
 	/**
-	 * Set the value of [ks_restrict_privilege] column.
+	 * Set the value of [hs_restrict_privilege] column.
 	 * 
 	 * @param      string $v new value
 	 * @return     accessControl The current object (for fluent API support)
 	 */
-	public function setKsRestrictPrivilege($v)
+	public function setHsRestrictPrivilege($v)
 	{
-		if(!isset($this->oldColumnsValues[accessControlPeer::KS_RESTRICT_PRIVILEGE]))
-			$this->oldColumnsValues[accessControlPeer::KS_RESTRICT_PRIVILEGE] = $this->ks_restrict_privilege;
+		if(!isset($this->oldColumnsValues[accessControlPeer::HS_RESTRICT_PRIVILEGE]))
+			$this->oldColumnsValues[accessControlPeer::HS_RESTRICT_PRIVILEGE] = $this->hs_restrict_privilege;
 
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->ks_restrict_privilege !== $v) {
-			$this->ks_restrict_privilege = $v;
-			$this->modifiedColumns[] = accessControlPeer::KS_RESTRICT_PRIVILEGE;
+		if ($this->hs_restrict_privilege !== $v) {
+			$this->hs_restrict_privilege = $v;
+			$this->modifiedColumns[] = accessControlPeer::HS_RESTRICT_PRIVILEGE;
 		}
 
 		return $this;
-	} // setKsRestrictPrivilege()
+	} // setHsRestrictPrivilege()
 
 	/**
 	 * Set the value of [prv_restrict_privilege] column.
@@ -1019,7 +1019,7 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 			$this->site_restrict_list = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
 			$this->country_restrict_type = ($row[$startcol + 10] !== null) ? (int) $row[$startcol + 10] : null;
 			$this->country_restrict_list = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
-			$this->ks_restrict_privilege = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
+			$this->hs_restrict_privilege = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
 			$this->prv_restrict_privilege = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
 			$this->prv_restrict_length = ($row[$startcol + 14] !== null) ? (int) $row[$startcol + 14] : null;
 			$this->kdir_restrict_type = ($row[$startcol + 15] !== null) ? (int) $row[$startcol + 15] : null;
@@ -1591,7 +1591,7 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 				return $this->getCountryRestrictList();
 				break;
 			case 12:
-				return $this->getKsRestrictPrivilege();
+				return $this->getHsRestrictPrivilege();
 				break;
 			case 13:
 				return $this->getPrvRestrictPrivilege();
@@ -1641,7 +1641,7 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 			$keys[9] => $this->getSiteRestrictList(),
 			$keys[10] => $this->getCountryRestrictType(),
 			$keys[11] => $this->getCountryRestrictList(),
-			$keys[12] => $this->getKsRestrictPrivilege(),
+			$keys[12] => $this->getHsRestrictPrivilege(),
 			$keys[13] => $this->getPrvRestrictPrivilege(),
 			$keys[14] => $this->getPrvRestrictLength(),
 			$keys[15] => $this->getKdirRestrictType(),
@@ -1715,7 +1715,7 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 				$this->setCountryRestrictList($value);
 				break;
 			case 12:
-				$this->setKsRestrictPrivilege($value);
+				$this->setHsRestrictPrivilege($value);
 				break;
 			case 13:
 				$this->setPrvRestrictPrivilege($value);
@@ -1768,7 +1768,7 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[9], $arr)) $this->setSiteRestrictList($arr[$keys[9]]);
 		if (array_key_exists($keys[10], $arr)) $this->setCountryRestrictType($arr[$keys[10]]);
 		if (array_key_exists($keys[11], $arr)) $this->setCountryRestrictList($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setKsRestrictPrivilege($arr[$keys[12]]);
+		if (array_key_exists($keys[12], $arr)) $this->setHsRestrictPrivilege($arr[$keys[12]]);
 		if (array_key_exists($keys[13], $arr)) $this->setPrvRestrictPrivilege($arr[$keys[13]]);
 		if (array_key_exists($keys[14], $arr)) $this->setPrvRestrictLength($arr[$keys[14]]);
 		if (array_key_exists($keys[15], $arr)) $this->setKdirRestrictType($arr[$keys[15]]);
@@ -1797,7 +1797,7 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(accessControlPeer::SITE_RESTRICT_LIST)) $criteria->add(accessControlPeer::SITE_RESTRICT_LIST, $this->site_restrict_list);
 		if ($this->isColumnModified(accessControlPeer::COUNTRY_RESTRICT_TYPE)) $criteria->add(accessControlPeer::COUNTRY_RESTRICT_TYPE, $this->country_restrict_type);
 		if ($this->isColumnModified(accessControlPeer::COUNTRY_RESTRICT_LIST)) $criteria->add(accessControlPeer::COUNTRY_RESTRICT_LIST, $this->country_restrict_list);
-		if ($this->isColumnModified(accessControlPeer::KS_RESTRICT_PRIVILEGE)) $criteria->add(accessControlPeer::KS_RESTRICT_PRIVILEGE, $this->ks_restrict_privilege);
+		if ($this->isColumnModified(accessControlPeer::HS_RESTRICT_PRIVILEGE)) $criteria->add(accessControlPeer::HS_RESTRICT_PRIVILEGE, $this->hs_restrict_privilege);
 		if ($this->isColumnModified(accessControlPeer::PRV_RESTRICT_PRIVILEGE)) $criteria->add(accessControlPeer::PRV_RESTRICT_PRIVILEGE, $this->prv_restrict_privilege);
 		if ($this->isColumnModified(accessControlPeer::PRV_RESTRICT_LENGTH)) $criteria->add(accessControlPeer::PRV_RESTRICT_LENGTH, $this->prv_restrict_length);
 		if ($this->isColumnModified(accessControlPeer::KDIR_RESTRICT_TYPE)) $criteria->add(accessControlPeer::KDIR_RESTRICT_TYPE, $this->kdir_restrict_type);
@@ -1903,7 +1903,7 @@ abstract class BaseaccessControl extends BaseObject  implements Persistent {
 
 		$copyObj->setCountryRestrictList($this->country_restrict_list);
 
-		$copyObj->setKsRestrictPrivilege($this->ks_restrict_privilege);
+		$copyObj->setHsRestrictPrivilege($this->hs_restrict_privilege);
 
 		$copyObj->setPrvRestrictPrivilege($this->prv_restrict_privilege);
 

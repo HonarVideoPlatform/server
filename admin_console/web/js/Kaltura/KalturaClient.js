@@ -5466,7 +5466,7 @@ KalturaStartWidgetSessionResponse.prototype.partnerId = null;
  * @var string
  * @readonly
  */
-KalturaStartWidgetSessionResponse.prototype.ks = null;
+KalturaStartWidgetSessionResponse.prototype.hs = null;
 
 /**
  * 
@@ -5596,7 +5596,7 @@ KalturaStatsEvent.prototype.controlId = null;
 KalturaStatsEvent.prototype.seek = null;
 
 /**
- * timestamp of the new point on the timeline of the video after the user seeks 
+ * timestamp of the new point on the timeline of the video after the user seeks
  *
  * @var int
  */

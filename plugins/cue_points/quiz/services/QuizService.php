@@ -73,7 +73,7 @@ class QuizService extends KalturaBaseService
 	private function validateAndUpdateQuizData( entry $dbEntry, KalturaQuiz $quiz, $currentVersion = 0, kQuiz $newQuiz = null )
 	{
 		if ( !kEntitlementUtils::isEntitledForEditEntry($dbEntry) ) {
-			KalturaLog::debug('Update quiz allowed only with admin KS or entry owner or co-editor');
+			KalturaLog::debug('Update quiz allowed only with admin HS or entry owner or co-editor');
 			throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID);
 		}
 		$quizData = $quiz->toObject($newQuiz);
@@ -202,9 +202,9 @@ class QuizService extends KalturaBaseService
 		$finalPath .="$quizOutputType";
 		$finalPath .= '/entryId/';
 		$finalPath .="$entryId";
-		$ksObj = $this->getKs();
-		$ksStr = ($ksObj) ? $ksObj->getOriginalString() : null;
-		$finalPath .= "/ks/".$ksStr;
+		$hsObj = $this->getHs();
+		$hsStr = ($hsObj) ? $hsObj->getOriginalString() : null;
+		$finalPath .= "/hs/".$hsStr;
 
 		$partnerId = $this->getPartnerId();
 		$downloadUrl = myPartnerUtils::getCdnHost($partnerId) . $finalPath;

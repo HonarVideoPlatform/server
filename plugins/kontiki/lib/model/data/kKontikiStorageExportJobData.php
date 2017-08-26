@@ -4,7 +4,7 @@
  * @package plugins.kontiki
  * @subpackage model
  * */
-class kKontikiStorageExportJobData extends kStorageExportJobData
+class kKontikiStorageExportJobData extends hStorageExportJobData
 {
 	/**
 	 * Holds the id of the exported asset

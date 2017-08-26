@@ -84,8 +84,8 @@ function createEmailNotification()
 	$toEmailNotificationRecipients = array();
 	
 	$toEmailNotificationRecipient = new kEmailNotificationRecipient();
-	$toEmailNotificationRecipient->setEmail(new kStringValue('kalturasupport@kaltura.com'));
-	$toEmailNotificationRecipient->setName(new kStringValue('Kaltura Customer Care'));
+	$toEmailNotificationRecipient->setEmail(new hStringValue('kalturasupport@kaltura.com'));
+	$toEmailNotificationRecipient->setName(new hStringValue('Kaltura Customer Care'));
 	$toEmailNotificationRecipients[] = $toEmailNotificationRecipient;
 	
 //	$toEmailNotificationEmail = new kEvalStringField();

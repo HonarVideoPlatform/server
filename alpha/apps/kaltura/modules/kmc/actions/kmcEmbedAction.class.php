@@ -49,7 +49,7 @@ class kmcEmbedAction extends kalturaAction
 <param name="flashvars" 
 value="autoPlay=false&layoutId=playlistLight&uid=0&partner_id=1&subp_id=100&
 k_pl_autoContinue=true&k_pl_autoInsertMedia=true&
-k_pl_0_name=test123&k_pl_0_url=http%3A%2F%2Flocalhost%2Findex.php%2Fpartnerservices2%2Fexecuteplaylist%3Fuid%3D%26partner_id%3D1%26subp_id%3D100%26ks%3D%26format%3D8%26playlist_id%3D8nr1l9eoug"
+k_pl_0_name=test123&k_pl_0_url=http%3A%2F%2Flocalhost%2Findex.php%2Fpartnerservices2%2Fexecuteplaylist%3Fuid%3D%26partner_id%3D1%26subp_id%3D100%26hs%3D%26format%3D8%26playlist_id%3D8nr1l9eoug"
 />
 </object>
 

@@ -35,7 +35,7 @@ kmc.functions = {
 			partnerid			: kmc.vars.partner_id,
 			subpid				: kmc.vars.subp_id,
 			uid					: kmc.vars.user_id,
-			ks					: kmc.vars.ks,
+			hs					: kmc.vars.hs,
 			entryId				: "-1",
 			hshowId				: "-1",
 			debugmode			: "true",
@@ -90,7 +90,7 @@ kmc.functions = {
 			userId			: kmc.vars.user_id,
 			partnerid		: kmc.vars.partner_id,
 			subPartnerId	: kmc.vars.subp_id,
-			sessionId		: kmc.vars.ks,
+			sessionId		: kmc.vars.hs,
 			devFlag			: "true",
 			entryId			: "-1",
 			hshow_id		: "-1",
@@ -278,7 +278,7 @@ kmc.utils = {
 	},
 	debug : function() {
 		try{
-			console.info(" ks: ",kmc.vars.ks);
+			console.info(" hs: ",kmc.vars.hs);
 			console.info(" partner_id: ",kmc.vars.partner_id);
 		}
 		catch(err) {}
@@ -514,7 +514,7 @@ kmc.preview_embed = {
 		if( live_bitrates ) { kmc.vars.embed_code_delivery_type = "http"; } // Reset delivery type to http
 		
 		embed_code = kmc.preview_embed.buildKalturaEmbed(id, name, description, is_playlist, uiconf_id);
-		preview_player = embed_code.replace('{FLAVOR}','ks=' + kmc.vars.ks + '&');
+		preview_player = embed_code.replace('{FLAVOR}','hs=' + kmc.vars.hs + '&');
 		embed_code = embed_code.replace('{FLAVOR}','');
 		
 		var modal_content = ((live_bitrates) ? kmc.preview_embed.buildLiveBitrates(name,live_bitrates) : '') +
@@ -615,7 +615,7 @@ kmc.preview_embed = {
 	doFlavorPreview : function(entry_id, entry_name, flavor_details) {
 
 		var player_code = kmc.preview_embed.buildKalturaEmbed(entry_id,entry_name,null,false,kmc.vars.default_kdp);
-		player_code = player_code.replace('&{FLAVOR}', '&flavorId=' + flavor_details.asset_id + '&ks=' + kmc.vars.ks);
+		player_code = player_code.replace('&{FLAVOR}', '&flavorId=' + flavor_details.asset_id + '&hs=' + kmc.vars.hs);
 		
 		var modal_content = player_code + '<dl>' +
 		'<dt>Entry Name:</dt><dd>&nbsp;' + entry_name + '</dd>' +
@@ -655,7 +655,7 @@ kmc.preview_embed = {
 		' height="{HEIGHT}" width="{WIDTH}" frameborder="0">{ALT} {SEO}</iframe>',
 		playlist_flashvars :	'playlistAPI.autoInsert=true&playlistAPI.kpl0Name={PL_NAME}' +
 		'&playlistAPI.kpl0Url=http%3A%2F%2F{HOST}%2Findex.php%2Fpartnerservices2%2Fexecuteplaylist%3Fuid%3D%26' +
-		'partner_id%3D{PARTNER_ID}%26subp_id%3D{PARTNER_ID}00%26format%3D8%26ks%3D%7Bks%7D%26playlist_id%3D{PLAYLIST_ID}',
+		'partner_id%3D{PARTNER_ID}%26subp_id%3D{PARTNER_ID}00%26format%3D8%26hs%3D%7Bhs%7D%26playlist_id%3D{PLAYLIST_ID}',
 		kaltura_links :		'<a href="http://corp.kaltura.com">video platform</a> <a href="http://corp.kaltura.com/video_platform/video_management">' +
 		'video management</a> <a href="http://corp.kaltura.com/solutions/video_solution">video solutions</a> ' +
 		'<a href="http://corp.kaltura.com/video_platform/video_publishing">video player</a>',
@@ -768,7 +768,7 @@ kmc.preview_embed = {
 			data: {
 				"type": type,
 				"partner_id": kmc.vars.partner_id,
-				"ks": kmc.vars.ks
+				"hs": kmc.vars.hs
 				},
 			dataType: "json",
 			success: function(data) {
@@ -836,7 +836,7 @@ kmc.client = {
 		var service_url = kmc.client.buildClientURL("shortlink_shortlink", "list");
 			
 		var data = {
-			"ks"					: kmc.vars.ks,
+			"hs"					: kmc.vars.hs,
 			"format"				: 1,
 			"filter:objectType"		: "KalturaShortLinkFilter",
 			"filter:userIdEqual"	: kmc.vars.user_id,
@@ -866,7 +866,7 @@ kmc.client = {
 		var service_url = kmc.client.buildClientURL("shortlink_shortlink", "add");
 			
 		var data = {
-			"ks"					: kmc.vars.ks, // Set KS
+			"hs"					: kmc.vars.hs, // Set KS
 			"format"				: 1, //format JSON
 			"shortLink:objectType"	: "KalturaShortLink",
 			"shortLink:userId"		: kmc.vars.user_id,
@@ -885,7 +885,7 @@ kmc.client = {
 		var service_url = kmc.client.buildClientURL("shortlink_shortlink", "update");
 			
 		var data = {
-			"ks"					: kmc.vars.ks, // Set KS
+			"hs"					: kmc.vars.hs, // Set KS
 			"format"				: 1, //format JSON
 			"id"					: id,
 			"shortLink:objectType"	: "KalturaShortLink",
@@ -1076,7 +1076,7 @@ kmc.user = {
 		document.cookie = "pid=; expires=" + expiry + "; path=/";
 		document.cookie = "subpid=; expires=" + expiry + "; path=/";
 		document.cookie = "uid=; expires=" + expiry + "; path=/";
-		document.cookie = "kmcks=; expires=" + expiry + "; path=/";
+		document.cookie = "kmchs=; expires=" + expiry + "; path=/";
 		document.cookie = "screen_name=; expires=" + expiry + "; path=/";
 		document.cookie = "email=; expires=" + expiry + "; path=/";
 		var state = kmc.mediator.readUrlHash();
@@ -1084,7 +1084,7 @@ kmc.user = {
 			url: location.protocol + "//" + location.hostname + "/index.php/kmc/logout",
 			type: "POST",
 			data: {
-				"ks": kmc.vars.ks
+				"hs": kmc.vars.hs
 				},
 			dataType: "json",
 			complete: function() {
@@ -1172,7 +1172,7 @@ kmc.user = {
 
 		$("#do_change_partner").click(function() {
 			var pid = $('input[name=pid]:radio:checked').val();
-			var url = '/index.php/kmc/extlogin?ks=' + kmc.vars.ks + '&partner_id=' + pid;
+			var url = '/index.php/kmc/extlogin?hs=' + kmc.vars.hs + '&partner_id=' + pid;
 			window.location.href = url;
 		});
 

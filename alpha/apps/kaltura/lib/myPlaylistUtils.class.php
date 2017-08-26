@@ -18,13 +18,13 @@ class myPlaylistUtils
 
 	private static $user_cache = null;
 	
-	private static $isAdminKs = false;
+	private static $isAdminHs = false;
 	
 	private static $playlistContext;
 	
-	public static function setIsAdminKs($v)
+	public static function setIsAdminHs($v)
 	{
-		self::$isAdminKs = $v;
+		self::$isAdminHs = $v;
 	}
 
 	/**
@@ -309,7 +309,7 @@ class myPlaylistUtils
 		$filter->attachToCriteria($c);
 		
 		
-		if (!self::$isAdminKs)
+		if (!self::$isAdminHs)
 		{
 			self::addSchedulingToCriteria($c, $entry_filter);
 		}
@@ -592,7 +592,7 @@ class myPlaylistUtils
 */
 			}
 			
-			if (!self::$isAdminKs)
+			if (!self::$isAdminHs)
 			{
 				self::addSchedulingToCriteria($c, $entry_filter);
 			}
@@ -754,7 +754,7 @@ HTML;
 		{
 			$playlist_url = urlencode ( $host . "/index.php/partnerservices2/executeplaylist?" .
 				"uid={$uid}&partner_id={$partner_id}&subp_id={$subp_id}&format=8&" .   // make sure the format is 8 - mRss
-				"ks={ks}&" .   
+				"hs={hs}&" .   
 				self::toQueryString( $playlist , false ) ); 
 		}
 		
@@ -775,7 +775,7 @@ HTML;
 		$playlist_url = 
 			$host . "/index.php/partnerservices2/executeplaylist?format=8&" .
 //				"uid={uid}&partner_id={partnerid}&subp_id={subpid}&" .   // make sure the format is 8 - mRss
-				"ks={ks}&" .   
+				"hs={hs}&" .   
 				self::toQueryString( $playlist , false ) ; 		
 		return 	$playlist_url;			
 	}
@@ -796,7 +796,7 @@ HTML;
 		$entry_filters = array();
 		$partner_id = $playlist->getPartnerId(); 
 		
-		// add ks=_KS_ for the playlist to replace it before hitting the executePlaylist 
+		// add hs=_HS_ for the playlist to replace it before hitting the executePlaylist 
 		$query .= "&fp=f"; // make sure the filter prefix is short
 		
 		if ( ! $list_of_filters ) return $query;

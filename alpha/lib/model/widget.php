@@ -13,7 +13,7 @@ class widget extends Basewidget implements IBaseObject
 	const WIDGET_SECURITY_TYPE_NONE = 1;
 	const WIDGET_SECURITY_TYPE_TIMEHASH = 2;
 	const WIDGET_SECURITY_TYPE_MATCH_IP = 3;
-	const WIDGET_SECURITY_TYPE_FORCE_KS = 4;	
+	const WIDGET_SECURITY_TYPE_FORCE_HS = 4;	
 
 	const WIDGET_SECURITY_POLICY_NONE = 1;
 	const WIDGET_SECURITY_POLICY_ROOT= 2; // security_type is always the same as the root widget's and can never be modified  
@@ -163,7 +163,7 @@ class widget extends Basewidget implements IBaseObject
 		$dc = kDataCenterMgr::getCurrentDc();
 		for ( $i = 0 ; $i < 10 ; ++$i)
 		{
-			$id = $dc["id"].'_'.kString::generateStringId();
+			$id = $dc["id"].'_'.hString::generateStringId();
 			$existing_widget = widgetPeer::retrieveByPKNoFilter( $id );
 			
 			if ( ! $existing_widget ) return $id;

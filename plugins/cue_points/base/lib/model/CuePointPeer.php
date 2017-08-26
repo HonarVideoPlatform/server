@@ -54,8 +54,8 @@ class CuePointPeer extends BaseCuePointPeer implements IMetadataPeer, IRelatedOb
 
 		if (self::$userContentOnly)
 		{
-			$puserId = kCurrentContext::$ks_uid;
-			$partnerId = kCurrentContext::$ks_partner_id;
+			$puserId = kCurrentContext::$hs_uid;
+			$partnerId = kCurrentContext::$hs_partner_id;
 			if ($puserId && $partnerId)
 			{
 				$kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, $puserId);
@@ -79,10 +79,10 @@ class CuePointPeer extends BaseCuePointPeer implements IMetadataPeer, IRelatedOb
 						Criteria::IN
 					)
 				);
-				$ks = kCurrentContext::$ks_object;
-				if ($ks)
+				$hs = kCurrentContext::$hs_object;
+				if ($hs)
 				{
-					$values = $ks->getPrivilegeValues(ks::PRIVILEGE_LIST);
+					$values = $hs->getPrivilegeValues(hs::PRIVILEGE_LIST);
 					if ($values && count($values) > 0)
 						$criteria->addOr($c->getNewCriterion(CuePointPeer::ENTRY_ID, $values[0], Criteria::EQUAL));
 				}
@@ -134,11 +134,11 @@ class CuePointPeer extends BaseCuePointPeer implements IMetadataPeer, IRelatedOb
 	{
 		if (!empty($selectResults) && self::$userContentOnly)
 		{
-			$ks = kCurrentContext::$ks_object;
+			$hs = kCurrentContext::$hs_object;
 			$privilagedEntryId = null;
-			if ($ks)
+			if ($hs)
 			{
-				$values = $ks->getPrivilegeValues(ks::PRIVILEGE_LIST);
+				$values = $hs->getPrivilegeValues(hs::PRIVILEGE_LIST);
 				if ($values && count($values) > 0)
 					$privilagedEntryId = $values[0];
 			}
@@ -147,9 +147,9 @@ class CuePointPeer extends BaseCuePointPeer implements IMetadataPeer, IRelatedOb
 			foreach ($selectResults as $key => $cuePoint)
 			{
 				/* @var $cuePoint CuePoint */
-				if (kCurrentContext::$ks_uid && $cuePoint->getPuserId() !== kCurrentContext::$ks_uid && !$cuePoint->getIsPublic() && $cuePoint->getEntryId() != $privilagedEntryId)
+				if (kCurrentContext::$hs_uid && $cuePoint->getPuserId() !== kCurrentContext::$hs_uid && !$cuePoint->getIsPublic() && $cuePoint->getEntryId() != $privilagedEntryId)
 				{
-					KalturaLog::warning("Filtering cuePoint select result with the following: [ks_uid -" . kCurrentContext::$ks_uid . "] [puserId - " . $cuePoint->getPuserId() . "] [isPublic - " . $cuePoint->getIsPublicStr() . "] [cuepointEntryId -  " . $cuePoint->getEntryId() . "] [privilagedEntryId - " . $privilagedEntryId . "] ");
+					KalturaLog::warning("Filtering cuePoint select result with the following: [hs_uid -" . kCurrentContext::$hs_uid . "] [puserId - " . $cuePoint->getPuserId() . "] [isPublic - " . $cuePoint->getIsPublicStr() . "] [cuepointEntryId -  " . $cuePoint->getEntryId() . "] [privilagedEntryId - " . $privilagedEntryId . "] ");
 					unset($selectResults[$key]);
 					$removedRecordsCount++;
 				}

@@ -18,7 +18,7 @@ class serveFlavorAction extends kalturaAction
 
 		$pathPrefix = kConf::get('serve_flavor_path_search_prefix', 'local', '');
 		if ($pathPrefix &&
-			kString::beginsWith($fullPath, $pathPrefix) &&
+			hString::beginsWith($fullPath, $pathPrefix) &&
 			$this->pathOnly)
 		{
 			$pathReplace = kConf::get('serve_flavor_path_replace');
@@ -390,7 +390,7 @@ class serveFlavorAction extends kalturaAction
 
 	public function execute()
 	{
-		//entitlement should be disabled to serveFlavor action as we do not get ks on this action.
+		//entitlement should be disabled to serveFlavor action as we do not get hs on this action.
 		KalturaCriterion::disableTag(KalturaCriterion::TAG_ENTITLEMENT_CATEGORY);
 		
 		requestUtils::handleConditionalGet();

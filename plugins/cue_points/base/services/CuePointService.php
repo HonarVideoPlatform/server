@@ -39,14 +39,14 @@ class CuePointService extends KalturaBaseService
 			$this->applyPartnerFilterForClass('CuePoint');
 		}
 
-		$ks = $this->getKs();
+		$hs = $this->getHs();
 		// when session is not admin, allow access to user entries only
-		if (!$ks || (!$ks->isAdmin() && !$ks->verifyPrivileges(ks::PRIVILEGE_LIST, ks::PRIVILEGE_WILDCARD))) {
+		if (!$hs || (!$hs->isAdmin() && !$hs->verifyPrivileges(hs::PRIVILEGE_LIST, hs::PRIVILEGE_WILDCARD))) {
 			KalturaCriterion::enableTag(KalturaCriterion::TAG_USER_SESSION);
 			CuePointPeer::setUserContentOnly(true);
 		}
 		
-		if (!$ks || $ks->isAnonymousSession())
+		if (!$hs || $hs->isAnonymousSession())
 		{
 			KalturaCriterion::enableTag(KalturaCriterion::TAG_WIDGET_SESSION);
 		}
@@ -66,8 +66,8 @@ class CuePointService extends KalturaBaseService
 	{
 		$dbCuePoint = $cuePoint->toInsertableObject();
 
-		// check if we have a limitEntry set on the KS, and if so verify that it is the same entry we work on
-		$limitEntry = $this->getKs()->getLimitEntry();
+		// check if we have a limitEntry set on the HS, and if so verify that it is the same entry we work on
+		$limitEntry = $this->getHs()->getLimitEntry();
 		if ($limitEntry && $limitEntry != $cuePoint->entryId)
 		{
 			throw new KalturaAPIException(KalturaCuePointErrors::NO_PERMISSION_ON_ENTRY, $cuePoint->entryId);
@@ -259,8 +259,8 @@ class CuePointService extends KalturaBaseService
 		if($this->getCuePointType() && $dbCuePoint->getType() != $this->getCuePointType())
 			throw new KalturaAPIException(KalturaCuePointErrors::INVALID_CUE_POINT_ID, $id);
 
-		// check if we have a limitEntry set on the KS, and if so verify that it is the same entry we work on
-		$limitEntry = $this->getKs()->getLimitEntry();
+		// check if we have a limitEntry set on the HS, and if so verify that it is the same entry we work on
+		$limitEntry = $this->getHs()->getLimitEntry();
 		if ($limitEntry && $limitEntry != $dbCuePoint->getEntryId())
 		{
 			throw new KalturaAPIException(KalturaCuePointErrors::NO_PERMISSION_ON_ENTRY, $dbCuePoint->getEntryId());
@@ -314,18 +314,18 @@ class CuePointService extends KalturaBaseService
 	private function validateUserLog($dbObject)
 	{
 		$log = 'validateUserLog: action ['.$this->actionName.'] client tag ['.kCurrentContext::$client_lang.'] ';
-		if (!$this->getKs()){
-			$log = $log.'Error: No KS ';
+		if (!$this->getHs()){
+			$log = $log.'Error: No HS ';
 			KalturaLog::err($log);
 			return;
 		}		
 
-		$log = $log.'ks ['.$this->getKs()->getOriginalString().'] ';
+		$log = $log.'hs ['.$this->getHs()->getOriginalString().'] ';
 		// if admin always allowed
 		if (kCurrentContext::$is_admin_session)
 			return;
 
-		if (strtolower($dbObject->getPuserId()) != strtolower(kCurrentContext::$ks_uid)) 
+		if (strtolower($dbObject->getPuserId()) != strtolower(kCurrentContext::$hs_uid)) 
 		{
 			$log = $log.'Error: User not an owner ';
 			KalturaLog::err($log);
@@ -385,7 +385,7 @@ class CuePointService extends KalturaBaseService
 		if (CuePointPeer::getUserContentOnly())
 		{
 			$entryFilter = $filter->entryIdEqual ? $filter->entryIdEqual : $filter->entryIdIn;
-			if($entryFilter && $this->getKs()->verifyPrivileges(ks::PRIVILEGE_LIST, $entryFilter))
+			if($entryFilter && $this->getHs()->verifyPrivileges(hs::PRIVILEGE_LIST, $entryFilter))
 				CuePointPeer::setUserContentOnly(false);
 		}
 	}

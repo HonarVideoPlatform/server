@@ -75,7 +75,7 @@ function moveJob(BatchJob $job, BatchJobLock $jobLock, $sourceDc, $targetDc)
 		return false;		// unexpected - multiple sources for convert
 	}
 	$srcFileSync = reset($srcFileSyncs);
-	/* @var $srcFileSync kSourceFileSyncDescriptor */
+	/* @var $srcFileSync hSourceFileSyncDescriptor */
 	$sourceAsset = assetPeer::retrieveById($srcFileSync->getAssetId());
 	if (!$sourceAsset)
 	{

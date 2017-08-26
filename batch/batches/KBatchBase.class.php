@@ -9,7 +9,7 @@ abstract class KBatchBase implements IKalturaLogger
 	const PRIVILEGE_BATCH_JOB_TYPE = "jobtype";
 	
 	/**
-	 * @var KSchedularTaskConfig
+	 * @var HSchedularTaskConfig
 	 */
 	public static $taskConfig;
 
@@ -205,13 +205,13 @@ abstract class KBatchBase implements IKalturaLogger
 	}
 
 	/**
-	 * @param KSchedularTaskConfig $taskConfig
+	 * @param HSchedularTaskConfig $taskConfig
 	 */
 	public function __construct($taskConfig = null)
 	{
 		/*
 		 *  argv[0] - the script name
-		 *  argv[1] - serialized KSchedulerConfig config
+		 *  argv[1] - serialized HSchedulerConfig config
 		 */
 		global $argv, $g_context;
 
@@ -238,9 +238,9 @@ abstract class KBatchBase implements IKalturaLogger
 		KalturaLog::stderr('___________________________________________________________________________________', KalturaLog::DEBUG);
 		KalturaLog::info(file_get_contents(dirname( __FILE__ ) . "/../VERSION.txt"));
 
-		if(! (self::$taskConfig instanceof KSchedularTaskConfig))
+		if(! (self::$taskConfig instanceof HSchedularTaskConfig))
 		{
-			KalturaLog::err('config is not a KSchedularTaskConfig');
+			KalturaLog::err('config is not a HSchedularTaskConfig');
 			die;
 		}
 
@@ -267,15 +267,15 @@ abstract class KBatchBase implements IKalturaLogger
 		self::$clientTag = 'batch: ' . self::$taskConfig->getSchedulerName() . ' ' . get_class($this) . " index: {$this->getIndex()} sessionId: " . UniqueId::get();
 		self::$kClient->setClientTag(self::$clientTag);
 		
-		//$ks = self::$kClient->session->start($secret, "user-2", KalturaSessionType::ADMIN);
-		$ks = $this->createKS();
-		self::$kClient->setKs($ks);
+		//$hs = self::$kClient->session->start($secret, "user-2", KalturaSessionType::ADMIN);
+		$hs = $this->createHS();
+		self::$kClient->setHs($hs);
 
 		KDwhClient::setEnabled(self::$taskConfig->getDwhEnabled());
 		KDwhClient::setFileName(self::$taskConfig->getDwhPath());
 		$this->onBatchUp();
 
-		KScheduleHelperManager::saveRunningBatch($this->getName(), $this->getIndex());
+		HScheduleHelperManager::saveRunningBatch($this->getName(), $this->getIndex());
 	}
 
 	protected function getParams($name)
@@ -302,7 +302,7 @@ abstract class KBatchBase implements IKalturaLogger
 	/**
 	 * @return string
 	 */
-	private function createKS()
+	private function createHS()
 	{
 		$partnerId = self::$taskConfig->getPartnerId();
 		$sessionType = KalturaSessionType::ADMIN;
@@ -494,7 +494,7 @@ abstract class KBatchBase implements IKalturaLogger
 	public function __destruct()
 	{
 		$this->onBatchDown();
-		KScheduleHelperManager::unlinkRunningBatch($this->getName(), $this->getIndex());
+		HScheduleHelperManager::unlinkRunningBatch($this->getName(), $this->getIndex());
 	}
 
 	/**
@@ -504,7 +504,7 @@ abstract class KBatchBase implements IKalturaLogger
 	{
 		$type = self::$taskConfig->type;
 		$file = "$type.cmd";
-		KScheduleHelperManager::saveCommand($file, $commands);
+		HScheduleHelperManager::saveCommand($file, $commands);
 	}
 
 	/**

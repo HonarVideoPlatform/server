@@ -201,12 +201,12 @@ class defPartnerservices2baseAction extends kalturaAction
 
 		$params = $_GET + $_POST;
 		
-		$ks = isset($params['ks']) ? $params['ks'] : '';
-		if ($ks)
+		$hs = isset($params['hs']) ? $params['hs'] : '';
+		if ($hs)
 		{ 
-			$ksData = $this->getKsData($ks);
-			$uid = @$ksData["userId"];
-			$validUntil = @$ksData["validUntil"];
+			$hsData = $this->getHsData($hs);
+			$uid = @$hsData["userId"];
+			$validUntil = @$hsData["validUntil"];
 		}
 		else
 		{
@@ -220,14 +220,14 @@ class defPartnerservices2baseAction extends kalturaAction
 		if ($uid != "0" && $uid != "" && !$isStartSession)
 			return;
 	
-		unset($params['ks']);
+		unset($params['hs']);
 		unset($params['kalsig']);
 		$params['uri'] = $_SERVER['PATH_INFO'];
 		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
 			$params['__protocol'] = 'https';
 		else 	
 			$params['__protocol'] = 'http';
-		ksort($params);
+		hsort($params);
 		
 		$keys = array_keys($params);
 		$key = md5(implode("|", $params).implode("|", $keys));
@@ -244,18 +244,18 @@ class defPartnerservices2baseAction extends kalturaAction
 		$this->getResponse()->setHttpHeader ( $hdr_name , $hdr_value  );
 	}
 	
-	private function getKsData($ks)
+	private function getHsData($hs)
 	{
 		$partnerId = null;
 		$userId = null;
 		$validUntil = null;
 		
-		$ksObj = hSessionBase::getKSObject($ks);
-		if ($ksObj)
+		$hsObj = hSessionBase::getHSObject($hs);
+		if ($hsObj)
 		{
-			$partnerId = $ksObj->partner_id;
-			$userId = $ksObj->user;
-			$validUntil = $ksObj->valid_until;
+			$partnerId = $hsObj->partner_id;
+			$userId = $hsObj->user;
+			$validUntil = $hsObj->valid_until;
 		}
 		
 		return array("partnerId" => $partnerId, "userId" => $userId, "validUntil" => $validUntil );

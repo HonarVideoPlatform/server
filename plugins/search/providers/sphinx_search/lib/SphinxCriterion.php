@@ -71,7 +71,7 @@ class SphinxCriterion extends KalturaCriterion implements IKalturaIndexQuery
 		$fieldsEscapeType = $obejctClass::getSearchFieldsEscapeType($sphinxField);
 		
 		$partnerId = kCurrentContext::getCurrentPartnerId();
-		$notEmpty = kSphinxSearchManager::HAS_VALUE . $partnerId;
+		$notEmpty = hSphinxSearchManager::HAS_VALUE . $partnerId;
 		
 		switch($comparison)
 		{
@@ -83,7 +83,7 @@ class SphinxCriterion extends KalturaCriterion implements IKalturaIndexQuery
 					return "@$sphinxField \\\"^$value$\\\"";
 				
 			case Criteria::ISNULL:
-				$isEmpty = kSphinxSearchManager::HAS_NO_VALUE . $partnerId;
+				$isEmpty = hSphinxSearchManager::HAS_NO_VALUE . $partnerId;
 				return "@$sphinxField $isEmpty";
 				
 			case Criteria::ISNOTNULL:

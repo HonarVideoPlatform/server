@@ -21,7 +21,7 @@ abstract class kUrlTokenizer
 	/**
 	 * @var hSessionBase
 	 */
-	protected $ksObject;
+	protected $hsObject;
 	
 	/**
 	 * @var bool
@@ -105,10 +105,10 @@ abstract class kUrlTokenizer
 	}
 
 	/**
-	 * @param hSessionBase $ksObject
+	 * @param hSessionBase $hsObject
 	 */
-	public function setKsObject($ksObject) {
-		$this->ksObject = $ksObject;
+	public function setHsObject($hsObject) {
+		$this->hsObject = $hsObject;
 	}
 
 	/**

@@ -46,7 +46,7 @@ class contributionWidgetJSAction extends kalturaAction
 		
 		$result = $kaltura_services->internalExecute() ;
 		
-		$this->ks = @$result["result"]["ks"];
+		$this->hs = @$result["result"]["hs"];
 		$this->widget_host = requestUtils::getHost();
 		$this->hshow_id = $hshow_id;
 		$this->uid = $uid;

@@ -6,7 +6,7 @@
 class kHttpNotificationDataText extends kHttpNotificationData
 {
 	/**
-	 * @var kStringValue
+	 * @var hStringValue
 	 */
 	protected $content;
 	
@@ -17,7 +17,7 @@ class kHttpNotificationDataText extends kHttpNotificationData
 	protected $data;
 	
 	/**
-	 * @return kStringValue $content
+	 * @return hStringValue $content
 	 */
 	public function getContent()
 	{
@@ -25,9 +25,9 @@ class kHttpNotificationDataText extends kHttpNotificationData
 	}
 
 	/**
-	 * @param kStringValue $content
+	 * @param hStringValue $content
 	 */
-	public function setContent(kStringValue $content)
+	public function setContent(hStringValue $content)
 	{
 		$this->content = $content;
 	}
@@ -35,9 +35,9 @@ class kHttpNotificationDataText extends kHttpNotificationData
 	/* (non-PHPdoc)
 	 * @see kHttpNotificationData::setScope()
 	 */
-	public function setScope(kScope $scope)
+	public function setScope(hScope $scope)
 	{
-		if($this->content instanceof kStringField)
+		if($this->content instanceof hStringField)
 			$this->content->setScope($scope);
 			
 		$this->data = $this->content->getValue();

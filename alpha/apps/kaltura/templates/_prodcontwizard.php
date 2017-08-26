@@ -1,7 +1,7 @@
 <?php
 	$host = requestUtils::getHost() ;
 	$recorderUrl = "";
-	if ( ! kString::beginsWith( $host , "http://www.kaltura.com" ) )
+	if ( ! hString::beginsWith( $host , "http://www.kaltura.com" ) )
 	{ 
 		$rtmp_host = str_replace ( "http:" , "rtmp:" , $host );
 		$recorderUrl = "Red5ServerURL=$rtmp_host/oflaDemo&"; 

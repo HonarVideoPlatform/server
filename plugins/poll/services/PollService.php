@@ -3,7 +3,7 @@
 /**
  * Poll service
  *
- * The poll service works against the cache entirely no DB instance should be used here
+ * The poll service worhs against the cache entirely no DB instance should be used here
  *
  * @service poll
  * @package plugins.poll
@@ -135,8 +135,8 @@ class PollService extends KalturaBaseService
 		try
 		{
 			$pollActions = new PollActions();
-			$ksUserId = kCurrentContext::$uid;
-			$pollActions->setVote($pollId, $userId,$ksUserId ,$answerIds);
+			$hsUserId = kCurrentContext::$uid;
+			$pollActions->setVote($pollId, $userId,$hsUserId ,$answerIds);
 		}
 		catch (Exception $e)
 		{
@@ -154,9 +154,9 @@ class PollService extends KalturaBaseService
 	public function getVoteAction($pollId, $userId)
 	{
 		KalturaResponseCacher::disableCache();
-		$ksUserId = kCurrentContext::$uid;
+		$hsUserId = kCurrentContext::$uid;
 		$pollActions = new PollActions();
-		return $pollActions->doGetVote($pollId, $userId, $ksUserId);
+		return $pollActions->doGetVote($pollId, $userId, $hsUserId);
 	}
 
 	/**

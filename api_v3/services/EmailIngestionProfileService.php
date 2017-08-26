@@ -229,7 +229,7 @@ class EmailIngestionProfileService extends KalturaEntryService
 				"entry_tags" => $dbEntry->getTags(),
 			);
 	
-			$token = $this->getKsUniqueString();
+			$token = $this->getHsUniqueString();
 			$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 			$insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 			$insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);

@@ -235,8 +235,8 @@ class lime_test
 
     if (is_array($var1))
     {
-      ksort($var1);
-      ksort($var2);
+      hsort($var1);
+      hsort($var2);
       if (array_diff(array_keys($var1), array_keys($var2)))
       {
         return false;
@@ -639,7 +639,7 @@ EOF;
     }
     unlink($tmp_file);
 
-    ksort($coverage);
+    hsort($coverage);
     $total_php_lines = 0;
     $total_covered_lines = 0;
     foreach ($this->files as $file)

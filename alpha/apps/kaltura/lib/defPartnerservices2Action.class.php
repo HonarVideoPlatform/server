@@ -36,7 +36,7 @@ abstract class defPartnerservices2Action //extends kalturaBaseWebserviceAction
 	private $error;
 	private $debug;
 
-	protected $ks;
+	protected $hs;
 
 	protected $response_context = null;
 
@@ -117,9 +117,9 @@ abstract class defPartnerservices2Action //extends kalturaBaseWebserviceAction
 
 	protected function isAdmin()
 	{
-		// in case there is no ks - return false
-		if ( $this->ks )
-			return $this->ks->isAdmin();
+		// in case there is no hs - return false
+		if ( $this->hs )
+			return $this->hs->isAdmin();
 		return false;
 	}
 	
@@ -167,7 +167,7 @@ public function INFO__allowEmptyPuser () { return $this->allowEmptyPuser (); }
 
 	protected function verifyPrivileges ( $priv_name , $priv_value = null  )
 	{
-		$matched_privs = $this->ks->verifyPrivileges ( $priv_name , $priv_value  );
+		$matched_privs = $this->hs->verifyPrivileges ( $priv_name , $priv_value  );
 		$this->logMessage( "verifyPrivileges name [$priv_name], priv [$priv_value] [$matched_privs]" );		
 
 		if ( ! $matched_privs )
@@ -280,8 +280,8 @@ $this->benchmarkStart( "beforeImpl" );
 			$subp_id = $this->getP ( "subpId");
 			
 		$puser_id = $this->getP ( "uid" );
-		$ks_str = $this->getP ( "ks" );
-		if ( $ks_str == "{ks}" )  $ks_str = ""; // if the client DIDN'T replace the dynamic ks - ignore it 
+		$hs_str = $this->getP ( "hs" );
+		if ( $hs_str == "{hs}" )  $hs_str = ""; // if the client DIDN'T replace the dynamic hs - ignore it 
 		
 		// the $execution_cache_key can be used by services to cache the results depending on the inpu parameters
 		// if the $execution_cache_key is not null, the rendere will search for the result of the rendering depending on the $execution_cache_key
@@ -297,7 +297,7 @@ $this->benchmarkStart( "beforeImpl" );
 		{
 			try
 			{
-				$arr = list ( $partner_id , $subp_id , $uid , $private_partner_data ) = $this->validateTicketSetPartner ( $partner_id , $subp_id , $puser_id , $ks_str );
+				$arr = list ( $partner_id , $subp_id , $uid , $private_partner_data ) = $this->validateTicketSetPartner ( $partner_id , $subp_id , $puser_id , $hs_str );
 			}
 			catch (Exception $ex)
 			{
@@ -484,16 +484,16 @@ $this->benchmarkStart( "beforeImpl" );
 
 	 * validataTicketSetPartner
 	 * 
-	 * if the is a ks_str - 
+	 * if the is a hs_str - 
 	 * 1. crack down the ticket 
 	 * 2. extract partner_id
 	 * 3. retrieve partner
 	 * 4. validate ticket per service for the ticket's partner
 	 * 5. see partner is allowed to access the desired partner (if himself - easy, else - should appear in the partnerGroup)
-	 * 6. set the partner to be the desired partner and the operating_partner to be the one from the ks 
+	 * 6. set the partner to be the desired partner and the operating_partner to be the one from the hs 
 	 * 7. if ok - return the partner_id to be used from this point onwards 
 	 * 
-	 * if there is not a ks_str 
+	 * if there is not a hs_str 
 	 * 1. extract partner by partner_id
 	 * 2. retrieve partner
 	 * 3. make sure the service can be accessed with no ticket 
@@ -503,41 +503,41 @@ $this->benchmarkStart( "beforeImpl" );
 	 */
 	// TODO - what about the puser_id in this case ?? - shold create some 'guest-<operating_partner_id> ? 
 	// should take the uid as-is assuming it's from the partner_id that is being impostured ?? 
-	private function validateTicketSetPartner ( $partner_id , $subp_id , $puser_id , $ks_str )
+	private function validateTicketSetPartner ( $partner_id , $subp_id , $puser_id , $hs_str )
 	{
-		if ( $ks_str )
+		if ( $hs_str )
 		{
-			// 	1. crack the ks - 
-			$ks = hSessionUtils::crackKs ( $ks_str );
+			// 	1. crack the hs - 
+			$hs = hSessionUtils::crackHs ( $hs_str );
 			
 			// 2. extract partner_id
-			$ks_partner_id= $ks->partner_id;
-			$master_partner_id = $ks->master_partner_id;
+			$hs_partner_id= $hs->partner_id;
+			$master_partner_id = $hs->master_partner_id;
 			if(!$master_partner_id)
-				$master_partner_id = $ks_partner_id;
+				$master_partner_id = $hs_partner_id;
 
-			if ( ! $partner_id ) $partner_id = $ks_partner_id;
-			// use the user from the ks if not explicity set 
-			if ( ! $puser_id ) $puser_id = $ks->user;
+			if ( ! $partner_id ) $partner_id = $hs_partner_id;
+			// use the user from the hs if not explicity set 
+			if ( ! $puser_id ) $puser_id = $hs->user;
 			
-			kCurrentContext::$ks = $ks_str;
+			kCurrentContext::$hs = $hs_str;
 			kCurrentContext::$partner_id = $partner_id;
-			kCurrentContext::$ks_partner_id = $ks_partner_id;
+			kCurrentContext::$hs_partner_id = $hs_partner_id;
 			kCurrentContext::$master_partner_id = $master_partner_id;
 			kCurrentContext::$uid = $puser_id;
-			kCurrentContext::$ks_uid = $ks->user;
+			kCurrentContext::$hs_uid = $hs->user;
 
 			// 3. retrieve partner
-			$ks_partner = PartnerPeer::retrieveByPK( $ks_partner_id );
-			// the service_confgi is assumed to be the one of the operating_partner == ks_partner
+			$hs_partner = PartnerPeer::retrieveByPK( $hs_partner_id );
+			// the service_confgi is assumed to be the one of the operating_partner == hs_partner
 
-			if ( ! $ks_partner )
+			if ( ! $hs_partner )
 			{
-				$this->addException( APIErrors::UNKNOWN_PARTNER_ID , $ks_partner_id );
+				$this->addException( APIErrors::UNKNOWN_PARTNER_ID , $hs_partner_id );
 			}
 			
-			$this->setServiceConfigFromPartner( $ks_partner );
-			if ( $ks_partner && ! $ks_partner->getStatus() )
+			$this->setServiceConfigFromPartner( $hs_partner );
+			if ( $hs_partner && ! $hs_partner->getStatus() )
 			{
 				$this->addException( APIErrors::SERVICE_FORBIDDEN_PARTNER_DELETED );
 			}
@@ -552,39 +552,39 @@ $this->benchmarkStart( "beforeImpl" );
 			
 			if ( $this->force_ticket_check && $ticket_type != hSessionUtils::REQUIED_TICKET_NONE )
 			{
-				// TODO - which user is this ? from the ks ? from the puser_id ? 
-				$ks_puser_id = $ks->user;
-				//$ks = null;
-				$res = hSessionUtils::validateHSession2 ( $ticket_type , $ks_partner_id , $ks_puser_id , $ks_str , $ks );
+				// TODO - which user is this ? from the hs ? from the puser_id ? 
+				$hs_puser_id = $hs->user;
+				//$hs = null;
+				$res = hSessionUtils::validateHSession2 ( $ticket_type , $hs_partner_id , $hs_puser_id , $hs_str , $hs );
 
 				if ( 0 >= $res )
 				{
 					// chaned this to be an exception rather than an error
-					$this->addException ( APIErrors::INVALID_KS , $ks_str , $res , ks::getErrorStr( $res ));
+					$this->addException ( APIErrors::INVALID_HS , $hs_str , $res , hs::getErrorStr( $res ));
 				}
-				$this->ks = $ks;
+				$this->hs = $hs;
 			}
-			elseif ($ticket_type == hSessionUtils::REQUIED_TICKET_NONE && $ks_str) // ticket is not required but we have ks
+			elseif ($ticket_type == hSessionUtils::REQUIED_TICKET_NONE && $hs_str) // ticket is not required but we have hs
 			{
-				$ks_puser_id = $ks->user;
-				$res = hSessionUtils::validateHSession2 ( $ticket_type , $ks_partner_id , $ks_puser_id , $ks_str , $ks );
+				$hs_puser_id = $hs->user;
+				$res = hSessionUtils::validateHSession2 ( $ticket_type , $hs_partner_id , $hs_puser_id , $hs_str , $hs );
 				if ( $res > 0)
 				{
-					$this->ks = $ks;
+					$this->hs = $hs;
 				}
 			}
 			// 5. see partner is allowed to access the desired partner (if himself - easy, else - should appear in the partnerGroup)
-			$allow_access = myPartnerUtils::allowPartnerAccessPartner ( $ks_partner_id , $this->partnerGroup2() , $partner_id );
+			$allow_access = myPartnerUtils::allowPartnerAccessPartner ( $hs_partner_id , $this->partnerGroup2() , $partner_id );
 			if ( ! $allow_access )
 			{
-				$this->addException( APIErrors::PARTNER_ACCESS_FORBIDDEN , $ks_partner_id , $partner_id ); 
+				$this->addException( APIErrors::PARTNER_ACCESS_FORBIDDEN , $hs_partner_id , $partner_id ); 
 			}
 			
-			// 6. set the partner to be the desired partner and the operating_partner to be the one from the ks
+			// 6. set the partner to be the desired partner and the operating_partner to be the one from the hs
 			$this->partner = PartnerPeer::retrieveByPK( $partner_id );
-			$this->operating_partner = $ks_partner;
-			// the config is that of the ks_partner NOT of the partner
-			// $this->setServiceConfigFromPartner( $ks_partner ); - was already set above to extract the ks
+			$this->operating_partner = $hs_partner;
+			// the config is that of the hs_partner NOT of the partner
+			// $this->setServiceConfigFromPartner( $hs_partner ); - was already set above to extract the hs
 			// TODO - should change  service_config to be the one of the partner_id ?? 
 
 			// 7. if ok - return the partner_id to be used from this point onwards 
@@ -592,7 +592,7 @@ $this->benchmarkStart( "beforeImpl" );
 		}
 		else
 		{
-			// no ks_str
+			// no hs_str
 	 		// 1. extract partner by partner_id +
 			// 2. retrieve partner
 	 		$this->partner = PartnerPeer::retrieveByPK( $partner_id );
@@ -614,11 +614,11 @@ $this->benchmarkStart( "beforeImpl" );
 				$this->addException( APIErrors::SERVICE_FORBIDDEN_PARTNER_DELETED );
 			}
 
-			kCurrentContext::$ks = null;
+			kCurrentContext::$hs = null;
 			kCurrentContext::$partner_id = $partner_id;
-			kCurrentContext::$ks_partner_id = null;
+			kCurrentContext::$hs_partner_id = null;
 			kCurrentContext::$uid = $puser_id;
-			kCurrentContext::$ks_uid = null;
+			kCurrentContext::$hs_uid = null;
 			
 			
 			// 3. make sure the service can be accessed with no ticket
@@ -641,7 +641,7 @@ $this->benchmarkStart( "beforeImpl" );
 				}
 				
 				// chaned this to be an exception rather than an error
-				$this->addException ( APIErrors::MISSING_KS  );
+				$this->addException ( APIErrors::MISSING_HS  );
 			}
 			
 			// 4. set the partner & operating_partner to be the one-and-only partner of this session
@@ -822,11 +822,11 @@ $this->benchmarkStart( "beforeImpl" );
 		}
 	}
 
-	protected function getKsUniqueString()
+	protected function getHsUniqueString()
 	{
-		if ( $this->ks )
+		if ( $this->hs )
 		{
-			return $this->ks->getUniqueString();
+			return $this->hs->getUniqueString();
 		}
 		else
 		{
@@ -990,7 +990,7 @@ $this->benchmarkStart( "beforeImpl" );
 
 	protected static function signature ( $params , $add_hash = true )
 	{
-		ksort($params);
+		hsort($params);
 		$str = "";
 		foreach ($params as $k => $v)
 		{

@@ -373,7 +373,7 @@ class CaptionAssetService extends KalturaAssetService
 	public function serveByEntryIdAction($entryId, $captionParamId = null)
 	{
 		$entry = null;
-		if (!kCurrentContext::$ks)
+		if (!kCurrentContext::$hs)
 		{
 			$entry = kCurrentContext::initPartnerByEntryId($entryId);
 			
@@ -395,7 +395,7 @@ class CaptionAssetService extends KalturaAssetService
 		if (!$entry)
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
 
-		$securyEntryHelper = new KSecureEntryHelper($entry, kCurrentContext::$ks, null, ContextType::DOWNLOAD);
+		$securyEntryHelper = new HSecureEntryHelper($entry, kCurrentContext::$hs, null, ContextType::DOWNLOAD);
 		$securyEntryHelper->validateForDownload();
 		
 		$captionAsset = null;
@@ -497,7 +497,7 @@ class CaptionAssetService extends KalturaAssetService
 	protected function validateForDownload($captionAssetId)
 	{
 		$captionAsset = null;
-		if (!kCurrentContext::$ks)
+		if (!kCurrentContext::$hs)
 		{
 			$captionAsset = kCurrentContext::initPartnerByAssetId($captionAssetId);
 				
@@ -516,8 +516,8 @@ class CaptionAssetService extends KalturaAssetService
 		if (!$captionAsset || !($captionAsset instanceof CaptionAsset))
 			throw new KalturaAPIException(KalturaCaptionErrors::CAPTION_ASSET_ID_NOT_FOUND, $captionAssetId);
 
-		if (kCurrentContext::$ks_object && 
-			kCurrentContext::$ks_object->verifyPrivileges(CaptionPlugin::KS_PRIVILEGE_CAPTION, $captionAsset->getEntryId()))
+		if (kCurrentContext::$hs_object && 
+			kCurrentContext::$hs_object->verifyPrivileges(CaptionPlugin::HS_PRIVILEGE_CAPTION, $captionAsset->getEntryId()))
 			return $captionAsset;
 		
 		$entry = entryPeer::retrieveByPK($captionAsset->getEntryId());
@@ -527,7 +527,7 @@ class CaptionAssetService extends KalturaAssetService
 			throw new KalturaAPIException(KalturaCaptionErrors::CAPTION_ASSET_ID_NOT_FOUND, $captionAssetId);
 		}
 		
-		$securyEntryHelper = new KSecureEntryHelper($entry, kCurrentContext::$ks, null, ContextType::DOWNLOAD);
+		$securyEntryHelper = new HSecureEntryHelper($entry, kCurrentContext::$hs, null, ContextType::DOWNLOAD);
 		$securyEntryHelper->validateForDownload();
 		
 		return $captionAsset;
@@ -539,7 +539,7 @@ class CaptionAssetService extends KalturaAssetService
 	 * @action serve
 	 * @param string $captionAssetId
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 *  
 	 * @throws KalturaCaptionErrors::CAPTION_ASSET_ID_NOT_FOUND
 	 */
@@ -565,7 +565,7 @@ class CaptionAssetService extends KalturaAssetService
 	 * @param int $segmentIndex
 	 * @param int $localTimestamp
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 *
 	 * @throws KalturaCaptionErrors::CAPTION_ASSET_ID_NOT_FOUND
 	 */
@@ -624,7 +624,7 @@ class CaptionAssetService extends KalturaAssetService
 		
 		$entryKuserId = $entry->getKuserId();
 		$thisKuserId = $this->getKuser()->getId();
-		$isNotAdmin = !kCurrentContext::$ks_object->isAdmin();
+		$isNotAdmin = !kCurrentContext::$hs_object->isAdmin();
 		
 		if(!$entry || ($isNotAdmin && !is_null($entryKuserId) && $entryKuserId != $thisKuserId))  
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $captionAsset->getEntryId());

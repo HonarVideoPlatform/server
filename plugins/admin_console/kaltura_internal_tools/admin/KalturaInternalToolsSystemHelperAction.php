@@ -96,28 +96,28 @@ class KalturaInternalToolsPluginSystemHelperAction extends KalturaApplicationPlu
 			$res = ($encrypted_data )		;
 			$this->des_key = $key;
 		}
-		elseif ( $algo == "ks" )
+		elseif ( $algo == "hs" )
 		{			
-			//$ks = ks::fromSecureString ( $str ); // to do ->api Extension
+			//$hs = hs::fromSecureString ( $str ); // to do ->api Extension
 			$client = Infra_ClientHelper::getClient();
 			$internalToolsPlugin = Kaltura_Client_KalturaInternalTools_Plugin::get($client);
-			$ks = null;
+			$hs = null;
 			
 			try{
-				$ks = $internalToolsPlugin->kalturaInternalToolsSystemHelper->fromSecureString($str);
-				$res = print_r ( $ks , true );
+				$hs = $internalToolsPlugin->kalturaInternalToolsSystemHelper->fromSecureString($str);
+				$res = print_r ( $hs , true );
 			}
 			catch(Kaltura_Client_Exception $e){
 				$res = $e->getMessage();
 			}
 			 
-			if (!is_null($ks))
+			if (!is_null($hs))
 			{
-				$expired = $ks->valid_until;
+				$expired = $hs->valid_until;
 				$expired_str = self::formatThisData($expired); 
 				$now = time();
 				$now_str = self::formatThisData($now);
-				$res .= "\n" . "KS valid until: " . $expired_str . "\nTime now: $now ($now_str)";
+				$res .= "\n" . "HS valid until: " . $expired_str . "\nTime now: $now ($now_str)";
 			} 
 		}
 		elseif ( $algo == "kwid" )

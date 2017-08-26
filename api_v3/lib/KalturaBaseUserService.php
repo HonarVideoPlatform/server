@@ -54,7 +54,7 @@ class KalturaBaseUserService extends KalturaBaseService
 		
 		if ($newEmail != "")
 		{
-			if(!kString::isEmailString($newEmail))
+			if(!hString::isEmailString($newEmail))
 				throw new KalturaAPIException ( KalturaErrors::INVALID_FIELD_VALUE, "newEmail" );
 		}
 
@@ -149,7 +149,7 @@ class KalturaBaseUserService extends KalturaBaseService
 	 * @param string $privileges
 	 * @param string $otp
 	 * 
-	 * @return string KS
+	 * @return string HS
 	 *
 	 * @throws KalturaErrors::USER_NOT_FOUND
 	 * @thrown KalturaErrors::LOGIN_RETRIES_EXCEEDED
@@ -165,7 +165,7 @@ class KalturaBaseUserService extends KalturaBaseService
 		myPartnerUtils::resetPartnerFilter('kuser');
 		kuserPeer::setUseCriteriaFilter(true);
 		
-		// if a KS of a specific partner is used, don't allow logging in to a different partner
+		// if a HS of a specific partner is used, don't allow logging in to a different partner
 		if ($this->getPartnerId() && $partnerId && $this->getPartnerId() != $partnerId) {
 			throw new KalturaAPIException(KalturaErrors::INVALID_PARTNER_ID, $partnerId);
 		}
@@ -225,13 +225,13 @@ class KalturaBaseUserService extends KalturaBaseService
 		if (!$partner || $partner->getStatus() == Partner::PARTNER_STATUS_FULL_BLOCK)
 			throw new KalturaAPIException(KalturaErrors::INVALID_PARTNER_ID, $user->getPartnerId());
 		
-		$ks = null;
+		$hs = null;
 		
 		$admin = $user->getIsAdmin() ? KalturaSessionType::ADMIN : KalturaSessionType::USER;
-		// create a ks for this admin_kuser as if entered the admin_secret using the API
-		hSessionUtils::createHSessionNoValidations ( $partner->getId() ,  $user->getPuserId() , $ks , $expiry , $admin , "" , $privileges );
+		// create a hs for this admin_kuser as if entered the admin_secret using the API
+		hSessionUtils::createHSessionNoValidations ( $partner->getId() ,  $user->getPuserId() , $hs , $expiry , $admin , "" , $privileges );
 		
-		return $ks;
+		return $hs;
 	}
 	
 	

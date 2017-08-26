@@ -69,7 +69,7 @@ class facebookUtils
 			$pic = $user['pic'];
 			$sex = $user['sex'];
 			
-			$data .= "<contributor uid='$puser_id' name='".kString::xmlEncode($name)."' pic='$pic' sex='$sex'/>";
+			$data .= "<contributor uid='$puser_id' name='".hString::xmlEncode($name)."' pic='$pic' sex='$sex'/>";
 		}
 		
 		return $data;

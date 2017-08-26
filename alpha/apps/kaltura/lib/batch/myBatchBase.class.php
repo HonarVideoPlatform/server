@@ -215,9 +215,9 @@ abstract class myBatchBase
 	private static function parseMemorySize ( $size_str )
 	{
 		$fixed_str = strtolower( $size_str );
-		if ( kString::endsWith( $fixed_str , "m" ) )
+		if ( hString::endsWith( $fixed_str , "m" ) )
 			return $size_str * 1024 * 1024;
-		if ( kString::endsWith( $fixed_str , "k" ) )
+		if ( hString::endsWith( $fixed_str , "k" ) )
 			return $size_str * 1024;
 		return $size_str;
 	}

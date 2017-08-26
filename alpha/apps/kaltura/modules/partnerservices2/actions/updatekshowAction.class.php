@@ -81,7 +81,7 @@ class updatehshowAction extends defPartnerservices2Action
 			}
 
 			if ( ! $this->isOwnedBy ( $hshow_from_db , $puser_kuser->getKuserId() ) )
-				$this->verifyPrivileges ( "edit" , $hshow_id ); // user was granted explicit permissions when initiatd the ks
+				$this->verifyPrivileges ( "edit" , $hshow_id ); // user was granted explicit permissions when initiatd the hs
 
 							
 			if ( myPartnerUtils::shouldForceUniqueHshow( $partner_id , $allow_duplicate_names ) )

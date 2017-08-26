@@ -15,7 +15,7 @@ class Infra_UserIdentity
 	 * Current kaltura session string
 	 * @var string
 	 */
-	protected $ks;
+	protected $hs;
 	
 	/**
 	 * Current user permissions
@@ -37,13 +37,13 @@ class Infra_UserIdentity
 	/**
 	 * Init a new UserIdentity instance with the given parameters
 	 * @param Kaltura_Client_Type_User $user
-	 * @param string $ks
+	 * @param string $hs
 	 * @param int $partnerId
 	 */
-	public function __construct(Kaltura_Client_Type_User $user = null, $ks = null, $timezoneOffset = null, $partnerId = null)
+	public function __construct(Kaltura_Client_Type_User $user = null, $hs = null, $timezoneOffset = null, $partnerId = null)
 	{
 		$this->user = $user;
-		$this->ks = $ks;
+		$this->hs = $hs;
 		$this->timezoneOffset = $timezoneOffset;
 		$this->partnerId = $partnerId;
 	}
@@ -57,11 +57,11 @@ class Infra_UserIdentity
 	}
 	
 	/**
-	 * @return string ks string
+	 * @return string hs string
 	 */
-	public function getKs()
+	public function getHs()
 	{
-		return $this->ks;
+		return $this->hs;
 	}
 	
 	public function getPermissions()

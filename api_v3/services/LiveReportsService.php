@@ -123,7 +123,7 @@ class LiveReportsService extends KalturaBaseService
 	public function exportToCsvAction($reportType, KalturaLiveReportExportParams $params)
 	{
 		if(!$params->recpientEmail) {
-			$kuser = kCurrentContext::getCurrentKsKuser();
+			$kuser = kCurrentContext::getCurrentHsKuser();
 			if($kuser) {
 				$params->recpientEmail = $kuser->getEmail();
 			} else {
@@ -164,9 +164,9 @@ class LiveReportsService extends KalturaBaseService
 		
 		$fileNameRegex = "/^(?<dc>[01]+)_(?<fileName>\\d+_Export_[a-zA-Z0-9]+_[\\w\\-]+.csv)$/";
 	
-		// KS verification - we accept either admin session or download privilege of the file
-		$ks = $this->getKs();
-		if(!$ks || !($ks->isAdmin() || $ks->verifyPrivileges(ks::PRIVILEGE_DOWNLOAD, $id)))
+		// HS verification - we accept either admin session or download privilege of the file
+		$hs = $this->getHs();
+		if(!$hs || !($hs->isAdmin() || $hs->verifyPrivileges(hs::PRIVILEGE_DOWNLOAD, $id)))
 			KExternalErrors::dieError(KExternalErrors::ACCESS_CONTROL_RESTRICTED);
 	
 		if(!preg_match($fileNameRegex, $id, $matches)) {

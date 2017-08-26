@@ -20,14 +20,14 @@ class updateLoginDataAction extends kalturaAction
 		if(! in_array($this->type, $validTypes))
 			KExternalErrors::dieError( KExternalErrors::INVALID_SETTING_TYPE );
 
-		$ks = $this->getP ( "kmcks" );
-		if(!$ks)
-			KExternalErrors::dieError(KExternalErrors::MISSING_PARAMETER, 'ks');
+		$hs = $this->getP ( "kmchs" );
+		if(!$hs)
+			KExternalErrors::dieError(KExternalErrors::MISSING_PARAMETER, 'hs');
 
-		// Get partner & user info from KS
-		$ksObj = hSessionUtils::crackKs($ks);
-		$partnerId = $ksObj->partner_id;
-		$userId = $ksObj->user;
+		// Get partner & user info from HS
+		$hsObj = hSessionUtils::crackHs($hs);
+		$partnerId = $hsObj->partner_id;
+		$userId = $hsObj->user;
 		
 		$partner = PartnerPeer::retrieveByPK($partnerId);
 		if (!$partner)
@@ -199,7 +199,7 @@ class updateLoginDataAction extends kalturaAction
 	{
 		if ($newEmail != "")
 		{
-			if(!kString::isEmailString($newEmail))
+			if(!hString::isEmailString($newEmail))
 				throw new KalturaLoginDataException ( APIErrors::INVALID_FIELD_VALUE, "newEmail" );
 		}
 

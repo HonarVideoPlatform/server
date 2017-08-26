@@ -410,7 +410,7 @@ class myMetadataUtils
 
 		$transition_type = "dissolve"; // the dissolve transition is from the cross family. It should not be used with the simple editor
 		
-		$fixed_media_name = kString::xmlEncode($media_name);
+		$fixed_media_name = hString::xmlEncode($media_name);
 		$newVidasset = "\n" .
 		'		<vidAsset k_id="'.$entry_id.'" type="'.$media_type_str.'" name="'.$fixed_media_name.'" url="'.$media_url.'">'. "\n".
 		'			<StreamInfo file_name="'.$relMedia_url.'" start_time="'.$startTime.'" len_time="'.$lenTime.'"

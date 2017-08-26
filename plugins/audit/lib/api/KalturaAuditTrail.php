@@ -107,7 +107,7 @@ class KalturaAuditTrail extends KalturaObject implements IRelatedFilterable
 	 * @filter eq
 	 * @readonly
 	 */
-	public $ks;
+	public $hs;
 
 	/**
 	 * @var KalturaAuditTrailContext
@@ -177,7 +177,7 @@ class KalturaAuditTrail extends KalturaObject implements IRelatedFilterable
 		"requestId",
 		"userId" => "puserId",
 		"action",
-		"ks",
+		"hs",
 		"context",
 		"entryPoint",
 		"serverName",

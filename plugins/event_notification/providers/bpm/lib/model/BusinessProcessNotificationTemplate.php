@@ -13,7 +13,7 @@ abstract class BusinessProcessNotificationTemplate extends BatchEventNotificatio
 	/* (non-PHPdoc)
 	 * @see BatchEventNotificationTemplate::getJobData()
 	 */
-	public function getJobData(kScope $scope = null)
+	public function getJobData(hScope $scope = null)
 	{
 		$jobData = new kBusinessProcessNotificationDispatchJobData();
 		$jobData->setTemplateId($this->getId());
@@ -29,7 +29,7 @@ abstract class BusinessProcessNotificationTemplate extends BatchEventNotificatio
 		return $jobData;
 	}
 
-	protected function getParameters(kScope $scope)
+	protected function getParameters(hScope $scope)
 	{
 		$parametersValues = array();
 		$contentParameters = $this->getContentParameters();
@@ -37,7 +37,7 @@ abstract class BusinessProcessNotificationTemplate extends BatchEventNotificatio
 		{
 			/* @var $contentParameter kEventNotificationParameter */
 			$value = $contentParameter->getValue();
-			if($scope && $value instanceof kStringField)
+			if($scope && $value instanceof hStringField)
 				$value->setScope($scope);
 				
 			$parametersValues[$contentParameter->getKey()] = $value->getValue();
@@ -47,7 +47,7 @@ abstract class BusinessProcessNotificationTemplate extends BatchEventNotificatio
 		{
 			/* @var $userParameter kEventNotificationParameter */
 			$value = $userParameter->getValue();
-			if($scope && $value instanceof kStringField)
+			if($scope && $value instanceof hStringField)
 				$value->setScope($scope);
 				
 			$parametersValues[$userParameter->getKey()] = $value->getValue();
@@ -56,7 +56,7 @@ abstract class BusinessProcessNotificationTemplate extends BatchEventNotificatio
 		return $parametersValues;
 	}
 
-	protected function dispatchPerCase(kScope $scope, $eventNotificationType = null)
+	protected function dispatchPerCase(hScope $scope, $eventNotificationType = null)
 	{
 		$jobData = $this->getJobData($scope);
 		/* @var $jobData kBusinessProcessNotificationDispatchJobData */

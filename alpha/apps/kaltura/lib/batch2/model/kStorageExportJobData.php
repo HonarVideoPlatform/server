@@ -3,7 +3,7 @@
  * @package Core
  * @subpackage model.data
  */
-class kStorageExportJobData extends kStorageJobData
+class hStorageExportJobData extends hStorageJobData
 {
 	/**
 	 * @var bool
@@ -24,11 +24,11 @@ class kStorageExportJobData extends kStorageJobData
 				$data = new kAmazonS3StorageExportJobData();
 				break;
 			default:
-				$data = KalturaPluginManager::loadObject('kStorageExportJobData', $protocol);
+				$data = KalturaPluginManager::loadObject('hStorageExportJobData', $protocol);
 				break;
 		}
 		if (!$data)
-			$data = new kStorageExportJobData();
+			$data = new hStorageExportJobData();
 		
 		return $data;
 	}

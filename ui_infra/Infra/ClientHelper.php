@@ -40,18 +40,18 @@ class Infra_ClientHelper
 		return $settings->curlTimeout;
 	}
 
-	public static function getKs()
+	public static function getHs()
 	{
 		if (Infra_AuthHelper::getAuthInstance()->hasIdentity())
 		{
-			$ks = Infra_AuthHelper::getAuthInstance()->getIdentity()->getKs();
+			$hs = Infra_AuthHelper::getAuthInstance()->getIdentity()->getHs();
 		}
 		else
 		{
-			$ks = null;
+			$hs = null;
 		}
 
-		return $ks;
+		return $hs;
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Infra_ClientHelper
 		if (!class_exists('Kaltura_Client_Client'))
 			throw new Infra_Exception('Kaltura client not found, maybe it wasn\'t generated', Infra_Exception::ERROR_CODE_MISSING_CLIENT_LIB);
 
-		$ks = self::getKs();
+		$hs = self::getHs();
 
 		$config = new Kaltura_Client_Configuration();
 		$config->serviceUrl = self::getServiceUrl();
@@ -93,7 +93,7 @@ class Infra_ClientHelper
 
 		$client = new Kaltura_Client_Client($config);
 		$client->setClientTag('Kaltura-' . $settings->applicationName);
-		$client->setKs($ks);
+		$client->setHs($hs);
 		self::$client = $client;
 
 		return $client;

@@ -21,7 +21,7 @@ class AppToken extends BaseAppToken
 		$dc = kDataCenterMgr::getCurrentDc();
 		for ($i = 0; $i < 10; $i++)
 		{
-			$id = $dc["id"] . '_' . kString::generateStringId();
+			$id = $dc["id"] . '_' . hString::generateStringId();
 			$existingObject = AppTokenPeer::retrieveByPkNoFilter($id);
 			
 			if ($existingObject)
@@ -69,6 +69,6 @@ class AppToken extends BaseAppToken
 	public function calcHash()
 	{
 		$hashFunction = $this->getHashType();
-		return hash($hashFunction, kCurrentContext::$ks . $this->getToken());
+		return hash($hashFunction, kCurrentContext::$hs . $this->getToken());
 	}
 } // AppToken

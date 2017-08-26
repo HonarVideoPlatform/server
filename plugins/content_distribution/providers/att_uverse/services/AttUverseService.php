@@ -15,7 +15,7 @@ class AttUverseService extends ContentDistributionServiceBase
 	 * @param int $distributionProfileId
 	 * @param string $hash
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 */
 	public function getFeedAction($distributionProfileId, $hash) {
 		return $this->generateFeed(new ContentDistributionServiceContext(), $distributionProfileId, $hash);

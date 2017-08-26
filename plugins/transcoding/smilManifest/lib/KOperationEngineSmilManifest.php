@@ -4,7 +4,7 @@
  * @package plugins.smilManifest
  * @subpackage lib
  */
-class KOperationEngineSmilManifest extends KSingleOutputOperationEngine
+class KOperationEngineSmilManifest extends HSingleOutputOperationEngine
 {
 	/* (non-PHPdoc)
 	 * @see KOperationEngine::getCmdLine()

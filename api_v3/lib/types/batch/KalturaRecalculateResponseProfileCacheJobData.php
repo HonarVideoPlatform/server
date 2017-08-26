@@ -14,7 +14,7 @@ class KalturaRecalculateResponseProfileCacheJobData extends KalturaRecalculateCa
 	/**
 	 * @var KalturaSessionType
 	 */
-	public $ksType;
+	public $hsType;
 
 	/**
 	 * @var KalturaIntegerValueArray
@@ -45,7 +45,7 @@ class KalturaRecalculateResponseProfileCacheJobData extends KalturaRecalculateCa
 	private static $map_between_objects = array
 	(
 		'protocol',
-		'ksType',
+		'hsType',
 		'userRoles',
 		'cachedObjectType' => 'objectType',
 		'objectId',

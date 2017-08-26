@@ -14,7 +14,7 @@ class kHttpNotificationDataFields extends kHttpNotificationData
 	/* (non-PHPdoc)
 	 * @see kHttpNotificationData::setScope()
 	 */
-	public function setScope(kScope $scope)
+	public function setScope(hScope $scope)
 	{
 		$this->data = http_build_query($scope->getDynamicValues());
 	}

@@ -192,7 +192,7 @@ class Creole {
 
         // sort $dsninfo by keys so the serialized result is always the same
         // for identical connection parameters, no matter what their order is
-        ksort($dsninfo);
+        hsort($dsninfo);
         $connectionMapKey = crc32(serialize($dsninfo + array('compat_flags' => ($flags & Creole::COMPAT_ALL))));
 
         // see if we already have a connection with these parameters cached

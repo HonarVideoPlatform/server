@@ -175,7 +175,7 @@ class KMediaInfoMediaParser extends KBaseMediaParser
 	protected function parseOutput($output) 
 	{
 		$output = kXml::stripXMLInvalidChars($output);
-		$tokenizer = new KStringTokenizer ( $output, "\t\n" );
+		$tokenizer = new HStringTokenizer ( $output, "\t\n" );
 		$mediaInfo = new KalturaMediaInfo();
 		$mediaInfo->rawData = $output;
 		

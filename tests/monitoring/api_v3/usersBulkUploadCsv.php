@@ -18,8 +18,8 @@ class UserBulkUploadCsv
 			{
 				$apiCall = 'session.start';
 				$start = microtime(true);
-				$ks = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
-				$client->setKs($ks);
+				$hs = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
+				$client->setHs($hs);
 					
 				$userId_1 = uniqid('monitor-user1');
 				$userId_2 = uniqid('monitor-user2');

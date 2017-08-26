@@ -70,7 +70,7 @@ class myPartnerUtils
 	 *
 	 * will use cache to reduce the times the partner table is hit (hardly changes over time)
 	 */
-	public static function isValidSecret ( $partner_id , $partner_secret , $partner_key , &$ks_max_expiry_in_seconds , $admin = SessionType::USER  )
+	public static function isValidSecret ( $partner_id , $partner_secret , $partner_key , &$hs_max_expiry_in_seconds , $admin = SessionType::USER  )
 	{
 		// TODO - handle errors
 		$partner = PartnerPeer::retrieveByPK( $partner_id );
@@ -81,28 +81,28 @@ class myPartnerUtils
 			return Partner::VALIDATE_PARTNER_BLOCKED;
 		}
 		
-		return $partner->validateSecret( $partner_secret , $partner_key , $ks_max_expiry_in_seconds , $admin);
+		return $partner->validateSecret( $partner_secret , $partner_key , $hs_max_expiry_in_seconds , $admin);
 	}
 
 	/**
-	 * a lks  is a "lite" kaltura session. It is created by the partner and can be be translated into a simplified ks:
+	 * a lhs  is a "lite" kaltura session. It is created by the partner and can be be translated into a simplified hs:
 	 * 	1. only regular - not admin
-	 * 	2. view & edit privileges (nt for a specific ks)
+	 * 	2. view & edit privileges (nt for a specific hs)
 	 * 	3. does not expire  
 	 * 
-	 * 	lks = md5 ( secret , puser_id , version )
+	 * 	lhs = md5 ( secret , puser_id , version )
 	 */
-	public static function isValidLks ( $partner_id , $lks , $puser_id , $version , &$ks_max_expiry_in_seconds   )
+	public static function isValidLhs ( $partner_id , $lhs , $puser_id , $version , &$hs_max_expiry_in_seconds   )
 	{
 		// TODO - handle errors
 		$partner = PartnerPeer::retrieveByPK( $partner_id );
 		if ( !$partner ) return Partner::VALIDATE_WRONG_LOGIN;
-		if ( !$partner->getAllowLks() )	 return Partner::VALIDATE_LKS_DISABLED;
+		if ( !$partner->getAllowLhs() )	 return Partner::VALIDATE_LHS_DISABLED;
 			
 		$our_hash = md5 ( $partner->getSecret() . $puser_id . $version );
-		$ks_max_expiry_in_seconds = $partner->getKsMaxExpiryInSeconds();
-		if ( $lks != $our_hash ) return ks::INVALID_LKS;
-		return ( ks::OK );
+		$hs_max_expiry_in_seconds = $partner->getHsMaxExpiryInSeconds();
+		if ( $lhs != $our_hash ) return hs::INVALID_LHS;
+		return ( hs::OK );
 	}
 	
 	
@@ -112,7 +112,7 @@ class myPartnerUtils
 		$partner = PartnerPeer::retrieveByPK( $partner_id );
 		if ( !$partner ) return Partner::VALIDATE_WRONG_LOGIN;
 
-		return $partner->getKsMaxExpiryInSeconds( );
+		return $partner->getHsMaxExpiryInSeconds( );
 	}
 
 	public static function setCurrentPartner ( $partner_id )
@@ -1382,7 +1382,7 @@ class myPartnerUtils
 			$graphPointsLine = myPartnerUtils::dailyActivityGraph($data, $startDate);
 		}
 
-		ksort($graphPointsLine);		
+		hsort($graphPointsLine);		
 		$graphLine = '';
 		foreach($graphPointsLine as $point => $usage)
 		{
@@ -1756,7 +1756,7 @@ class myPartnerUtils
 
 		// validate serve access control
 		$flavorParamsId = $asset ? $asset->getFlavorParamsId() : null;
-		$secureEntryHelper = new KSecureEntryHelper($entry, null, null, ContextType::SERVE);
+		$secureEntryHelper = new HSecureEntryHelper($entry, null, null, ContextType::SERVE);
 		$secureEntryHelper->validateForServe($flavorParamsId);
 
 		// enforce delivery

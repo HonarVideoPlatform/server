@@ -235,7 +235,7 @@ class sfWebDebug
       }
       $logs .= '</table>';
 
-      ksort($this->types);
+      hsort($this->types);
       $types = array();
       foreach ($this->types as $type => $nb)
       {

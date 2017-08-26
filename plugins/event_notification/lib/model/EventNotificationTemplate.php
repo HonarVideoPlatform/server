@@ -24,9 +24,9 @@ abstract class EventNotificationTemplate extends BaseEventNotificationTemplate i
 
 	/**
 	 * Dispatch the event notification
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 */ 
-	abstract public function dispatch(kScope $scope);
+	abstract public function dispatch(hScope $scope);
 
 	public function getEventConditions()									{return $this->getFromCustomData(self::CUSTOM_DATA_EVENT_CONDITIONS);}
 	public function getContentParameters()									{return $this->getFromCustomData(self::CUSTOM_DATA_CONTENT_PARAMETERS, null, array());}

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `access_control` (
   `site_restrict_list` text,
   `country_restrict_type` tinyint(4) DEFAULT NULL,
   `country_restrict_list` text,
-  `ks_restrict_privilege` varchar(20) DEFAULT NULL,
+  `hs_restrict_privilege` varchar(20) DEFAULT NULL,
   `prv_restrict_privilege` varchar(20) DEFAULT NULL,
   `prv_restrict_length` int(11) DEFAULT NULL,
   `kdir_restrict_type` tinyint(4) DEFAULT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `audit_trail` (
   `kuser_id` int(11) DEFAULT NULL,
   `action` varchar(31) DEFAULT NULL,
   `data` text,
-  `ks` varchar(511) DEFAULT NULL,
+  `hs` varchar(511) DEFAULT NULL,
   `context` tinyint(4) DEFAULT NULL,
   `entry_point` varchar(127) DEFAULT NULL,
   `server_name` varchar(63) DEFAULT NULL,
@@ -1135,14 +1135,14 @@ CREATE TABLE IF NOT EXISTS `generic_distribution_provider_action` (
 
 CREATE TABLE IF NOT EXISTS `invalid_session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ks` varchar(300) DEFAULT NULL,
-  `ks_valid_until` datetime DEFAULT NULL,
+  `hs` varchar(300) DEFAULT NULL,
+  `hs_valid_until` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `actions_limit` int(11) DEFAULT NULL,
   `type` int(6) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  KEY `ks_index` (`ks`(255)),
-  KEY `ks_valid_until_index` (`ks_valid_until`)
+  KEY `hs_index` (`hs`(255)),
+  KEY `hs_valid_until_index` (`hs_valid_until`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `kce_installation_error` */
@@ -1530,7 +1530,7 @@ CREATE TABLE IF NOT EXISTS `partner` (
   `updated_at` datetime DEFAULT NULL,
   `partner_alias` varchar(64) DEFAULT NULL,
   `ANONYMOUS_KUSER_ID` int(11) DEFAULT NULL,
-  `ks_max_expiry_in_seconds` int(11) DEFAULT NULL,
+  `hs_max_expiry_in_seconds` int(11) DEFAULT NULL,
   `create_user_on_demand` tinyint(4) DEFAULT '1',
   `prefix` varchar(32) DEFAULT NULL,
   `admin_name` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
@@ -2052,7 +2052,7 @@ CREATE TABLE IF NOT EXISTS `track_entry` (
   `param_1_str` varchar(255) DEFAULT NULL,
   `param_2_str` varchar(511) DEFAULT NULL,
   `param_3_str` varchar(511) DEFAULT NULL,
-  `ks` varchar(511) DEFAULT NULL,
+  `hs` varchar(511) DEFAULT NULL,
   `description` varchar(127) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,

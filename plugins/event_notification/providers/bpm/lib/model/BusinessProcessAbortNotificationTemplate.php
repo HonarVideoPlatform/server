@@ -14,7 +14,7 @@ class BusinessProcessAbortNotificationTemplate extends BusinessProcessNotificati
 	/* (non-PHPdoc)
 	 * @see BatchEventNotificationTemplate::dispatch()
 	 */
-	public function dispatch(kScope $scope)
+	public function dispatch(hScope $scope)
 	{
 		return $this->dispatchPerCase($scope);
 	}

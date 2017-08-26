@@ -87,7 +87,7 @@ class categoryKuserPeer extends BasecategoryKuserPeer {
 			$categoryId = $category->getInheritedParentId();
 
 		if(is_null($kuserId))
-			$kuserId = kCurrentContext::getCurrentKsKuserId();
+			$kuserId = kCurrentContext::getCurrentHsKuserId();
 
 		if(is_null($requiredPermissions))
 			$requiredPermissions = array(PermissionName::CATEGORY_VIEW);
@@ -161,7 +161,7 @@ class categoryKuserPeer extends BasecategoryKuserPeer {
 	public static function areCategoriesAllowed(array $categoriesIds, $kuserId = null, $requiredPermissions = null, $con = null)
 	{
 		if(is_null($kuserId))
-			$kuserId = kCurrentContext::getCurrentKsKuserId();
+			$kuserId = kCurrentContext::getCurrentHsKuserId();
 			
 		if(is_null($requiredPermissions))
 			$requiredPermissions = array(PermissionName::CATEGORY_VIEW);

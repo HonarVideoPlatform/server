@@ -13,7 +13,7 @@ class kmc1Action extends kalturaAction
 		$this->partner_id = $this->getP ( "partner_id" );
 		$this->subp_id = $this->getP ( "subp_id" );
 		$this->uid = $this->getP ( "uid" );
-		$this->ks = $this->getP ( "ks" );
+		$this->hs = $this->getP ( "hs" );
 		$this->screen_name = $this->getP ( "screen_name" );
 		$this->email = $this->getP ( "email" );
 		
@@ -42,7 +42,7 @@ class kmc1Action extends kalturaAction
 		if ($this->partner_id !== NULL)
 		{
 			$this->partner = $partner = PartnerPeer::retrieveByPK($this->partner_id);
-			kmcUtils::redirectPartnerToCorrectKmc($partner, $this->ks, $this->uid, $this->screen_name, $this->email, 1);
+			kmcUtils::redirectPartnerToCorrectKmc($partner, $this->hs, $this->uid, $this->screen_name, $this->email, 1);
 			$this->templatePartnerId = $this->partner ? $this->partner->getTemplatePartnerId() : 0;
 		}
 

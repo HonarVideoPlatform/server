@@ -24,5 +24,5 @@ Remove Pending all together: <input type="checkbox" id="remove_pending" name="re
 </div>
 
 <pre style="background-color: lightyellow; width: 80%;">
-<?php echo kString::xmlEncode( $metadata ) ?>
+<?php echo hString::xmlEncode( $metadata ) ?>
 </pre>

@@ -17,11 +17,11 @@ class serviceDescriber
 					"secret" => array("string", null, "field description") ,
 					) ,
 				"optional" => array (
-					"uid" => "The user id of the partner. Is exists, the ks will be generated for this user and " ,				
+					"uid" => "The user id of the partner. Is exists, the hs will be generated for this user and " ,				
 					)
 				),
 			"out" => array (
-				"ks" => "Kaltura Session - a token used as an input for the rest of the services" ,
+				"hs" => "Kaltura Session - a token used as an input for the rest of the services" ,
 				),
 			"errors" => array (
 			) 
@@ -49,11 +49,11 @@ class serviceDescriber
 	*/
 					) ,
 				"optional" => array (
-					"uid" => array("type" => "string", "desc" => "The uuser id of the partner. Is exists, the ks will be generated for this user and "),				
+					"uid" => array("type" => "string", "desc" => "The uuser id of the partner. Is exists, the hs will be generated for this user and "),				
 					)
 				),
 			"out" => array (
-				"ks" => array("type" => "string", "desc" => "Kaltura Session - a token used as an input for the rest of the services") ,
+				"hs" => array("type" => "string", "desc" => "Kaltura Session - a token used as an input for the rest of the services") ,
 				),
 			"errors" => array (
 			) 

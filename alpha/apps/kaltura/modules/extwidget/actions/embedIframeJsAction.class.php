@@ -53,7 +53,7 @@ class embedIframeJsAction extends sfAction
 
 		$relativeUrl = true; // true if ui_conf html5_url is relative (doesnt start with an http prefix)
 
-		if( kString::beginsWith( $ui_conf_html5_url , "http") )
+		if( hString::beginsWith( $ui_conf_html5_url , "http") )
 		{
 			$relativeUrl = false;
 			$url = $ui_conf_html5_url; // absolute URL
@@ -76,7 +76,7 @@ class embedIframeJsAction extends sfAction
 		}
 
 		// append uiconf_id and partner id for optimizing loading of html5 library. append them only for "standard" urls by looking for the mwEmbedLoader.php/mwEmbedFrame.php suffix
-		if (kString::endsWith($url, $scriptName))
+		if (hString::endsWith($url, $scriptName))
 		{
 			$url .= "/p/$partner_id/uiconf_id/$uiconf_id";
 

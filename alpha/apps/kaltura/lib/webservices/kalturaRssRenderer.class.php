@@ -61,7 +61,7 @@ class kalturaRssRenderer
 			$kaltura_elements .=
 				"<kaltura:views>" . ($entry->getViews() ? $entry->getViews() : "0"). "</kaltura:views>" .  
 				"<kaltura:plays>" . ($entry->getPlays() ? $entry->getPlays() : "0"). "</kaltura:plays>" .
-				"<kaltura:userScreenName>" . kString::xmlEncode ($entry->getUserScreenName()) . "</kaltura:userScreenName>" . 
+				"<kaltura:userScreenName>" . hString::xmlEncode ($entry->getUserScreenName()) . "</kaltura:userScreenName>" . 
 				"<kaltura:puserId>" . $entry->getPuserId() . "</kaltura:puserId>" .
 				"<kaltura:userLandingPage>" . $entry->getUserLandingPage() . "</kaltura:userLandingPage>";
 		}
@@ -77,8 +77,8 @@ class kalturaRssRenderer
 		
 		$kaltura_elements .=
 			"<kaltura:partnerLandingPage>" . $entry->getPartnerLandingPage() . "</kaltura:partnerLandingPage>" .
-			"<kaltura:tags>" . kString::xmlEncode ($entry->getTags()) . "</kaltura:tags>" .
-			"<kaltura:adminTags>" . kString::xmlEncode ($entry->getAdminTags()) . "</kaltura:adminTags>" .
+			"<kaltura:tags>" . hString::xmlEncode ($entry->getTags()) . "</kaltura:tags>" .
+			"<kaltura:adminTags>" . hString::xmlEncode ($entry->getAdminTags()) . "</kaltura:adminTags>" .
 			"<kaltura:votes>" . ($entry->getVotes() ? $entry->getVotes() : "0") . "</kaltura:votes>" .
 			"<kaltura:rank>" . ($entry->getRank() ? $entry->getRank() : "0") . "</kaltura:rank>" .	
 			"<kaltura:createdAt>" . $entry->getCreatedAt() . "</kaltura:createdAt>" .
@@ -122,9 +122,9 @@ class kalturaRssRenderer
 //              	'width="' . $entry->getWidth() . '" ' .  
                	'lang="en"' .  
                	'/> '.
-               	'<media:title type="plain">' .  kString::xmlEncode ( $entry->getName()) . "</media:title>" .
-               	'<media:description>'. kString::xmlEncode ( $entry->getDescription() ) . '</media:description>'.
-               	'<media:keywords>' . kString::xmlEncode ( $entry->getSearchText() ) . '</media:keywords>' .
+               	'<media:title type="plain">' .  hString::xmlEncode ( $entry->getName()) . "</media:title>" .
+               	'<media:description>'. hString::xmlEncode ( $entry->getDescription() ) . '</media:description>'.
+               	'<media:keywords>' . hString::xmlEncode ( $entry->getSearchText() ) . '</media:keywords>' .
                	'<media:thumbnail url="'. $entry->getThumbnailUrl() . '/width/640/height/480"/>' . 
                '<media:credit role="kaltura partner">' . $entry->getPartnerId() . '</media:credit>' .
 		 		$kaltura_elements . 
@@ -168,7 +168,7 @@ class kalturaRssRenderer
 			( $result_count ? ", results: {$result_count}" : ""  ). 
 			"</description>" .
 			"<title>Kaltura's mRss</title>" .
-			"<link>" . kString::xmlEncode ( $_SERVER["REQUEST_URI"] ) . "</link>"	;
+			"<link>" . hString::xmlEncode ( 			"<link>" . kString::xmlEncode ( $_SERVER["REQUEST_URI"] ) . "</link>"	;SERVER["REQUEST_URI"] ) . "</link>"	;
 		
 		$str .= $this->recursiveRenderMrssFeed ( $list , 3 );
 		$str .= "</channel>" ;

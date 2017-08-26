@@ -13,9 +13,9 @@
 
 	$partner = PartnerPeer::retrieveByPK($partnerId);
 
-	if($partner->getKsMaxExpiryInSeconds() < kIntegrationFlowManager::THREE_DAYS_IN_SECONDS)
+	if($partner->getHsMaxExpiryInSeconds() < kIntegrationFlowManager::THREE_DAYS_IN_SECONDS)
 	{
-		$partner->setKsMaxExpiryInSeconds(kIntegrationFlowManager::THREE_DAYS_IN_SECONDS);
+		$partner->setHsMaxExpiryInSeconds(kIntegrationFlowManager::THREE_DAYS_IN_SECONDS);
 		$partner->save();
 	}
 	

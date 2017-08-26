@@ -10,7 +10,7 @@
 	$height = 360;
 	$width = 680;
 	$flashvars = 		'userId=' . $uid .
-						'&sessionId=' . $ks. 
+						'&sessionId=' . $hs. 
 						'&partnerId=' . $partner_id .
 						'&subPartnerId=' . $subp_id . 
 						'&hshow_id=' . $hshow_id . 

@@ -60,7 +60,7 @@ class setmetadataAction extends defPartnerservices2Action
 		// TODO -  think what is the best way to verify the privileges - names and parameters that are initially set by the partner at
 		// startsession time
 		if ( ! $this->isOwnedBy ( $hshow , $puser_kuser->getKuserId() ) )
-			$this->verifyPrivileges ( "edit" , $hshow_id ); // user was granted explicit permissions when initiatd the ks
+			$this->verifyPrivileges ( "edit" , $hshow_id ); // user was granted explicit permissions when initiatd the hs
 
 		// this part overhere should be in a more generic place - part of the services
 		$multiple_roghcuts = Partner::allowMultipleRoughcuts( $partner_id );

@@ -96,7 +96,7 @@ class KAsyncNotifierParamsUtils
 	 */
 	private static function signature($signature_key, $params)
 	{
-		ksort($params);
+		hsort($params);
 		$str = "";
 		foreach($params as $k => $v)
 		{

@@ -24,7 +24,7 @@ class kFieldCompareCondition extends kCompareCondition
 	/* (non-PHPdoc)
 	 * @see kMatchCondition::getFieldValue()
 	 */
-	public function getFieldValue(kScope $scope)
+	public function getFieldValue(hScope $scope)
 	{
 		$this->field->setScope($scope);
 		return $this->field->getValue();

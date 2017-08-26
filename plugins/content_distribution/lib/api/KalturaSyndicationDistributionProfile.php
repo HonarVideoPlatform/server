@@ -40,7 +40,7 @@ class KalturaSyndicationDistributionProfile extends KalturaDistributionProfile
 		if(is_null($object_to_fill))
 			$object_to_fill = new SyndicationDistributionProfile();
 		
-		kSyndicationFeedManager::validateXsl($this->xsl);	
+		hSyndicationFeedManager::validateXsl($this->xsl);	
 		
 		return parent::toInsertableObject($object_to_fill, $props_to_skip);
 	}
@@ -55,7 +55,7 @@ class KalturaSyndicationDistributionProfile extends KalturaDistributionProfile
 		if(is_null($object_to_fill))
 			$object_to_fill = new SyndicationDistributionProfile();
 		
-		kSyndicationFeedManager::validateXsl($this->xsl);
+		hSyndicationFeedManager::validateXsl($this->xsl);
 		
 		return parent::toUpdatableObject($object_to_fill, $props_to_skip );
 	}

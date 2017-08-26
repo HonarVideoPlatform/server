@@ -14,8 +14,8 @@ try
 	);
 	
 	$response = $client->request('startwidgetsession', $params);
-	if(!isset($response['result']) || !isset($response['result']['ks']))
-		throw new Exception("no ks returned");
+	if(!isset($response['result']) || !isset($response['result']['hs']))
+		throw new Exception("no hs returned");
 
 	$monitorResult->executionTime = microtime(true) - $start;
 	$monitorResult->value = $monitorResult->executionTime;

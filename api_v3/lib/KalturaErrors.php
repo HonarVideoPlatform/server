@@ -18,10 +18,10 @@ class KalturaErrors extends APIErrors
 	const INTERNAL_SERVERL_ERROR_DEBUG = "INTERNAL_SERVERL_ERROR;ERROR;Internal server error occurred \"@ERROR@\"";
 
 	//
-	const MISSING_KS = "MISSING_KS;;Missing KS, session not established";
+	const MISSING_HS = "MISSING_HS;;Missing HS, session not established";
 
-	// KS - the ks string, ERR_CODE - error code, ERR_DESC - error description
-	const INVALID_KS = "INVALID_KS;KSID,ERR_CODE,ERR_DESC;Invalid KS \"@KSID@\", Error \"@ERR_CODE@,@ERR_DESC@\"";
+	// HS - the hs string, ERR_CODE - error code, ERR_DESC - error description
+	const INVALID_HS = "INVALID_HS;HSID,ERR_CODE,ERR_DESC;Invalid HS \"@HSID@\", Error \"@ERR_CODE@,@ERR_DESC@\"";
 
 	//
 	const SERVICE_NOT_SPECIFIED = "SERVICE_NOT_SPECIFIED;;Service name was not specified, please specify one";
@@ -545,7 +545,7 @@ class KalturaErrors extends APIErrors
 
 	const CANNOT_LIST_RELATED_ENTITLED_WHEN_ENTITLEMENT_IS_ENABLE = "CANNOT_LIST_RELATED_ENTITLED_WHEN_ENTITLEMENT_IS_ENABLE;FILTER;Objects that require entitlement should not be listed [@FILTER@] as related-objects when enetitlment is enabled";
 
-	const USER_KS_CANNOT_LIST_RELATED_ENTRIES = "USER_KS_CANNOT_LIST_RELATED_ENTRIES;FILTER;Entries should not be listed [@FILTER@] as related-objects with unprivileged user ks";
+	const USER_HS_CANNOT_LIST_RELATED_ENTRIES = "USER_HS_CANNOT_LIST_RELATED_ENTRIES;FILTER;Entries should not be listed [@FILTER@] as related-objects with unprivileged user hs";
 	
 	// live stream
 	const LIVE_STREAM_STATUS_CANNOT_BE_DETERMINED = "LIVE_STREAM_STATUS_CANNOT_BE_DETERMINED;PROT;Status cannot be determined for live stream protocol [@PROT@]";

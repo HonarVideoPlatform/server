@@ -168,7 +168,7 @@ if ( $partner_id == -1 ) // can add code for specific partners whentrying to deb
 			foreach ( self::$special_suffix as $allowed_suffix )
 			{
 				// the match can be case insensitive
-				if ( kString::endsWith( strtolower($param_name ), $allowed_suffix )) 
+				if ( hString::endsWith( strtolower($param_name ), $allowed_suffix )) 
 				{
 					$valid = true;
 					break;

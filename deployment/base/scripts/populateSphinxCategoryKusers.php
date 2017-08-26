@@ -24,7 +24,7 @@ $con = myDbHelper::getConnection(myDbHelper::DB_HELPER_CONN_PROPEL2);
 categoryKuserPeer::setUseCriteriaFilter(false);
 $categoryKusers = categoryKuserPeer::doSelect($c, $con);
 categoryKuserPeer::setUseCriteriaFilter(true);
-$sphinx = new kSphinxSearchManager();
+$sphinx = new hSphinxSearchManager();
 while(count($categoryKusers))
 {
 	foreach($categoryKusers as $categoryKuser)

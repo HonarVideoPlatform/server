@@ -424,7 +424,7 @@ abstract class SphinxCriteria extends KalturaCriteria implements IKalturaIndexQu
 		}
 
 		$cacheKey = null;
-		$cachedResult = kSphinxQueryCache::getCachedSphinxQueryResults($this, $objectClass, $cacheKey);
+		$cachedResult = hSphinxQueryCache::getCachedSphinxQueryResults($this, $objectClass, $cacheKey);
 		if ($cachedResult)
 		{
 			list($ids, $this->nonSphinxOrderColumns, $this->keyToRemove, $this->sphinxRecordCount, $setLimit, $this->applySortRequired) = $cachedResult;
@@ -435,7 +435,7 @@ abstract class SphinxCriteria extends KalturaCriteria implements IKalturaIndexQu
 
 		$fieldsToKeep = $objectClass::getSphinxConditionsToKeep();
 		$criterionsMap = $this->getMap();
-		uksort($criterionsMap, array('SphinxCriteria','sortFieldsByPriority'));
+		uhsort($criterionsMap, array('SphinxCriteria','sortFieldsByPriority'));
 		// go over all criterions and try to move them to the sphinx
 		foreach($criterionsMap as $field => $criterion)
 		{
@@ -570,7 +570,7 @@ abstract class SphinxCriteria extends KalturaCriteria implements IKalturaIndexQu
 			$this->ranker = self::RANKER_BM25;
 		}
 		
-		$index = kSphinxSearchManager::getSphinxIndexName($objectClass::getObjectIndexName());
+		$index = hSphinxSearchManager::getSphinxIndexName($objectClass::getObjectIndexName());
 		$maxMatches = self::getMaxRecords();
 		$limit = $maxMatches;
 		
@@ -594,7 +594,7 @@ abstract class SphinxCriteria extends KalturaCriteria implements IKalturaIndexQu
 		list($pdo, $sqlConditions) = $this->executeSphinx($index, $wheres, $orderBy, $limit, $maxMatches, $setLimit, $conditions);
 
 		$queryResult = array($this->getFetchedIds(), $this->nonSphinxOrderColumns, $this->keyToRemove, $this->sphinxRecordCount, $setLimit, $this->applySortRequired);
-		kSphinxQueryCache::cacheSphinxQueryResults($pdo, $objectClass, $cacheKey, $queryResult, $sqlConditions);
+		hSphinxQueryCache::cacheSphinxQueryResults($pdo, $objectClass, $cacheKey, $queryResult, $sqlConditions);
 
 		$this->applySphinxResult($setLimit);
 	}
@@ -663,7 +663,7 @@ abstract class SphinxCriteria extends KalturaCriteria implements IKalturaIndexQu
 			KalturaLog::debug("Attach field[$fieldName] as sphinx field[$sphinxField] of type [$type] and comparison[$operator] for value[$valStr]");
 
 			$partnerId = kCurrentContext::getCurrentPartnerId();
-			$notEmpty = kSphinxSearchManager::HAS_VALUE . $partnerId;
+			$notEmpty = hSphinxSearchManager::HAS_VALUE . $partnerId;
 			
 			switch($operator)
 			{
@@ -750,7 +750,7 @@ abstract class SphinxCriteria extends KalturaCriteria implements IKalturaIndexQu
 				case baseObjectFilter::IS_EMPTY:
 					if($val)
 					{
-						$isEmpty = kSphinxSearchManager::HAS_NO_VALUE . $partnerId;
+						$isEmpty = hSphinxSearchManager::HAS_NO_VALUE . $partnerId;
 						$this->addMatch("@$sphinxField $isEmpty");
 					}
 					else 

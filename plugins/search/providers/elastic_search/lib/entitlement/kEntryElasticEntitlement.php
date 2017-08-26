@@ -28,15 +28,15 @@ class kEntryElasticEntitlement extends kBaseElasticEntitlement
             return;
 
         self::initializeParentEntitlement();
-        self::initializeDisableEntitlement(self::$ks);
-        self::$kuserId = self::getKuserIdForEntitlement(self::$partnerId, self::$kuserId, self::$ks);
-        self::initializeUserEntitlement(self::$ks);
+        self::initializeDisableEntitlement(self::$hs);
+        self::$kuserId = self::getKuserIdForEntitlement(self::$partnerId, self::$kuserId, self::$hs);
+        self::initializeUserEntitlement(self::$hs);
 
-        if(self::$ks)
-            self::$privacyContext = self::$ks->getPrivacyContext();
+        if(self::$hs)
+            self::$privacyContext = self::$hs->getPrivacyContext();
 
-        self::initializePublicEntryEntitlement(self::$ks);
-        self::initializeUserCategoryEntryEntitlement(self::$ks);
+        self::initializePublicEntryEntitlement(self::$hs);
+        self::initializeUserCategoryEntryEntitlement(self::$hs);
         
         self::$isInitialized = true;
     }
@@ -50,38 +50,38 @@ class kEntryElasticEntitlement extends kBaseElasticEntitlement
         }
     }
 
-    private static function initializeDisableEntitlement($ks)
+    private static function initializeDisableEntitlement($hs)
     {
-        if($ks && count($ks->getDisableEntitlementForEntry()))
+        if($hs && count($hs->getDisableEntitlementForEntry()))
         {
             //disable entitlement for entries
-            $entries = $ks->getDisableEntitlementForEntry();
+            $entries = $hs->getDisableEntitlementForEntry();
             self::$entriesDisabledEntitlement = $entries;
         }
     }
 
-    private static function initializeUserEntitlement($ks)
+    private static function initializeUserEntitlement($hs)
     {
-        if($ks && self::$kuserId)
+        if($hs && self::$kuserId)
         {
             self::$userEntitlement = true;
         }
     }
 
-    private static function initializePublicEntryEntitlement($ks)
+    private static function initializePublicEntryEntitlement($hs)
     {
-        if(!$ks)
+        if(!$hs)
         {
             self::$publicActiveEntries = true; //add entries that are not in any active category
         }
-        else //ks
+        else //hs
         {
             if(!PermissionPeer::isValidForPartner(PermissionName::FEATURE_DISABLE_CATEGORY_LIMIT, self::$partnerId) && !self::$privacyContext)
                 self::$publicEntries = true; //return entries that are not in any active/pending category
         }
     }
 
-    private static function initializeUserCategoryEntryEntitlement($ks)
+    private static function initializeUserCategoryEntryEntitlement($hs)
     {
         if(PermissionPeer::isValidForPartner(PermissionName::FEATURE_DISABLE_CATEGORY_LIMIT, self::$partnerId))
         {
@@ -92,7 +92,7 @@ class kEntryElasticEntitlement extends kBaseElasticEntitlement
         if(self::$kuserId)
         {
             $privacy = array(category::formatPrivacy(PrivacyType::ALL, self::$partnerId));
-            if($ks && !$ks->isAnonymousSession())
+            if($hs && !$hs->isAnonymousSession())
                 $privacy[] = category::formatPrivacy(PrivacyType::AUTHENTICATED_USERS, self::$partnerId);
 
             self::$privacy = $privacy;
@@ -101,11 +101,11 @@ class kEntryElasticEntitlement extends kBaseElasticEntitlement
         }
     }
 
-    private static function getKuserIdForEntitlement($partnerId, $kuserId = null, $ks = null)
+    private static function getKuserIdForEntitlement($partnerId, $kuserId = null, $hs = null)
     {
-        if($ks && !$kuserId)
+        if($hs && !$kuserId)
         {
-            $kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$ks_uid, true);
+            $kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$hs_uid, true);
             if($kuser)
                 $kuserId = $kuser->getId();
         }

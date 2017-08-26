@@ -52,7 +52,7 @@ class kAccessControlPreviewRestriction extends kAccessControlRestriction
 	}
 
 	/**
-	 * @return kSiteCondition
+	 * @return hSiteCondition
 	 */
 	private function getCondition()
 	{

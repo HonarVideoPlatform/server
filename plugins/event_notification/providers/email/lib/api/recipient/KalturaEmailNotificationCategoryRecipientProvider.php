@@ -76,7 +76,7 @@ class KalturaEmailNotificationCategoryRecipientProvider extends KalturaEmailNoti
 			case 'kEvalStringField':
 				$this->categoryId = new KalturaEvalStringField();
 				break;
-			case 'kStringValue':
+			case 'hStringValue':
 				$this->categoryId = new KalturaStringValue();
 				break;
 			default:

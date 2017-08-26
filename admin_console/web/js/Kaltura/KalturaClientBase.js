@@ -269,7 +269,7 @@ KalturaClientBase.prototype.config = null;
 /**
  * @param string	the Kaltura session to use.
  */
-KalturaClientBase.prototype.ks = null;
+KalturaClientBase.prototype.hs = null;
 	
 /**
  * @param boolean	should the client log all actions.
@@ -294,7 +294,7 @@ KalturaClientBase.prototype.queueServiceActionCall = function (service, action, 
 	// in start session partner id is optional (default -1). if partner id was not set, use the one in the config
 	if (!params.hasOwnProperty("partnerId") || params["partnerId"] == -1)
 		params["partnerId"] = this.config.partnerId;
-	this.addParam(params, "ks", this.ks);
+	this.addParam(params, "hs", this.hs);
 	var call = new KalturaServiceActionCall(service, action, params, files);
 	this.callsQueue.push(call);
 };
@@ -374,19 +374,19 @@ KalturaClientBase.prototype.doHttpRequest = function (callCompletedCallback, url
 
 /**
  * getter for the Kaltura session.
- * @return string	KS
+ * @return string	HS
  */
-KalturaClientBase.prototype.getKs = function()
+KalturaClientBase.prototype.getHs = function()
 {
-	return this.ks;
+	return this.hs;
 };
 
 /**
- * @param string ks	setter for the Kaltura session.
+ * @param string hs	setter for the Kaltura session.
  */
-KalturaClientBase.prototype.setKs = function(ks)
+KalturaClientBase.prototype.setHs = function(hs)
 {
-	this.ks = ks;
+	this.hs = hs;
 };
 
 /**

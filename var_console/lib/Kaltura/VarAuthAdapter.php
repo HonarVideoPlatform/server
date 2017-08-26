@@ -8,9 +8,9 @@ class Kaltura_VarAuthAdapter extends Infra_AuthAdapter
 	/* (non-PHPdoc)
 	 * @see Infra_AuthAdapter::getUserIdentity()
 	 */
-	protected function getUserIdentity(Kaltura_Client_Type_User $user, $ks, $partnerId)
+	protected function getUserIdentity(Kaltura_Client_Type_User $user, $hs, $partnerId)
 	{
-		$identity = new Kaltura_VarUserIdentity($user, $ks, $this->timezoneOffset, $partnerId);
+		$identity = new Kaltura_VarUserIdentity($user, $hs, $this->timezoneOffset, $partnerId);
 		$identity->setPassword($this->password);
 		
 		return $identity;
@@ -30,7 +30,7 @@ class Kaltura_VarAuthAdapter extends Infra_AuthAdapter
 			return new Zend_Auth_Result(Zend_Auth_Result::FAILURE_UNCATEGORIZED, null, array('Identity is not a multi-publisher identity'));
 			
 		$client = Infra_ClientHelper::getClient();
-		$client->setKs($identity->getKs());
+		$client->setHs($identity->getHs());
 		
 		$settings = Zend_Registry::get('config')->settings;
 		
@@ -67,11 +67,11 @@ class Kaltura_VarAuthAdapter extends Infra_AuthAdapter
         			
         			$authorizedPartnerId = $userPartners->objects[0]->id;
         			
-        			$client->setKs(null);
-        		    $ks = $client->user->loginByLoginId($this->username, $this->password, $authorizedPartnerId);
-        			$client->setKs($ks);
+        			$client->setHs(null);
+        		    $hs = $client->user->loginByLoginId($this->username, $this->password, $authorizedPartnerId);
+        			$client->setHs($hs);
         			$user = $client->user->getByLoginId($this->username, $authorizedPartnerId);
-        			$identity = $this->getUserIdentity($user, $ks, $authorizedPartnerId);
+        			$identity = $this->getUserIdentity($user, $hs, $authorizedPartnerId);
 			    }
     		}
     		

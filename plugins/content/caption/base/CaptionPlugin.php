@@ -6,7 +6,7 @@
 class CaptionPlugin extends KalturaPlugin implements IKalturaServices, IKalturaPermissions, IKalturaEnumerator, IKalturaObjectLoader, IKalturaApplicationPartialView, IKalturaSchemaContributor, IKalturaMrssContributor, IKalturaPlayManifestContributor, IKalturaEventConsumers
 {
 	const PLUGIN_NAME = 'caption';
-	const KS_PRIVILEGE_CAPTION = 'caption';
+	const HS_PRIVILEGE_CAPTION = 'caption';
 
 	const MULTI_CAPTION_FLOW_MANAGER_CLASS = 'kMultiCaptionFlowManager';
 
@@ -437,19 +437,19 @@ class CaptionPlugin extends KalturaPlugin implements IKalturaServices, IKalturaP
 	 * @param int $expiry
 	 * @return string
 	 */
-	static protected function generateKsForCaptionServe($captionAsset, $expiry = 86400)
+	static protected function generateHsForCaptionServe($captionAsset, $expiry = 86400)
 	{
 		$partnerId = $captionAsset->getPartnerId();
 		$partner = PartnerPeer::retrieveByPK($partnerId);
 		$secret = $partner->getSecret();
-		$privileges = self::KS_PRIVILEGE_CAPTION.":".$captionAsset->getEntryId();
+		$privileges = self::HS_PRIVILEGE_CAPTION.":".$captionAsset->getEntryId();
        	$privileges .= "," . hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ":" . $captionAsset->getEntryId();
         	$privileges .= ',' . hSessionBase::PRIVILEGE_URI_RESTRICTION . ':' . self::SERVE_WEBVTT_URL_PREFIX . '*';
-		$ksStr = '';
+		$hsStr = '';
 		
-		hSessionUtils::startHSession($partnerId, $secret, null, $ksStr, $expiry, false, "", $privileges);
+		hSessionUtils::startHSession($partnerId, $secret, null, $hsStr, $expiry, false, "", $privileges);
 		
-		return $ksStr;
+		return $hsStr;
 	}
 
 	static protected function getLocalCaptionUrl($config, asset $captionAsset)
@@ -537,14 +537,14 @@ class CaptionPlugin extends KalturaPlugin implements IKalturaServices, IKalturaP
 						if ($captionAsset->getVersion() > 1)
 							$versionStr = '/version/' . $captionAsset->getVersion();
 
-						$ksStr = '';
-						if ($captionAsset->isKsNeededForDownload())
+						$hsStr = '';
+						if ($captionAsset->isHsNeededForDownload())
 						{
-							$ksStr = '/ks/' . self::generateKsForCaptionServe($captionAsset);
+							$hsStr = '/hs/' . self::generateHsForCaptionServe($captionAsset);
 						}
 
 						$captionAssetObj['url'] = $cdnHost . self::SERVE_WEBVTT_URL_PREFIX .
-							'/captionAssetId/' . $captionAsset->getId() . $ksStr . $versionStr . '/a.m3u8';
+							'/captionAssetId/' . $captionAsset->getId() . $hsStr . $versionStr . '/a.m3u8';
 					}
 					$label = $captionAsset->getLabel();
 					if (!$label)

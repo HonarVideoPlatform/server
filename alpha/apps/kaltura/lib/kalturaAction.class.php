@@ -429,7 +429,7 @@ abstract class kalturaAction extends sfAction
 		$prefix = $cred_name . ":";
 		foreach ( $cred_list as $cred_index => $val )
 		{
-			if ( kString::beginsWith( $val , $prefix))		return $val;
+			if ( hString::beginsWith( $val , $prefix))		return $val;
 		}
 
 		return NULL;

@@ -18,7 +18,7 @@ $objectsToTrack = array(
 			accessControlPeer::SITE_RESTRICT_LIST,
 			accessControlPeer::COUNTRY_RESTRICT_TYPE,
 			accessControlPeer::COUNTRY_RESTRICT_LIST,
-			accessControlPeer::KS_RESTRICT_PRIVILEGE,
+			accessControlPeer::HS_RESTRICT_PRIVILEGE,
 			accessControlPeer::PRV_RESTRICT_PRIVILEGE,
 			accessControlPeer::PRV_RESTRICT_LENGTH,
 			accessControlPeer::KDIR_RESTRICT_TYPE,

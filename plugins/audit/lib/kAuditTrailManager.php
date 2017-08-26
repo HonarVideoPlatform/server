@@ -208,8 +208,8 @@ class kAuditTrailManager implements kObjectChangedEventConsumer, kObjectCopiedEv
 		
 		if(kCurrentContext::$partner_id)
 			return kCurrentContext::$partner_id;
-		if(kCurrentContext::$ks_partner_id)
-			return kCurrentContext::$ks_partner_id;
+		if(kCurrentContext::$hs_partner_id)
+			return kCurrentContext::$hs_partner_id;
 			
 		return null;
 	}

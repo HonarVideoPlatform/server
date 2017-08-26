@@ -46,7 +46,7 @@ abstract class ScheduleEvent extends BaseScheduleEvent implements IRelatedObject
 		
 		if(!$this->getParentId())
 		{
-			$this->setOwnerId(kCurrentContext::$ks_uid);
+			$this->setOwnerId(kCurrentContext::$hs_uid);
 			$this->incrementSequence();
 		}
 		
@@ -142,9 +142,9 @@ abstract class ScheduleEvent extends BaseScheduleEvent implements IRelatedObject
 	}
 	
 	/**
-	 * @param kScheduleEventRecurrence $v
+	 * @param hScheduleEventRecurrence $v
 	 */
-	public function setRecurrence(kScheduleEventRecurrence $v)
+	public function setRecurrence(hScheduleEventRecurrence $v)
 	{
 		$this->putInCustomData(self::CUSTOM_DATA_FIELD_RECURRENCE, $v);
 	}
@@ -155,7 +155,7 @@ abstract class ScheduleEvent extends BaseScheduleEvent implements IRelatedObject
 	}
 
 	/**
-	 * @return kScheduleEventRecurrence
+	 * @return hScheduleEventRecurrence
 	 */
 	public function getRecurrence()
 	{

@@ -1,6 +1,6 @@
 <?php
 
-class kSchedulingICalRule extends kSchedulingICalComponent
+class hSchedulingICalRule extends hSchedulingICalComponent
 {
 	private static $stringFields = array(
 		'name',
@@ -20,7 +20,7 @@ class kSchedulingICalRule extends kSchedulingICalComponent
 	
 	/**
 	 * {@inheritDoc}
-	 * @see kSchedulingICalComponent::getLineDelimiter()
+	 * @see hSchedulingICalComponent::getLineDelimiter()
 	 */
 	protected function getLineDelimiter()
 	{
@@ -29,7 +29,7 @@ class kSchedulingICalRule extends kSchedulingICalComponent
 	
 	/**
 	 * {@inheritDoc}
-	 * @see kSchedulingICalComponent::getFieldDelimiter()
+	 * @see hSchedulingICalComponent::getFieldDelimiter()
 	 */
 	protected function getFieldDelimiter()
 	{
@@ -38,7 +38,7 @@ class kSchedulingICalRule extends kSchedulingICalComponent
 	
 	/**
 	 * {@inheritDoc}
-	 * @see kSchedulingICalComponent::getType()
+	 * @see hSchedulingICalComponent::getType()
 	 */
 	protected function getType()
 	{
@@ -47,13 +47,13 @@ class kSchedulingICalRule extends kSchedulingICalComponent
 
 	/**
 	 * {@inheritDoc}
-	 * @see kSchedulingICalComponent::toObject()
+	 * @see hSchedulingICalComponent::toObject()
 	 */
 	public function toObject()
 	{
 		$rule = new KalturaScheduleEventRecurrence();
 		$rule->frequency = constant('KalturaScheduleEventRecurrenceFrequency::' . $this->getField('freq'));
-		$rule->until = kSchedulingICal::parseDate($this->getField('until'));
+		$rule->until = hSchedulingICal::parseDate($this->getField('until'));
 
 		$strings = array(
 			'name',
@@ -83,11 +83,11 @@ class kSchedulingICalRule extends kSchedulingICalComponent
 	
 	/**
 	 * @param KalturaScheduleEventRecurrence $rule
-	 * @return kSchedulingICalRule
+	 * @return hSchedulingICalRule
 	 */
 	public static function fromObject(KalturaScheduleEventRecurrence $rule)
 	{
-		$object = new kSchedulingICalRule();
+		$object = new hSchedulingICalRule();
 
 		$frequencyTypes = array(
 			KalturaScheduleEventRecurrenceFrequency::SECONDLY => 'SECONDLY',
@@ -103,7 +103,7 @@ class kSchedulingICalRule extends kSchedulingICalComponent
 			$object->setField('freq', $frequencyTypes[$rule->frequency]);
 
 		if($rule->until)
-			$object->setField('until', kSchedulingICal::formatDate($rule->until));
+			$object->setField('until', hSchedulingICal::formatDate($rule->until));
 
 		foreach(self::$stringFields as $attribute => $field)
 		{
@@ -128,7 +128,7 @@ class kSchedulingICalRule extends kSchedulingICalComponent
 	
 	/**
 	 * {@inheritDoc}
-	 * @see kSchedulingICalComponent::write()
+	 * @see hSchedulingICalComponent::write()
 	 */
 	public function write()
 	{

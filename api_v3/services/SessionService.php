@@ -22,17 +22,17 @@ class SessionService extends KalturaBaseService
 	
 	/**
 	 * Start a session with Kaltura's server.
-	 * The result KS is the session key that you should pass to all services that requires a ticket.
+	 * The result HS is the session key that you should pass to all services that requires a ticket.
 	 * 
 	 * @action start
 	 * @param string $secret Remember to provide the correct secret according to the sessionType you want
 	 * @param string $userId
 	 * @param KalturaSessionType $type Regular session or Admin session
 	 * @param int $partnerId
-	 * @param int $expiry KS expiry time in seconds
+	 * @param int $expiry HS expiry time in seconds
 	 * @param string $privileges 
 	 * @return string
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws APIErrors::START_SESSION_ERROR
 	 */
@@ -40,12 +40,12 @@ class SessionService extends KalturaBaseService
 	{
 		KalturaResponseCacher::disableCache();
 		// make sure the secret fits the one in the partner's table
-		$ks = "";
-		$result = hSessionUtils::startHSession ( $partnerId , $secret , $userId , $ks , $expiry , $type , "" , $privileges );
+		$hs = "";
+		$result = hSessionUtils::startHSession ( $partnerId , $secret , $userId , $hs , $expiry , $type , "" , $privileges );
 
 		if ( $result >= 0 )
 	{
-		return $ks;
+		return $hs;
 	}
 		else
 		{
@@ -55,23 +55,23 @@ class SessionService extends KalturaBaseService
 	
 	
 	/**
-	 * End a session with the Kaltura server, making the current KS invalid.
+	 * End a session with the Kaltura server, making the current HS invalid.
 	 * 
 	 * @action end
-	 * @ksOptional
+	 * @hsOptional
 	 */
 	function endAction()
 	{
 		KalturaResponseCacher::disableCache();
 		
-		$ks = $this->getKs();
-		if($ks)
-			$ks->kill();
+		$hs = $this->getHs();
+		if($hs)
+			$hs->kill();
 	}
 
 	/**
 	 * Start an impersonated session with Kaltura's server.
-	 * The result KS is the session key that you should pass to all services that requires a ticket.
+	 * The result HS is the session key that you should pass to all services that requires a ticket.
 	 * 
 	 * @action impersonate
 	 * @param string $secret - should be the secret (admin or user) of the original partnerId (not impersonatedPartnerId).
@@ -79,10 +79,10 @@ class SessionService extends KalturaBaseService
 	 * @param string $userId - impersonated userId
 	 * @param KalturaSessionType $type
 	 * @param int $partnerId
-	 * @param int $expiry KS expiry time in seconds
+	 * @param int $expiry HS expiry time in seconds
 	 * @param string $privileges 
 	 * @return string
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws APIErrors::START_SESSION_ERROR
 	 */
@@ -128,12 +128,12 @@ class SessionService extends KalturaBaseService
 		}
 		
 		// make sure the secret fits the one in the partner's table
-		$ks = "";
-		$result = hSessionUtils::startHSession ( $impersonatedPartner->getId() , $impersonatedSecret, $userId , $ks , $expiry , $type , "" , $privileges, $partnerId );
+		$hs = "";
+		$result = hSessionUtils::startHSession ( $impersonatedPartner->getId() , $impersonatedSecret, $userId , $hs , $expiry , $type , "" , $privileges, $partnerId );
 
 		if ( $result >= 0 )
 		{
-			return $ks;
+			return $hs;
 		}
 		else
 		{
@@ -143,37 +143,37 @@ class SessionService extends KalturaBaseService
 
 	/**
 	 * Start an impersonated session with Kaltura's server.
-	 * The result KS info contains the session key that you should pass to all services that requires a ticket.
+	 * The result HS info contains the session key that you should pass to all services that requires a ticket.
 	 * Type, expiry and privileges won't be changed if they're not set
 	 * 
-	 * @action impersonateByKs
-	 * @param string $session The old KS of the impersonated partner
-	 * @param KalturaSessionType $type Type of the new KS 
-	 * @param int $expiry Expiry time in seconds of the new KS
-	 * @param string $privileges Privileges of the new KS
+	 * @action impersonateByHs
+	 * @param string $session The old HS of the impersonated partner
+	 * @param KalturaSessionType $type Type of the new HS 
+	 * @param int $expiry Expiry time in seconds of the new HS
+	 * @param string $privileges Privileges of the new HS
 	 * @return KalturaSessionInfo
 	 *
 	 * @throws APIErrors::START_SESSION_ERROR
 	 */
-	function impersonateByKsAction($session, $type = null, $expiry = null , $privileges = null)
+	function impersonateByHsAction($session, $type = null, $expiry = null , $privileges = null)
 	{
 		KalturaResponseCacher::disableCache();
 		
-		$oldKS = null;
+		$oldHS = null;
 		try
 		{
-			$oldKS = ks::fromSecureString($session);
+			$oldHS = hs::fromSecureString($session);
 		}
 		catch(Exception $e)
 		{
 			KalturaLog::err($e->getMessage());
 			throw new KalturaAPIException(APIErrors::START_SESSION_ERROR, $this->getPartnerId());
 		}
-		$impersonatedPartnerId = $oldKS->partner_id;
-		$impersonatedUserId = $oldKS->user;
-		$impersonatedType = $oldKS->type; 
-		$impersonatedExpiry = $oldKS->valid_until - time(); 
-		$impersonatedPrivileges = $oldKS->privileges;
+		$impersonatedPartnerId = $oldHS->partner_id;
+		$impersonatedUserId = $oldHS->user;
+		$impersonatedType = $oldHS->type; 
+		$impersonatedExpiry = $oldHS->valid_until - time(); 
+		$impersonatedPrivileges = $oldHS->privileges;
 		
 		if(!is_null($type))
 			$impersonatedType = $type;
@@ -214,7 +214,7 @@ class SessionService extends KalturaBaseService
 		
 		$sessionInfo = new KalturaSessionInfo();
 		
-		$result = hSessionUtils::startHSession($impersonatedPartnerId, $impersonatedSecret, $impersonatedUserId, $sessionInfo->ks, $impersonatedExpiry, $impersonatedType, '', $impersonatedPrivileges, $this->getPartnerId());
+		$result = hSessionUtils::startHSession($impersonatedPartnerId, $impersonatedSecret, $impersonatedUserId, $sessionInfo->hs, $impersonatedExpiry, $impersonatedType, '', $impersonatedPrivileges, $this->getPartnerId());
 		if($result < 0)
 		{
 			KalturaLog::err("Failed starting a session with result [$result]");
@@ -234,7 +234,7 @@ class SessionService extends KalturaBaseService
 	 * Parse session key and return its info
 	 * 
 	 * @action get
-	 * @param string $session The KS to be parsed, keep it empty to use current session.
+	 * @param string $session The HS to be parsed, keep it empty to use current session.
 	 * @return KalturaSessionInfo
 	 *
 	 * @throws APIErrors::START_SESSION_ERROR
@@ -244,19 +244,19 @@ class SessionService extends KalturaBaseService
 		KalturaResponseCacher::disableCache();
 		
 		if(!$session)
-			$session = kCurrentContext::$ks;
+			$session = kCurrentContext::$hs;
 		
-		$ks = ks::fromSecureString($session);
+		$hs = hs::fromSecureString($session);
 		
-		if (!myPartnerUtils::allowPartnerAccessPartner($this->getPartnerId(), $this->partnerGroup(), $ks->partner_id))
-			throw new KalturaAPIException(APIErrors::PARTNER_ACCESS_FORBIDDEN, $this->getPartnerId(), $ks->partner_id);
+		if (!myPartnerUtils::allowPartnerAccessPartner($this->getPartnerId(), $this->partnerGroup(), $hs->partner_id))
+			throw new KalturaAPIException(APIErrors::PARTNER_ACCESS_FORBIDDEN, $this->getPartnerId(), $hs->partner_id);
 		
 		$sessionInfo = new KalturaSessionInfo();
-		$sessionInfo->partnerId = $ks->partner_id;
-		$sessionInfo->userId = $ks->user;
-		$sessionInfo->expiry = $ks->valid_until;
-		$sessionInfo->sessionType = $ks->type;
-		$sessionInfo->privileges = $ks->privileges;
+		$sessionInfo->partnerId = $hs->partner_id;
+		$sessionInfo->userId = $hs->user;
+		$sessionInfo->expiry = $hs->valid_until;
+		$sessionInfo->sessionType = $hs->type;
+		$sessionInfo->privileges = $hs->privileges;
 		
 		return $sessionInfo;
 	}
@@ -268,17 +268,17 @@ class SessionService extends KalturaBaseService
 	 * @param string $widgetId
 	 * @param int $expiry
 	 * @return KalturaStartWidgetSessionResponse
-	 * @ksIgnored
+	 * @hsIgnored
 	 * 
 	 * @throws APIErrors::INVALID_WIDGET_ID
-	 * @throws APIErrors::MISSING_KS
-	 * @throws APIErrors::INVALID_KS
+	 * @throws APIErrors::MISSING_HS
+	 * @throws APIErrors::INVALID_HS
 	 * @throws APIErrors::START_WIDGET_SESSION_ERROR
 	 */	
 	function startWidgetSession ( $widgetId , $expiry = 86400 )
 	{
 		// make sure the secret fits the one in the partner's table
-		$ksStr = "";
+		$hsStr = "";
 		$widget = widgetPeer::retrieveByPK( $widgetId );
 		if ( !$widget )
 		{
@@ -291,7 +291,7 @@ class SessionService extends KalturaBaseService
 		// TODO - see how to decide if the partner has a URL to redirect to
 
 
-		// according to the partner's policy and the widget's policy - define the privileges of the ks
+		// according to the partner's policy and the widget's policy - define the privileges of the hs
 		// TODO - decide !! - for now only view - any hshow
 		$privileges = "view:*,widget:1";
 		
@@ -305,7 +305,7 @@ class SessionService extends KalturaBaseService
 
 		$userId = 0;
 
-		// if the widget has a role, pass it in $privileges so it will be embedded in the KS
+		// if the widget has a role, pass it in $privileges so it will be embedded in the HS
 		// only if we also have an entry to limit the role operations to
 		if ($widget->getRoles() != null)
 		{
@@ -320,32 +320,32 @@ class SessionService extends KalturaBaseService
 			$privileges .= ',' . hSessionBase::PRIVILEGE_LIMIT_ENTRY . ':' . $widget->getEntryId();
 		}
 
-		/*if ( $widget->getSecurityType() == widget::WIDGET_SECURITY_TYPE_FORCE_KS )
+		/*if ( $widget->getSecurityType() == widget::WIDGET_SECURITY_TYPE_FORCE_HS )
 		{
 			$user = $this->getKuser();
-			if ( ! $this->getKS() )// the one from the base class
-				throw new KalturaAPIException ( APIErrors::MISSING_KS );
+			if ( ! $this->getHS() )// the one from the base class
+				throw new KalturaAPIException ( APIErrors::MISSING_HS );
 
 			$widget_partner_id = $widget->getPartnerId();
-			$res = hSessionUtils::validateHSession2 ( 1 ,$widget_partner_id  , $user->getId() , $ks_str , $this->ks );
+			$res = hSessionUtils::validateHSession2 ( 1 ,$widget_partner_id  , $user->getId() , $hs_str , $this->hs );
 			
 			if ( 0 >= $res )
 			{
 				// chaned this to be an exception rather than an error
-				throw new KalturaAPIException ( APIErrors::INVALID_KS , $ks_str , $res , ks::getErrorStr( $res ));
+				throw new KalturaAPIException ( APIErrors::INVALID_HS , $hs_str , $res , hs::getErrorStr( $res ));
 			}			
 		}
 		else
 		{*/
 			// 	the session will be for NON admins and privileges of view only
-			$result = hSessionUtils::createHSessionNoValidations ( $partnerId , $userId , $ksStr , $expiry , false , "" , $privileges );
+			$result = hSessionUtils::createHSessionNoValidations ( $partnerId , $userId , $hsStr , $expiry , false , "" , $privileges );
 		//}
 
 		if ( $result >= 0 )
 		{
 			$response = new KalturaStartWidgetSessionResponse();
 			$response->partnerId = $partnerId;
-			$response->ks = $ksStr;
+			$response->hs = $hsStr;
 			$response->userId = $userId;
 			return $response;
 		}

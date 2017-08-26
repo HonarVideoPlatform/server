@@ -70,8 +70,8 @@ abstract class BaseTrackEntryPeer {
 	/** the column name for the PARAM_3_STR field */
 	const PARAM_3_STR = 'track_entry.PARAM_3_STR';
 
-	/** the column name for the KS field */
-	const KS = 'track_entry.KS';
+	/** the column name for the HS field */
+	const HS = 'track_entry.HS';
 
 	/** the column name for the DESCRIPTION field */
 	const DESCRIPTION = 'track_entry.DESCRIPTION';
@@ -104,10 +104,10 @@ abstract class BaseTrackEntryPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'TrackEventTypeId', 'PsVersion', 'Context', 'PartnerId', 'EntryId', 'HostName', 'Uid', 'TrackEventStatusId', 'ChangedProperties', 'Param1Str', 'Param2Str', 'Param3Str', 'Ks', 'Description', 'CreatedAt', 'UpdatedAt', 'UserIp', 'CustomData', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'trackEventTypeId', 'psVersion', 'context', 'partnerId', 'entryId', 'hostName', 'uid', 'trackEventStatusId', 'changedProperties', 'param1Str', 'param2Str', 'param3Str', 'ks', 'description', 'createdAt', 'updatedAt', 'userIp', 'customData', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::TRACK_EVENT_TYPE_ID, self::PS_VERSION, self::CONTEXT, self::PARTNER_ID, self::ENTRY_ID, self::HOST_NAME, self::UID, self::TRACK_EVENT_STATUS_ID, self::CHANGED_PROPERTIES, self::PARAM_1_STR, self::PARAM_2_STR, self::PARAM_3_STR, self::KS, self::DESCRIPTION, self::CREATED_AT, self::UPDATED_AT, self::USER_IP, self::CUSTOM_DATA, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'track_event_type_id', 'ps_version', 'context', 'partner_id', 'entry_id', 'host_name', 'uid', 'track_event_status_id', 'changed_properties', 'param_1_str', 'param_2_str', 'param_3_str', 'ks', 'description', 'created_at', 'updated_at', 'user_ip', 'custom_data', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'TrackEventTypeId', 'PsVersion', 'Context', 'PartnerId', 'EntryId', 'HostName', 'Uid', 'TrackEventStatusId', 'ChangedProperties', 'Param1Str', 'Param2Str', 'Param3Str', 'Hs', 'Description', 'CreatedAt', 'UpdatedAt', 'UserIp', 'CustomData', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'trackEventTypeId', 'psVersion', 'context', 'partnerId', 'entryId', 'hostName', 'uid', 'trackEventStatusId', 'changedProperties', 'param1Str', 'param2Str', 'param3Str', 'hs', 'description', 'createdAt', 'updatedAt', 'userIp', 'customData', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::TRACK_EVENT_TYPE_ID, self::PS_VERSION, self::CONTEXT, self::PARTNER_ID, self::ENTRY_ID, self::HOST_NAME, self::UID, self::TRACK_EVENT_STATUS_ID, self::CHANGED_PROPERTIES, self::PARAM_1_STR, self::PARAM_2_STR, self::PARAM_3_STR, self::HS, self::DESCRIPTION, self::CREATED_AT, self::UPDATED_AT, self::USER_IP, self::CUSTOM_DATA, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'track_event_type_id', 'ps_version', 'context', 'partner_id', 'entry_id', 'host_name', 'uid', 'track_event_status_id', 'changed_properties', 'param_1_str', 'param_2_str', 'param_3_str', 'hs', 'description', 'created_at', 'updated_at', 'user_ip', 'custom_data', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, )
 	);
 
@@ -118,10 +118,10 @@ abstract class BaseTrackEntryPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'TrackEventTypeId' => 1, 'PsVersion' => 2, 'Context' => 3, 'PartnerId' => 4, 'EntryId' => 5, 'HostName' => 6, 'Uid' => 7, 'TrackEventStatusId' => 8, 'ChangedProperties' => 9, 'Param1Str' => 10, 'Param2Str' => 11, 'Param3Str' => 12, 'Ks' => 13, 'Description' => 14, 'CreatedAt' => 15, 'UpdatedAt' => 16, 'UserIp' => 17, 'CustomData' => 18, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'trackEventTypeId' => 1, 'psVersion' => 2, 'context' => 3, 'partnerId' => 4, 'entryId' => 5, 'hostName' => 6, 'uid' => 7, 'trackEventStatusId' => 8, 'changedProperties' => 9, 'param1Str' => 10, 'param2Str' => 11, 'param3Str' => 12, 'ks' => 13, 'description' => 14, 'createdAt' => 15, 'updatedAt' => 16, 'userIp' => 17, 'customData' => 18, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::TRACK_EVENT_TYPE_ID => 1, self::PS_VERSION => 2, self::CONTEXT => 3, self::PARTNER_ID => 4, self::ENTRY_ID => 5, self::HOST_NAME => 6, self::UID => 7, self::TRACK_EVENT_STATUS_ID => 8, self::CHANGED_PROPERTIES => 9, self::PARAM_1_STR => 10, self::PARAM_2_STR => 11, self::PARAM_3_STR => 12, self::KS => 13, self::DESCRIPTION => 14, self::CREATED_AT => 15, self::UPDATED_AT => 16, self::USER_IP => 17, self::CUSTOM_DATA => 18, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'track_event_type_id' => 1, 'ps_version' => 2, 'context' => 3, 'partner_id' => 4, 'entry_id' => 5, 'host_name' => 6, 'uid' => 7, 'track_event_status_id' => 8, 'changed_properties' => 9, 'param_1_str' => 10, 'param_2_str' => 11, 'param_3_str' => 12, 'ks' => 13, 'description' => 14, 'created_at' => 15, 'updated_at' => 16, 'user_ip' => 17, 'custom_data' => 18, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'TrackEventTypeId' => 1, 'PsVersion' => 2, 'Context' => 3, 'PartnerId' => 4, 'EntryId' => 5, 'HostName' => 6, 'Uid' => 7, 'TrackEventStatusId' => 8, 'ChangedProperties' => 9, 'Param1Str' => 10, 'Param2Str' => 11, 'Param3Str' => 12, 'Hs' => 13, 'Description' => 14, 'CreatedAt' => 15, 'UpdatedAt' => 16, 'UserIp' => 17, 'CustomData' => 18, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'trackEventTypeId' => 1, 'psVersion' => 2, 'context' => 3, 'partnerId' => 4, 'entryId' => 5, 'hostName' => 6, 'uid' => 7, 'trackEventStatusId' => 8, 'changedProperties' => 9, 'param1Str' => 10, 'param2Str' => 11, 'param3Str' => 12, 'hs' => 13, 'description' => 14, 'createdAt' => 15, 'updatedAt' => 16, 'userIp' => 17, 'customData' => 18, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::TRACK_EVENT_TYPE_ID => 1, self::PS_VERSION => 2, self::CONTEXT => 3, self::PARTNER_ID => 4, self::ENTRY_ID => 5, self::HOST_NAME => 6, self::UID => 7, self::TRACK_EVENT_STATUS_ID => 8, self::CHANGED_PROPERTIES => 9, self::PARAM_1_STR => 10, self::PARAM_2_STR => 11, self::PARAM_3_STR => 12, self::HS => 13, self::DESCRIPTION => 14, self::CREATED_AT => 15, self::UPDATED_AT => 16, self::USER_IP => 17, self::CUSTOM_DATA => 18, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'track_event_type_id' => 1, 'ps_version' => 2, 'context' => 3, 'partner_id' => 4, 'entry_id' => 5, 'host_name' => 6, 'uid' => 7, 'track_event_status_id' => 8, 'changed_properties' => 9, 'param_1_str' => 10, 'param_2_str' => 11, 'param_3_str' => 12, 'hs' => 13, 'description' => 14, 'created_at' => 15, 'updated_at' => 16, 'user_ip' => 17, 'custom_data' => 18, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, )
 	);
 
@@ -205,7 +205,7 @@ abstract class BaseTrackEntryPeer {
 		$criteria->addSelectColumn(TrackEntryPeer::PARAM_1_STR);
 		$criteria->addSelectColumn(TrackEntryPeer::PARAM_2_STR);
 		$criteria->addSelectColumn(TrackEntryPeer::PARAM_3_STR);
-		$criteria->addSelectColumn(TrackEntryPeer::KS);
+		$criteria->addSelectColumn(TrackEntryPeer::HS);
 		$criteria->addSelectColumn(TrackEntryPeer::DESCRIPTION);
 		$criteria->addSelectColumn(TrackEntryPeer::CREATED_AT);
 		$criteria->addSelectColumn(TrackEntryPeer::UPDATED_AT);

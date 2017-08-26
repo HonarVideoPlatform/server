@@ -1689,7 +1689,7 @@ package="lib.model">
     name="anonymous_kuser_id" type="integer" />
     <column primaryKey="false" required="false"
     autoIncrement="false" lazyLoad="false"
-    name="ks_max_expiry_in_seconds" type="integer"
+    name="hs_max_expiry_in_seconds" type="integer"
     default="86400" />
     <column primaryKey="false" required="false"
     autoIncrement="false" lazyLoad="false"
@@ -2869,7 +2869,7 @@ package="lib.model">
     name="country_restrict_list" type="varchar" size="1024" />
     <column primaryKey="false" required="false"
     autoIncrement="false" lazyLoad="false"
-    name="ks_restrict_privilege" type="varchar" size="20" />
+    name="hs_restrict_privilege" type="varchar" size="20" />
     <column primaryKey="false" required="false"
     autoIncrement="false" lazyLoad="false"
     name="prv_restrict_privilege" type="varchar" size="20" />
@@ -3520,7 +3520,7 @@ package="lib.model">
     autoIncrement="false" lazyLoad="false" name="param_3_str"
     type="varchar" size="511" />
     <column primaryKey="false" required="false"
-    autoIncrement="false" lazyLoad="false" name="ks" type="varchar"
+    autoIncrement="false" lazyLoad="false" name="hs" type="varchar"
     size="511" />
     <column primaryKey="false" required="false"
     autoIncrement="false" lazyLoad="false" name="description"
@@ -3615,10 +3615,10 @@ package="lib.model">
     autoIncrement="false" lazyLoad="false" name="uid"
     type="varchar" size="63" />
     <column primaryKey="false" required="false"
-    autoIncrement="false" lazyLoad="false" name="ks_partner_id"
+    autoIncrement="false" lazyLoad="false" name="hs_partner_id"
     type="integer" />
     <column primaryKey="false" required="false"
-    autoIncrement="false" lazyLoad="false" name="ks_uid"
+    autoIncrement="false" lazyLoad="false" name="hs_uid"
     type="varchar" size="63" />
     <column primaryKey="false" required="false"
     autoIncrement="false" lazyLoad="false" name="before"

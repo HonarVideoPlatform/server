@@ -51,7 +51,7 @@ class KalturaSshUrlResource extends KalturaUrlResource
 	public function toObject($object_to_fill = null, $props_to_skip = array())
 	{
 		if(!$object_to_fill)
-			$object_to_fill = new kSshUrlResource();
+			$object_to_fill = new hSshUrlResource();
 		
 		return parent::toObject($object_to_fill, $props_to_skip);
 	}

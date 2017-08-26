@@ -50,7 +50,7 @@ class adduserAction extends defPartnerservices2Action
 			}
 			else
 			{
-				// puser_kuser exists but need to create the ksuer...
+				// puser_kuser exists but need to create the hsuer...
 			}
 		}
 		else

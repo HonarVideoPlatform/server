@@ -217,7 +217,7 @@ class PlayReadyDrmService extends KalturaBaseService
 	
 	private function getPartnerKeySeed()
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$profile = DrmProfilePeer::retrieveByProvider(PlayReadyPlugin::getPlayReadyProviderCoreValue());
 		if(!$profile)
 			throw new KalturaAPIException(KalturaPlayReadyErrors::PLAYREADY_PROFILE_NOT_FOUND);
@@ -254,10 +254,10 @@ class PlayReadyDrmService extends KalturaBaseService
                 break;
         }
 
-        //override begin and expiration dates from ks if passed
-        if(kCurrentContext::$ks_object)
+        //override begin and expiration dates from hs if passed
+        if(kCurrentContext::$hs_object)
         {
-            $privileges = kCurrentContext::$ks_object->getPrivileges();
+            $privileges = kCurrentContext::$hs_object->getPrivileges();
             $allParams = explode(',', $privileges);
             foreach($allParams as $param)
             {

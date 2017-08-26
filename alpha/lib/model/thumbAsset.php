@@ -52,7 +52,7 @@ class thumbAsset extends exportableAsset
 		return false;
 	}
 	
-	public function getThumbnailUrl(KSecureEntryHelper $securyEntryHelper, $storageId = null, KalturaThumbParams $thumbParams = null)
+	public function getThumbnailUrl(HSecureEntryHelper $securyEntryHelper, $storageId = null, KalturaThumbParams $thumbParams = null)
 	{
 		if ($thumbParams)
 		{

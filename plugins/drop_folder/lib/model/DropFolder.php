@@ -24,7 +24,7 @@ class DropFolder extends BaseDropFolder implements IBaseObject
 	const METADATA_PROFILE_ID = 'metadata_profile_id';
 	const CATEGORIES_METADATA_FIELD_NAME = 'categories_metadata_field_name';
 	const ENFORCE_ENTITLEMENT = 'enforce_entitlement';
-	const SHOULD_VALIDATE_KS = 'should_validate_ks';
+	const SHOULD_VALIDATE_HS = 'should_validate_hs';
 	
 	// -------------------------------------
 	// -- Default values -------------------
@@ -252,17 +252,17 @@ class DropFolder extends BaseDropFolder implements IBaseObject
 	/**
  	 * @return bool
 	 */
-	public function getShouldValidateKS()
+	public function getShouldValidateHS()
 	{
-		return $this->getFromCustomData(self::SHOULD_VALIDATE_KS);
+		return $this->getFromCustomData(self::SHOULD_VALIDATE_HS);
 	}
 	
 	/**
 	 * @param bool $v
 	 */
-	public function setShouldValidateKS($v)
+	public function setShouldValidateHS($v)
 	{
-		$this->putInCustomData(self::SHOULD_VALIDATE_KS, $v);
+		$this->putInCustomData(self::SHOULD_VALIDATE_HS, $v);
 	}
 	
 	public function getCacheInvalidationKeys()

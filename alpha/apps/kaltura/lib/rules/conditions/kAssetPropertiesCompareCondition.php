@@ -20,10 +20,10 @@ class kAssetPropertiesCompareCondition extends kCondition
 	}
 
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool
 	 */
-	protected function internalFulfilled(kScope $scope)
+	protected function internalFulfilled(hScope $scope)
 	{
 		// no properties defined, the condition is fulfilled
 		if (count($this->getProperties()) == 0)

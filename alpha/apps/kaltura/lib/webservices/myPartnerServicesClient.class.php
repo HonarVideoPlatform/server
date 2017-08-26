@@ -15,15 +15,15 @@ class myPartnerServicesClient
 		
 		$kaltura_services->setInputParams( $params );
 		$result = $kaltura_services->internalExecute () ;
-		return @$result["result"]["ks"];		
+		return @$result["result"]["hs"];		
 	}
 	
-	public static function createHshow ( $ks , $uid , $name , $partner_id = 0 , $subp_id = 100, $extra_params = null )
+	public static function createHshow ( $hs , $uid , $name , $partner_id = 0 , $subp_id = 100, $extra_params = null )
 	{
 		$kaltura_services = new addhshowAction();
 		
 		$params = array ( "format" => kalturaWebserviceRenderer::RESPONSE_TYPE_RAW , 
-			"partner_id" => $partner_id , "subp_id" => $subp_id , "uid" => $uid , "ks" => $ks , "hshow_name" => $name ,
+			"partner_id" => $partner_id , "subp_id" => $subp_id , "uid" => $uid , "hs" => $hs , "hshow_name" => $name ,
 			"allow_duplicate_names" => "1" ) ;
 		if ( $extra_params ) $params = array_merge( $params , $extra_params );
 		

@@ -80,7 +80,7 @@ function logout()
 	deleteCookie ( "varpid" , path );
 	deleteCookie ( "varsubpid" , path );
 	deleteCookie ( "varuid" , path );
-	deleteCookie ( "vplks" , path );
+	deleteCookie ( "vplhs" , path );
 	// Codes by Quackit.com
 	location = "<?php echo $service_url; ?>/index.php/kmc/varlogin";
 

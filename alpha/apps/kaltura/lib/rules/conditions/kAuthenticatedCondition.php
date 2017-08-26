@@ -19,7 +19,7 @@ class kAuthenticatedCondition extends kCondition
 	 * 
 	 * @var array
 	 */
-	protected $privileges = array(ks::PRIVILEGE_VIEW, ks::PRIVILEGE_VIEW_ENTRY_OF_PLAYLIST);
+	protected $privileges = array(hs::PRIVILEGE_VIEW, hs::PRIVILEGE_VIEW_ENTRY_OF_PLAYLIST);
 	
 	/**
 	 * @param array $privileges
@@ -40,12 +40,12 @@ class kAuthenticatedCondition extends kCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::internalFulfilled()
 	 */
-	protected function internalFulfilled(kScope $scope)
+	protected function internalFulfilled(hScope $scope)
 	{
-		if (!$scope->getKs() || (!$scope->getKs() instanceof ks))
+		if (!$scope->getHs() || (!$scope->getHs() instanceof hs))
 			return false;
 		
-		if ($scope->getKs()->isAdmin())
+		if ($scope->getHs()->isAdmin())
 			return true;
 		
 		KalturaLog::debug(print_r($this->privileges, true));
@@ -55,7 +55,7 @@ class kAuthenticatedCondition extends kCondition
 				$privilege = $privilege->getValue();
 				
 			KalturaLog::debug("Checking privilege [$privilege] with entry [".$scope->getEntryId()."]");
-			if($scope->getKs()->verifyPrivileges($privilege, $scope->getEntryId()))
+			if($scope->getHs()->verifyPrivileges($privilege, $scope->getEntryId()))
 			{
 				KalturaLog::debug("Privilege [$privilege] verified");
 				return true;
@@ -71,7 +71,7 @@ class kAuthenticatedCondition extends kCondition
 	 */
 	public function shouldDisableCache($scope)
 	{
-		// the KS type and privileges are part of the cache key
+		// the HS type and privileges are part of the cache key
 		return false;
 	}
 }

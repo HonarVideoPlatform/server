@@ -87,7 +87,7 @@ class PuserKuserPeer extends BasePuserKuserPeer
 				$kuser = new kuser ();
 				$kuser->setScreenName( $kuser_name );
 				
-				list($firstName, $lastName) = kString::nameSplit($kuser_name);
+				list($firstName, $lastName) = hString::nameSplit($kuser_name);
 				$kuser->setFirstName($firstName);
 				$kuser->setLastName($lastName);
 

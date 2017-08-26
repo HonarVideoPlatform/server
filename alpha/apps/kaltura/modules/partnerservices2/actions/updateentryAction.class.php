@@ -45,7 +45,7 @@ class updateentryAction extends defPartnerservices2Action
 		{
 			$priv_id = $entry->getId();
 		}
-		return $this->verifyPrivileges ( "edit" , $priv_id ); // user was granted explicit permissions when initiatd the ks
+		return $this->verifyPrivileges ( "edit" , $priv_id ); // user was granted explicit permissions when initiatd the hs
 	}
 	
 	protected function getObjectPrefix () { return "entry"; } // TODO - fix to be entries
@@ -80,7 +80,7 @@ class updateentryAction extends defPartnerservices2Action
 		// TODO - verify the user is allowed to modify the entry
 		if ( ! $this->isOwnedBy ( $entry , $puser_kuser->getKuserId() ) )
 		{
-			$this->verifyEntryPrivileges ( $entry ); // user was granted explicit permissions when initiatd the ks
+			$this->verifyEntryPrivileges ( $entry ); // user was granted explicit permissions when initiatd the hs
 		}
 		
 		// get the new properties for the kuser from the request

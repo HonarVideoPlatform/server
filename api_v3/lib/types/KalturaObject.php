@@ -301,7 +301,7 @@ abstract class KalturaObject implements IApiObject
 			$mappingFuncCode[$apiPropName] = $curCode;
 		}
 	
-		ksort($mappingFuncCode);
+		hsort($mappingFuncCode);
 	
 		// generate final code
 		if ($usesCustomData)

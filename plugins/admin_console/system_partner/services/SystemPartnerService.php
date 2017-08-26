@@ -12,8 +12,8 @@ class SystemPartnerService extends KalturaBaseService
 	{
 		parent::initService($serviceId, $serviceName, $actionName);
 		
-		// since plugin might be using KS impersonation, we need to validate the requesting
-		// partnerId from the KS and not with the $_POST one
+		// since plugin might be using HS impersonation, we need to validate the requesting
+		// partnerId from the HS and not with the 		// partnerId from the KS and not with the $_POST onePOST one
 		if(!SystemPartnerPlugin::isAllowedPartner(kCurrentContext::$master_partner_id))
 			throw new KalturaAPIException(SystemPartnerErrors::FEATURE_FORBIDDEN, SystemPartnerPlugin::PLUGIN_NAME);
 	}
@@ -212,9 +212,9 @@ class SystemPartnerService extends KalturaBaseService
 			throw new KalturaAPIException(KalturaErrors::USER_NOT_ADMIN, $userId);
 		}
 			
-		$ks = "";
-		hSessionUtils::createHSessionNoValidations($dbPartner->getId(), $userId, $ks, 86400, 2, "", '*,' . ks::PRIVILEGE_DISABLE_ENTITLEMENT);
-		return $ks;
+		$hs = "";
+		hSessionUtils::createHSessionNoValidations($dbPartner->getId(), $userId, $hs, 86400, 2, "", '*,' . hs::PRIVILEGE_DISABLE_ENTITLEMENT);
+		return $hs;
 	}
 	
 	/**

@@ -17,22 +17,22 @@ class kmc4Action extends kalturaAction
 		sfView::SUCCESS;
 
 		/** check parameters and verify user is logged-in **/
-		$this->ks = $this->getP ( "kmcks" );
-		if(!$this->ks)
+		$this->hs = $this->getP ( "kmchs" );
+		if(!$this->hs)
 		{
-			// if kmcks from cookie doesn't exist, try ks from REQUEST
-			$this->ks = $this->getP('ks');
+			// if kmchs from cookie doesn't exist, try hs from REQUEST
+			$this->hs = $this->getP('hs');
 		}
 		
-		/** if no KS found, redirect to login page **/
-		if (!$this->ks)
+		/** if no HS found, redirect to login page **/
+		if (!$this->hs)
 		{
 			$this->redirect( "kmc/kmc" );
 			die();
 		}
-		$ksObj = hSessionUtils::crackKs($this->ks);
-		// Set partnerId from KS
-		$this->partner_id = $ksObj->partner_id;
+		$hsObj = hSessionUtils::crackHs($this->hs);
+		// Set partnerId from HS
+		$this->partner_id = $hsObj->partner_id;
 
 		// Check if the KMC can be framed
 		$allowFrame = PermissionPeer::isValidForPartner(PermissionName::FEATURE_KMC_ALLOW_FRAME, $this->partner_id);
@@ -50,7 +50,7 @@ class kmc4Action extends kalturaAction
 		/** Get array of allowed partners for the current user **/
 		$allowedPartners = array();
 		$this->full_name = "";
-		$currentUser = kuserPeer::getKuserByPartnerAndUid($this->partner_id, $ksObj->user, true);
+		$currentUser = kuserPeer::getKuserByPartnerAndUid($this->partner_id, $hsObj->user, true);
 		if($currentUser) {
 			$partners = myPartnerUtils::getPartnersArray($currentUser->getAllowedPartnerIds());
 			foreach ($partners as $partner)
@@ -68,7 +68,7 @@ class kmc4Action extends kalturaAction
 		if (!$partner->validateApiAccessControl())
 			KExternalErrors::dieError(KExternalErrors::SERVICE_ACCESS_CONTROL_RESTRICTED);
 		
-		kmcUtils::redirectPartnerToCorrectKmc($partner, $this->ks, null, null, null, self::CURRENT_KMC_VERSION);
+		kmcUtils::redirectPartnerToCorrectKmc($partner, $this->hs, null, null, null, self::CURRENT_KMC_VERSION);
 		$this->templatePartnerId = $this->partner ? $this->partner->getTemplatePartnerId() : self::SYSTEM_DEFAULT_PARTNER;
 		$ignoreEntrySeoLinks = PermissionPeer::isValidForPartner(PermissionName::FEATURE_IGNORE_ENTRY_SEO_LINKS, $this->partner_id);
 		$useEmbedCodeProtocolHttps = PermissionPeer::isValidForPartner(PermissionName::FEATURE_EMBED_CODE_DEFAULT_PROTOCOL_HTTPS, $this->partner_id);
@@ -178,7 +178,7 @@ class kmc4Action extends kalturaAction
 			'flash_dir'					=> $this->flash_dir,
 			'getuiconfs_url'			=> '/index.php/kmc/getuiconfs',
 			'terms_of_use'				=> kConf::get('terms_of_use_uri'),
-			'ks'						=> $this->ks,
+			'hs'						=> $this->hs,
 			'partner_id'				=> $this->partner_id,
 			'first_login'				=> (bool) $first_login,
 			'whitelabel'				=> $this->templatePartnerId,

@@ -33,14 +33,14 @@ class KontikiPlugin extends KalturaPlugin implements IKalturaPermissions, IKaltu
 				return new KKontikiExportEngine($data, $partnerId);
 			}
 		}
-		if ($baseClass == 'kStorageExportJobData')
+		if ($baseClass == 'hStorageExportJobData')
 		{
             if ($enumValue == self::getStorageProfileProtocolCoreValue(KontikiStorageProfileProtocol::KONTIKI))
             {
                 return new kKontikiStorageExportJobData();
             }
 		}
-        if ($baseClass == 'kStorageDeleteJobData')
+        if ($baseClass == 'hStorageDeleteJobData')
         {
             if ($enumValue == self::getStorageProfileProtocolCoreValue(KontikiStorageProfileProtocol::KONTIKI))
             {

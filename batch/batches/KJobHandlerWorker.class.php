@@ -286,7 +286,7 @@ abstract class KJobHandlerWorker extends KBatchBase
 		$type = KBatchBase::$taskConfig->name;
 		$file = "$type.flt";
 		
-		KScheduleHelperManager::saveFilter($file, $filter);
+		HScheduleHelperManager::saveFilter($file, $filter);
 	}
 	
 	/**

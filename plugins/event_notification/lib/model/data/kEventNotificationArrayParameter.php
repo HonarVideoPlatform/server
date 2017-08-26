@@ -12,7 +12,7 @@ class kEventNotificationArrayParameter extends kEventNotificationParameter
 	
 	/**
 	 * Used to restrict the values to close list
-	 * @var array<kStringValue>
+	 * @var array<hStringValue>
 	 */
 	protected $allowedValues;
 
@@ -24,7 +24,7 @@ class kEventNotificationArrayParameter extends kEventNotificationParameter
 		if(!$this->values)
 			return null;
 			
-		$value = new kStringValue();
+		$value = new hStringValue();
 		$value->setValue(implode(',', $this->values));
 		
 		return $value;

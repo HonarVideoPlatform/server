@@ -327,7 +327,7 @@ class myHshowMetadataCreator
 
 			// if tehre is no extensio - ASSUME : entry::ENTRY_MEDIA_TYPE_VIDEO
 			$extended_entry_type->asset_type = self::VIDEO_ASSET;
-			if ( kString::beginsWith( $data , self::$RTMP_PREFIX ) )
+			if ( hString::beginsWith( $data , self::$RTMP_PREFIX ) )
 			{
 				$extended_entry_type->type = self::TYPE_RTMP;
 			}

@@ -18,7 +18,7 @@ class getMetadataAction extends defKeditorservicesAction
 	protected function executeImpl( hshow $hshow, entry &$entry )
 	{
 		$version = @$_REQUEST["version"]; // it's a path on the disk
-		if ( kString::beginsWith( $version , "." ) )
+		if ( hString::beginsWith( $version , "." ) )
 		{
 			// someone is trying to hack in the system 
 			return sfView::ERROR;	
@@ -36,7 +36,7 @@ class getMetadataAction extends defKeditorservicesAction
 		
 		//echo "[$file_name]";
 		
-		if ( kString::endsWith( $file_name  , "xml" ))
+		if ( hString::endsWith( $file_name  , "xml" ))
 		{
 			if ( file_exists( $file_name ) )
 			{

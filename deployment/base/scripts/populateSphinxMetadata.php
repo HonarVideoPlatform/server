@@ -25,7 +25,7 @@ $c->setLimit(10000);
 $con = myDbHelper::getConnection(myDbHelper::DB_HELPER_CONN_PROPEL2);
 
 $metadatas = MetadataPeer::doSelect($c, $con);
-$sphinx = new kSphinxSearchManager();
+$sphinx = new hSphinxSearchManager();
 while(count($metadatas))
 {
 	foreach($metadatas as $metadata)

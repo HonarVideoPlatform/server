@@ -15,15 +15,15 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 	const PARTNER_GROUP_ARRAY_NAME  = 'partner_group';    // name of $map's partner group array
 	const PERMISSION_NAMES_ARRAY    = 'permission_names'; // name of $map's permission names array
 			
-	private static $lastInitializedContext = null; // last initialized security context (ks + partner id)
+	private static $lastInitializedContext = null; // last initialized security context (hs + partner id)
 	private static $cacheWatcher = null;
 	private static $useCache = true;     // use cache or not
 	
-	private static $ksUserId = null;
+	private static $hsUserId = null;
 	private static $adminSession = false; // is admin session
-	private static $ksPartnerId = null;
+	private static $hsPartnerId = null;
 	private static $requestedPartnerId = null;
-	private static $ksString = null;
+	private static $hsString = null;
 	private static $roleIds = null;
 	private static $operatingPartnerId = null;
 	
@@ -229,8 +229,8 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 			
 			if (!$dbRole)
 			{
-				KalturaLog::alert('User role ID ['.$roleId.'] set for user ID ['.self::$ksUserId.'] of partner ['.self::$operatingPartnerId.'] was not found in the DB');
-				throw new kPermissionException('User role ID ['.$roleId.'] set for user ID ['.self::$ksUserId.'] of partner ['.self::$operatingPartnerId.'] was not found in the DB', kPermissionException::ROLE_NOT_FOUND);
+				KalturaLog::alert('User role ID ['.$roleId.'] set for user ID ['.self::$hsUserId.'] of partner ['.self::$operatingPartnerId.'] was not found in the DB');
+				throw new kPermissionException('User role ID ['.$roleId.'] set for user ID ['.self::$hsUserId.'] of partner ['.self::$operatingPartnerId.'] was not found in the DB', kPermissionException::ROLE_NOT_FOUND);
 			}
 		}
 		
@@ -274,7 +274,7 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 		}
 		$tmpPermissionNames = array_merge($tmpPermissionNames, $alwaysAllowed);
 		
-		// if the request sent from the internal server set additional permission allowing access without KS
+		// if the request sent from the internal server set additional permission allowing access without HS
 		// from internal servers
 		if (kIpAddressUtils::isInternalIp())
 		{
@@ -431,23 +431,23 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 	// --------------------
 	
 	/**
-	 * Init with allowed permissions for the user in the given KS or kCurrentContext if not KS given
+	 * Init with allowed permissions for the user in the given HS or kCurrentContext if not HS given
 	 * kCurrentContext::init should have been executed before!
-	 * @param string $ks KS to extract user and partner IDs from instead of kCurrentContext
+	 * @param string $hs HS to extract user and partner IDs from instead of kCurrentContext
 	 * @param boolean $useCache use cache or not
 	 * @throws TODO: add all exceptions
 	 */
 	public static function init($useCache = null)
 	{
-		$securityContext = array(kCurrentContext::$partner_id, kCurrentContext::$ks);
+		$securityContext = array(kCurrentContext::$partner_id, kCurrentContext::$hs);
 		if ($securityContext === self::$lastInitializedContext) {
 			self::$cacheWatcher->apply();
 			return;
 		}
 		
 		// verify that kCurrentContext::init has been executed since it must be used to init current context permissions
-		if (!kCurrentContext::$ksPartnerUserInitialized) {
-			KalturaLog::crit('kCurrentContext::initKsPartnerUser must be executed before initializing kPermissionManager');
+		if (!kCurrentContext::$hsPartnerUserInitialized) {
+			KalturaLog::crit('kCurrentContext::initHsPartnerUser must be executed before initializing kPermissionManager');
 			throw new Exception('kCurrentContext has not been initialized!', null);
 		}
 		
@@ -458,8 +458,8 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 
 		// copy kCurrentContext parameters (kCurrentContext::init should have been executed before)
 		self::$requestedPartnerId = !self::isEmpty(kCurrentContext::$partner_id) ? kCurrentContext::$partner_id : null;
-		self::$ksPartnerId = !self::isEmpty(kCurrentContext::$ks_partner_id) ? kCurrentContext::$ks_partner_id : null;
-		if (self::$ksPartnerId == Partner::ADMIN_CONSOLE_PARTNER_ID && 
+		self::$hsPartnerId = !self::isEmpty(kCurrentContext::$hs_partner_id) ? kCurrentContext::$hs_partner_id : null;
+		if (self::$hsPartnerId == Partner::ADMIN_CONSOLE_PARTNER_ID && 
 			kConf::hasParam('admin_console_partner_allowed_ips'))
 		{
 			$ipAllowed = false;
@@ -475,22 +475,22 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 			if (!$ipAllowed)
 				throw new kCoreException("Admin console partner used from an unallowed address", kCoreException::PARTNER_BLOCKED);
 		}
-		self::$ksUserId = !self::isEmpty(kCurrentContext::$ks_uid) ? kCurrentContext::$ks_uid : null;
-		if (self::$ksPartnerId != Partner::BATCH_PARTNER_ID)
-			self::$kuser = !self::isEmpty(kCurrentContext::getCurrentKsKuser()) ? kCurrentContext::getCurrentKsKuser() : null;
-		self::$ksString = kCurrentContext::$ks ? kCurrentContext::$ks : null;
+		self::$hsUserId = !self::isEmpty(kCurrentContext::$hs_uid) ? kCurrentContext::$hs_uid : null;
+		if (self::$hsPartnerId != Partner::BATCH_PARTNER_ID)
+			self::$kuser = !self::isEmpty(kCurrentContext::getCurrentHsKuser()) ? kCurrentContext::getCurrentHsKuser() : null;
+		self::$hsString = kCurrentContext::$hs ? kCurrentContext::$hs : null;
 		self::$adminSession = !self::isEmpty(kCurrentContext::$is_admin_session) ? kCurrentContext::$is_admin_session : false;
 		
-		// if ks defined - check that it is valid
-		self::errorIfKsNotValid();
+		// if hs defined - check that it is valid
+		self::errorIfHsNotValid();
 		
 		// init partner, user, and role objects
 		self::initPartnerUserObjects();
 
-		// throw an error if KS partner (operating partner) is blocked
+		// throw an error if HS partner (operating partner) is blocked
 		self::errorIfPartnerBlocked();
 		
-		//throw an error if KS user is blocked
+		//throw an error if HS user is blocked
 		self::errorIfUserBlocked();
 
 		// init role ids
@@ -509,11 +509,11 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 	public static function getRoleIds(Partner $operatingPartner = null, kuser $kuser = null)
 	{
 		$roleIds = null;
-		$ksString = kCurrentContext::$ks;
+		$hsString = kCurrentContext::$hs;
 		$isAdminSession = !self::isEmpty(kCurrentContext::$is_admin_session) ? kCurrentContext::$is_admin_session : false;
 
-		if (!$ksString ||
-			(!$operatingPartner && kCurrentContext::$ks_partner_id != Partner::BATCH_PARTNER_ID))
+		if (!$hsString ||
+			(!$operatingPartner && kCurrentContext::$hs_partner_id != Partner::BATCH_PARTNER_ID))
 		{
 			$roleId = UserRolePeer::getIdByStrId (UserRoleId::NO_SESSION_ROLE);
 			if($roleId)
@@ -522,29 +522,29 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 			return null;
 		}
 
-		$ks = ks::fromSecureString($ksString);
-		$ksSetRoleId = $ks->getRole();
+		$hs = hs::fromSecureString($hsString);
+		$hsSetRoleId = $hs->getRole();
 
-		if ($ksSetRoleId)
+		if ($hsSetRoleId)
 		{
-			if ($ksSetRoleId == 'null')
+			if ($hsSetRoleId == 'null')
 			{
 				return null;
 			}
-			$ksPartnerId = !self::isEmpty(kCurrentContext::$ks_partner_id) ? kCurrentContext::$ks_partner_id : null;
+			$hsPartnerId = !self::isEmpty(kCurrentContext::$hs_partner_id) ? kCurrentContext::$hs_partner_id : null;
 			//check if role exists
 			$c = new Criteria();
-			$c->addAnd(is_numeric($ksSetRoleId) ? UserRolePeer::ID : UserRolePeer::SYSTEM_NAME
-				, $ksSetRoleId, Criteria::EQUAL);
-			$partnerIds = array_map('strval', array($ksPartnerId, PartnerPeer::GLOBAL_PARTNER));
+			$c->addAnd(is_numeric($hsSetRoleId) ? UserRolePeer::ID : UserRolePeer::SYSTEM_NAME
+				, $hsSetRoleId, Criteria::EQUAL);
+			$partnerIds = array_map('strval', array($hsPartnerId, PartnerPeer::GLOBAL_PARTNER));
 			$c->addAnd(UserRolePeer::PARTNER_ID, $partnerIds, Criteria::IN);
 			$roleId = UserRolePeer::doSelectOne($c);
 
 			if ($roleId){
 				$roleIds = $roleId->getId();
 			}else{
-				KalturaLog::debug("Role id [$ksSetRoleId] does not exists");
-				throw new kCoreException("Unknown role Id [$ksSetRoleId]", kCoreException::ID_NOT_FOUND);
+				KalturaLog::debug("Role id [$hsSetRoleId] does not exists");
+				throw new kCoreException("Unknown role Id [$hsSetRoleId]", kCoreException::ID_NOT_FOUND);
 			}
 		}
 
@@ -559,7 +559,7 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 			if (!$operatingPartner)
 			{
 				// use system default roles
-				if ($ks->isWidgetSession()) {
+				if ($hs->isWidgetSession()) {
 					$strId = UserRoleId::WIDGET_SESSION_ROLE;
 				}
 				elseif ($isAdminSession) {
@@ -573,7 +573,7 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 			}
 			else
 			{
-				if ($ks->isWidgetSession()){
+				if ($hs->isWidgetSession()){
 					//there is only one partner widget role defined in the system
 					$roleIds = $operatingPartner->getWidgetSessionRoleId();
 				}
@@ -603,22 +603,22 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 	
 	private static function initPartnerUserObjects()
 	{
-		if (self::$ksPartnerId == Partner::BATCH_PARTNER_ID) {
+		if (self::$hsPartnerId == Partner::BATCH_PARTNER_ID) {
 			self::$operatingPartner = null;
-			self::$operatingPartnerId = self::$ksPartnerId;
+			self::$operatingPartnerId = self::$hsPartnerId;
 			return;
 		}
 		
-		$ksPartner = null;
+		$hsPartner = null;
 		$requestedPartner = null;
 		
-		// init ks partner = operating partner
-		if (!is_null(self::$ksPartnerId)) {
-			$ksPartner = PartnerPeer::retrieveByPK(self::$ksPartnerId);
-			if (!$ksPartner)
+		// init hs partner = operating partner
+		if (!is_null(self::$hsPartnerId)) {
+			$hsPartner = PartnerPeer::retrieveByPK(self::$hsPartnerId);
+			if (!$hsPartner)
 			{
-				KalturaLog::crit('Unknown partner id ['.self::$ksPartnerId.']');
-				throw new kCoreException("Unknown partner Id [" . self::$ksPartnerId ."]", kCoreException::ID_NOT_FOUND);
+				KalturaLog::crit('Unknown partner id ['.self::$hsPartnerId.']');
+				throw new kCoreException("Unknown partner Id [" . self::$hsPartnerId ."]", kCoreException::ID_NOT_FOUND);
 			}
 		}
 		
@@ -633,9 +633,9 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 		}
 		
 		// init current kuser
-		if (self::$ksUserId && !self::$kuser) { // will never be null because ks::uid is never null
+		if (self::$hsUserId && !self::$kuser) { // will never be null because hs::uid is never null
 			kuserPeer::setUseCriteriaFilter(false);
-			self::$kuser = kuserPeer::getActiveKuserByPartnerAndUid(self::$ksPartnerId, self::$ksUserId);
+			self::$kuser = kuserPeer::getActiveKuserByPartnerAndUid(self::$hsPartnerId, self::$hsUserId);
 			kuserPeer::setUseCriteriaFilter(true);
 			if (!self::$kuser)
 			{
@@ -646,11 +646,11 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 		}
 		
 		// choose operating partner!
-		if ($ksPartner) {
-			self::$operatingPartner = $ksPartner;
-			self::$operatingPartnerId = $ksPartner->getId();
+		if ($hsPartner) {
+			self::$operatingPartner = $hsPartner;
+			self::$operatingPartnerId = $hsPartner->getId();
 		}
-		else if (!self::$ksString && $requestedPartner) {
+		else if (!self::$hsString && $requestedPartner) {
 			self::$operatingPartner = $requestedPartner;
 			self::$operatingPartnerId = $requestedPartner->getId();
 			self::$kuser = null;
@@ -685,50 +685,50 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 	
 	
 	
-	private static function errorIfKsNotValid()
+	private static function errorIfHsNotValid()
 	{
-		// if no ks in current context - no need to check anything
-		if (!self::$ksString) {
+		// if no hs in current context - no need to check anything
+		if (!self::$hsString) {
 			return;
 		}
 		
-		$ksObj = null;
-		$res = hSessionUtils::validateHSessionNoTicket(self::$ksPartnerId, self::$ksUserId, self::$ksString, $ksObj);
+		$hsObj = null;
+		$res = hSessionUtils::validateHSessionNoTicket(self::$hsPartnerId, self::$hsUserId, self::$hsString, $hsObj);
 
 		if ( 0 >= $res )
 		{
 			switch($res)
 			{
-				case ks::INVALID_STR:
-					KalturaLog::err('Invalid KS ['.self::$ksString.']');
+				case hs::INVALID_STR:
+					KalturaLog::err('Invalid HS ['.self::$hsString.']');
 					break;
 									
-				case ks::INVALID_PARTNER:
-					KalturaLog::err('Wrong partner ['.self::$ksPartnerId.'] actual partner ['.$ksObj->partner_id.']');
+				case hs::INVALID_PARTNER:
+					KalturaLog::err('Wrong partner ['.self::$hsPartnerId.'] actual partner ['.$hsObj->partner_id.']');
 					break;
 									
-				case ks::INVALID_USER:
-					KalturaLog::err('Wrong user ['.self::$ksUserId.'] actual user ['.$ksObj->user.']');
+				case hs::INVALID_USER:
+					KalturaLog::err('Wrong user ['.self::$hsUserId.'] actual user ['.$hsObj->user.']');
 					break;
 																		
-				case ks::EXPIRED:
-					KalturaLog::err('KS Expired [' . date('Y-m-d H:i:s', $ksObj->valid_until) . ']');
+				case hs::EXPIRED:
+					KalturaLog::err('HS Expired [' . date('Y-m-d H:i:s', $hsObj->valid_until) . ']');
 					break;
 									
-				case ks::LOGOUT:
-					KalturaLog::err('KS already logged out');
+				case hs::LOGOUT:
+					KalturaLog::err('HS already logged out');
 					break;
 				
-				case ks::EXCEEDED_ACTIONS_LIMIT:
-					KalturaLog::err('KS exceeded number of actions limit');
+				case hs::EXCEEDED_ACTIONS_LIMIT:
+					KalturaLog::err('HS exceeded number of actions limit');
 					break;
 					
-				case ks::EXCEEDED_RESTRICTED_IP:
-					KalturaLog::err('IP does not match KS restriction');
+				case hs::EXCEEDED_RESTRICTED_IP:
+					KalturaLog::err('IP does not match HS restriction');
 					break;
 			}
 			
-			throw new kCoreException("Invalid KS", kCoreException::INVALID_KS, ks::getErrorStr($res));
+			throw new kCoreException("Invalid HS", kCoreException::INVALID_HS, hs::getErrorStr($res));
 		}
 	}
 	
@@ -749,9 +749,9 @@ class kPermissionManager implements kObjectCreatedEventConsumer, kObjectChangedE
 
 	private static function errorIfUserBlocked()
 	{
-		if (!kCurrentContext::$ks_kuser)
+		if (!kCurrentContext::$hs_kuser)
 			return;
-		$status = kCurrentContext::$ks_kuser->getStatus();
+		$status = kCurrentContext::$hs_kuser->getStatus();
 		if ($status == KuserStatus::BLOCKED)
 			throw new kCoreException("User blocked", kCoreException::USER_BLOCKED);
 	}

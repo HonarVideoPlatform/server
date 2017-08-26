@@ -26,7 +26,7 @@ class CategoryUserService extends KalturaBaseService
 		if($category->getMembersCount() >= $maxUserPerCategory)
 			throw new KalturaAPIException(KalturaErrors::CATEGORY_MAX_USER_REACHED,$maxUserPerCategory);
 
-		$currentKuserCategoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryUser->categoryId, kCurrentContext::getCurrentKsKuserId());
+		$currentKuserCategoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryUser->categoryId, kCurrentContext::getCurrentHsKuserId());
 		if (!kEntitlementUtils::getEntitlementEnforcement())
 		{
 			$dbCategoryKuser->setStatus(CategoryKuserStatus::ACTIVE);	
@@ -70,7 +70,7 @@ class CategoryUserService extends KalturaBaseService
 	 */
 	function getAction($categoryId, $userId)
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, $userId);
 		if (!$kuser)
 			throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID, $userId);
@@ -104,7 +104,7 @@ class CategoryUserService extends KalturaBaseService
 	 */
 	function updateAction($categoryId, $userId, KalturaCategoryUser $categoryUser, $override = false)
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, $userId);
 		if (!$kuser)
 			throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID, $userId);
@@ -136,7 +136,7 @@ class CategoryUserService extends KalturaBaseService
 	 */
 	function deleteAction($categoryId, $userId)
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, $userId);
 		
 		if (!$kuser)
@@ -168,13 +168,13 @@ class CategoryUserService extends KalturaBaseService
 		$currentKuserCategoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($dbCategoryKuser->getCategoryId());
 		if((!$currentKuserCategoryKuser || 
 			($currentKuserCategoryKuser->getPermissionLevel() != CategoryKuserPermissionLevel::MANAGER &&
-			 kCurrentContext::$ks_uid != $userId)) &&
-			 kCurrentContext::$ks_partner_id != Partner::BATCH_PARTNER_ID &&
+			 kCurrentContext::$hs_uid != $userId)) &&
+			 kCurrentContext::$hs_partner_id != Partner::BATCH_PARTNER_ID &&
 			 kEntitlementUtils::getEntitlementEnforcement())
 			throw new KalturaAPIException(KalturaErrors::CANNOT_UPDATE_CATEGORY_USER);
 		
 		if($dbCategoryKuser->getKuserId() == $category->getKuserId() &&
-			kCurrentContext::$ks_partner_id != Partner::BATCH_PARTNER_ID)
+			kCurrentContext::$hs_partner_id != Partner::BATCH_PARTNER_ID)
 			throw new KalturaAPIException(KalturaErrors::CANNOT_UPDATE_CATEGORY_USER_OWNER);
 			
 		$dbCategoryKuser->setStatus(CategoryKuserStatus::DELETED);
@@ -191,7 +191,7 @@ class CategoryUserService extends KalturaBaseService
 	 */
 	function activateAction($categoryId, $userId)
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, $userId);
 		if (!$kuser)
 			throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID, $userId);
@@ -200,7 +200,7 @@ class CategoryUserService extends KalturaBaseService
 		if (!$dbCategoryKuser)
 			throw new KalturaAPIException(KalturaErrors::INVALID_CATEGORY_USER_ID, $categoryId, $userId);
 		
-		$currentKuserCategoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($dbCategoryKuser->getCategoryId(), kCurrentContext::getCurrentKsKuserId());
+		$currentKuserCategoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($dbCategoryKuser->getCategoryId(), kCurrentContext::getCurrentHsKuserId());
 		if(kEntitlementUtils::getEntitlementEnforcement() &&
 			(!$currentKuserCategoryKuser || $currentKuserCategoryKuser->getPermissionLevel() != CategoryKuserPermissionLevel::MANAGER))
 			throw new KalturaAPIException(KalturaErrors::CANNOT_UPDATE_CATEGORY_USER);
@@ -223,7 +223,7 @@ class CategoryUserService extends KalturaBaseService
 	 */
 	function deactivateAction($categoryId, $userId)
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, $userId);
 		if (!$kuser)
 			throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID, $userId);
@@ -232,11 +232,11 @@ class CategoryUserService extends KalturaBaseService
 		if (!$dbCategoryKuser)
 			throw new KalturaAPIException(KalturaErrors::INVALID_CATEGORY_USER_ID, $categoryId, $userId);
 		
-		$currentKuserCategoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($dbCategoryKuser->getCategoryId(), kCurrentContext::getCurrentKsKuserId());
+		$currentKuserCategoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($dbCategoryKuser->getCategoryId(), kCurrentContext::getCurrentHsKuserId());
 		if(kEntitlementUtils::getEntitlementEnforcement() &&
 			(!$currentKuserCategoryKuser || 
 			($currentKuserCategoryKuser->getPermissionLevel() != CategoryKuserPermissionLevel::MANAGER &&
-			 kCurrentContext::$ks_uid != $userId)))
+			 kCurrentContext::$hs_uid != $userId)))
 			throw new KalturaAPIException(KalturaErrors::CANNOT_UPDATE_CATEGORY_USER);
 		
 		$dbCategoryKuser->setStatus(CategoryKuserStatus::NOT_ACTIVE);
@@ -304,7 +304,7 @@ class CategoryUserService extends KalturaBaseService
 		if(kEntitlementUtils::getEntitlementEnforcement())
 			throw new KalturaAPIException(KalturaErrors::CANNOT_INDEX_OBJECT_WHEN_ENTITLEMENT_IS_ENABLE);
 		
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$kuser = kuserPeer::getActiveKuserByPartnerAndUid($partnerId, $userId);
 
 		if(!$kuser)

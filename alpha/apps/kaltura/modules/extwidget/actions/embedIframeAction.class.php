@@ -81,19 +81,19 @@ class embedIframeAction extends sfAction
 				}
 				break;
 			
-			case widget::WIDGET_SECURITY_TYPE_FORCE_KS:
-				$ks_str = $this->getRequestParameter('ks');
+			case widget::WIDGET_SECURITY_TYPE_FORCE_HS:
+				$hs_str = $this->getRequestParameter('hs');
 				try
 				{
-					$ks = hSessionUtils::crackKs($ks_str);
+					$hs = hSessionUtils::crackHs($hs_str);
 				}
 				catch (Exception $e)
 				{
-					KExternalErrors::dieError(KExternalErrors::INVALID_KS);
+					KExternalErrors::dieError(KExternalErrors::INVALID_HS);
 				}
-				$res = hSessionUtils::validateHSession2(1, $partner_id, 0, $ks_str, $ks);
+				$res = hSessionUtils::validateHSession2(1, $partner_id, 0, $hs_str, $hs);
 				if ($res <= 0)
-					KExternalErrors::dieError(KExternalErrors::INVALID_KS);
+					KExternalErrors::dieError(KExternalErrors::INVALID_HS);
 					
 				break;
 			
@@ -142,7 +142,7 @@ class embedIframeAction extends sfAction
 		if($ui_conf_html5_url)
 		{
 			$url = str_replace(array('mwEmbedLoader.php', '{latest}'), array('mwEmbedFrame.php', $html5_version), $ui_conf_html5_url);
-			if (!kString::beginsWith($ui_conf_html5_url , "http")) // absolute URL
+			if (!hString::beginsWith($ui_conf_html5_url , "http")) // absolute URL
 				$url = $host . $url;
 		}
 		else

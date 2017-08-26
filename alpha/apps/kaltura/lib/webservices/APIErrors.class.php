@@ -10,7 +10,7 @@ class APIErrors
 	 * if given) and return a response array containing the message and the given error code and args.
 	 * 
 	 * Sample usage:
-	 *     $errorData = APIErrors::getErrorData( APIErrors::INVALID_KS, array( 'KSID', 'ERR_CODE', 'ERR_DESC' ) );
+	 *     $errorData = APIErrors::getErrorData( APIErrors::INVALID_HS, array( 'HSID', 'ERR_CODE', 'ERR_DESC' ) );
 	 *     
 	 * Sample usage from a generic function (e.g. from KalturaAPIError):
 	 *     function KalturaAPIException( $errorString )
@@ -23,7 +23,7 @@ class APIErrors
 	 * @param string $errorString
 	 * @return array(
 	 * 	   <br>'code'    => The given error code (e.g. 'INTERNAL_SERVERL_ERROR'),
-	 *     <br>'args'    => A map between the error's params and the given values from $errorArgs, e.g. array( 'KSID' => '1234' ), or an empty array in case of no params 
+	 *     <br>'args'    => A map between the error's params and the given values from $errorArgs, e.g. array( 'HSID' => '1234' ), or an empty array in case of no params 
 	 * 	   <br>'message' => Composed English message. Any placeholedrs will be replaced with the supplied args.
 	 *   <br>)
 	 */
@@ -78,9 +78,9 @@ class APIErrors
 	
 	const SERVERL_ERROR = "SERVERL_ERROR;ERR_TEXT;Server error @ERR_TEXT@";
 	
-	const MISSING_KS ="MISSING_KS;;Missing KS. Session not established";
-	// KS - the ks string, ERR_CODE - error code , ERR_DESC - error description
-	const INVALID_KS ="INVALID_KS;KSID,ERR_CODE,ERR_DESC;Invalid KS [@KSID@]. Error [@ERR_CODE@,@ERR_DESC@]";
+	const MISSING_HS ="MISSING_HS;;Missing HS. Session not established";
+	// HS - the hs string, ERR_CODE - error code , ERR_DESC - error description
+	const INVALID_HS ="INVALID_HS;HSID,ERR_CODE,ERR_DESC;Invalid HS [@HSID@]. Error [@ERR_CODE@,@ERR_DESC@]";
 	
 	// PID - partner_id
 	const START_SESSION_ERROR = "START_SESSION_ERROR;PID;Error while starting session for partner [@PID@]";
@@ -135,7 +135,7 @@ class APIErrors
 	const DUPLICATE_HSHOW_BY_NAME = "DUPLICATE_HSHOW_BY_NAME;HSHOW_NAME;Hshow with name [@HSHOW_NAME@] already exists in system " ;
 	
 	// HSHOW_ID - hshow_id , VERSION - $desired_version
-	const ERROR_HSHOW_ROLLBACK = "ERROR_KSOHW_ROLLBACK;HSHOW_ID,VERSION;Error while rollbacking hshow [@HSHOW_ID@] to version [@VERSION@]";
+	const ERROR_HSHOW_ROLLBACK = "ERROR_HSOHW_ROLLBACK;HSHOW_ID,VERSION;Error while rollbacking hshow [@HSHOW_ID@] to version [@VERSION@]";
 	
 	const ENTRY_ID_NOT_FOUND = "ENTRY_ID_NOT_FOUND;ENTRY_ID;Entry id \"@ENTRY_ID@\" not found";
 	
