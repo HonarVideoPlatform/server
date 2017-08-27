@@ -866,7 +866,7 @@ kmc.client = {
 		var service_url = kmc.client.buildClientURL("shortlink_shortlink", "add");
 			
 		var data = {
-			"hs"					: kmc.vars.hs, // Set KS
+			"hs"					: kmc.vars.hs, // Set HS
 			"format"				: 1, //format JSON
 			"shortLink:objectType"	: "KalturaShortLink",
 			"shortLink:userId"		: kmc.vars.user_id,
@@ -885,7 +885,7 @@ kmc.client = {
 		var service_url = kmc.client.buildClientURL("shortlink_shortlink", "update");
 			
 		var data = {
-			"hs"					: kmc.vars.hs, // Set KS
+			"hs"					: kmc.vars.hs, // Set HS
 			"format"				: 1, //format JSON
 			"id"					: id,
 			"shortLink:objectType"	: "KalturaShortLink",

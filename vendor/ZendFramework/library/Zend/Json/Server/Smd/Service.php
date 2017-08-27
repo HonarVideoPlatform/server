@@ -315,7 +315,7 @@ class Zend_Json_Server_Smd_Service
      */
     public function addParams(array $params)
     {
-        ksort($params);
+        hsort($params);
         foreach ($params as $options) {
             if (!is_array($options)) {
                 continue;
@@ -364,7 +364,7 @@ class Zend_Json_Server_Smd_Service
                 $params[$param['order']] = $param['param'];
             }
         }
-        ksort($params);
+        hsort($params);
         return $params;
     }
 

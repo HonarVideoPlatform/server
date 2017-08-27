@@ -855,7 +855,7 @@ class Zend_Locale_Format
             require_once 'Zend/Locale/Exception.php';
             throw new Zend_Locale_Exception("Unknown date format, neither date nor time in '" . $format . "' found");
         }
-        ksort($parse);
+        hsort($parse);
 
         // get daytime
         if (iconv_strpos($format, 'a') !== false) {

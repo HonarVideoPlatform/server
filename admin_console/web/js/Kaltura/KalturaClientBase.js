@@ -138,7 +138,7 @@ Function.prototype.inheritsFrom = function( parentClassOrObject ){
  * @param arr 	The array to sort.
  * @return		The sorted array.
  */
-function ksort(arr) {
+function hsort(arr) {
   var sArr = [];
   var tArr = [];
   var n = 0;
@@ -351,7 +351,7 @@ KalturaClientBase.prototype.doQueue = function(callback)
  */
 KalturaClientBase.prototype.signature = function(params)
 {
-	params = ksort(params);
+	params = hsort(params);
 	var str = "";
 	for(var v in params) {
 		var k = params[v];

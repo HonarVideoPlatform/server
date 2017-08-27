@@ -159,7 +159,7 @@ class HSecureEntryHelper
 		
 		if ($this->hs)
 		{
-			if ($this->isHsAdmin()) // no need to validate when ks is admin
+			if ($this->isHsAdmin()) // no need to validate when hs is admin
 				return;
 			
 			if ($this->hs->verifyPrivileges(hs::PRIVILEGE_DOWNLOAD, hs::PRIVILEGE_WILDCARD)) // no need to validate when we have wildcard download privilege
@@ -174,7 +174,7 @@ class HSecureEntryHelper
 	
 	protected function validateModeration()
 	{
-		if ($this->isHsAdmin()) // no need to validate when ks is admin
+		if ($this->isHsAdmin()) // no need to validate when hs is admin
 			return;
 			
 		if ($this->isEntryInModeration())
