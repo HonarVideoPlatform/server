@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<swf compression="ZLIB" frameCount="1" frameRate="24.0" gfx="false" hasEndTag="true" type="SWF" version="14">
+  <!--WARNING: The structure of this XML is not final. In later versions of FFDec it can be changed.-->
+  <!--JPEXS Free Flash Decompiler v.10.0.0 nightly build 1655-->
+  <displayRect Xmax="10000" Xmin="0" Ymax="7500" Ymin="0" nbits="15" type="RECT"/>
+  <tags>
+    <item actionScript3="true" hasMetadata="true" noCrossDomainCache="false" reserved1="false" reserved2="false" reserved3="0" type="FileAttributesTag" useDirectBlit="false" useGPU="false" useNetwork="true"/>
+    <item type="MetadataTag">
+      <xmlMetadata type="String"><![CDATA[<rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'><rdf:Description rdf:about='' xmlns:dc='http://purl.org/dc/elements/1.1'><dc:format>application/x-shockwave-flash</dc:format><dc:title>Adobe Flex 4 Application</dc:title><dc:description>http://www.adobe.com/products/flex</dc:description><dc:publisher>unknown</dc:publisher><dc:creator>unknown</dc:creator><dc:language>EN</dc:language><dc:date>Jan 17, 2013</dc:date></rdf:Description></rdf:RDF>]]></xmlMetadata>
+    </item>
+    <item maxRecursionDepth="1000" scriptTimeoutSeconds="60" type="ScriptLimitsTag"/>
+    <item type="SetBackgroundColorTag">
+      <backgroundColor blue="255" green="255" red="255" type="RGB"/>
+    </item>
+    <item buildHigh="0" buildLow="23201" compilationDateHigh="316" compilationDateLow="1234497695" edition="6" majorVersion="4" minorVersion="6" productID="3" type="ProductInfoTag"/>
+    <item name="ZeroClipboard" namedAnchor="false" type="FrameLabelTag"/>
+    <item flags="1" name="frame1" type="DoABC2Tag">
+      <abc type="ABC">
+        <version major="46" minor="16" type="ABCVersion"/>
+        <constants type="AVM2ConstantPool">
+          <constant_int>
+            <item isNull="true"/>
+            <item>13434624</item>
+          </constant_int>
+          <constant_uint/>
+          <constant_double>
+            <item isNull="true"/>
+            <item>0.0</item>
+          </constant_double>
+          <constant_decimal/>
+          <constant_float/>
+          <constant_float4/>
+          <constant_string>
+            <item isNull="true"/>
+            <item/>
+            <item>void</item>
+            <item>flash.events</item>
+            <item>MouseEvent</item>
+            <item>Object</item>
+            <item>String</item>
+            <item>Boolean</item>
+            <item>Number</item>
+            <item>ZeroClipboard</item>
+            <item>flash.display</item>
+            <item>Sprite</item>
+            <item>button</item>
+            <item>clipText</item>
+            <item>mouseClick</item>
+            <item>mouseOver</item>
+            <item>mouseOut</item>
+            <item>mouseDown</item>
+            <item>mouseUp</item>
+            <item>metaData</item>
+            <item>setText</item>
+            <item>setHandCursor</item>
+            <item>setSize</item>
+            <item>stage</item>
+            <item>TL</item>
+            <item>align</item>
+            <item>noScale</item>
+            <item>scaleMode</item>
+            <item>LoaderInfo</item>
+            <item>root</item>
+            <item>loaderInfo</item>
+            <item>parameters</item>
+            <item>trustedDomain</item>
+            <item>http://adobe.com/AS3/2006/builtin</item>
+            <item>flash.utils</item>
+            <item>flash.display:Sprite</item>
+            <item>flash.display:DisplayObjectContainer</item>
+            <item>flash.display:InteractiveObject</item>
+            <item>flash.display:DisplayObject</item>
+            <item>flash.events:EventDispatcher</item>
+            <item>flash.system</item>
+            <item>Security</item>
+            <item>\</item>
+            <item>split</item>
+            <item>\\</item>
+            <item>join</item>
+            <item>allowDomain</item>
+            <item>buttonMode</item>
+            <item>useHandCursor</item>
+            <item>graphics</item>
+            <item>beginFill</item>
+            <item>stageWidth</item>
+            <item>stageHeight</item>
+            <item>drawRect</item>
+            <item>alpha</item>
+            <item>addChild</item>
+            <item>CLICK</item>
+            <item>addEventListener</item>
+            <item>MOUSE_OVER</item>
+            <item>MOUSE_OUT</item>
+            <item>MOUSE_DOWN</item>
+            <item>MOUSE_UP</item>
+            <item>flash.external</item>
+            <item>ExternalInterface</item>
+            <item>addCallback</item>
+            <item>ZeroClipboard.dispatch</item>
+            <item>load</item>
+            <item>call</item>
+            <item>System</item>
+            <item>setClipboard</item>
+            <item>complete</item>
+            <item>text</item>
+            <item>dataRequested</item>
+            <item>flashVersion</item>
+            <item>Capabilities</item>
+            <item>version</item>
+            <item>altKey</item>
+            <item>ctrlKey</item>
+            <item>shiftKey</item>
+            <item>width</item>
+            <item>height</item>
+            <item>EventDispatcher</item>
+            <item>DisplayObject</item>
+            <item>InteractiveObject</item>
+            <item>DisplayObjectContainer</item>
+          </constant_string>
+          <constant_namespace>
+            <item isNull="true"/>
+            <item kind="22" name_index="1" type="Namespace"/>
+            <item kind="22" name_index="3" type="Namespace"/>
+            <item kind="22" name_index="10" type="Namespace"/>
+            <item kind="24" name_index="9" type="Namespace"/>
+            <item kind="5" name_index="0" type="Namespace"/>
+            <item kind="5" name_index="0" type="Namespace"/>
+            <item kind="23" name_index="1" type="Namespace"/>
+            <item kind="8" name_index="33" type="Namespace"/>
+            <item kind="22" name_index="34" type="Namespace"/>
+            <item kind="26" name_index="9" type="Namespace"/>
+            <item kind="26" name_index="35" type="Namespace"/>
+            <item kind="26" name_index="36" type="Namespace"/>
+            <item kind="26" name_index="37" type="Namespace"/>
+            <item kind="26" name_index="38" type="Namespace"/>
+            <item kind="26" name_index="39" type="Namespace"/>
+            <item kind="22" name_index="40" type="Namespace"/>
+            <item kind="22" name_index="62" type="Namespace"/>
+          </constant_namespace>
+          <constant_namespace_set>
+            <item isNull="true"/>
+            <item type="NamespaceSet">
+              <namespaces>
+                <item>5</item>
+                <item>1</item>
+                <item>6</item>
+                <item>7</item>
+                <item>8</item>
+                <item>2</item>
+                <item>9</item>
+                <item>4</item>
+                <item>10</item>
+                <item>11</item>
+                <item>12</item>
+                <item>13</item>
+                <item>14</item>
+                <item>15</item>
+              </namespaces>
+            </item>
+          </constant_namespace_set>
+          <constant_multiname>
+            <item isNull="true"/>
+            <item kind="7" name_index="2" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="4" namespace_index="2" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="5" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="6" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="7" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="8" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="9" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="11" namespace_index="3" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="12" namespace_index="5" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="13" namespace_index="5" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="14" namespace_index="5" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="15" namespace_index="5" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="16" namespace_index="5" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="17" namespace_index="5" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="18" namespace_index="5" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="19" namespace_index="5" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="20" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="21" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="22" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="23" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="25" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="27" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="28" namespace_index="3" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="29" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="30" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="31" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="9" name_index="32" namespace_index="0" namespace_set_index="1" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="41" namespace_index="16" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="9" name_index="43" namespace_index="0" namespace_set_index="1" qname_index="0" type="Multiname"/>
+            <item kind="9" name_index="45" namespace_index="0" namespace_set_index="1" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="46" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="47" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="48" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="49" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="50" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="51" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="52" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="53" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="54" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="55" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="56" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="57" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="58" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="59" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="60" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="61" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="63" namespace_index="17" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="64" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="67" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="68" namespace_index="16" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="69" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="43" namespace_index="8" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="45" namespace_index="8" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="74" namespace_index="16" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="75" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="76" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="9" name_index="76" namespace_index="0" namespace_set_index="1" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="77" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="9" name_index="77" namespace_index="0" namespace_set_index="1" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="78" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="9" name_index="78" namespace_index="0" namespace_set_index="1" qname_index="0" type="Multiname"/>
+            <item kind="27" name_index="0" namespace_index="0" namespace_set_index="1" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="79" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="80" namespace_index="1" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="81" namespace_index="2" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="82" namespace_index="3" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="83" namespace_index="3" namespace_set_index="0" qname_index="0" type="Multiname"/>
+            <item kind="7" name_index="84" namespace_index="3" namespace_set_index="0" qname_index="0" type="Multiname"/>
+          </constant_multiname>
+        </constants>
+        <method_info>
+          <item flags="0" name_index="0" ret_type="0" type="MethodInfo">
+            <param_types/>
+            <optional/>
+            <paramNames/>
+          </item>
+          <item flags="0" name_index="0" ret_type="0" type="MethodInfo">
+            <param_types/>
+            <optional/>
+            <paramNames/>
+          </item>
+          <item flags="0" name_index="0" ret_type="1" type="MethodInfo">
+            <param_types>
+              <item>2</item>
+            </param_types>
+            <optional/>
+            <paramNames>
+              <item>0</item>
+            </paramNames>
+          </item>
+          <item flags="0" name_index="0" ret_type="1" type="MethodInfo">
+            <param_types>
+              <item>2</item>
+            </param_types>
+            <optional/>
+            <paramNames>
+              <item>0</item>
+            </paramNames>
+          </item>
+          <item flags="0" name_index="0" ret_type="1" type="MethodInfo">
+            <param_types>
+              <item>2</item>
+            </param_types>
+            <optional/>
+            <paramNames>
+              <item>0</item>
+            </paramNames>
+          </item>
+          <item flags="0" name_index="0" ret_type="1" type="MethodInfo">
+            <param_types>
+              <item>2</item>
+            </param_types>
+            <optional/>
+            <paramNames>
+              <item>0</item>
+            </paramNames>
+          </item>
+          <item flags="0" name_index="0" ret_type="1" type="MethodInfo">
+            <param_types>
+              <item>2</item>
+            </param_types>
+            <optional/>
+            <paramNames>
+              <item>0</item>
+            </paramNames>
+          </item>
+          <item flags="8" name_index="0" ret_type="3" type="MethodInfo">
+            <param_types>
+              <item>2</item>
+              <item>3</item>
+            </param_types>
+            <optional>
+              <item type="ValueKind" value_index="0" value_kind="0"/>
+              <item type="ValueKind" value_index="0" value_kind="0"/>
+            </optional>
+            <paramNames>
+              <item>0</item>
+              <item>0</item>
+            </paramNames>
+          </item>
+          <item flags="0" name_index="0" ret_type="1" type="MethodInfo">
+            <param_types>
+              <item>4</item>
+            </param_types>
+            <optional/>
+            <paramNames>
+              <item>0</item>
+            </paramNames>
+          </item>
+          <item flags="0" name_index="0" ret_type="1" type="MethodInfo">
+            <param_types>
+              <item>5</item>
+            </param_types>
+            <optional/>
+            <paramNames>
+              <item>0</item>
+            </paramNames>
+          </item>
+          <item flags="0" name_index="0" ret_type="1" type="MethodInfo">
+            <param_types>
+              <item>6</item>
+              <item>6</item>
+            </param_types>
+            <optional/>
+            <paramNames>
+              <item>0</item>
+              <item>0</item>
+            </paramNames>
+          </item>
+          <item flags="0" name_index="0" ret_type="0" type="MethodInfo">
+            <param_types/>
+            <optional/>
+            <paramNames/>
+          </item>
+        </method_info>
+        <metadata_info/>
+        <instance_info>
+          <item flags="9" iinit_index="1" name_index="7" protectedNS="4" super_index="8" type="InstanceInfo">
+            <interfaces/>
+            <instance_traits type="Traits">
+              <traits>
+                <item bytes="0900000800" fileOffset="1861" kindFlags="0" kindType="0" name_index="9" slot_id="0" type="TraitSlotConst" type_index="8" value_index="0" value_kind="0">
+                  <metadata/>
+                </item>
+                <item bytes="0a0000040101" fileOffset="1866" kindFlags="0" kindType="0" name_index="10" slot_id="0" type="TraitSlotConst" type_index="4" value_index="1" value_kind="1">
+                  <metadata/>
+                </item>
+                <item bytes="0b010002" disp_id="0" fileOffset="1872" kindFlags="0" kindType="1" method_info="2" name_index="11" type="TraitMethodGetterSetter">
+                  <metadata/>
+                </item>
+                <item bytes="0c010003" disp_id="0" fileOffset="1876" kindFlags="0" kindType="1" method_info="3" name_index="12" type="TraitMethodGetterSetter">
+                  <metadata/>
+                </item>
+                <item bytes="0d010004" disp_id="0" fileOffset="1880" kindFlags="0" kindType="1" method_info="4" name_index="13" type="TraitMethodGetterSetter">
+                  <metadata/>
+                </item>
+                <item bytes="0e010005" disp_id="0" fileOffset="1884" kindFlags="0" kindType="1" method_info="5" name_index="14" type="TraitMethodGetterSetter">
+                  <metadata/>
+                </item>
+                <item bytes="0f010006" disp_id="0" fileOffset="1888" kindFlags="0" kindType="1" method_info="6" name_index="15" type="TraitMethodGetterSetter">
+                  <metadata/>
+                </item>
+                <item bytes="10010007" disp_id="0" fileOffset="1892" kindFlags="0" kindType="1" method_info="7" name_index="16" type="TraitMethodGetterSetter">
+                  <metadata/>
+                </item>
+                <item bytes="11010008" disp_id="0" fileOffset="1896" kindFlags="0" kindType="1" method_info="8" name_index="17" type="TraitMethodGetterSetter">
+                  <metadata/>
+                </item>
+                <item bytes="12010009" disp_id="0" fileOffset="1900" kindFlags="0" kindType="1" method_info="9" name_index="18" type="TraitMethodGetterSetter">
+                  <metadata/>
+                </item>
+                <item bytes="1301000a" disp_id="0" fileOffset="1904" kindFlags="0" kindType="1" method_info="10" name_index="19" type="TraitMethodGetterSetter">
+                  <metadata/>
+                </item>
+              </traits>
+            </instance_traits>
+          </item>
+        </instance_info>
+        <class_info>
+          <item cinit_index="0" type="ClassInfo">
+            <static_traits type="Traits">
+              <traits/>
+            </static_traits>
+          </item>
+        </class_info>
+        <script_info>
+          <item init_index="11" type="ScriptInfo">
+            <traits type="Traits">
+              <traits>
+                <item bytes="07040100" class_info="0" fileOffset="1913" kindFlags="0" kindType="4" name_index="7" slot_id="1" type="TraitClass">
+                  <metadata/>
+                </item>
+              </traits>
+            </traits>
+          </item>
+        </script_info>
+        <bodies>
+          <item codeBytes="d03047" init_scope_depth="8" max_regs="1" max_scope_depth="9" max_stack="1" method_info="0" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d030d0490060142c18611560142c1a61165d17d066186619461701661a8003d5d1661b12120000601cd1661b2c2a461d012c2c461e014f1f01d05d084a08006809d06609266120d06609276121d0660966222d014f2301d06609662224002a60146624601466254f2604d066092f0161275d28d066094f2801d0660960026629d0660b4f2a02d066096002662bd0660c4f2a02d066096002662cd0660d4f2a02d066096002662dd0660e4f2a02d066096002662ed0660f4f2a02602f2c15d066124f3002602f2c14d066114f3002602f2c16d066134f3002602f2c412c42d04610004f310347" init_scope_depth="9" max_regs="2" max_scope_depth="10" max_stack="5" method_info="1" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d0306032d0660a4f3301602f2c412c46d0d12c47d0660a2c2a4634012c2c46350155014610024f3103d02c01680a47" init_scope_depth="9" max_regs="2" max_scope_depth="10" max_stack="8" method_info="2" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d030602f2c412c0fd0d14610014f310347" init_scope_depth="9" max_regs="2" max_scope_depth="10" max_stack="5" method_info="3" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d030602f2c412c10d0d14610014f310347" init_scope_depth="9" max_regs="2" max_scope_depth="10" max_stack="5" method_info="4" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d030602f2c412c11d0d14610014f3103d0660a110e0000602f2c412c48d0d14610014f310347" init_scope_depth="9" max_regs="2" max_scope_depth="10" max_stack="5" method_info="5" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d030602f2c412c12d0d14610014f310347" init_scope_depth="9" max_regs="2" max_scope_depth="10" max_stack="5" method_info="6" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d030208563042c496036663755018003d7d112120000d3d166386139d3d1663a613bd3d1663c613d24006305d28263061013000009620662051e856304d36204d26204663e613e32060511e6ffff08060805d348" init_scope_depth="9" max_regs="7" max_scope_depth="10" max_stack="4" method_info="7" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d030d0d1680a47" init_scope_depth="9" max_regs="2" max_scope_depth="10" max_stack="2" method_info="8" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d030d06609d1612147" init_scope_depth="9" max_regs="2" max_scope_depth="10" max_stack="2" method_info="9" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d030d06609d1613fd06609d2614047" init_scope_depth="9" max_regs="3" max_scope_depth="10" max_stack="2" method_info="10" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+          <item codeBytes="d0306500600330604130604230604330604430600830600858001d1d1d1d1d1d680747" init_scope_depth="1" max_regs="1" max_scope_depth="8" max_stack="2" method_info="11" type="MethodBody">
+            <exceptions/>
+            <traits type="Traits">
+              <traits/>
+            </traits>
+          </item>
+        </bodies>
+      </abc>
+    </item>
+    <item type="SymbolClassTag">
+      <tags>
+        <item>0</item>
+      </tags>
+      <names>
+        <item>ZeroClipboard</item>
+      </names>
+    </item>
+    <item type="ShowFrameTag"/>
+  </tags>
+</swf>
