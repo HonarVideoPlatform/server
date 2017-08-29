@@ -1448,7 +1448,7 @@
 		<language type="krl" scripts="Cyrl Latn"/>
 		<language type="kru" scripts="Deva"/>
 		<language type="kru" territories="IN" alt="secondary"/>
-		<language type="ks" scripts="Arab Deva" territories="IN"/>
+		<language type="hs" scripts="Arab Deva" territories="IN"/>
 		<language type="ku" scripts="Arab Cyrl Latn"/>
 		<language type="ku" territories="IQ IR SY TR" alt="secondary"/>
 		<language type="kum" scripts="Cyrl"/>
@@ -4694,7 +4694,7 @@
 		<territoryCodes type="KM" numeric="174" alpha3="COM" fips10="CN"/>
 		<territoryCodes type="KN" numeric="659" alpha3="KNA" fips10="SC"/>
 		<territoryCodes type="KP" numeric="408" alpha3="PRK" fips10="KN"/>
-		<territoryCodes type="KR" numeric="410" alpha3="KOR" fips10="KS"/>
+		<territoryCodes type="KR" numeric="410" alpha3="KOR" fips10="HS"/>
 		<territoryCodes type="KW" numeric="414" alpha3="KWT" fips10="KU"/>
 		<territoryCodes type="KY" numeric="136" alpha3="CYM" fips10="CJ"/>
 		<territoryCodes type="KZ" numeric="398" alpha3="KAZ"/>
@@ -4876,7 +4876,7 @@
 			<keyMap type="currency" bcp47="cu"/>
 			<keyMap type="numbers" bcp47="nu"/>
 			<keyMap type="timezone" bcp47="tz"/>
-			<keyMap type="colStrength" bcp47="ks"/>
+			<keyMap type="colStrength" bcp47="hs"/>
 			<keyMap type="colAlternate" bcp47="ka"/>
 			<keyMap type="colBackwards" bcp47="kb"/>
 			<keyMap type="colNormalization" bcp47="kk"/>

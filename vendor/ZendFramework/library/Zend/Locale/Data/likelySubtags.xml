@@ -100,7 +100,7 @@
       <likelySubtag from="kpe" to="kpe_Latn_LR"/>
       <likelySubtag from="kpv" to="kpv_Cyrl_RU"/>
       <likelySubtag from="krc" to="krc_Cyrl_RU"/>
-      <likelySubtag from="ks" to="ks_Arab_IN"/>
+      <likelySubtag from="hs" to="hs_Arab_IN"/>
       <likelySubtag from="ku" to="ku_Arab_IQ"/>
       <likelySubtag from="ku_Latn" to="ku_Latn_TR"/>
       <likelySubtag from="ku_TR" to="ku_Latn_TR"/>
