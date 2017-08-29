@@ -57,7 +57,7 @@ class executeplaylistAction extends defPartnerservices2Action
 
 	protected function getObjectPrefix () { return "entries"; } 
 
-	protected function partnerGroup2() {return  kCurrentContext::$ks_partner_id . ',0';}
+	protected function partnerGroup2() {return  kCurrentContext::$hs_partner_id . ',0';}
 	
 	protected function kalturaNetwork2() {return null;}
 	
@@ -77,22 +77,22 @@ class executeplaylistAction extends defPartnerservices2Action
 			if ( $this->isAdmin() )
 				return null;		
 
-			$ks_partner_id = null; 
+			$hs_partner_id = null; 
 			$privileges = null;
 				
-			$ks = ks::fromSecureString(kCurrentContext::$ks);
-			if($ks)
+			$hs = hs::fromSecureString(kCurrentContext::$hs);
+			if($hs)
 			{
-				$ks_partner_id = $ks->getPartnerId();
-				$privileges = $ks->getPrivileges();
+				$hs_partner_id = $hs->getPartnerId();
+				$privileges = $hs->getPrivileges();
 			}
 				
 			$cache_key_arr = array ( 
 				"playlist_id" => $playlist_id , 
 				"partner_id" => $partner_id ,
-				"ks_partner_id" => $ks_partner_id ,  
+				"hs_partner_id" => $hs_partner_id ,  
 				"detailed" => $detailed,
-				"user" => kCurrentContext::$ks_uid,
+				"user" => kCurrentContext::$hs_uid,
 				"privileges" => $privileges,
 				"is_admin" => $this->isAdmin(),
 				"protocol" => infraRequestUtils::getProtocol(),
@@ -116,7 +116,7 @@ class executeplaylistAction extends defPartnerservices2Action
 		}
 		
 		if ($this->isAdmin())
-			myPlaylistUtils::setIsAdminKs(true);
+			myPlaylistUtils::setIsAdminHs(true);
 
 		$entry_list = myPlaylistUtils::executePlaylistById( $partner_id , $playlist_id , null , $detailed );
 

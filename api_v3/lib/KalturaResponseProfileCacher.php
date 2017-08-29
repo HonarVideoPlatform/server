@@ -47,19 +47,19 @@ class KalturaResponseProfileCacher extends kResponseProfileCacher
 		$partnerId = $object->getPartnerId();
 		$profileKey = $responseProfileKey;
 		$protocol = infraRequestUtils::getProtocol();
-		$ksType = kCurrentContext::getCurrentSessionType();
+		$hsType = kCurrentContext::getCurrentSessionType();
 		$userRoles = implode('-', $userRoles);
 		$host = (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
 		$entitlement = (int) kEntitlementUtils::getEntitlementEnforcement();
 		
 		if(self::$cachePerUser)
 		{
-			$user = kCurrentContext::getCurrentKsKuserId();
-			return "obj_rp{$profileKey}_p{$partnerId}_o{$objectType}_i{$objectId}_h{$protocol}_k{$ksType}_u{$userRoles}_w{$host}_e{$entitlement}_us{$user}";
+			$user = kCurrentContext::getCurrentHsKuserId();
+			return "obj_rp{$profileKey}_p{$partnerId}_o{$objectType}_i{$objectId}_h{$protocol}_k{$hsType}_u{$userRoles}_w{$host}_e{$entitlement}_us{$user}";
 		}
 		else
 		{
-			return "obj_rp{$profileKey}_p{$partnerId}_o{$objectType}_i{$objectId}_h{$protocol}_k{$ksType}_u{$userRoles}_w{$host}_e{$entitlement}";
+			return "obj_rp{$profileKey}_p{$partnerId}_o{$objectType}_i{$objectId}_h{$protocol}_k{$hsType}_u{$userRoles}_w{$host}_e{$entitlement}";
 		}
 	}
 	
@@ -86,11 +86,11 @@ class KalturaResponseProfileCacher extends kResponseProfileCacher
 		$partnerId = self::$cachedObject->getPartnerId();
 		$profileKey = self::$responseProfileKey;
 		$protocol = infraRequestUtils::getProtocol();
-		$ksType = kCurrentContext::getCurrentSessionType();
+		$hsType = kCurrentContext::getCurrentSessionType();
 		$userRoles = implode('-', $userRoles);
 		$host = (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '');
 		
-		return "relate_rp{$profileKey}_p{$partnerId}_o{$objectType}_h{$protocol}_k{$ksType}_u{$userRoles}_w{$host}";
+		return "relate_rp{$profileKey}_p{$partnerId}_o{$objectType}_h{$protocol}_k{$hsType}_u{$userRoles}_w{$host}";
 	}
 	
 	public static function onPersistentObjectLoaded(IRelatedObject $object)

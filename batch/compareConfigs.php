@@ -116,10 +116,10 @@ $hosts = array(
 
 foreach($hosts as $host)
 {
-	KSchedulerConfig::setHostname($host);
+	HSchedulerConfig::setHostname($host);
 	
-	$newConfig = new KSchedulerConfig($newDir);
-	$oldConfig = new KSchedulerConfig($oldDir);
+	$newConfig = new HSchedulerConfig($newDir);
+	$oldConfig = new HSchedulerConfig($oldDir);
 	
 	$array1 = $newConfig->toArray();
 	$array2 = $oldConfig->toArray();

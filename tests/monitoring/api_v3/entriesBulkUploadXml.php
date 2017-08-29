@@ -35,8 +35,8 @@ class EntriesBulkUploadXml
 			{
 				$apiCall = 'session.start';
 				$start = microtime(true);
-				$ks = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
-				$client->setKs($ks);
+				$hs = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
+				$client->setHs($hs);
 					
 				$data = @file_get_contents(__DIR__ . self::BULK_XML_FILE_ADD);
 				$entry1_ref_id = uniqid('monitor_bulk_xml1');

@@ -36,7 +36,7 @@ class categoryPeer extends BasecategoryPeer implements IRelatedObjectPeer
 
 		$c = KalturaCriteria::create(categoryPeer::OM_CLASS); 
 		
-		$partnerId = kCurrentContext::$ks_partner_id ? kCurrentContext::$ks_partner_id : kCurrentContext::$partner_id; 			
+		$partnerId = kCurrentContext::$hs_partner_id ? kCurrentContext::$hs_partner_id : kCurrentContext::$partner_id; 			
 		
 		if($partnerId != Partner::BATCH_PARTNER_ID || self::$ignoreDeleted)
 		{
@@ -50,7 +50,7 @@ class categoryPeer extends BasecategoryPeer implements IRelatedObjectPeer
 		if (kEntitlementUtils::getEntitlementEnforcement())
 		{
 			//add context as filter
-			$privacyContextCrit = $c->getNewCriterion(self::PRIVACY_CONTEXTS, kEntitlementUtils::getKsPrivacyContext(), KalturaCriteria::IN_LIKE);
+			$privacyContextCrit = $c->getNewCriterion(self::PRIVACY_CONTEXTS, kEntitlementUtils::getHsPrivacyContext(), KalturaCriteria::IN_LIKE);
 			$privacyContextCrit->addTag(KalturaCriterion::TAG_ENTITLEMENT_CATEGORY);
 			$c->addAnd($privacyContextCrit);
 			
@@ -58,9 +58,9 @@ class categoryPeer extends BasecategoryPeer implements IRelatedObjectPeer
 			$crit->addTag(KalturaCriterion::TAG_ENTITLEMENT_CATEGORY);
 
 			$kuser = null;
-			$ksString = kCurrentContext::$ks ? kCurrentContext::$ks : '';
-			if($ksString <> '')
-				$kuser = kCurrentContext::getCurrentKsKuser();
+			$hsString = kCurrentContext::$hs ? kCurrentContext::$hs : '';
+			if($hsString <> '')
+				$kuser = kCurrentContext::getCurrentHsKuser();
 
 			if($kuser)
 			{
@@ -349,7 +349,7 @@ class categoryPeer extends BasecategoryPeer implements IRelatedObjectPeer
 	 */
 	public static function retrieveEntitledAndNonIndexedByKuser($kuserId, $limit)
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$partner = PartnerPeer::retrieveByPK($partnerId);
 		
 		$categoryGroupSize = kConf::get('max_number_of_memebrs_to_be_indexed_on_entry');
@@ -379,19 +379,19 @@ class categoryPeer extends BasecategoryPeer implements IRelatedObjectPeer
 		$c->add(self::PARTNER_ID, $partnerId, Criteria::EQUAL);
 
 		//add privacy context
-		$privacyContextCrit = $c->getNewCriterion(self::PRIVACY_CONTEXTS, kEntitlementUtils::getKsPrivacyContext(), KalturaCriteria::IN_LIKE);
+		$privacyContextCrit = $c->getNewCriterion(self::PRIVACY_CONTEXTS, kEntitlementUtils::getHsPrivacyContext(), KalturaCriteria::IN_LIKE);
 		$privacyContextCrit->addTag(KalturaCriterion::TAG_ENTITLEMENT_CATEGORY);
 		$c->addAnd($privacyContextCrit);
 
-		//set privacy by ks and type
-		$crit = $c->getNewCriterion ( self::PRIVACY, kEntitlementUtils::getPrivacyForKs($partnerId), Criteria::IN);
+		//set privacy by hs and type
+		$crit = $c->getNewCriterion ( self::PRIVACY, kEntitlementUtils::getPrivacyForHs($partnerId), Criteria::IN);
 		$crit->addTag(KalturaCriterion::TAG_ENTITLEMENT_CATEGORY);
 		
 		//user is entitled to view all cantent that belong to categoires he is a membr of
 		$kuser = null;
-		$ksString = kCurrentContext::$ks ? kCurrentContext::$ks : '';
-		if($ksString <> '')
-			$kuser = kCurrentContext::getCurrentKsKuser();
+		$hsString = kCurrentContext::$hs ? kCurrentContext::$hs : '';
+		if($hsString <> '')
+			$kuser = kCurrentContext::getCurrentHsKuser();
 
 
 		if($kuser)

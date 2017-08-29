@@ -2776,12 +2776,12 @@ QRBitBuffer.prototype = {
 		return protocol;
 	};
 
-	Preview.getEmbedFlashVars = function(previewService, addKs) {
-		var protocol = this.getEmbedProtocol(previewService, addKs);
+	Preview.getEmbedFlashVars = function(previewService, addHs) {
+		var protocol = this.getEmbedProtocol(previewService, addHs);
 		var player = previewService.get('player');
 		var flashVars = this.getDeliveryTypeFlashVars(previewService.get('deliveryType'));
-		if(addKs === true) {
-			flashVars.ks = kmc.vars.ks;
+		if(addHs === true) {
+			flashVars.hs = kmc.vars.hs;
 		}
 
 		var playlistId = previewService.get('playlistId');
@@ -2794,7 +2794,7 @@ QRBitBuffer.prototype = {
 			} else {
 				flashVars['playlistAPI.autoInsert'] = 'true';
 				flashVars['playlistAPI.kpl0Name'] = previewService.get('playlistName');
-				flashVars['playlistAPI.kpl0Url'] = protocol + '://' + kmc.vars.api_host + '/index.php/partnerservices2/executeplaylist?' + 'partner_id=' + kmc.vars.partner_id + '&subp_id=' + kmc.vars.partner_id + '00' + '&format=8&ks={ks}&playlist_id=' + playlistId;
+				flashVars['playlistAPI.kpl0Url'] = protocol + '://' + kmc.vars.api_host + '/index.php/partnerservices2/executeplaylist?' + 'partner_id=' + kmc.vars.partner_id + '&subp_id=' + kmc.vars.partner_id + '00' + '&format=8&hs={hs}&playlist_id=' + playlistId;
 			}
 		}
 		return flashVars;	
@@ -3164,9 +3164,9 @@ kmc.functions = {
 			protocol 			: window.location.protocol + '//',
 			partnerid			: kmc.vars.partner_id,
 			subpid				: kmc.vars.partner_id + '00',
-			ks					: kmc.vars.ks,
+			hs					: kmc.vars.hs,
 			entryId				: "-1",
-			kshowId				: "-1",
+			hshowId				: "-1",
 			debugmode			: "true",
 			widget_id			: "_" + kmc.vars.partner_id,
 			urchinNumber		: kmc.vars.google_analytics_account, // "UA-12055206-1""
@@ -3221,10 +3221,10 @@ kmc.functions = {
 			protocol 		: window.location.protocol.slice(0, -1),
 			partnerid		: kmc.vars.partner_id,
 			subPartnerId	: kmc.vars.partner_id + '00',
-			sessionId		: kmc.vars.ks,
+			sessionId		: kmc.vars.hs,
 			devFlag			: "true",
 			entryId			: "-1",
-			kshow_id		: "-1",
+			hshow_id		: "-1",
 			terms_of_use	: kmc.vars.terms_of_use,
 			close			: "kmc.functions.onCloseKcw",
 			quick_edit		: 0, 
@@ -3429,7 +3429,7 @@ kmc.utils = {
 	},
 	debug : function() {
 		try{
-			console.info(" ks: ",kmc.vars.ks);
+			console.info(" hs: ",kmc.vars.hs);
 			console.info(" partner_id: ",kmc.vars.partner_id);
 		}
 		catch(err) {}
@@ -3684,7 +3684,7 @@ kmc.preview_embed = {
 			includeSeoMetadata: false,
 			includeHtml5Library: false,
 			flashVars: {
-				'ks': kmc.vars.ks,
+				'hs': kmc.vars.hs,
 				'flavorId': flavorDetails.asset_id
 			}
 		});
@@ -3718,7 +3718,7 @@ kmc.preview_embed = {
 			data: {
 				"type": type,
 				"partner_id": kmc.vars.partner_id,
-				"ks": kmc.vars.ks
+				"hs": kmc.vars.hs
 				},
 			dataType: "json",
 			success: function(data) {
@@ -3740,13 +3740,13 @@ kmc.client = {
 	makeRequest: function( service, action, params, callback ) {
 		var serviceUrl = kmc.vars.api_url + '/api_v3/index.php?service='+service+'&action='+action;
 		var defaultParams = {
-			"ks"		: kmc.vars.ks,
+			"hs"		: kmc.vars.hs,
 			"format"	: 9
 		};
 		// Merge params and defaults
 		$.extend( params, defaultParams);
 		
-		var ksort = function ( arr ) {
+		var hsort = function ( arr ) {
 			var sArr = [];
 			var tArr = [];
 			var n = 0;
@@ -3762,7 +3762,7 @@ kmc.client = {
 		};
 		
 		var getSignature = function( params ){
-			params = ksort(params);
+			params = hsort(params);
 			var str = "";
 			for(var v in params) {
 				var k = params[v];
@@ -3975,7 +3975,7 @@ kmc.user = {
 			url: kmc.vars.base_url + "/index.php/kmc/logout",
 			type: "POST",
 			data: {
-				"ks": kmc.vars.ks
+				"hs": kmc.vars.hs
 				},
 			dataType: "json",
 			complete: function() {
@@ -4064,10 +4064,10 @@ kmc.user = {
 			var url = kmc.vars.base_url + '/index.php/kmc/extlogin';
 
 			// Setup input fields
-			var ks_input = $('<input />').attr({
+			var hs_input = $('<input />').attr({
 				'type': 'hidden',
-				'name': 'ks',
-				'value': kmc.vars.ks
+				'name': 'hs',
+				'value': kmc.vars.hs
 			});
 			var partner_id_input = $('<input />').attr({
 				'type': 'hidden',
@@ -4081,7 +4081,7 @@ kmc.user = {
 							'method': 'post',
 							'style': 'display: none'
 						})
-						.append( ks_input, partner_id_input );
+						.append( hs_input, partner_id_input );
 
 			// Submit the form
 			$('body').append( $form );

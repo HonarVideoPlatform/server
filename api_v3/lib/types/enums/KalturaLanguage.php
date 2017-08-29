@@ -70,7 +70,7 @@ class KalturaLanguage extends KalturaStringEnum
 	const JA = 'Japanese';
 	const JV = 'Javanese';
 	const KN = 'Kannada';
-	const KS = 'Kashmiri';
+	const HS = 'Kashmiri';
 	const KK = 'Kazakh';
 	const RW = 'Kinyarwanda (Ruanda)';
 	const KY = 'Kirghiz';

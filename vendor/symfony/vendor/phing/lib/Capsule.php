@@ -148,7 +148,7 @@ class Capsule {
     function parse($template, $outputFile = null, $append = false) {
                 
         // main work done right here:
-        // hopefully this works recursively ... fingers crossed.    
+        // hopefully this works recursively ... fingers crossed.
         ob_start();
         
         try {

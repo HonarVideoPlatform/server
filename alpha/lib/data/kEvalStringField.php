@@ -5,7 +5,7 @@
  * @package Core
  * @subpackage model.data
  */
-class kEvalStringField extends kStringField
+class kEvalStringField extends hStringField
 {
 	/**
 	 * PHP code
@@ -14,9 +14,9 @@ class kEvalStringField extends kStringField
 	protected $code;
 	
 	/* (non-PHPdoc)
-	 * @see kStringField::getFieldValue()
+	 * @see hStringField::getFieldValue()
 	 */
-	protected function getFieldValue(kScope $scope = null) 
+	protected function getFieldValue(hScope $scope = null) 
 	{
 		if(!$scope || !$this->code)
 			return null;

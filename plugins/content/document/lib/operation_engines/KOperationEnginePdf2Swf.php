@@ -3,7 +3,7 @@
  * @package plugins.document
  * @subpackage lib
  */
-class KOperationEnginePdf2Swf extends KSingleOutputOperationEngine
+class KOperationEnginePdf2Swf extends HSingleOutputOperationEngine
 {
 	const PDF_FORMAT = 'PDF document';
 	

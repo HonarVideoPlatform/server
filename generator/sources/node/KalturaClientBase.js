@@ -137,7 +137,7 @@ var toParams = module.exports.toParams = function(obj)
  * @param arr The array to sort.
  * @return		The sorted array.
  */
-function ksort(arr) {
+function hsort(arr) {
 	var sArr = [];
 	var tArr = [];
 	var n = 0;
@@ -352,7 +352,7 @@ KalturaClientBase.prototype.resetRequest = function(){
  * @return string			a hashed signed signature that can identify the sent request parameters.
  */
 KalturaClientBase.prototype.signature = function(params){
-	params = ksort(params);
+	params = hsort(params);
 	var str = "";
 	for(var v in params) {
 		var k = params[v];

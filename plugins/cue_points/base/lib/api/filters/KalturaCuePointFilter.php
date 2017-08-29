@@ -52,9 +52,9 @@ class KalturaCuePointFilter extends KalturaCuePointBaseFilter
 	{		
 		if($this->userIdCurrent == KalturaNullableBoolean::TRUE_VALUE)
 		{
-			if(kCurrentContext::$ks_kuser_id)
+			if(kCurrentContext::$hs_kuser_id)
 			{
-				$this->userIdEqual = kCurrentContext::$ks_kuser_id;
+				$this->userIdEqual = kCurrentContext::$hs_kuser_id;
 			}
 			else
 			{
@@ -64,7 +64,7 @@ class KalturaCuePointFilter extends KalturaCuePointBaseFilter
 		}
 		
 		if(isset($this->userIdEqual)){
-			$dbKuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$ks_partner_id, $this->userIdEqual);
+			$dbKuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$hs_partner_id, $this->userIdEqual);
 			if (! $dbKuser) {
 				throw new KalturaAPIException ( KalturaErrors::INVALID_USER_ID );
 			}
@@ -74,7 +74,7 @@ class KalturaCuePointFilter extends KalturaCuePointBaseFilter
 		if(isset($this->userIdIn)){
 			$userIds = explode(",", $this->userIdIn);
 			foreach ($userIds as $userId){
-				$dbKuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$ks_partner_id, $userId);
+				$dbKuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$hs_partner_id, $userId);
 				if (! $dbKuser) {
 				    throw new KalturaAPIException ( KalturaErrors::INVALID_USER_ID );
 			}
@@ -95,7 +95,7 @@ class KalturaCuePointFilter extends KalturaCuePointBaseFilter
 		$this->validateEntryIdFiltered();
 		if (!is_null($this->userIdEqualCurrent) && $this->userIdEqualCurrent)
 		{
-			$this->userIdEqual = kCurrentContext::getCurrentKsKuserId();
+			$this->userIdEqual = kCurrentContext::getCurrentHsKuserId();
 		}
 		else
 		{
@@ -176,7 +176,7 @@ class KalturaCuePointFilter extends KalturaCuePointBaseFilter
 				return;
 			}
 			
-			throw new KalturaAPIException(KalturaCuePointErrors::USER_KS_CANNOT_LIST_RELATED_CUE_POINTS, get_class($this));
+			throw new KalturaAPIException(KalturaCuePointErrors::USER_HS_CANNOT_LIST_RELATED_CUE_POINTS, get_class($this));
 		}
 	}
 }

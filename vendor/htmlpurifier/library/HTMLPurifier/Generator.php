@@ -212,7 +212,7 @@ class HTMLPurifier_Generator
     {
         $html = '';
         if ($this->_sortAttr) {
-            ksort($assoc_array_of_attributes);
+            hsort($assoc_array_of_attributes);
         }
         foreach ($assoc_array_of_attributes as $key => $value) {
             if (!$this->_xhtml) {

@@ -3,7 +3,7 @@
  * @package Core
  * @subpackage model.data
  */
-class kAmazonS3StorageExportJobData extends kStorageExportJobData  
+class kAmazonS3StorageExportJobData extends hStorageExportJobData
 {
 	 /**
 	 * @var KalturaAmazonS3StorageProfileFilesPermissionLevel

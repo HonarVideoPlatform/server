@@ -190,7 +190,7 @@ class Form_PartnerConfiguration extends Infra_Form
 			'filters'		=> array('StringTrim'),
 		));
 
-		$this->addElement('checkbox', 'restrict_thumbnail_by_ks', array(
+		$this->addElement('checkbox', 'restrict_thumbnail_by_hs', array(
 			'label'	  => 'Apply access control rule on thumbnail',
 			'decorators' => array('ViewHelper', array('Label', array('placement' => 'append')), array('HtmlTag',  array('tag' => 'dt', 'class' => 'live_stream_enabled')))
 		));
@@ -215,7 +215,7 @@ class Form_PartnerConfiguration extends Infra_Form
 			'decorators'=> array('ViewHelper', array('Label', array('placement' => 'append')), array('HtmlTag',  array('tag' => 'dt')))
 		));
 		
-		$permissionNames[self::GROUP_PUBLISHER_DELIVERY_SETTINGS]['Apply access control rule on thumbnail'] = 'restrict_thumbnail_by_ks';
+		$permissionNames[self::GROUP_PUBLISHER_DELIVERY_SETTINGS]['Apply access control rule on thumbnail'] = 'restrict_thumbnail_by_hs';
 		$permissionNames[self::GROUP_PUBLISHER_DELIVERY_SETTINGS]['Default Delivery Type'] = 'default_delivery_type';
 		$permissionNames[self::GROUP_PUBLISHER_DELIVERY_SETTINGS]['Default Embed Code Type'] = 'default_embed_code_type';
 		$permissionNames[self::GROUP_PUBLISHER_DELIVERY_SETTINGS]['Enable system streamer types'] = 'use_default_streamers';
@@ -494,11 +494,11 @@ class Form_PartnerConfiguration extends Infra_Form
 			$permissionNames[self::GROUP_CONTENT_INGESTION_OPTIONS]['Content Moderation'] = 'moderate_content';
 		    $permissionNames[self::GROUP_ENABLE_DISABLE_FEATURES]['Default Entitlement Enforcement'] = 'default_entitlement_enforcement';
 		    $permissionNames[self::GROUP_ENABLE_DISABLE_FEATURES]['Kaltura Live Streams - Exclude Source Rendition'] = 'time_aligned_renditions';
-			ksort($permissionNames[self::GROUP_ENABLE_DISABLE_FEATURES]);
-			ksort($permissionNames[self::GROUP_CONTENT_INGESTION_OPTIONS]);
-			ksort($permissionNames[self::GROUP_REMOTE_STORAGE]);
-			ksort($permissionNames[self::GROUP_NOTIFICATION_CONFIG]);
-			ksort($permissionNames[self::SECURITY_OPTIONS]);
+			hsort($permissionNames[self::GROUP_ENABLE_DISABLE_FEATURES]);
+			hsort($permissionNames[self::GROUP_CONTENT_INGESTION_OPTIONS]);
+			hsort($permissionNames[self::GROUP_REMOTE_STORAGE]);
+			hsort($permissionNames[self::GROUP_NOTIFICATION_CONFIG]);
+			hsort($permissionNames[self::SECURITY_OPTIONS]);
 			$this->addAllDisplayGroups($permissionNames);
 		}
 		

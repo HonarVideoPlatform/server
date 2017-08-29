@@ -95,7 +95,7 @@ class SmilManifestPlugin extends KalturaPlugin implements IKalturaObjectLoader, 
 		$assetsData = array();
 		foreach($jobData->getSrcFileSyncs() as $srcFileSyncDesc)
 		{
-			/** @var $srcFileSyncDesc kSourceFileSyncDescriptor */
+			/** @var $srcFileSyncDesc hSourceFileSyncDescriptor */
 			$assetId = $srcFileSyncDesc->getAssetId();
 			$flavorAsset = assetPeer::retrieveById($assetId);
 			$assetsData['asset_'.$assetId.'_bitrate'] = $flavorAsset->getBitrate();

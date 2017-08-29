@@ -8,7 +8,7 @@ class SchedulePlugin extends KalturaPlugin implements IKalturaServices, IKaltura
 	const PLUGIN_VERSION_MAJOR = 1;
 	const PLUGIN_VERSION_MINOR = 0;
 	const PLUGIN_VERSION_BUILD = 0;
-	const SCHEDULE_EVENTS_CONSUMER = 'kScheduleEventsConsumer';
+	const SCHEDULE_EVENTS_CONSUMER = 'hScheduleEventsConsumer';
 	const ICAL_RESPONSE_TYPE = 'ical';
 	
 	public static function dependsOn()

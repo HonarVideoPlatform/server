@@ -82,7 +82,7 @@ class KalturaGenericXsltSyndicationFeed extends KalturaGenericSyndicationFeed
 			$object_to_fill = new genericSyndicationFeed();
 		
 		if($this->xslt)
-			kSyndicationFeedManager::validateXsl($this->xslt);
+			hSyndicationFeedManager::validateXsl($this->xslt);
 		
 		return parent::toInsertableObject($object_to_fill, $props_to_skip);
 	}
@@ -98,7 +98,7 @@ class KalturaGenericXsltSyndicationFeed extends KalturaGenericSyndicationFeed
 			$object_to_fill = new genericSyndicationFeed();
 		
 		if($this->xslt)
-			kSyndicationFeedManager::validateXsl($this->xslt);
+			hSyndicationFeedManager::validateXsl($this->xslt);
 		
 		return parent::toUpdatableObject($object_to_fill, $props_to_skip );
 	}

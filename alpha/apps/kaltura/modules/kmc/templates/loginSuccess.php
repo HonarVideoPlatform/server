@@ -223,9 +223,9 @@ var login = {
 					}
 					else
 					{
-						var ks = data;
+						var hs = data;
 						var expiryTime = $("input[name=expiry]").val();
-						var url = '<?php echo str_replace ( "https://" , "http://" , $service_url );?>/index.php/kmc/extlogin?ks='+ ks +'&exp=' + expiryTime; 
+						var url = '<?php echo str_replace ( "https://" , "http://" , $service_url );?>/index.php/kmc/extlogin?hs='+ hs +'&exp=' + expiryTime; 
 						window.location = url;
 					}
 				}
@@ -358,9 +358,9 @@ var passwordExpired = {
 					}
 					else
 					{						
-						var ks = data;
+						var hs = data;
 						var expiryTime = $("input[name=expiry]").val();
-						var url = '<?php echo str_replace ( "https://" , "http://" , $service_url );?>/index.php/kmc/extlogin?ks='+ ks +'&exp=' + expiryTime; 
+						var url = '<?php echo str_replace ( "https://" , "http://" , $service_url );?>/index.php/kmc/extlogin?hs='+ hs +'&exp=' + expiryTime; 
 						window.location = url;
 					}
 				}
@@ -475,7 +475,7 @@ var setInitialPassword = {
 			}
 }
 /*******************
- * click on links function. 
+ * click on links function.
  * Clear all form fields fromcontent
  * Fade out the current div, fade in the div to be shown
  */

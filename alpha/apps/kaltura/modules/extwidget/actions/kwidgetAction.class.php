@@ -84,9 +84,9 @@ class kwidgetAction extends sfAction
 		myPartnerUtils::blockInactivePartner($widget->getPartnerId());
 
 		// because of the routing rule - the entry_id & kmedia_type WILL exist. be sure to ignore them if smaller than 0
-		$kshow_id= $widget->getKshowId();
+		$hshow_id= $widget->getHshowId();
 		$entry_id= $widget->getEntryId();
-		$gallery_widget = !$kshow_id && !$entry_id;
+		$gallery_widget = !$hshow_id && !$entry_id;
 
 		if( !$entry_id  ) $entry_id = -1;
 
@@ -94,13 +94,13 @@ class kwidgetAction extends sfAction
 		{
 			// try eid - if failed entry_id
 			$eid = $this->getRequestParameter( "eid" , $this->getRequestParameter( "entry_id" ) );
-			// try kid - if failed kshow_id
-			$kid = $this->getRequestParameter( "kid" , $this->getRequestParameter( "kshow_id" ) );
+			// try kid - if failed hshow_id
+			$kid = $this->getRequestParameter( "kid" , $this->getRequestParameter( "hshow_id" ) );
 			if ( $eid != null )
 			$entry_id =  $eid ;
-			// allow kshow to be overriden by dynamic one
+			// allow hshow to be overriden by dynamic one
 			elseif ( $kid != null )
-			$kshow_id = $kid ;
+			$hshow_id = $kid ;
 		}
 
 		if ( $widget->getSecurityType () == widget::WIDGET_SECURITY_TYPE_MATCH_IP  )
@@ -118,19 +118,19 @@ class kwidgetAction extends sfAction
 				$arr = explode ( ";" , $custom_data );
 				$countries_str = $arr[0]; 
 				$fallback_entry_id = (isset($arr[1]) ? $arr[1] : null);
-				$fallback_kshow_id = (isset($arr[2]) ? $arr[2] : null);
+				$fallback_hshow_id = (isset($arr[2]) ? $arr[2] : null);
 				$current_country = "";
 
 				$valid_country = requestUtils::matchIpCountry( $countries_str , $current_country );
 				if ( ! $valid_country )
 				{
-					KalturaLog::log ( "kwidgetAction: Attempting to access widget [$widget_id] and entry [$entry_id] from country [$current_country]. Retrning entry_id: [$fallback_entry_id] kshow_id [$fallback_kshow_id]" );
+					KalturaLog::log ( "kwidgetAction: Attempting to access widget [$widget_id] and entry [$entry_id] from country [$current_country]. Retrning entry_id: [$fallback_entry_id] hshow_id [$fallback_hshow_id]" );
 					$entry_id= $fallback_entry_id;
-					$kshow_id = $fallback_kshow_id;
+					$hshow_id = $fallback_hshow_id;
 				}
 			}
 		}
-		elseif ( $widget->getSecurityType () == widget::WIDGET_SECURITY_TYPE_FORCE_KS )
+		elseif ( $widget->getSecurityType () == widget::WIDGET_SECURITY_TYPE_FORCE_HS )
 		{
 
 		}
@@ -182,7 +182,7 @@ class kwidgetAction extends sfAction
 		if ($uiConf)
 		{
 			$ui_conf_swf_url = $uiConf->getSwfUrl();
-			if( kString::beginsWith( $ui_conf_swf_url , "http") )
+			if( hString::beginsWith( $ui_conf_swf_url , "http") )
 			{
 				$swf_url = 	$ui_conf_swf_url; // absolute URL
 			}
@@ -206,7 +206,7 @@ class kwidgetAction extends sfAction
 		$ip = requestUtils::getRemoteAddress();// to convert back, use long2ip
 
 		// the widget log should change to reflect the new data, but for now - i used $widget_id instead of the widgget_type
-		//		WidgetLog::createWidgetLog( $referer , $ip , $kshow_id , $entry_id , $kmedia_type , $widget_id );
+		//		WidgetLog::createWidgetLog( $referer , $ip , $hshow_id , $entry_id , $kmedia_type , $widget_id );
 
 		if ( $entry_id == -1 ) $entry_id = null;
 
@@ -222,7 +222,7 @@ class kwidgetAction extends sfAction
 		
 		if ($uiConf)
 		{
-			$ks_flashvars = "";
+			$hs_flashvars = "";
 			$conf_vars = $uiConf->getConfVars();
 			if ($conf_vars)
 			$conf_vars = "&".$conf_vars;
@@ -248,7 +248,7 @@ class kwidgetAction extends sfAction
 			}
 			
 			// if we are loaded without a wrapper (directly in flex)
-			// 1. dont create the ks - keep url the same for caching
+			// 1. dont create the hs - keep url the same for caching
 			// 2. dont patch the uiconf - patching is done only to wrapper anyway
 			if ($nowrapper)
 			{
@@ -269,7 +269,7 @@ class kwidgetAction extends sfAction
 				if (version_compare($uiConf->getSwfUrlVersion(), "2.5", ">="))
 				{
 					// create an anonymous session
-					$ks = "";
+					$hs = "";
 					
 					$privileges = "view:*,widget:1";
 					if($widget->getIsPlayList())
@@ -277,17 +277,17 @@ class kwidgetAction extends sfAction
 						
 					if(PermissionPeer::isValidForPartner(PermissionName::FEATURE_ENTITLEMENT, $partner_id) &&
 						!$widget->getEnforceEntitlement() && $widget->getEntryId())
-						$privileges .= ','. kSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $widget->getEntryId();
+						$privileges .= ','. hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $widget->getEntryId();
 						
 					if(PermissionPeer::isValidForPartner(PermissionName::FEATURE_ENTITLEMENT, $partner_id) &&
 						!is_null($widget->getPrivacyContext()) && $widget->getPrivacyContext() != '' )
-						$privileges .= ','. kSessionBase::PRIVILEGE_PRIVACY_CONTEXT . ':' . $widget->getPrivacyContext();
+						$privileges .= ','. hSessionBase::PRIVILEGE_PRIVACY_CONTEXT . ':' . $widget->getPrivacyContext();
 						
-					$result = kSessionUtils::createKSessionNoValidations ( $partner_id , 0 , $ks , 86400 , false , "" , $privileges );
-					$ks_flashvars = "&$partnerIdStr&uid=0&ts=".microtime(true);
-					if($widget->getSecurityType () != widget::WIDGET_SECURITY_TYPE_FORCE_KS)
+					$result = hSessionUtils::createHSessionNoValidations ( $partner_id , 0 , $hs , 86400 , false , "" , $privileges );
+					$hs_flashvars = "&$partnerIdStr&uid=0&ts=".microtime(true);
+					if($widget->getSecurityType () != widget::WIDGET_SECURITY_TYPE_FORCE_HS)
 					{
-						$ks_flashvars = "&ks=$ks".$ks_flashvars;
+						$hs_flashvars = "&hs=$hs".$hs_flashvars;
 					}
 					
 		
@@ -307,8 +307,8 @@ class kwidgetAction extends sfAction
 						$dispatcher = KalturaDispatcher::getInstance();
 						try
 						{
-							$widget_result = $dispatcher->dispatch("widget", "get", array("ks"=> $ks, "id" => $widget_id));
-							$ui_conf_result = $dispatcher->dispatch("uiConf", "get", array("ks"=> $ks, "id" => $widget_type));
+							$widget_result = $dispatcher->dispatch("widget", "get", array("hs"=> $hs, "id" => $widget_id));
+							$ui_conf_result = $dispatcher->dispatch("uiConf", "get", array("hs"=> $hs, "id" => $widget_type));
 						}
 						catch(Exception $ex)
 						{
@@ -397,10 +397,10 @@ class kwidgetAction extends sfAction
 					"&cdnHost=" . str_replace("http://", "", str_replace("https://", "", $partner_cdnHost)).
 					"&statistics.statsDomain=$stats_host".
 					( $show_version ? "&entryVersion=$show_version" : "" ) .
-					( $kshow_id ? "&kshowId=$kshow_id" : "" ).
+					( $hshow_id ? "&hshowId=$hshow_id" : "" ).
 					( $entry_id ? "&$entryVarName=$entry_id" : "" ) .
 					$uiconf_id_str  . // will be empty if nothing to add
-					$ks_flashvars.
+					$hs_flashvars.
 					($cache_st ? "&clientTag=cache_st:$cache_st" : "").
 					$conf_vars;
 					
@@ -444,7 +444,7 @@ class kwidgetAction extends sfAction
 		}
 		else
 		{
-			$dynamic_date = "kshowId=$kshow_id" .
+			$dynamic_date = "hshowId=$hshow_id" .
 			"&host=" . requestUtils::getRequestHostId() .
 			( $show_version ? "&entryVersion=$show_version" : "" ) .
 			( $entry_id ? "&$entryVarName=$entry_id" : "" ) .

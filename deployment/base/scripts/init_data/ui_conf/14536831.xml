@@ -31,11 +31,11 @@
 			</title>
 		</submit>
 		<errorMessages>
-			<InvalidKs>
-				<starts>Invalid KS</starts>
+			<InvalidHs>
+				<starts>Invalid HS</starts>
 				<replace>
 					<![CDATA[Your session with Kaltura has expired.<br><br>In order to complete the upload please follow the following instructions:<br><ol><li>Refresh the Screencast Recorder page and Reload the Recorder</li><li>Wait for the Recorder to find the last video file</li><li>Press Upload button</li></ol>]]></replace>
-			</InvalidKs>
+			</InvalidHs>
 		</errorMessages>
 	</kaltura>
 </uiconf>

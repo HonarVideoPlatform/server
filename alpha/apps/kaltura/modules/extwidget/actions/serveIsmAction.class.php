@@ -30,7 +30,7 @@ class serveIsmAction extends sfAction
 		if (!$type || !$objectId)
 			KExternalErrors::dieError(KExternalErrors::MISSING_PARAMETER);
 			
-		$ks = $this->getRequestParameter( "ks" );
+		$hs = $this->getRequestParameter( "hs" );
 		$referrer = base64_decode($this->getRequestParameter("referrer"));
 		if (!is_string($referrer)) // base64_decode can return binary data
 			$referrer = '';

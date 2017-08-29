@@ -59,14 +59,14 @@ class registerNotificationPostProcessor
 		try
 		{
 			$requestParams = infraRequestUtils::getRequestParams();
-			$ksObject = $this->getKsObject($requestParams);
-			if(!$ksObject)
-				throw new Exception('Failed to get KS object');
+			$hsObject = $this->getHsObject($requestParams);
+			if(!$hsObject)
+				throw new Exception('Failed to get HS object');
 			
-			$this->setHash($ksObject->getHash());
+			$this->setHash($hsObject->getHash());
 			$this->updateResponseQueueName($response);
 			$this->updateResponseQueueKey($response, $requestParams);
-			$this->updateResponseUrl($response, $requestParams, $ksObject);
+			$this->updateResponseUrl($response, $requestParams, $hsObject);
 		}
 		catch(Exception $e)
 		{
@@ -123,10 +123,10 @@ class registerNotificationPostProcessor
 		}
 	}
 	
-	public function updateResponseUrl(&$response, $requestParams, kSessionBase $ksObject)
+	public function updateResponseUrl(&$response, $requestParams, hSessionBase $hsObject)
 	{
-		$urlData = json_encode(array_merge($this->getBasicUrlData(), $this->getKsUrlData($ksObject)));
-		$urlData = urlencode(base64_encode($ksObject->getPartnerId() . ":" . $this->encode($urlData)));		
+		$urlData = json_encode(array_merge($this->getBasicUrlData(), $this->getHsUrlData($hsObject)));
+		$urlData = urlencode(base64_encode($hsObject->getPartnerId() . ":" . $this->encode($urlData)));		
 		$response = str_replace("{urlData}", $urlData, $response);
 	}
 	
@@ -149,31 +149,31 @@ class registerNotificationPostProcessor
 		return $paramsKeyValue;
 	}
 	
-	public function getKsObject($requestParams)
+	public function getHsObject($requestParams)
 	{
-		$ks = $this->getRequestParamsKs($requestParams);
-		if(!$ks)
+		$hs = $this->getRequestParamsHs($requestParams);
+		if(!$hs)
 			return null;
 		
-		$ksObj = new kSessionBase();
-		$parseResult = $ksObj->parseKS($ks);
-		$ksStatus = $ksObj->tryToValidateKS();
-		if($parseResult && $ksStatus == kSessionBase::OK)
-			return $ksObj;
+		$hsObj = new hSessionBase();
+		$parseResult = $hsObj->parseHS($hs);
+		$hsStatus = $hsObj->tryToValidateHS();
+		if($parseResult && $hsStatus == hSessionBase::OK)
+			return $hsObj;
 		
 		return null;
 	}
 	
-	private function getRequestParamsKs($requestParams)
+	private function getRequestParamsHs($requestParams)
 	{
-		if(isset($requestParams['originalKs']))
-			return $requestParams['originalKs'];
+		if(isset($requestParams['originalHs']))
+			return $requestParams['originalHs'];
 		
-		if(isset($requestParams['ks']))
-			return $requestParams['ks'];
+		if(isset($requestParams['hs']))
+			return $requestParams['hs'];
 		
-		if(isset($requestParams['service']) && $requestParams['service'] === "multirequest" && isset($requestParams['1:ks']))
-			return $requestParams['1:ks'];
+		if(isset($requestParams['service']) && $requestParams['service'] === "multirequest" && isset($requestParams['1:hs']))
+			return $requestParams['1:hs'];
 		
 		return null;
 	}
@@ -187,16 +187,16 @@ class registerNotificationPostProcessor
         );
 	}
 	
-	private function getKsUrlData(kSessionBase $ksObject = null)
+	private function getHsUrlData(hSessionBase $hsObject = null)
 	{
-		if(!$ksObject)
+		if(!$hsObject)
 			return array();
 		
 		return array(
-				"ksPartnerId"	=> $ksObject->partner_id, 
-				"ksUserId" 		=> $ksObject->user,
-				"ksPrivileges"	=> $ksObject->getPrivileges(), 
-				"ksExpiry" 		=> $ksObject->valid_until
+				"hsPartnerId"	=> $hsObject->partner_id, 
+				"hsUserId" 		=> $hsObject->user,
+				"hsPrivileges"	=> $hsObject->getPrivileges(), 
+				"hsExpiry" 		=> $hsObject->valid_until
 		);
 	}
 	
@@ -212,7 +212,7 @@ class registerNotificationPostProcessor
 	
 	private function buildUnCachableResponse($partnerId, $queueName, $queueKey)
 	{		
-		$urlData = json_encode(array_merge($this->getBasicUrlData(), $this->getKsUrlData(kCurrentContext::$ks_object)));
+		$urlData = json_encode(array_merge($this->getBasicUrlData(), $this->getHsUrlData(kCurrentContext::$hs_object)));
 		$urlData = urlencode(base64_encode("$partnerId:" . self::encode($urlData)));
 		
 		$result = new KalturaPushNotificationData();
@@ -225,7 +225,7 @@ class registerNotificationPostProcessor
 	
 	public function buildResponse($partnerId, $queueName, $queueKey)
 	{
-		$this->setHash(kCurrentContext::$ks_object->getHash());
+		$this->setHash(kCurrentContext::$hs_object->getHash());
 		
 		if(kApiCache::getEnableResponsePostProcessor())
 			return $this->buildCachableResponse($partnerId, $queueName, $queueKey);

@@ -331,7 +331,7 @@ class KDLStreamDescriptor {
 			foreach ($this->channels['*'] as $channelId){
 				if($maxChanId<$channelId) $maxChanId=$channelId;
 			}
-			ksort($sourceAnalize->perChannelNumber);
+			hsort($sourceAnalize->perChannelNumber);
 			foreach($sourceAnalize->perChannelNumber as $sorceChannelsNum=>$subArr){
 				if($sorceChannelsNum>=$maxChanId) {
 					$this->mapping[0]=$sourceAnalize->perChannelNumber[$sorceChannelsNum][0]->id;

@@ -28,7 +28,7 @@ class TagPeer extends BaseTagPeer
 		
 		if (kEntitlementUtils::getEntitlementEnforcement())
 		{
-			$privacyContexts = kEntitlementUtils::getKsPrivacyContextArray();
+			$privacyContexts = kEntitlementUtils::getHsPrivacyContextArray();
 			$c->addAnd(self::PRIVACY_CONTEXT, $privacyContexts, Criteria::IN);
 		}
 		$c->addAnd(self::INSTANCE_COUNT, 0, Criteria::GREATER_THAN);

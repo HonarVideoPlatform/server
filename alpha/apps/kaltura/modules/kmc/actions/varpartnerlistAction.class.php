@@ -26,10 +26,10 @@ class varpartnerlistAction extends kalturaAction
 			die('You are not an wuthorized VAR. If you are a VAR, Please contact us at support@kaltura.com');
 		}
 		
-		$ks = kSessionUtils::crackKs($this->getP('ks'));
-		$user = $ks->user;
-		$res = kSessionUtils::validateKSession2(kSessionUtils::REQUIED_TICKET_ADMIN, $partner_id, $user, $this->getP('ks'), $ks);
-		if($res != ks::OK)
+		$hs = hSessionUtils::crackHs($this->getP('hs'));
+		$user = $hs->user;
+		$res = hSessionUtils::validateHSession2(hSessionUtils::REQUIED_TICKET_ADMIN, $partner_id, $user, $this->getP('hs'), $hs);
+		if($res != hs::OK)
 		{
 			header("Location: /index.php/kmc/varlogin");
 			die;
@@ -48,12 +48,12 @@ class varpartnerlistAction extends kalturaAction
 			$partner_id_param_name = 'partner_id';
 			$subpid_param_name = 'subp_id';
 		}
-		$kmc2Query = '?'.$partner_id_param_name.'='.$this->me->getId().'&'.$subpid_param_name.'='.($this->me->getId()*100).'&ks='.$_GET['ks'].'&email='.$email.'&screen_name='.$screenName;
+		$kmc2Query = '?'.$partner_id_param_name.'='.$this->me->getId().'&'.$subpid_param_name.'='.($this->me->getId()*100).'&hs='.		$kmc2Query = '?'.$partner_id_param_name.'='.$this->me->getId().'&'.$subpid_param_name.'='.($this->me->getId()*100).'&ks='.$_GET['ks'].'&email='.$email.'&screen_name='.$screenName;GET['hs'].'&email='.$email.'&screen_name='.$screenName;
 		$this->varKmcUrl = 'http://'.kConf::get('www_host').'/index.php/kmc/kmc'.$this->me->getKmcVersion().$kmc2Query;
 		foreach($partners as $partner)
 		{
-			$ks = null;
-			kSessionUtils::createKSessionNoValidations ( $partner->getId() ,  $partner->getAdminUserId() , $ks , 30 * 86400 , 2 , "" , "*" );
+			$hs = null;
+			hSessionUtils::createHSessionNoValidations ( $partner->getId() ,  $partner->getAdminUserId() , $hs , 30 * 86400 , 2 , "" , "*" );
 			$adminUser_email = $partner->getAdminEmail();
 			$partner_id_param_name = 'pid';
 			$subpid_param_name = 'subpid';
@@ -62,10 +62,10 @@ class varpartnerlistAction extends kalturaAction
 				$partner_id_param_name = 'partner_id';
 				$subpid_param_name = 'subp_id';
 			}
-			$kmc2Query = '?'.$partner_id_param_name.'='.$partner->getId().'&'.$subpid_param_name.'='.($partner->getId()*100).'&ks='.$ks.'&email='.$adminUser_email.'&screen_name=varAdmin';
+			$kmc2Query = '?'.$partner_id_param_name.'='.$partner->getId().'&'.$subpid_param_name.'='.($partner->getId()*100).'&hs='.$hs.'&email='.$adminUser_email.'&screen_name=varAdmin';
 			//$kmcLink = url_for('index.php/kmc/kmc2'.$kmc2Query);
 //			$kmcLink = 'http://'.kConf::get('www_host').'/index.php/kmc/kmc'.$partner->getKmcVersion().$kmc2Query;
-			$kmcLink = 'http://'.kConf::get('www_host')."/index.php/kmc/extlogin?ks=$ks&partner_id=" . $partner->getId();
+			$kmcLink = 'http://'.kConf::get('www_host')."/index.php/kmc/extlogin?hs=$hs&partner_id=" . $partner->getId();
 			$this->partners[$partner->getId()] = array(
 				'name' => $partner->getPartnerName(),
 				'kmcLink' => $kmcLink,

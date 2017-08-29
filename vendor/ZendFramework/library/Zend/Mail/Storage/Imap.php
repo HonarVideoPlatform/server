@@ -403,7 +403,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
             throw new Zend_Mail_Storage_Exception('folder not found');
         }
 
-        ksort($folders, SORT_STRING);
+        hsort($folders, SORT_STRING);
         $root = new Zend_Mail_Storage_Folder('/', '/', false);
         $stack = array(null);
         $folderStack = array(null);

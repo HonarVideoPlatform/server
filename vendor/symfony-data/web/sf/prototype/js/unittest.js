@@ -123,7 +123,7 @@ Test.Unit.Logger.prototype = {
   _toHTML: function(txt) {
     return txt.escapeHTML().replace(/\n/g,"<br/>");
   },
-  addLinksToResults: function(){ 
+  addLinksToResults: function(){
     $$("tr.failed .nameCell").each( function(td){ // todo: limit to children of this.log
       td.title = "Run only this test"
       Event.observe(td, 'click', function(){ window.location.search = "?tests=" + td.innerHTML;});

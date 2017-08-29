@@ -26,8 +26,8 @@ $apiCall = null;
 try
 {
 	$apiCall = 'session.start';
-	$ks = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
-	$client->setKs($ks);
+	$hs = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
+	$client->setHs($hs);
 
 	$entry = null;
 	/* @var $entry KalturaMediaEntry */
@@ -53,9 +53,9 @@ try
 	$jobId = $client->media->convert($entry->id);
 	
 	$apiCall = 'session.start';
-	$client->setKs(null);
-	$ks = $client->session->start($config['batch-partner']['adminSecret'], 'monitor-user', KalturaSessionType::ADMIN, $config['batch-partner']['id']);
-	$client->setKs($ks);
+	$client->setHs(null);
+	$hs = $client->session->start($config['batch-partner']['adminSecret'], 'monitor-user', KalturaSessionType::ADMIN, $config['batch-partner']['id']);
+	$client->setHs($hs);
 	
 	$apiCall = 'jobs.getConvertProfileStatus';
 	$job = $client->jobs->getConvertProfileStatus($jobId);

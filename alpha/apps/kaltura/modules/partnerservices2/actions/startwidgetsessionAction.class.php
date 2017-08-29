@@ -26,7 +26,7 @@ class startwidgetsessionAction extends startsessionAction
 						)
 					),
 				"out" => array (
-					"ks" => array ("type" => "string", "desc" => ""),
+					"hs" => array ("type" => "string", "desc" => ""),
 					"partner_id" => array ("type" => "string", "desc" => ""),
 					"subp_id" => array ("type" => "string", "desc" => ""),
 					"uid" => array ("type" => "string", "desc" => "")
@@ -47,7 +47,7 @@ class startwidgetsessionAction extends startsessionAction
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
 		// make sure the secret fits the one in the partner's table
-		$ks_str = "";
+		$hs_str = "";
 		$expiry = $this->getP ( "expiry" , 86400 );
 		$widget_id = $this->getPM ( "widget_id" );
 
@@ -64,36 +64,36 @@ class startwidgetsessionAction extends startsessionAction
 		// TODO - see how to decide if the partner has a URL to redirect to
 
 
-		// according to the partner's policy and the widget's policy - define the privileges of the ks
-		// TODO - decide !! - for now only view - any kshow
+		// according to the partner's policy and the widget's policy - define the privileges of the hs
+		// TODO - decide !! - for now only view - any hshow
 		$privileges = "view:*,widget:1";
 
-		if ( $widget->getSecurityType() == widget::WIDGET_SECURITY_TYPE_FORCE_KS )
+		if ( $widget->getSecurityType() == widget::WIDGET_SECURITY_TYPE_FORCE_HS )
 		{
 			
-			if ( ! $this->ks )// the one from the defPartnerservices2Action
-				$this->addException( APIErrors::MISSING_KS );
+			if ( ! $this->hs )// the one from the defPartnerservices2Action
+				$this->addException( APIErrors::MISSING_HS );
 
-			$ks_str = $this->getP ( "ks" );
+			$hs_str = $this->getP ( "hs" );
 			$widget_partner_id = $widget->getPartnerId();
-			$res = kSessionUtils::validateKSession2 ( 1 ,$widget_partner_id  , $puser_id , $ks_str , $this->ks );
+			$res = hSessionUtils::validateHSession2 ( 1 ,$widget_partner_id  , $puser_id , $hs_str , $this->hs );
 			
 			if ( 0 >= $res )
 			{
 				// chaned this to be an exception rather than an error
-				$this->addException ( APIErrors::INVALID_KS , $ks_str , $res , ks::getErrorStr( $res ));
+				$this->addException ( APIErrors::INVALID_HS , $hs_str , $res , hs::getErrorStr( $res ));
 			}			
 		}
 		else
 		{
 			// 	the session will be for NON admins and privileges of view only
 			$puser_id = 0;
-			$result = kSessionUtils::createKSessionNoValidations ( $partner_id , $puser_id , $ks_str , $expiry , false , "" , $privileges );
+			$result = hSessionUtils::createHSessionNoValidations ( $partner_id , $puser_id , $hs_str , $expiry , false , "" , $privileges );
 		}
 
 		if ( $result >= 0 )
 		{
-			$this->addMsg ( "ks" , $ks_str );
+			$this->addMsg ( "hs" , $hs_str );
 			$this->addMsg ( "partner_id" , $partner_id );
 			$this->addMsg ( "subp_id" , $widget->getSubpId() );
 			$this->addMsg ( "uid" , "0" );

@@ -86,7 +86,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObject
 	 * @var int
 	 * @deprecated
 	 */
-	public $restrictThumbnailByKs;
+	public $restrictThumbnailByHs;
 
 	/**
 	 * @var bool
@@ -396,7 +396,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObject
 		"extendedFreeTrailExpiryDate",
 		"extendedFreeTrailExpiryReason",
 		"extendedFreeTrail",
-		"restrictThumbnailByKs",
+		"restrictThumbnailByHs",
 		"supportAnimatedThumbnails",
 		"crmLink",
 		"crmId",
@@ -449,9 +449,9 @@ class KalturaSystemPartnerConfiguration extends KalturaObject
 			$this->autoModerateEntryFilter->fromObject($dbAutoModerationEntryFilter);
 		}
 
-		$this->partnerName = kString::stripUtf8InvalidChars($this->partnerName);
-		$this->description = kString::stripUtf8InvalidChars($this->description);
-		$this->adminName = kString::stripUtf8InvalidChars($this->adminName);
+		$this->partnerName = hString::stripUtf8InvalidChars($this->partnerName);
+		$this->description = hString::stripUtf8InvalidChars($this->description);
+		$this->adminName = hString::stripUtf8InvalidChars($this->adminName);
 		if($this->deliveryProfileIds) {
 			$this->deliveryProfileIds = json_encode($this->deliveryProfileIds);
 		}

@@ -56,7 +56,7 @@ class myMultiRequest extends defPartnerservices2Action
 //		print_r ($original_request_params);
 
 		$this->original_request_params = $original_request_params;
-		ksort ( $this->original_request_params );
+		hsort ( $this->original_request_params );
 
 //		print_r ($this->original_request_params);
 
@@ -230,7 +230,7 @@ class myMultiRequest extends defPartnerservices2Action
 		foreach ( $input_param_list as $param => $value )
 		{
 
-			//if ( kString::beginsWith( $param , "req_") )
+			//if ( hString::beginsWith( $param , "req_") )
 			$res = preg_match ( "/request(.+?)_(.*)/", $param , $match ) ;
 //			echo "$param: " . print_r ( $match , true ) , " [$res]<br>";
 

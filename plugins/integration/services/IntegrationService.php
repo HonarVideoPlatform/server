@@ -49,12 +49,12 @@ class IntegrationService extends KalturaBaseService
 		$coreType = IntegrationPlugin::getBatchJobTypeCoreValue(IntegrationBatchJobType::INTEGRATION);
 		$batchJob = BatchJobPeer::retrieveByPK($id);
 		$invalidJobId = false;
-		$invalidKs = false;
+		$invalidHs = false;
 		
-		if(!self::validateKs($batchJob))
+		if(!self::validateHs($batchJob))
 		{
-			$invalidKs = true;
-			KalturaLog::err("ks not valid for notifying job [$id]");
+			$invalidHs = true;
+			KalturaLog::err("hs not valid for notifying job [$id]");
 		}
 		elseif(!$batchJob)
 		{
@@ -73,7 +73,7 @@ class IntegrationService extends KalturaBaseService
 		}
 		elseif($batchJob->getPartnerId() != kCurrentContext::getCurrentPartnerId())
 		{
-			$invalidKs = true;
+			$invalidHs = true;
 			KalturaLog::err("Job [$id] of wrong partner [" . $batchJob->getPartnerId() . "] expected [" . kCurrentContext::getCurrentPartnerId() . "]");
 		}
 
@@ -81,7 +81,7 @@ class IntegrationService extends KalturaBaseService
 		{
 			throw new KalturaAPIException(KalturaErrors::INVALID_BATCHJOB_ID, $id);
 		}
-		if($invalidKs)
+		if($invalidHs)
 		{
 			throw new KalturaAPIException(KalturaIntegrationErrors::INTEGRATION_NOTIFY_FAILED);
 		}
@@ -89,15 +89,15 @@ class IntegrationService extends KalturaBaseService
 		kJobsManager::updateBatchJob($batchJob, KalturaBatchJobStatus::FINISHED);
 	}
 
-	public static function validateKs($job)
+	public static function validateHs($job)
 	{	
 		$dcParams = kDataCenterMgr::getCurrentDc();
 		$token = $dcParams["secret"];
 		
 		$createdString = md5($job->getId() . $token);
 		
-		$ks = kCurrentContext::$ks_object;
-		if($createdString == $ks->additional_data)
+		$hs = kCurrentContext::$hs_object;
+		if($createdString == $hs->additional_data)
 			return true;
 		
 		return false;

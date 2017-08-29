@@ -209,7 +209,7 @@ class UploadTokenService extends KalturaBaseService
 	 */
 	protected function restrictPeerToCurrentUser()
 	{
-		if (!$this->getKs() || !$this->getKs()->isAdmin())
+		if (!$this->getHs() || !$this->getHs()->isAdmin())
 		{
 			UploadTokenPeer::getCriteriaFilter()->getFilter()->addAnd(UploadTokenPeer::KUSER_ID, $this->getKuser()->getId());
 		}

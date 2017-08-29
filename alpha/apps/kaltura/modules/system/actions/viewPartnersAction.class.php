@@ -27,7 +27,7 @@ class viewPartnersAction extends kalturaSystemAction
 		"name" => $partner_id,
 		"kusers" => 0,
 		"contributors" => 0,
-		"kshows" => 0,
+		"hshows" => 0,
 		"entries" => 0,
 		"ready_entries" => 0
 		);

@@ -322,7 +322,7 @@ class kBusinessPostConvertDL
 			
 			if($origianlAssetFlavorId && $rootBatchJob && $rootBatchJob->getJobType() == BatchJobType::CONVERT_PROFILE)
 			{
-        		kStorageExporter::exportSourceAssetFromJob($rootBatchJob);
+        		hStorageExporter::exportSourceAssetFromJob($rootBatchJob);
 			}
 			else
 			{

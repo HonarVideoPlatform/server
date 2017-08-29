@@ -3,7 +3,7 @@
  * @package plugins.quickTimeTools
  * @subpackage lib
  */
-class KOperationEngineQtTools  extends KSingleOutputOperationEngine
+class KOperationEngineQtTools  extends HSingleOutputOperationEngine
 {
 	protected $tmpFolder;
 	

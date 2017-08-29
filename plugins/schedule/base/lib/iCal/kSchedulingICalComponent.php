@@ -1,6 +1,6 @@
 <?php
 
-abstract class kSchedulingICalComponent
+abstract class hSchedulingICalComponent
 {
 	/**
 	 * @var array
@@ -18,7 +18,7 @@ abstract class kSchedulingICalComponent
 	protected $components = array();
 
 	/**
-	 * @var kSchedulingICalComponent
+	 * @var hSchedulingICalComponent
 	 */
 	protected $parent = null;
 
@@ -93,7 +93,7 @@ abstract class kSchedulingICalComponent
 
 			if ($field === 'BEGIN')
 			{
-				$component = kSchedulingICal::parseComponent(strtoupper($value), $lines);
+				$component = hSchedulingICal::parseComponent(strtoupper($value), $lines);
 				if ($component != null)
 				{
 					$this->addComponent($component);
@@ -142,12 +142,12 @@ abstract class kSchedulingICalComponent
 		return implode("\r\n", $lines);
 	}
 
-	public function setParentComponent(kSchedulingICalComponent $parent)
+	public function setParentComponent(hSchedulingICalComponent $parent)
 	{
 		$this->parent = $parent;
 	}
 
-	public function addComponent(kSchedulingICalComponent $component)
+	public function addComponent(hSchedulingICalComponent $component)
 	{
 		$component->setParentComponent($this);
 		$this->components[] = $component;

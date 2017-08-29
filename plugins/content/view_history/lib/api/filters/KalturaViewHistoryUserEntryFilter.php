@@ -17,13 +17,13 @@ class KalturaViewHistoryUserEntryFilter extends KalturaUserEntryFilter
 	{
 		if (kCurrentContext::getCurrentSessionType() == SessionType::USER)
 		{
-			$this->userIdEqual = kCurrentContext::getCurrentKsKuser()->getPuserId();
+			$this->userIdEqual = kCurrentContext::getCurrentHsKuser()->getPuserId();
 			$this->userIdIn = null;
 			$this->userIdNotIn = null;
 		}
 		elseif (!$this->userIdEqual && !$this->userIdIn && !$this->userIdNotIn)
 		{
-			$this->userIdEqual = kCurrentContext::getCurrentKsKuser() ? kCurrentContext::getCurrentKsKuser()->getPuserId() : null;
+			$this->userIdEqual = kCurrentContext::getCurrentHsKuser() ? kCurrentContext::getCurrentHsKuser()->getPuserId() : null;
 		}
 		
 		

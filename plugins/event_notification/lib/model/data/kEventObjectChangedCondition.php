@@ -23,7 +23,7 @@ class kEventObjectChangedCondition extends kCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::applyDynamicValues()
 	 */
-	protected function applyDynamicValues(kScope $scope)
+	protected function applyDynamicValues(hScope $scope)
 	{
 		parent::applyDynamicValues($scope);
 		
@@ -38,7 +38,7 @@ class kEventObjectChangedCondition extends kCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::internalFulfilled()
 	 */
-	protected function internalFulfilled(kScope $scope)
+	protected function internalFulfilled(hScope $scope)
 	{
 		if(!($scope instanceof kEventScope))
 			return false;

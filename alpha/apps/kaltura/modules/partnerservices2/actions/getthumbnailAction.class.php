@@ -32,7 +32,7 @@ class getthumbnailAction extends defPartnerservices2Action
 	{
   		$filename = $this->getPM ('filename');
 		// strip the filename from invalid characters
-		$token = $this->getKsUniqueString();
+		$token = $this->getHsUniqueString();
 		
 		// should upload the file with the token as the prefix
 		$res = myUploadUtils::uploadFileByToken ( $_FILES['Filedata'] , $token , $filename ,null , true );

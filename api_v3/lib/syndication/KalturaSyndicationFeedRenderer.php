@@ -111,7 +111,7 @@ class KalturaSyndicationFeedRenderer
 	 */
 	private $addLinkForNextIteration = false;
 	
-	public function __construct($feedId, $feedProcessingKey = null, $ks = null, $state = null)
+	public function __construct($feedId, $feedProcessingKey = null, $hs = null, $state = null)
 	{
 		$this->feedProcessingKey = $feedProcessingKey;
 		
@@ -122,14 +122,14 @@ class KalturaSyndicationFeedRenderer
 		$this->syndicationFeedDb = $syndicationFeedDB = syndicationFeedPeer::retrieveByPK($feedId);
 		if( !$syndicationFeedDB )
 			throw new Exception("Feed Id not found");
-		kCurrentContext::initKsPartnerUser($ks, $syndicationFeedDB->getPartnerId(), '');
+		kCurrentContext::initHsPartnerUser($hs, $syndicationFeedDB->getPartnerId(), '');
 		kPermissionManager::init();
 		kEntitlementUtils::initEntitlementEnforcement($syndicationFeedDB->getPartnerId(), $syndicationFeedDB->getEnforceEntitlement());
 
-		// in case ks exists, it's privacy context will be added in entryPeer::setDefaultCriteriaFilter
-		$ksObj = kCurrentContext::$ks_object;
+		// in case hs exists, it's privacy context will be added in entryPeer::setDefaultCriteriaFilter
+		$hsObj = kCurrentContext::$hs_object;
 		
-		if((!$ksObj || !$ksObj->getPrivacyContext()) && !is_null($syndicationFeedDB->getPrivacyContext()) && $syndicationFeedDB->getPrivacyContext() != '')
+		if((!$hsObj || !$hsObj->getPrivacyContext()) && !is_null($syndicationFeedDB->getPrivacyContext()) && $syndicationFeedDB->getPrivacyContext() != '')
 			kEntitlementUtils::setPrivacyContextSearch($syndicationFeedDB->getPrivacyContext());
 			
 		$tmpSyndicationFeed = KalturaSyndicationFeedFactory::getInstanceByType($syndicationFeedDB->getType());

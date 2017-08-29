@@ -15,7 +15,7 @@ class downloadAction extends sfAction
 		$flavorId = $this->getRequestParameter("flavor");
 		$fileName = $this->getRequestParameter("file_name");
 		$fileName = basename($fileName);
-		$ksStr = $this->getRequestParameter("ks");
+		$hsStr = $this->getRequestParameter("hs");
 		$referrer = $this->getRequestParameter("referrer");
 		$referrer = base64_decode($referrer);
 		if (!is_string($referrer)) // base64_decode can return binary data
@@ -23,14 +23,14 @@ class downloadAction extends sfAction
 			
 		$entry = null;
 		
-		if($ksStr)
+		if($hsStr)
 		{
 			try {
-				kCurrentContext::initKsPartnerUser($ksStr);
+				kCurrentContext::initHsPartnerUser($hsStr);
 			}
 			catch (Exception $ex)
 			{
-				KExternalErrors::dieError(KExternalErrors::INVALID_KS);	
+				KExternalErrors::dieError(KExternalErrors::INVALID_HS);	
 			}
 		}
 		else
@@ -60,7 +60,7 @@ class downloadAction extends sfAction
 		myPartnerUtils::blockInactivePartner($entry->getPartnerId());
 		
 		$shouldPreview = false;
-		$securyEntryHelper = new KSecureEntryHelper($entry, $ksStr, $referrer, ContextType::DOWNLOAD);
+		$securyEntryHelper = new HSecureEntryHelper($entry, $hsStr, $referrer, ContextType::DOWNLOAD);
 		if ($securyEntryHelper->shouldPreview()) { 
 			$shouldPreview = true;
 		} else { 
@@ -133,8 +133,8 @@ class downloadAction extends sfAction
 		$preview = 0;
 		if($shouldPreview && $flavorAsset) {
 			$preview = $flavorAsset->estimateFileSize($entry, $securyEntryHelper->getPreviewLength());
-		} else if(kCurrentContext::$ks_object) {
-			$preview = kCurrentContext::$ks_object->getPrivilegeValue(kSessionBase::PRIVILEGE_PREVIEW, 0);
+		} else if(kCurrentContext::$hs_object) {
+			$preview = kCurrentContext::$hs_object->getPrivilegeValue(hSessionBase::PRIVILEGE_PREVIEW, 0);
 		}
 		
 		//enable downloading file_name which inside the flavor asset directory 
@@ -189,7 +189,7 @@ class downloadAction extends sfAction
 				$url .= "/relocate/";
 			}
 				
-			$url .= kString::stripInvalidUrlChars($file_name);
+			$url .= hString::stripInvalidUrlChars($file_name);
 
 			kFile::cacheRedirect($url);
 

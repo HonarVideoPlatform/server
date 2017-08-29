@@ -78,7 +78,7 @@ class KalturaCategoryEntryFilter extends KalturaCategoryEntryBaseFilter
 					throw new KalturaAPIException(KalturaErrors::CATEGORY_NOT_FOUND, $this->categoryIdEqual);
 
 				if(($category->getDisplayInSearch() == DisplayInSearchType::CATEGORY_MEMBERS_ONLY) && 
-					!categoryKuserPeer::retrievePermittedKuserInCategory($category->getId(), kCurrentContext::getCurrentKsKuserId()))
+					!categoryKuserPeer::retrievePermittedKuserInCategory($category->getId(), kCurrentContext::getCurrentHsKuserId()))
 				{
 					throw new KalturaAPIException(KalturaErrors::CATEGORY_NOT_FOUND, $this->categoryIdEqual);
 				}

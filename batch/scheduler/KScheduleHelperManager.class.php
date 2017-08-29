@@ -4,7 +4,7 @@
  *
  * @package Scheduler
  */
-class KScheduleHelperManager
+class HScheduleHelperManager
 {
 	/**
 	 * @return array

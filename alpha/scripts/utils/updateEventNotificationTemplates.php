@@ -15,8 +15,8 @@ require_once(__DIR__ . '/../bootstrap.php');
 $map = array(
    'kFlowHelper::createBulkUploadLogUrl($scope->getEvent()->getBatchJob())' =>
 	   '!is_null($scope->getEvent()->getBatchJob()) ? kFlowHelper::createBulkUploadLogUrl($scope->getEvent()->getBatchJob()) : \'\'',
-   'kCurrentContext::getCurrentKsKuser()->getPuserId()' =>
-	   '!is_null(kCurrentContext::getCurrentKsKuser()) ? kCurrentContext::getCurrentKsKuser()->getPuserId() : \'\'',
+   'kCurrentContext::getCurrentHsKuser()->getPuserId()' =>
+	   '!is_null(kCurrentContext::getCurrentHsKuser()) ? kCurrentContext::getCurrentHsKuser()->getPuserId() : \'\'',
    'entryPeer::retrieveByPk($scope->getEvent()->getObject()->getEntryId())->getName()' =>
 	   '!is_null(entryPeer::retrieveByPk($scope->getEvent()->getObject()->getEntryId())) ? entryPeer::retrieveByPk($scope->getObject()->getEntryId())->getName() : \'\'',
    '$scope->getEvent()->getObject()->getentry()->getPartner()->getAdminSecret()' =>

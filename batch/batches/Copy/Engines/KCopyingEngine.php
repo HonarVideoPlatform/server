@@ -59,7 +59,7 @@ abstract class KCopyingEngine
 	/**
 	 * @param int $partnerId
 	 * @param KalturaClient $client
-	 * @param KSchedularTaskConfig $taskConfig
+	 * @param HSchedularTaskConfig $taskConfig
 	 */
 	public function configure($partnerId)
 	{

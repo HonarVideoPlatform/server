@@ -53,7 +53,7 @@ class facebookoauth2Action extends oauth2Action
 		$this->serviceUrl = requestUtils::getHost();
 		$params = $this->getForwardParameters();
 		$params[FacebookConstants::FACEBOOK_NEXT_ACTION_REQUEST_PARAM] = base64_encode(self::SUB_ACTION_REDIRECT_SCREEN);
-		$this->nextUrl = $this->getController()->genUrl('extservices/facebookoauth2?'.http_build_query($params, null, '&')).'?ks=';
+		$this->nextUrl = $this->getController()->genUrl('extservices/facebookoauth2?'.http_build_query($params, null, '&')).'?hs=';
 	}
 
 	/**
@@ -67,27 +67,27 @@ class facebookoauth2Action extends oauth2Action
 		$providerId = base64_decode($this->getRequestParameter(FacebookConstants::FACEBOOK_PROVIDER_ID_REQUEST_PARAM));
 		$requestPartnerId = base64_decode($this->getRequestParameter(FacebookConstants::FACEBOOK_PARTNER_ID_REQUEST_PARAM));
 
-		$ksStr = $this->getRequestParameter(FacebookConstants::FACEBOOK_KS_REQUEST_PARAM);
-		$this->ksError = null;
+		$hsStr = $this->getRequestParameter(FacebookConstants::FACEBOOK_HS_REQUEST_PARAM);
+		$this->hsError = null;
 		$this->partnerError = null;
-		$ksValid = $this->processKs($ksStr);
-		if (!$ksValid)
+		$hsValid = $this->processHs($hsStr);
+		if (!$hsValid)
 		{
-			$this->ksError = true;
+			$this->hsError = true;
 			return;
 		}
-		$ks = kCurrentContext::$ks_object;
-		$contextPartnerId = $ks->partner_id;
+		$hs = kCurrentContext::$hs_object;
+		$contextPartnerId = $hs->partner_id;
 		if ( empty($requestPartnerId) || $contextPartnerId != $requestPartnerId)
 		{
 			$this->partnerError = true;
 			return;
 		}
-		$ks = $this->generateTimeLimitedKs($contextPartnerId);
+		$hs = $this->generateTimeLimitedHs($contextPartnerId);
 		$params = $this->getForwardParameters();
-		$params[FacebookConstants::FACEBOOK_KS_REQUEST_PARAM] = $ks;
+		$params[FacebookConstants::FACEBOOK_HS_REQUEST_PARAM] = $hs;
 		$params[FacebookConstants::FACEBOOK_NEXT_ACTION_REQUEST_PARAM] = base64_encode(self::SUB_ACTION_PROCESS_OAUTH2_RESPONSE);
-		$accessURL = $this->getFacebookDistributionAccessURL($providerId, $ks);
+		$accessURL = $this->getFacebookDistributionAccessURL($providerId, $hs);
 		$dataHandler = new kDistributionPersistentDataHandler($accessURL);
 		$redirectUrl = $this->getController()->genUrl('extservices/facebookoauth2?'.http_build_query($params, null, '&'), true);
 		$reRequestPermissions = base64_decode($this->getRequestParameter(FacebookConstants::FACEBOOK_RE_REQUEST_PERMISSIONS_REQUEST_PARAM));
@@ -104,12 +104,12 @@ class facebookoauth2Action extends oauth2Action
 		$appSecret = $this->getFromConfig(FacebookConstants::FACEBOOK_APP_SECRET_REQUEST_PARAM);
 		$pageId = base64_decode($this->getRequestParameter(FacebookConstants::FACEBOOK_PAGE_ID_REQUEST_PARAM));
 		$providerId = base64_decode($this->getRequestParameter(FacebookConstants::FACEBOOK_PROVIDER_ID_REQUEST_PARAM));
-		$ks = $this->getRequestParameter(FacebookConstants::FACEBOOK_KS_REQUEST_PARAM);
+		$hs = $this->getRequestParameter(FacebookConstants::FACEBOOK_HS_REQUEST_PARAM);
 		$permissions = explode(',',base64_decode($this->getRequestParameter(FacebookConstants::FACEBOOK_PERMISSIONS_REQUEST_PARAM)));
 
 		try
 		{
-			$accessURL = $this->getFacebookDistributionAccessURL($providerId, $ks);
+			$accessURL = $this->getFacebookDistributionAccessURL($providerId, $hs);
 			$dataHandler = new kDistributionPersistentDataHandler($accessURL);
 
 			$userAccessToken = FacebookGraphSdkUtils::getLongLivedUserAccessToken($appId, $appSecret, $dataHandler, $permissions);
@@ -150,17 +150,17 @@ class facebookoauth2Action extends oauth2Action
 				$this->getRequestParameter(FacebookConstants::FACEBOOK_PROVIDER_ID_REQUEST_PARAM),
 			FacebookConstants::FACEBOOK_PARTNER_ID_REQUEST_PARAM =>
 				$this->getRequestParameter(FacebookConstants::FACEBOOK_PARTNER_ID_REQUEST_PARAM),
-			FacebookConstants::FACEBOOK_KS_REQUEST_PARAM =>
-				$this->getRequestParameter(FacebookConstants::FACEBOOK_KS_REQUEST_PARAM)
+			FacebookConstants::FACEBOOK_HS_REQUEST_PARAM =>
+				$this->getRequestParameter(FacebookConstants::FACEBOOK_HS_REQUEST_PARAM)
 		);
 
 		return $params;
 	}
 
-	private function getFacebookDistributionAccessURL($providerId, $ks)
+	private function getFacebookDistributionAccessURL($providerId, $hs)
 	{
 		$host = requestUtils::getHost();
-		return $host.self::FACEBOOK_DISTRIBUTION_ACCESS_URL."&id=".$providerId."&ks=".$ks;
+		return $host.self::FACEBOOK_DISTRIBUTION_ACCESS_URL."&id=".$providerId."&hs=".$hs;
 	}
 
 

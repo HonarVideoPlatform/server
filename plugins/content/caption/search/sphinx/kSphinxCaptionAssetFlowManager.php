@@ -3,7 +3,7 @@
  * @package plugins.captionSphinx
  * @subpackage lib
  */
-class kSphinxCaptionAssetFlowManager implements kObjectDeletedEventConsumer
+class hSphinxCaptionAssetFlowManager implements kObjectDeletedEventConsumer
 {
 	/* (non-PHPdoc)
 	 * @see kObjectDeletedEventConsumer::objectDeleted()
@@ -21,7 +21,7 @@ class kSphinxCaptionAssetFlowManager implements kObjectDeletedEventConsumer
 	 */
 	public function objectDeleted(BaseObject $object, BatchJob $raisedJob = null)
 	{
-		$sphinxSearchManager = new kSphinxSearchManager();
+		$sphinxSearchManager = new hSphinxSearchManager();
 		$sphinxSearchManager->deleteFromSphinx($object);
 		
 		return true;

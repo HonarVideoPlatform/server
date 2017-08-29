@@ -197,10 +197,10 @@ class UserService extends KalturaBaseUserService
 	{
 	    if (is_null($userId) || $userId == '')
 	    {
-            $userId = kCurrentContext::$ks_uid;	        
+            $userId = kCurrentContext::$hs_uid;	        
 	    }
 
-		if (!kCurrentContext::$is_admin_session && kCurrentContext::$ks_uid != $userId)
+		if (!kCurrentContext::$is_admin_session && kCurrentContext::$hs_uid != $userId)
 			throw new KalturaAPIException(KalturaErrors::CANNOT_RETRIEVE_ANOTHER_USER_USING_NON_ADMIN_SESSION, $userId);
 
 		$dbUser = kuserPeer::getKuserByPartnerAndUid($this->getPartnerId(), $userId);
@@ -238,7 +238,7 @@ class UserService extends KalturaBaseUserService
 		}
 
 		// users that are not publisher administrator are only allowed to get their own object   
-		if ($kuser->getId() != kCurrentContext::getCurrentKsKuserId() && !in_array(PermissionName::MANAGE_ADMIN_USERS, kPermissionManager::getCurrentPermissions()))
+		if ($kuser->getId() != kCurrentContext::getCurrentHsKuserId() && !in_array(PermissionName::MANAGE_ADMIN_USERS, kPermissionManager::getCurrentPermissions()))
 			throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID, $loginId);
 		
 		$user = new KalturaUser();
@@ -327,10 +327,10 @@ class UserService extends KalturaBaseUserService
 	 * @param int $partnerId The identifier of the partner account
 	 * @param string $userId The user's unique identifier in the partner's system
 	 * @param string $password The user's password
-	 * @param int $expiry The requested time (in seconds) before the generated KS expires (By default, a KS expires after 24 hours).
+	 * @param int $expiry The requested time (in seconds) before the generated HS expires (By default, a HS expires after 24 hours).
 	 * @param string $privileges Special privileges
-	 * @return string A session KS for the user
-	 * @ksIgnored
+	 * @return string A session HS for the user
+	 * @hsIgnored
 	 *
 	 * @throws KalturaErrors::USER_NOT_FOUND
 	 * @throws KalturaErrors::USER_WRONG_PASSWORD
@@ -354,11 +354,11 @@ class UserService extends KalturaBaseUserService
 	 * @param string $loginId The user's email address that identifies the user for login
 	 * @param string $password The user's password
 	 * @param int $partnerId The identifier of the partner account
-	 * @param int $expiry The requested time (in seconds) before the generated KS expires (By default, a KS expires after 24 hours).
+	 * @param int $expiry The requested time (in seconds) before the generated HS expires (By default, a HS expires after 24 hours).
 	 * @param string $privileges Special privileges
 	 * @param string $otp the user's one-time password
-	 * @return string A session KS for the user
-	 * @ksIgnored
+	 * @return string A session HS for the user
+	 * @hsIgnored
 	 *
 	 * @throws KalturaErrors::USER_NOT_FOUND
 	 * @throws KalturaErrors::USER_WRONG_PASSWORD
@@ -386,7 +386,7 @@ class UserService extends KalturaBaseUserService
 	 * @param string $newPassword Optional, The user's new password
 	 * @param string $newFirstName Optional, The user's new first name
 	 * @param string $newLastName Optional, The user's new last name
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws KalturaErrors::INVALID_FIELD_VALUE
 	 * @throws KalturaErrors::LOGIN_DATA_NOT_FOUND
@@ -406,7 +406,7 @@ class UserService extends KalturaBaseUserService
 	 * @action resetPassword
 	 * 
 	 * @param string $email The user's email address (login email)
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws KalturaErrors::LOGIN_DATA_NOT_FOUND
 	 * @throws KalturaErrors::PASSWORD_STRUCTURE_INVALID
@@ -426,7 +426,7 @@ class UserService extends KalturaBaseUserService
 	 * 
 	 * @param string $hashKey The hash key used to identify the user (retrieved by email)
 	 * @param string $newPassword The new password to set for the user
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws KalturaErrors::LOGIN_DATA_NOT_FOUND
 	 * @throws KalturaErrors::PASSWORD_STRUCTURE_INVALID

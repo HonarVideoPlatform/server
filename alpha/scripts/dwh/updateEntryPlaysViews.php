@@ -4,7 +4,7 @@ require_once (dirname(__FILE__).'/../bootstrap.php');
 
 $f = fopen("php://stdin", "r");
 $count = 0;
-$sphinxMgr = new kSphinxSearchManager();
+$sphinxMgr = new hSphinxSearchManager();
 $dbConf = kConf::getDB();
 DbManager::setConfig($dbConf);
 DbManager::initialize();

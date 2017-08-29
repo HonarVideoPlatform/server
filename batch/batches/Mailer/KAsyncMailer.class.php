@@ -286,6 +286,6 @@ class KAsyncMailer extends KJobHandlerWorker
 	
 	protected static function createBlockEmailStr ( $email )
 	{
-		return  $email . self::SEPARATOR . kString::expiryHash( $email , self::$key , self::EXPIRY_INTERVAL );
+		return  $email . self::SEPARATOR . hString::expiryHash( $email , self::$key , self::EXPIRY_INTERVAL );
 	}
 }

@@ -123,7 +123,7 @@ class listentriesAction extends defPartnerservices2Action
 		
 		$filter->attachToCriteria( $c );
 
-		// for some entry types - there are no kshow or kusers - don't join even when detailed
+		// for some entry types - there are no hshow or kusers - don't join even when detailed
 		if ( $this->joinOnDetailed () )	
 			$list = entryPeer::doSelectJoinKuser( $c );
 		else 

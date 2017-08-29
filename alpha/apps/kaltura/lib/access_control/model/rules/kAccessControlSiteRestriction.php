@@ -8,7 +8,7 @@
 class kAccessControlSiteRestriction extends kAccessControlRestriction
 {
 	/**
-	 * @var kSiteCondition
+	 * @var hSiteCondition
 	 */
 	private $condition;
 	
@@ -20,7 +20,7 @@ class kAccessControlSiteRestriction extends kAccessControlRestriction
 		parent::__construct($accessControl);
 		$this->setActions(array(new kAccessControlAction(RuleActionType::BLOCK)));
 		
-		$this->condition = new kSiteCondition(true);
+		$this->condition = new hSiteCondition(true);
 		if($accessControl)
 		{
 			$this->setSiteList($accessControl->getSiteRestrictList());
@@ -43,7 +43,7 @@ class kAccessControlSiteRestriction extends kAccessControlRestriction
 	}
 
 	/**
-	 * @return kSiteCondition
+	 * @return hSiteCondition
 	 */
 	private function getCondition()
 	{
@@ -70,7 +70,7 @@ class kAccessControlSiteRestriction extends kAccessControlRestriction
 		$values = explode(',', $values);
 		$stringValues = array();
 		foreach($values as $value)
-			$stringValues[] = new kStringValue($value);
+			$stringValues[] = new hStringValue($value);
 			
 		$this->getCondition()->setValues($stringValues);
 	}

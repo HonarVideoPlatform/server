@@ -16,7 +16,7 @@ class KalturaRequestConfiguration extends KalturaObject
 	 * @alias sessionId
 	 * @var string
 	 */
-	public $ks;
+	public $hs;
 	
 	/**
 	 * Response profile - this attribute will be automatically unset after every API call.

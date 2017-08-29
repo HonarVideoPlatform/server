@@ -220,7 +220,7 @@ class flavorAsset extends exportableAsset
 		{
 			list($fileName , $extension) = kAssetUtils::getFileName($entry , $this);
 			$fileName = str_replace("\n", ' ', $fileName);
-			$fileName = kString::keepOnlyValidUrlChars($fileName);
+			$fileName = hString::keepOnlyValidUrlChars($fileName);
 	
 			if ($extension)
 				$fileName .= ".$extension";

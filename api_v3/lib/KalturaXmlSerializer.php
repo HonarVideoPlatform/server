@@ -86,7 +86,7 @@ class KalturaXmlSerializer extends KalturaSerializer
 	
 	function serializePrimitive($object)
 	{
-		echo kString::xmlEncode($object);		
+		echo hString::xmlEncode($object);		
 	}
 	
 	function serializeArray($object)
@@ -120,8 +120,8 @@ class KalturaXmlSerializer extends KalturaSerializer
 			{
 				echo '<item>';
 				echo '<objectType>KalturaApiExceptionArg</objectType>'; // Hardcoded imaginary type for the client code parsers.
-				echo '<name>' . kString::xmlEncode($name) . '</name>';
-				echo '<value>' . kString::xmlEncode($value) . '</value>';
+				echo '<name>' . hString::xmlEncode($name) . '</name>';
+				echo '<value>' . hString::xmlEncode($value) . '</value>';
 				echo '</item>';
 			}
 			
@@ -135,8 +135,8 @@ class KalturaXmlSerializer extends KalturaSerializer
 		{
 			echo '<error>';
 			
-			$this->writeTag('code', kString::xmlEncode($object->getCode()));
-			$this->writeTag('message', kString::xmlEncode($object->getMessage()));
+			$this->writeTag('code', hString::xmlEncode($object->getCode()));
+			$this->writeTag('message', hString::xmlEncode($object->getMessage()));
 			$this->writeTag('objectType', get_class($object));
 			$this->writeKalturaAPIExceptionArgsTag( $object );
 			

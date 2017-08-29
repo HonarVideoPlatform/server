@@ -286,7 +286,7 @@ class kalturaWebserviceRenderer
 			if ( $this->escape_text )
 			{
 				// TODO - decide whether to encode or cdata or nothing - according to the name of the field
-				$escaped = kString::xmlEncode ( $array ) ;
+				$escaped = hString::xmlEncode ( $array ) ;
 				return $escaped;
 				/*
 				if ( $escaped != $array )
@@ -317,7 +317,7 @@ class kalturaWebserviceRenderer
 		{
 			return $num_prefix . $key;
 		}
-		elseif ( kString::beginsWith( $key , "__"  ) )
+		elseif ( hString::beginsWith( $key , "__"  ) )
 		{
 			$pat = "/^__[^_]*_(.*)$/" ;//
 			preg_match( $pat , $key , $suffix );

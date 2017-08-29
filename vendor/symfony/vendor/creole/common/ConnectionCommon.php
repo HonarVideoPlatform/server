@@ -75,7 +75,7 @@ abstract class ConnectionCommon {
      * <p>
      * Developers:
      * 
-     * Note that you cannot serialize resources (connection links) and expect them to 
+     * Note that you cannot serialize resources (connection links) and expect them to
      * be valid when you unserialize.  For this reason, you must re-connect to the database in the
      * __wakeup() method.
      * 

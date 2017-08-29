@@ -497,7 +497,7 @@ class IntrospectionHelper {
           $taskdefs = $project->getTaskDefinitions();
         $typedefs = $project->getDataTypeDefinitions();
         
-        // check if class of element is registered with project (tasks & types)        
+        // check if class of element is registered with project (tasks & types)
         // most element types don't have a getTag() method
         $elClass = get_class($element);
         

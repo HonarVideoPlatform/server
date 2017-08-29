@@ -69,7 +69,7 @@ class facebookUtils
 			$pic = $user['pic'];
 			$sex = $user['sex'];
 			
-			$data .= "<contributor uid='$puser_id' name='".kString::xmlEncode($name)."' pic='$pic' sex='$sex'/>";
+			$data .= "<contributor uid='$puser_id' name='".hString::xmlEncode($name)."' pic='$pic' sex='$sex'/>";
 		}
 		
 		return $data;
@@ -93,8 +93,8 @@ class facebookUtils
 		$c->add(entryPeer::STATUS, entryStatus::READY);
 		$c->addSelectColumn("MAX(".entryPeer::ID.")");
 		$c->addSelectColumn(PuserRolePeer::PUSER_ID);
-		$c->addGroupByColumn(PuserRolePeer::KSHOW_ID);
-		$c->addJoin(entryPeer::KSHOW_ID, PuserRolePeer::KSHOW_ID);
+		$c->addGroupByColumn(PuserRolePeer::HSHOW_ID);
+		$c->addJoin(entryPeer::HSHOW_ID, PuserRolePeer::HSHOW_ID);
 		$c->add(PuserRolePeer::SUBP_ID, $subp_id);
 		$c->add(PuserRolePeer::ROLE, PuserRole::PUSER_ROLE_RECIPIENT);
 		$c->add(PuserRolePeer::PUSER_ID, explode(",", $puser_ids.','.$puser_id), Criteria::IN);
@@ -126,43 +126,43 @@ class facebookUtils
 		$c->add(PuserRolePeer::SUBP_ID, $subp_id);
 		$c->add(PuserRolePeer::PUSER_ID, $puser_id);
 		$c->add(PuserRolePeer::ROLE, PuserRole::PUSER_ROLE_RECIPIENT);
-		$puserRoles = PuserRolePeer::doSelectJoinkshow($c);
+		$puserRoles = PuserRolePeer::doSelectJoinhshow($c);
 		
 		if (!$puserRoles)
 			return array(0, null);
 		
-		$kshow = $puserRoles[0]->getkshow();
-		$kshow_id = $kshow->getId();
+		$hshow = $puserRoles[0]->gethshow();
+		$hshow_id = $hshow->getId();
 			
 		// fetch the roughcut which is not the default roughcut
 		$c = new Criteria();
-		$c->add(entryPeer::KSHOW_ID, $kshow_id);
+		$c->add(entryPeer::HSHOW_ID, $hshow_id);
 		$c->add(entryPeer::TYPE, entryType::MIX);
-		$c->add(entryPeer::ID, $kshow->getShowEntryId(), Criteria::NOT_EQUAL);
+		$c->add(entryPeer::ID, $hshow->getShowEntryId(), Criteria::NOT_EQUAL);
 		
 		$roughcut_entry = entryPeer::doSelectOne($c);
 		
-		return array($kshow_id, $roughcut_entry);
+		return array($hshow_id, $roughcut_entry);
 	}
 	
 	static public function createFriendsMakeover ( $subp_id, $puser_id, $puser_ids )
 	{
-		list($kshow_id, $roughcut_entry) = self::getFriendsMakover($subp_id, $puser_id);
+		list($hshow_id, $roughcut_entry) = self::getFriendsMakover($subp_id, $puser_id);
 		
-		if (!$kshow_id)
+		if (!$hshow_id)
 			return array(0, 0, 0);
 		
-		$kshow = kshowPeer::retrieveByPK($kshow_id);
+		$hshow = hshowPeer::retrieveByPK($hshow_id);
 		
 		if (!$roughcut_entry) // create a new roughcut
 		{
 			$roughcut_entry = new entry();
 	 
-			$roughcut_entry->setKshowId($kshow->getId () );
-			$roughcut_entry->setKuserId($kshow->getProducerId());
-			$roughcut_entry->setCreatorKuserId($kshow->getProducerId());
-			$roughcut_entry->setPartnerId($kshow->getPartnerId() );
-			$roughcut_entry->setSubpId( $kshow->getSubpId() );
+			$roughcut_entry->setHshowId($hshow->getId () );
+			$roughcut_entry->setKuserId($hshow->getProducerId());
+			$roughcut_entry->setCreatorKuserId($hshow->getProducerId());
+			$roughcut_entry->setPartnerId($hshow->getPartnerId() );
+			$roughcut_entry->setSubpId( $hshow->getSubpId() );
 			$roughcut_entry->setStatus(entryStatus::READY);
 			$roughcut_entry->setThumbnail( "&kal_show.jpg");
 			$roughcut_entry->setType(entryType::MIX);
@@ -177,34 +177,34 @@ class facebookUtils
 		
 		$custom_data = implode(",", $entry_puser_ids);
 		if ($roughcut_entry->getFromCustomData("facelift", $subp_id) == $custom_data) // if the users list didnt change use the current roughcut
-			return array($kshow_id, $roughcut_entry->getId(), 0);
+			return array($hshow_id, $roughcut_entry->getId(), 0);
 		
 		$c = new Criteria();
 		$c->add(entryPeer::ID, $entry_ids, Criteria::IN);
 		$entries = entryPeer::doSelect($c);
 		
-		self::createKEditorMetadata($kshow, $roughcut_entry, $entries);
+		self::createKEditorMetadata($hshow, $roughcut_entry, $entries);
 		$roughcut_entry->putInCustomData("facelift", $custom_data, $subp_id);
 		$roughcut_entry->save();
 		
-		return array($kshow_id, $roughcut_entry->getId(), 1);
+		return array($hshow_id, $roughcut_entry->getId(), 1);
 	}
 	
-	static public function createMakeoverRoughcut($kshow_id)
+	static public function createMakeoverRoughcut($hshow_id)
 	{
 		$c = new Criteria();
-		$c->add(entryPeer::KSHOW_ID, $kshow_id);
+		$c->add(entryPeer::HSHOW_ID, $hshow_id);
 		$c->add(entryPeer::TYPE, entryType::MEDIA_CLIP);
 		$c->add(entryPeer::STATUS, entryStatus::READY);
 		
 		$entries = entryPeer::doSelect($c);
 		
-		$kshow = kshowPeer::retrieveByPK( $kshow_id );
+		$hshow = hshowPeer::retrieveByPK( $hshow_id );
 		
-		self::createKEditorMetadata($kshow, $kshow->getShowEntry(), $entries);
+		self::createKEditorMetadata($hshow, $hshow->getShowEntry(), $entries);
 	}
 	
-	static public function createKEditorMetadata ($kshow, $show_entry, $entries )
+	static public function createKEditorMetadata ($hshow, $show_entry, $entries )
 	{
 		$vidassets = '';
 		$overlays = '';
@@ -355,7 +355,7 @@ class facebookUtils
 				"<Plugins><Overlays>$overlays</Overlays></Plugins>".
 			"</xml>";
 			
-		myMetadataUtils::setMetadata($xmlData, $kshow, $show_entry);
+		myMetadataUtils::setMetadata($xmlData, $hshow, $show_entry);
 	}	
 	
 }

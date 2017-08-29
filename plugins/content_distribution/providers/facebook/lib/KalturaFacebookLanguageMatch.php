@@ -81,7 +81,7 @@ class KalturaFacebookLanguageMatch
 			'Irish' 														=>	'ga_IE',
 			'Italian' 														=>	'it_IT',
 			'Japanese' 														=>	'ja_JP',
-			'Japanese (Kansai)' 											=>	'ja_KS',
+			'Japanese (Kansai)' 											=>	'ja_HS',
 			'Javanese' 														=>	'jv_ID',
 			'Kannada' 														=>	'kn_IN',
 			'Kazakh' 														=>	'kk_KZ',

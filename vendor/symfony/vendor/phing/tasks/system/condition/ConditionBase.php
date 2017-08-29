@@ -92,7 +92,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return EqualsCondition
      */
     function createEquals() {
-        include_once 'phing/tasks/system/condition/EqualsCondition.php';  
+        include_once 'phing/tasks/system/condition/EqualsCondition.php';
         $num = array_push($this->conditions, new EqualsCondition());
         return $this->conditions[$num-1];
     }

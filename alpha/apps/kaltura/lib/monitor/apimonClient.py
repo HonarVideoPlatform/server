@@ -11,7 +11,7 @@ COLUMN_NAMES = [
     ('e', 'EventType'),
     #('x', 'ExecutionTime'),
     ('i', 'IpAddress'),
-    ('k', 'KsType'),
+    ('k', 'HsType'),
     ('m', 'Multirequest'),
     ('p', 'PartnerId'),
     ('q', 'QueryType'),

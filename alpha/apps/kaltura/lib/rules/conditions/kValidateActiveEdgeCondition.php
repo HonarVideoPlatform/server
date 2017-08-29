@@ -40,7 +40,7 @@ class kValidateActiveEdgeCondition extends kCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::internalFulfilled()
 	 */
-	protected function internalFulfilled(kScope $scope)
+	protected function internalFulfilled(hScope $scope)
 	{
 		KalturaLog::debug("Validating edge server [{$this->getEdgeServerIds()}] are active");
 		$edgeServers = ServerNodePeer::retrieveRegisteredServerNodesArrayByPKs($this->edgeServerIds);

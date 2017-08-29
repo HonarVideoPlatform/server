@@ -285,7 +285,7 @@ class pakeApp
 
     // display tasks
     $has_alias = false;
-    ksort($tasks);
+    hsort($tasks);
     foreach ($tasks as $name => $task)
     {
       if ($task->get_alias())

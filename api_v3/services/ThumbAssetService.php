@@ -380,7 +380,7 @@ class ThumbAssetService extends KalturaAssetService
 	 * @param string $entryId
 	 * @param int $thumbParamId if not set, default thumbnail will be used.
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 * 
 	 * @throws KalturaErrors::THUMB_ASSET_IS_NOT_READY
 	 * @throws KalturaErrors::THUMB_ASSET_PARAMS_ID_NOT_FOUND
@@ -389,7 +389,7 @@ class ThumbAssetService extends KalturaAssetService
 	public function serveByEntryIdAction($entryId, $thumbParamId = null)
 	{
 		$entry = null;
-		if (!kCurrentContext::$ks)
+		if (!kCurrentContext::$hs)
 		{
 			$entry = kCurrentContext::initPartnerByEntryId($entryId);
 			
@@ -411,7 +411,7 @@ class ThumbAssetService extends KalturaAssetService
 		if (!$entry)
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
 
-		$securyEntryHelper = new KSecureEntryHelper($entry, kCurrentContext::$ks, null, ContextType::THUMBNAIL);
+		$securyEntryHelper = new HSecureEntryHelper($entry, kCurrentContext::$hs, null, ContextType::THUMBNAIL);
 		$securyEntryHelper->validateAccessControl();
 		
 		$fileName = $entry->getId() . '.jpg';
@@ -435,14 +435,14 @@ class ThumbAssetService extends KalturaAssetService
 	 * @param KalturaThumbParams $thumbParams
 	 * @param KalturaThumbnailServeOptions $options
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 *  
 	 * @throws KalturaErrors::THUMB_ASSET_IS_NOT_READY
 	 * @throws KalturaErrors::THUMB_ASSET_ID_NOT_FOUND
 	 */
 	public function serveAction($thumbAssetId, $version = null, KalturaThumbParams $thumbParams = null, KalturaThumbnailServeOptions $options = null)
 	{
-		if (!kCurrentContext::$ks)
+		if (!kCurrentContext::$hs)
 		{
 			$thumbAsset = kCurrentContext::initPartnerByAssetId($thumbAssetId);
 			
@@ -472,7 +472,7 @@ class ThumbAssetService extends KalturaAssetService
 		if($options && $options->referrer)
 			$referrer = $options->referrer;
 
-		$securyEntryHelper = new KSecureEntryHelper($entry, kCurrentContext::$ks, $referrer, ContextType::THUMBNAIL);
+		$securyEntryHelper = new HSecureEntryHelper($entry, kCurrentContext::$hs, $referrer, ContextType::THUMBNAIL);
 		$securyEntryHelper->validateAccessControl();
 
 		$ext = $thumbAsset->getFileExt();
@@ -974,7 +974,7 @@ class ThumbAssetService extends KalturaAssetService
 		if ($assetDb->getStatus() != asset::ASSET_STATUS_READY)
 			throw new KalturaAPIException(KalturaErrors::THUMB_ASSET_IS_NOT_READY);
 		
-		$securyEntryHelper = new KSecureEntryHelper($entry, kCurrentContext::$ks, null, ContextType::THUMBNAIL);
+		$securyEntryHelper = new HSecureEntryHelper($entry, kCurrentContext::$hs, null, ContextType::THUMBNAIL);
 		$securyEntryHelper->validateAccessControl();
 		
 		return $assetDb->getThumbnailUrl($securyEntryHelper, $storageId, $thumbParams);

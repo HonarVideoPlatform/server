@@ -278,7 +278,7 @@ class PhingTask extends Task {
             $buildFailed = true;
             $this->log($e->getMessage(), PROJECT_MSG_ERR);
             
-            // important!!! continue on to perform cleanup tasks.    
+            // important!!! continue on to perform cleanup tasks.
 		}
         
         

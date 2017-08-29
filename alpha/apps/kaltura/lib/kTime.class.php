@@ -26,7 +26,7 @@ class kTime
 	}
 
 	/**
-	 * Looks for the time that is stored under ks privilege as reference time.
+	 * Looks for the time that is stored under hs privilege as reference time.
 	 * If not found, returns time().
 	 *
 	 * @param bool $notifyApiCache
@@ -34,9 +34,9 @@ class kTime
 	 */
 	public static function getTime($notifyApiCache = true)
 	{
-		if (kCurrentContext::$ks_object)
+		if (kCurrentContext::$hs_object)
 		{
-			$referenceTime = kCurrentContext::$ks_object->getPrivilegeValue(ks::PRIVILEGE_REFERENCE_TIME);
+			$referenceTime = kCurrentContext::$hs_object->getPrivilegeValue(hs::PRIVILEGE_REFERENCE_TIME);
 			if ($referenceTime)
 				return (int)$referenceTime;
 		}

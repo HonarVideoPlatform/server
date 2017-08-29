@@ -2,7 +2,7 @@
 /**
  * @package Scheduler
  */
-class KSchedularTaskConfig extends Zend_Config_Ini
+class HSchedularTaskConfig extends Zend_Config_Ini
 {
 	
 	protected $queueSize = 0;

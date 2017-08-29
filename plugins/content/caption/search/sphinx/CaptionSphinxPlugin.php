@@ -27,7 +27,7 @@ class CaptionSphinxPlugin extends KalturaPlugin implements IKalturaPending, IKal
 	 */
 	public static function getEventConsumers()
 	{
-		return array('kSphinxCaptionAssetFlowManager');
+		return array('hSphinxCaptionAssetFlowManager');
 	}
 	
 	/* (non-PHPdoc)
@@ -74,7 +74,7 @@ class CaptionSphinxPlugin extends KalturaPlugin implements IKalturaPending, IKal
 	public static function getSphinxSchema()
 	{
 		return array(
-			kSphinxSearchManager::getSphinxIndexName(CaptionSearchPlugin::INDEX_NAME) => array (	
+			hSphinxSearchManager::getSphinxIndexName(CaptionSearchPlugin::INDEX_NAME) => array (	
 				'path'		=> '/sphinx/kaltura_caption_item_rt',
 				'fields'	=> self::getSphinxSchemaFields(),
 			)

@@ -12,8 +12,8 @@ service
 action
 ps_version
 is_multi_request
-ks
-ks_type
+hs
+hs_type
 partner_id
 uid
 entry_id
@@ -47,8 +47,8 @@ class kApiEvent
 		$this->action . EVENT_LOG_SEPARATOR .
 		$this->ps_version . EVENT_LOG_SEPARATOR .
 		$this->is_multi_request . EVENT_LOG_SEPARATOR .
-		$this->ks . EVENT_LOG_SEPARATOR .
-		$this->ks_type . EVENT_LOG_SEPARATOR .
+		$this->hs . EVENT_LOG_SEPARATOR .
+		$this->hs_type . EVENT_LOG_SEPARATOR .
 		$this->partner_id . EVENT_LOG_SEPARATOR .
 		$this->uid . EVENT_LOG_SEPARATOR .
 		$this->entry_id . EVENT_LOG_SEPARATOR .
@@ -191,16 +191,16 @@ while(!feof($f))
 			if ( preg_match ( "/^\)/" , $s ) )
 			{
 				// complete the array and break
-			 	$api_e->ks = @$action_arr["ks"];
+			 	$api_e->hs = @$action_arr["hs"];
 
-			 	$str = base64_decode( $api_e->ks , true ) ; // encode this string
+			 	$str = base64_decode( $api_e->hs , true ) ; // encode this string
 				@list ( $hash , $real_str) = @explode ( "|" , $str , 2 );
 				
 				$a = ""; // just a dummy to store stuff in 
-				@list ( $api_e->partner_id , $a , $a , $api_e->ks_type , $a , $api_e->uid , $a) =
+				@list ( $api_e->partner_id , $a , $a , $api_e->hs_type , $a , $api_e->uid , $a) =
 					@explode ( ";" , $real_str );
 					
-				$api_e->ks_type = 0 + $api_e->ks_type;
+				$api_e->hs_type = 0 + $api_e->hs_type;
 
 				// set the entry_id
 				if (isset ( $action_arr["entryId"]))

@@ -3,7 +3,7 @@
  * @package plugins.schedule
  * @subpackage model.data
  */
-class kScheduleEventRecurrence
+class hScheduleEventRecurrence
 {
 	/**
 	 * @var string

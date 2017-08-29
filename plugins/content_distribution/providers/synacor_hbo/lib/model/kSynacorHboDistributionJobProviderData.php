@@ -3,7 +3,7 @@
  * @package plugins.synacorHboDistribution
  * @subpackage model.data
  */
-class kSynacorHboDistributionJobProviderData extends kDistributionJobProviderData
+class hSynacorHboDistributionJobProviderData extends kDistributionJobProviderData
 {
 	/**
 	 * @var string

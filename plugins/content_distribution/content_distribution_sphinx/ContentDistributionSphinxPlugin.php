@@ -32,7 +32,7 @@ class ContentDistributionSphinxPlugin extends KalturaPlugin implements IKalturaC
 	public static function getSphinxSchema()
 	{
 		return array(
-			kSphinxSearchManager::getSphinxIndexName('entry_distribution') => array (	
+			hSphinxSearchManager::getSphinxIndexName('entry_distribution') => array (	
 				'path'		=> '/sphinx/kaltura_distribution_rt',
 				'fields'	=> array(
 					'entry_id' => SphinxFieldType::RT_FIELD,

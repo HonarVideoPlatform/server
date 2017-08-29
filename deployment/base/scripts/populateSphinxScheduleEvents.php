@@ -23,7 +23,7 @@ $con = myDbHelper::getConnection(myDbHelper::DB_HELPER_CONN_PROPEL2);
 //$sphinxCon = DbManager::getSphinxConnection();
 
 $entries = ScheduleEventPeer::doSelect($c, $con);
-$sphinx = new kSphinxSearchManager();
+$sphinx = new hSphinxSearchManager();
 while(count($entries))
 {
 	foreach($entries as $entry)

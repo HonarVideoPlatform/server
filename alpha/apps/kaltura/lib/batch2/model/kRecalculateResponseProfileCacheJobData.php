@@ -14,7 +14,7 @@ class kRecalculateResponseProfileCacheJobData extends kRecalculateCacheJobData
 	/**
 	 * @var int
 	 */
-	private $ksType;
+	private $hsType;
 
 	/**
 	 * @var array
@@ -93,17 +93,17 @@ class kRecalculateResponseProfileCacheJobData extends kRecalculateCacheJobData
 	/**
 	 * @return string
 	 */
-	public function getKsType()
+	public function getHsType()
 	{
-		return $this->ksType;
+		return $this->hsType;
 	}
 	
 	/**
-	 * @param string $ksType
+	 * @param string $hsType
 	 */
-	public function setKsType($ksType)
+	public function setHsType($hsType)
 	{
-		$this->ksType = $ksType;
+		$this->hsType = $hsType;
 	}
 	
 	/**

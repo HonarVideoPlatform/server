@@ -68,7 +68,7 @@ class YahooDistributionProfile extends ConfigurableDistributionProfile
 		
 	    $emailField = YahooDistributionField::CONTACT_EMAIL;
 		$emailValue = $allFieldValues[$emailField];
-		if ($emailValue && !kString::isEmailString($emailValue))
+		if ($emailValue && !hString::isEmailString($emailValue))
 		{
 		    $validationError = $this->createValidationError($action, DistributionErrorType::INVALID_DATA, $this->getUserFriendlyFieldName($emailField));
 			$validationError->setValidationErrorType(DistributionValidationErrorType::INVALID_FORMAT);

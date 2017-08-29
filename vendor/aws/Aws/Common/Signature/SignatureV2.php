@@ -97,7 +97,7 @@ class SignatureV2 extends AbstractSignature
 
         // Don't resign a previous signature value
         unset($params['Signature']);
-        uksort($params, 'strcmp');
+        uhsort($params, 'strcmp');
 
         $str = '';
         foreach ($params as $key => $val) {

@@ -32,7 +32,7 @@ class kBooleanValue extends kValue
 	}
 
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool
 	 */
 	public function shouldDisableCache($scope)

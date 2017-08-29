@@ -19,18 +19,18 @@ class kmc3Action extends kalturaAction
 		$this->partner_id = $this->getP ( "pid" );
 		$this->subp_id = $this->getP ( "subpid", ((int)$this->partner_id)*100 );
 		$this->uid = $this->getP ( "uid" );
-		$this->ks = $this->getP ( "kmcks" );
-		if(!$this->ks)
+		$this->hs = $this->getP ( "kmchs" );
+		if(!$this->hs)
 		{
-			// if kmcks from cookie doesn't exist, try ks from REQUEST
-			$this->ks = $this->getP('ks');
+			// if kmchs from cookie doesn't exist, try hs from REQUEST
+			$this->hs = $this->getP('hs');
 		}
 		$this->screen_name = $this->getP ( "screen_name" );
 		$this->email = $this->getP ( "email" );
 
 
-		/** if no KS found, redirect to login page **/
-		if (!$this->ks)
+		/** if no HS found, redirect to login page **/
+		if (!$this->hs)
 		{
 			$this->redirect( "kmc/kmc" );
 			die();
@@ -43,7 +43,7 @@ class kmc3Action extends kalturaAction
 		if ($this->partner_id !== NULL)
 		{
 			$this->partner = $partner = PartnerPeer::retrieveByPK($this->partner_id);
-			kmcUtils::redirectPartnerToCorrectKmc($partner, $this->ks, $this->uid, $this->screen_name, $this->email, self::CURRENT_KMC_VERSION);
+			kmcUtils::redirectPartnerToCorrectKmc($partner, $this->hs, $this->uid, $this->screen_name, $this->email, self::CURRENT_KMC_VERSION);
 			$this->templatePartnerId = $this->partner ? $this->partner->getTemplatePartnerId() : self::SYSTEM_DEFAULT_PARTNER;
 		}
 	/** END - load partner from DB, and set templatePartnerId **/
@@ -182,7 +182,7 @@ class kmc3Action extends kalturaAction
 		$this->content_uiconfs_drilldown = kmcUtils::find_confs_by_usage_tag($contentTemplateUiConfs, "content_drilldown", false, $contentSystemUiConfs);
 		$this->content_uiconfs_flavorpreview = kmcUtils::find_confs_by_usage_tag($contentTemplateUiConfs, "content_flavorpreview", false, $contentSystemUiConfs);
 		$this->content_uiconfs_metadataview = kmcUtils::find_confs_by_usage_tag($contentTemplateUiConfs, "content_metadataview", false, $contentSystemUiConfs);
-		/** content KCW,KSE,KAE **/
+		/** content KCW,HSE,KAE **/
 		$this->content_uiconfs_upload = kmcUtils::find_confs_by_usage_tag($contentTemplateUiConfs, "content_upload", false, $contentSystemUiConfs);
 		$this->simple_editor = kmcUtils::find_confs_by_usage_tag($contentTemplateUiConfs, "content_simpleedit", false, $contentSystemUiConfs);
 		$this->advanced_editor = kmcUtils::find_confs_by_usage_tag($contentTemplateUiConfs, "content_advanceedit", false, $contentSystemUiConfs);
@@ -293,7 +293,7 @@ class kmc3Action extends kalturaAction
 		$c->addAnd( uiConfPeer::DISPLAY_IN_SEARCH , mySearchUtils::DISPLAY_IN_SEARCH_KALTURA_NETWORK , Criteria::GREATER_EQUAL );
 		$c->addAnd ( uiConfPeer::STATUS , uiConf::UI_CONF_STATUS_READY );
 		$c->addAnd ( uiConfPeer::OBJ_TYPE , uiConf::UI_CONF_TYPE_EDITOR );
-		$c->addAnd ( uiConfPeer::TAGS, 'andromeda_kse_for_kmc', Criteria::LIKE);
+		$c->addAnd ( uiConfPeer::TAGS, 'andromeda_hse_for_kmc', Criteria::LIKE);
 		$c->addAscendingOrderByColumn(uiConfPeer::ID);
 
 		$uiConf = uiConfPeer::doSelectOne($c);

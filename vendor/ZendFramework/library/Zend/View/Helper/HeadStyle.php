@@ -364,7 +364,7 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
                 : $this->getIndent();
 
         $items = array();
-        $this->getContainer()->ksort();
+        $this->getContainer()->hsort();
         foreach ($this as $item) {
             if (!$this->_isValid($item)) {
                 continue;

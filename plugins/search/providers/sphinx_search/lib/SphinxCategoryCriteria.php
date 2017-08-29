@@ -205,7 +205,7 @@ class SphinxCategoryCriteria extends SphinxCriteria
 			return array(
 					categoryPeer::FULL_NAME, 
 					Criteria::IN_LIKE,
-					kString::addSuffixToArray($crit->getValue(), category::FULL_NAME_EQUAL_MATCH_STRING));
+					hString::addSuffixToArray($crit->getValue(), category::FULL_NAME_EQUAL_MATCH_STRING));
 		} else if ($field == categoryPeer::DISPLAY_IN_SEARCH  && $crit->getComparison() == Criteria::EQUAL)
 		{
 			return array(

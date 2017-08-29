@@ -57,7 +57,7 @@ class SystemUser extends BaseSystemUser
 	
 	public static function generateRandomPassword()
 	{
-		return kString::generateRandomString(5, 10, true, false, true);
+		return hString::generateRandomString(5, 10, true, false, true);
 	} 
 	
 	private function sendEmail($password)

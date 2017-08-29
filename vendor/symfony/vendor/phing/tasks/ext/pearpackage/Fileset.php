@@ -124,7 +124,7 @@ class PEAR_PackageFileManager_Fileset {
             }                                        
         }
                 
-        uksort($struc,'strnatcasecmp');
+        uhsort($struc,'strnatcasecmp');
         foreach($struc as $key => $ind) {
             usort($ind, array($this, 'sortfiles'));
             $struc[$key] = $ind;
@@ -139,7 +139,7 @@ class PEAR_PackageFileManager_Fileset {
                 $struc['/'] = $this->setupDirs($struc['/'], explode('/', $key), $tempstruc[$key]);
             }
         }
-        uksort($struc['/'], array($this, 'mystrucsort'));
+        uhsort($struc['/'], array($this, 'mystrucsort'));
 
         return $struc;
     }

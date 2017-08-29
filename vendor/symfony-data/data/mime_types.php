@@ -87,7 +87,7 @@ application/vnd.kde.kformula kfo
 application/vnd.kde.kivio flw
 application/vnd.kde.kontour kon
 application/vnd.kde.kpresenter kpr
-application/vnd.kde.kspread ksp
+application/vnd.kde.hspread hsp
 application/vnd.kde.kword kwd
 application/vnd.kenameapp htke
 application/vnd.kidspiration kia

@@ -29,7 +29,7 @@ class KDropFolderFileTransferEngine extends KDropFolderEngine
 		{
 			/* @var $physicalFile FileObject */	
 			$physicalFileName = $physicalFile->filename;
-			$utfFileName = kString::stripUtf8InvalidChars($physicalFileName);
+			$utfFileName = hString::stripUtf8InvalidChars($physicalFileName);
 			
 			if($physicalFileName != $utfFileName)
 			{

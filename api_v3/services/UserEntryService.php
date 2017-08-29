@@ -27,7 +27,7 @@ class UserEntryService extends KalturaBaseService {
 			throw new KalturaAPIException(KalturaErrors::INVALID_ENTRY_ID, $userEntry->entryId);
 
 		$dbUserEntry = $userEntry->toInsertableObject(null, array('type'));
-		$lockUser = $userEntry->userId ? $userEntry->userId : kCurrentContext::getCurrentKsKuserId();
+		$lockUser = $userEntry->userId ? $userEntry->userId : kCurrentContext::getCurrentHsKuserId();
 		$lockKey = "userEntry_add_" . $this->getPartnerId() . $userEntry->entryId . $lockUser;
 		$dbUserEntry = kLock::runLocked($lockKey, array($this, 'addUserEntryImpl'), array($dbUserEntry));
 		$userEntry->fromObject($dbUserEntry, $this->getResponseProfile());
@@ -106,7 +106,7 @@ class UserEntryService extends KalturaBaseService {
 			$pager = new KalturaFilterPager();
 		}
 		// return empty list when userId was not given
-		if ( $this->getKs() && !$this->getKs()->isAdmin() && !kCurrentContext::$ks_uid ) {
+		if ( $this->getHs() && !$this->getHs()->isAdmin() && !kCurrentContext::$hs_uid ) {
 		    return new KalturaUserEntryListResponse();
 		}
 		return $filter->getListResponse($pager, $this->getResponseProfile());

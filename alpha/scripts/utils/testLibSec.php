@@ -529,7 +529,7 @@ while(count($batchJobs))
 		
 		$privateKey = null;
 		$publicKey = null;
-		if($jobData instanceof kSshImportJobData)
+		if($jobData instanceof hSshImportJobData)
 		{
 			$privateKey = $jobData->getPrivateKey() ? $jobData->getPrivateKey() : null;
 			$publicKey  = $jobData->getPublicKey() ? $jobData->getPublicKey() : null;

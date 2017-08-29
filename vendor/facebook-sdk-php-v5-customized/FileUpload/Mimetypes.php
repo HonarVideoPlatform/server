@@ -386,7 +386,7 @@ class Mimetypes
         'kon' => 'application/vnd.kde.kontour',
         'kpr' => 'application/vnd.kde.kpresenter',
         'kpt' => 'application/vnd.kde.kpresenter',
-        'ksp' => 'application/vnd.kde.kspread',
+        'hsp' => 'application/vnd.kde.hspread',
         'ktr' => 'application/vnd.kahootz',
         'ktx' => 'image/ktx',
         'ktz' => 'application/vnd.kahootz',

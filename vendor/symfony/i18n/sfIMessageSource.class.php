@@ -67,7 +67,7 @@ interface sfIMessageSource
   function read();
 
   /**
-   * Save the list of untranslated blocks to the translation source. 
+   * Save the list of untranslated blocks to the translation source.
    * If the translation was not found, you should add those
    * strings to the translation source via the <b>append()</b> method.
    *

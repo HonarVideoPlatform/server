@@ -67,7 +67,7 @@ class kRule
 	protected $stopProcessing;
 	
 	/**
-	 * Indicates if we should force ks validation for admin ks users as well
+	 * Indicates if we should force hs validation for admin hs users as well
 	 *
 	 * @var bool
 	 */
@@ -76,15 +76,15 @@ class kRule
 	/**
 	 * Indicates the scope on which the rule is applied
 	 * 
-	 * @var kScope
+	 * @var hScope
 	 */
 	
 	protected $scope;
 	
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 */
-	public function __construct(kScope $scope = null)
+	public function __construct(hScope $scope = null)
 	{
 		$this->scope = $scope;
 	}
@@ -324,7 +324,7 @@ class kRule
 	}
 	
 	/**
-	 * @return bool for validation while using Admin KS
+	 * @return bool for validation while using Admin HS
 	 */
 	public function getForceAdminValidation()
 	{
@@ -335,7 +335,7 @@ class kRule
 	}
 	
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 */
 	public function setScope($scope) 
 	{

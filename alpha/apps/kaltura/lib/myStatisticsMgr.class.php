@@ -14,9 +14,9 @@ class myStatisticsMgr
 		return $v;
 	}
 
-	// will increment either fans or favorites for kshow or entry according to favorite.subject_type
+	// will increment either fans or favorites for hshow or entry according to favorite.subject_type
 	/**
-	const SUBJECT_TYPE_KSHOW = '1';
+	const SUBJECT_TYPE_HSHOW = '1';
 	const SUBJECT_TYPE_ENTRY = '2';
 	const SUBJECT_TYPE_USER = '3';
 
@@ -37,9 +37,9 @@ class myStatisticsMgr
 				$obj->setFavorites ( $v );
 			}
 		}
-		elseif ( $type == favorite::SUBJECT_TYPE_KSHOW )
+		elseif ( $type == favorite::SUBJECT_TYPE_HSHOW )
 		{
-			$obj = kshowPeer::retrieveByPK( $id );
+			$obj = hshowPeer::retrieveByPK( $id );
 			if ( $obj )
 			{			
 				$v = $obj->getFavorites () 	;
@@ -61,30 +61,30 @@ class myStatisticsMgr
 		self::add ( $obj );
 	}
 
-	//- will increment kuser.entries, kshow.entries & kshow.contributors
+	//- will increment kuser.entries, hshow.entries & hshow.contributors
 	public static function addEntry ( entry $entry )
 	{
 		return;
-		/*$kshow = $entry->getkshow();
-		if ( $kshow )
+		/*$hshow = $entry->gethshow();
+		if ( $hshow )
 		{
-			$v = $kshow->getEntries();
+			$v = $hshow->getEntries();
 			self::inc ( $v );
-			$kshow->setEntries ( $v );
+			$hshow->setEntries ( $v );
 		}
 
 		$c = new Criteria();
 		myCriteria::addComment( $c , __METHOD__  );
-		$c->add ( entryPeer::KSHOW_ID , $entry->getKshowId() );
+		$c->add ( entryPeer::HSHOW_ID , $entry->getHshowId() );
 		$c->add ( entryPeer::KUSER_ID , $entry->getKuserId() );
 		$c->setLimit ( 2 );
 		$res = entryPeer::doCount( $c );
-		if ( $res < 1 && $kshow != null )
+		if ( $res < 1 && $hshow != null )
 		{
-			// kuser didn't contribute to this kshow - increment
-			$v = $kshow->getContributors();
+			// kuser didn't contribute to this hshow - increment
+			$v = $hshow->getContributors();
 			self::inc ( $v );
-			$kshow->setContributors( $v );
+			$hshow->setContributors( $v );
 		}
 
 		$kuser = $entry->getkuser();
@@ -95,24 +95,24 @@ class myStatisticsMgr
 			$kuser->setEntries ( $v );
 		}
 
-		self::add ( $kshow );
+		self::add ( $hshow );
 		self::add ( $kuser );*/
 	}
 
-	//- will increment kuser.entries, kshow.entries & kshow.contributors
+	//- will increment kuser.entries, hshow.entries & hshow.contributors
 	public static function deleteEntry ( entry $entry )
 	{
 		return;
-		/*$kshow = $entry->getkshow();
-		if ($kshow)
+		/*$hshow = $entry->gethshow();
+		if ($hshow)
 		{
-			$v = $kshow->getEntries();
+			$v = $hshow->getEntries();
 			self::dec ( $v );
-			$kshow->setEntries ( $v );
+			$hshow->setEntries ( $v );
 	
 			$c = new Criteria();
 			myCriteria::addComment( $c , __METHOD__  );
-			$c->add ( entryPeer::KSHOW_ID , $entry->getKshowId() );
+			$c->add ( entryPeer::HSHOW_ID , $entry->getHshowId() );
 			$c->add ( entryPeer::KUSER_ID , $entry->getKuserId() );
 			$c->setLimit ( 2 );
 			$res = entryPeer::doCount( $c );
@@ -120,10 +120,10 @@ class myStatisticsMgr
 			{
 				// if $res > 1 -  this kuser contributed more than one entry, deleting this one should still leave him a contributor 
 				// if $res < 1 -  this kuser never contributed - strange! but no need to dec the contributors
-				// kuser did contribute to this kshow - decrement
-				$v = $kshow->getContributors();
+				// kuser did contribute to this hshow - decrement
+				$v = $hshow->getContributors();
 				self::dec ( $v );
-				$kshow->setContributors( $v );
+				$hshow->setContributors( $v );
 			}
 	
 			$kuser = $entry->getkuser();
@@ -134,74 +134,74 @@ class myStatisticsMgr
 				$kuser->setEntries ( $v );
 			}
 	
-			self::add ( $kshow );
+			self::add ( $hshow );
 			self::add ( $kuser );
 		}*/
 	}
 	
-	//- will increment kuser.produced_kshows
-	public static function addKshow ( kshow $kshow )
+	//- will increment kuser.produced_hshows
+	public static function addHshow ( hshow $hshow )
 	{
-		$kuser = $kshow->getKuser();
-		// this might happen when creating a temp kshow without setting its producer 
+		$kuser = $hshow->getKuser();
+		// this might happen when creating a temp hshow without setting its producer 
 		if ( $kuser == NULL ) return;
 		
-		$v = $kuser->getProducedKshows ();
+		$v = $kuser->getProducedHshows ();
 		self::inc ( $v );
-		$kuser->setProducedKshows ( $v );
+		$kuser->setProducedHshows ( $v );
 		self::add ( $kuser );
 	}
 
-	//- will decrement kuser.produced_kshows
-	public static function deleteKshow ( kshow $kshow )
+	//- will decrement kuser.produced_hshows
+	public static function deleteHshow ( hshow $hshow )
 	{
-		$kuser = $kshow->getKuser();
-		// this might happen when creating a temp kshow without setting its producer 
+		$kuser = $hshow->getKuser();
+		// this might happen when creating a temp hshow without setting its producer 
 		if ( $kuser == NULL ) return;
 		
-		$v = $kuser->getProducedKshows ();
+		$v = $kuser->getProducedHshows ();
 		self::dec( $v );
-		$kuser->setProducedKshows ( $v );
+		$kuser->setProducedHshows ( $v );
 		self::add ( $kuser );
 	}
 		
-	public static function incKshowViews ( kshow $kshow , $delta = 1 )
+	public static function incHshowViews ( hshow $hshow , $delta = 1 )
 	{
-		$v = $kshow->getViews();
-		if ( self::shouldModify ( $kshow , kshowPeer::VIEWS ) );
+		$v = $hshow->getViews();
+		if ( self::shouldModify ( $hshow , hshowPeer::VIEWS ) );
 		{
 			self::inc ( $v , $delta);
-			$kshow->setViews( $v );
+			$hshow->setViews( $v );
 		}
 		return $v;
 	}
 
-	public static function incKshowPlays ( kshow $kshow , $delta = 1 )
+	public static function incHshowPlays ( hshow $hshow , $delta = 1 )
 	{
-		$v = $kshow->getPlays();
+		$v = $hshow->getPlays();
 		
-KalturaLog::log ( __METHOD__ . ": " . $kshow->getId() . " plays: $v");
+KalturaLog::log ( __METHOD__ . ": " . $hshow->getId() . " plays: $v");
  
-		if ( self::shouldModify ( $kshow , kshowPeer::PLAYS ) );
+		if ( self::shouldModify ( $hshow , hshowPeer::PLAYS ) );
 		{
 			self::inc ( $v , $delta);
-			$kshow->setPlays( $v );
+			$hshow->setPlays( $v );
 		}
 		
-KalturaLog::log ( __METHOD__ . ": " . $kshow->getId() . " plays: $v");		
+KalturaLog::log ( __METHOD__ . ": " . $hshow->getId() . " plays: $v");		
 		return $v;
 	}
 	
 /*	
-	// - do we vote for kshows ??? - this should be derived from the roughcut
-	public static function incKshowVotes ( kshow $kshow )
+	// - do we vote for hshows ??? - this should be derived from the roughcut
+	public static function incHshowVotes ( hshow $hshow )
 	{
 	}
 */
 
-	// - will increment kshow.comments or entry.comments according to comment_type
+	// - will increment hshow.comments or entry.comments according to comment_type
 	/**
-	* 	const COMMENT_TYPE_KSHOW = 1;
+	* 	const COMMENT_TYPE_HSHOW = 1;
 	const COMMENT_TYPE_DISCUSSION = 2;
 	const COMMENT_TYPE_USER = 3;
 	const COMMENT_TYPE_SHOUTOUT = 4;
@@ -212,11 +212,11 @@ KalturaLog::log ( __METHOD__ . ": " . $kshow->getId() . " plays: $v");
 		$obj = NULL;
 		$type = $comment->getCommentType();
 		$id = $comment->getSubjectId();
-		if ( $type == comment::COMMENT_TYPE_KSHOW || 
+		if ( $type == comment::COMMENT_TYPE_HSHOW || 
 			$type == comment::COMMENT_TYPE_SHOUTOUT ||
 			$type == comment::COMMENT_TYPE_DISCUSSION )
 		{
-			$obj = kshowPeer::retrieveByPK( $id );
+			$obj = hshowPeer::retrieveByPK( $id );
 			if ( $obj )
 			{
 				$v = $obj->getComments () 	;
@@ -237,32 +237,32 @@ KalturaLog::log ( __METHOD__ . ": " . $kshow->getId() . " plays: $v");
 		if ( $obj != NULL )	self::add ( $obj );
 	}
 
-	public static function addSubscriber ( KshowKuser $kushow_kuser )
+	public static function addSubscriber ( HshowKuser $kushow_kuser )
 	{
 		$type = $kushow_kuser->getAlertType();
 
-		if ( $type == KshowKuser::KSHOW_SUBSCRIPTION_NORMAL )
+		if ( $type == HshowKuser::HSHOW_SUBSCRIPTION_NORMAL )
 		{
-			$kshow = $kushow_kuser->getkshow();
-			if ( $kshow )
+			$hshow = $kushow_kuser->gethshow();
+			if ( $hshow )
 			{
-				$v = $kshow->getSubscribers() 	;
+				$v = $hshow->getSubscribers() 	;
 				self::inc ( $v );
-				$kshow->setSubscribers ( $v );
+				$hshow->setSubscribers ( $v );
 			}
 
-			self::add ( $kshow );
+			self::add ( $hshow );
 		}
 	}
 
-	// - will increment kshow.number_of_updates
-	public static function incKshowUpdates ( kshow $kshow, $delta = 1 )
+	// - will increment hshow.number_of_updates
+	public static function incHshowUpdates ( hshow $hshow, $delta = 1 )
 	{
-		$v = $kshow->getNumberOfUpdates();
-		if ( self::shouldModify( $kshow , kshowPeer::NUMBER_OF_UPDATES ) )
+		$v = $hshow->getNumberOfUpdates();
+		if ( self::shouldModify( $hshow , hshowPeer::NUMBER_OF_UPDATES ) )
 		{
 			self::inc ( $v , $delta);
-			$kshow->setNumberOfUpdates( $v );
+			$hshow->setNumberOfUpdates( $v );
 		}
 		return $v;
 	}
@@ -279,12 +279,12 @@ KalturaLog::log ( __METHOD__ . ": " . $kshow->getId() . " plays: $v");
 		
 		if ( $entry->getType() == entryType::MIX )
 		{
-			$enclosing_kshow = $entry->getKshow();
-			if ( $enclosing_kshow  )
+			$enclosing_hshow = $entry->getHshow();
+			if ( $enclosing_hshow  )
 			{
-				$kshow_views = $enclosing_kshow->getViews() ;
-				$enclosing_kshow->setViews ( ++$kshow_views );
-				self::add( $enclosing_kshow );
+				$hshow_views = $enclosing_hshow->getViews() ;
+				$enclosing_hshow->setViews ( ++$hshow_views );
+				self::add( $enclosing_hshow );
 			}
 		}		
 		return $v;
@@ -303,12 +303,12 @@ KalturaLog::log ( __METHOD__ . ": " . $kshow->getId() . " plays: $v");
 		
 		if ( $entry->getType() == entryType::MIX )
 		{
-			$enclosing_kshow = $entry->getKshow();
-			if ( $enclosing_kshow  )
+			$enclosing_hshow = $entry->getHshow();
+			if ( $enclosing_hshow  )
 			{
-				$kshow_views = $enclosing_kshow->getPlays() ;
-				$enclosing_kshow->setPlays ( ++$kshow_views );
-				self::add( $enclosing_kshow );
+				$hshow_views = $enclosing_hshow->getPlays() ;
+				$enclosing_hshow->setPlays ( ++$hshow_views );
+				self::add( $enclosing_hshow );
 			}
 		}		
 		return $v;
@@ -330,7 +330,7 @@ KalturaLog::log ( __METHOD__ . ": " . $kshow->getId() . " plays: $v");
 	}
 
 	// - will update votes , total_rank & rank
-	// if the ebtry is of type roughcut -0 will update the kshow's rank too
+	// if the ebtry is of type roughcut -0 will update the hshow's rank too
 	private static function modifyEntryVotes ( entry $entry , $delta_rank, $kvoteStatus )
 	{
 		$res = array();
@@ -355,19 +355,19 @@ KalturaLog::log ( __METHOD__ . ": " . $kshow->getId() . " plays: $v");
 			// can assume $votes > 0
 			$rank = $entry->setRank ( ( $total_rank / $votes ) * 1000 );
 				
-			// if rouhcut - update the kshow's rank too
+			// if rouhcut - update the hshow's rank too
 			if ( $entry->getType() == entryType::MIX )
 			{
-				$enclosing_kshow = $entry->getKshow();
-				if ( $enclosing_kshow  )
+				$enclosing_hshow = $entry->getHshow();
+				if ( $enclosing_hshow  )
 				{
-					$kshow_votes = $enclosing_kshow->getVotes() ;
-					$enclosing_kshow->setVotes ( ++$kshow_votes );
-					if ( true ) //if ( $enclosing_kshow->getRank() <  $entry->getRank() ) // rank the show 
+					$hshow_votes = $enclosing_hshow->getVotes() ;
+					$enclosing_hshow->setVotes ( ++$hshow_votes );
+					if ( true ) //if ( $enclosing_hshow->getRank() <  $entry->getRank() ) // rank the show 
 					{
-						$enclosing_kshow->setRank ( $entry->getRank() );
-						self::add( $enclosing_kshow );
-						$res ["kshow"] = $enclosing_kshow;
+						$enclosing_hshow->setRank ( $entry->getRank() );
+						self::add( $enclosing_hshow );
+						$res ["hshow"] = $enclosing_hshow;
 					}
 				}
 			}

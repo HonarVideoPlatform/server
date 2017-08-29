@@ -95,7 +95,7 @@ class ShortLink extends BaseShortLink implements IBaseObject {
 			if(!$dcChar)
 				$dcChar = '0';
 				
-			$id = $dcChar . kString::generateStringId(4);
+			$id = $dcChar . hString::generateStringId(4);
 			ShortLinkPeer::setUseCriteriaFilter(false);
 			$existingObject = ShortLinkPeer::retrieveByPK($id);
 			ShortLinkPeer::setUseCriteriaFilter(true);

@@ -76,13 +76,13 @@ class helperAction extends kalturaSystemAction
 			$res = ($encrypted_data )		;
 			$this->des_key = $key;
 		}
-		elseif ( $algo == "ks" )
+		elseif ( $algo == "hs" )
 		{
-			$ks = ks::fromSecureString ( $str );
-			$res = print_r ( $ks , true );
-			if ( $ks != null )
+			$hs = hs::fromSecureString ( $str );
+			$res = print_r ( $hs , true );
+			if ( $hs != null )
 			{
-				$expired = $ks->valid_until;
+				$expired = $hs->valid_until;
 				$expired_str = self::formatThisData($expired);
 				$now = time();
 				$now_str = self::formatThisData($now);
@@ -98,15 +98,15 @@ class helperAction extends kalturaSystemAction
 				return "";
 			}
 /*			$kwid = new kwid();
-			list ( $kwid->kshow_id , $kwid->partner_id , $kwid->subp_id ,$kwid->article_name  ,$kwid->widget_id , $kwid->hash  ) =
+			list ( $kwid->hshow_id , $kwid->partner_id , $kwid->subp_id ,$kwid->article_name  ,$kwid->widget_id , $kwid->hash  ) =
 				 @explode ( self::KWID_SEPARATOR , $str );
 */
 			$cracked = @explode ( "|" , $kwid_str );
-			$names = array ( "kshow_id" , "partner_id" , "subp_id" , "article_name" , "widget_id" , "hash" );
+			$names = array ( "hshow_id" , "partner_id" , "subp_id" , "article_name" , "widget_id" , "hash" );
 			$combined = array_combine( $names , $cracked );
 			
 			$secret = $this->getP ( "secret" );
-			$md5 = md5 ( $combined["kshow_id"]  . $combined["partner_id"]  . $combined["subp_id"] . $combined["article_name"] . 
+			$md5 = md5 ( $combined["hshow_id"]  . $combined["partner_id"]  . $combined["subp_id"] . $combined["article_name"] . 
 				$combined["widget_id"] .  $secret );
 				
 			$combined["secret"] = $secret;

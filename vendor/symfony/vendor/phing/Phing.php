@@ -727,7 +727,7 @@ class Phing {
         
         // Sort the arrays
         sort($subNames); // sort array values, resetting keys (which are numeric)        
-        ksort($topNameDescMap); // sort the keys (targetName) keeping key=>val associations
+        hsort($topNameDescMap); // sort the keys (targetName) keeping key=>val associations
         
         $topNames = array_keys($topNameDescMap);
         $topDescriptions = array_values($topNameDescMap);

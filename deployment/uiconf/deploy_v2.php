@@ -157,7 +157,7 @@ class uiConfDeployment
 		//Iterate through all sections (statics, general, kmc, kcw...)
 		foreach ($confObj as $sectionName=> $sectionValue)
 		{
-			//If we are in the widgets section (like kmc, kcw, kse)
+			//If we are in the widgets section (like kmc, kcw, hse)
 			if($sectionName != "general" && count($sectionValue->widgets))
 			{
 				//Set section values

@@ -142,7 +142,7 @@ class kMetadataFlowManager implements kBatchJobStatusEventConsumer, kObjectDataC
 
 		if($relatedObject instanceof entry)
 		{
-			kStorageExporter::reExportEntry($relatedObject);
+			hStorageExporter::reExportEntry($relatedObject);
 		}
 		return true;
 	}

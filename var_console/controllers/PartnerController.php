@@ -226,9 +226,9 @@ class PartnerController extends Zend_Controller_Action
 			$url = Infra_ClientHelper::getServiceUrl();	
 			$url .= '/index.php/kmc/extlogin';
 		}
-		// The KS is always the last item received in the multi-request
-		$ks = $result[count($result)-1];
-		$url .= '?ks='.$ks.'&partner_id='.$partnerId;
+		// The HS is always the last item received in the multi-request
+		$hs = $result[count($result)-1];
+		$url .= '?hs='.$hs.'&partner_id='.$partnerId;
 		$this->getResponse()->setRedirect($url);
 	}
 	

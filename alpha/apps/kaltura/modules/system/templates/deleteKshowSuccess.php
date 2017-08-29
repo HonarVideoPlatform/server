@@ -1,19 +1,19 @@
 <?php
-//$kshow_id = $kshow ? $kshow->getId() : "";
-$band_id = $kshow ? $kshow->getIndexedCustomData1() : "";
+//$hshow_id = $hshow ? $hshow->getId() : "";
+$band_id = $hshow ? $hshow->getIndexedCustomData1() : "";
 $delete_text = $should_delete ? "Deleted " : "Will delete ";
 
-$kshow_count = count ( $other_kshows_by_producer );
+$hshow_count = count ( $other_hshows_by_producer );
 
 echo $error . "<br>";
 
-$url = url_for ( "/system") . "/deleteKshow?kshow_id="; 
-if ( $kshow_count > 1 )
+$url = url_for ( "/system") . "/deleteHshow?hshow_id="; 
+if ( $hshow_count > 1 )
 {
 	$str = "";
-	foreach ( $other_kshows_by_producer as $other_kshow )
+	foreach ( $other_hshows_by_producer as $other_hshow )
 	{
-		$str .= "<a href='$url" . $other_kshow->getId() ."'>" .$other_kshow->getId() . "</a> "; 
+		$str .= "<a href='$url" . $other_hshow->getId() ."'>" .$other_hshow->getId() . "</a> "; 
 	}
 	
 	echo $str;
@@ -26,36 +26,36 @@ if ( $kuser_count > 1 )
 ?>
  
 <form id="form1" method=get>
-	kshow id: <input name="kshow_id" value="<?php echo $kshow_id ?>"> band id: <input name="band_id" value="<?php echo $band_id ?>">
+	hshow id: <input name="hshow_id" value="<?php echo $hshow_id ?>"> band id: <input name="band_id" value="<?php echo $band_id ?>">
 	User name: <input name="kuser_name" value="<?php echo $kuser_name ?>">
 	<input type="hidden" id="deleteme" name="deleteme" value="false">
 	<input type="submit"  name="find" value="find">
 </form>
 
-<?php if ( !$kshow ) 
+<?php if ( !$hshow )
 {
-	if ( $kshow_id )
+	if ( $hshow_id )
 	{
-		echo "Kshow id [" . $kshow_id . "] does not exist in the DB";
+		echo "Hshow id [" . $hshow_id . "] does not exist in the DB";
 	}	
 	return ;
 }
 
 ?>
 
-<?php if ( $kuser && $kshow_count < 2 ) 
+<?php if ( $kuser && $hshow_count < 2 )
 {
 	echo $delete_text . "kuser '" . $kuser->getScreenName() . "' [" . $kuser->getId()
 	. "] which was created at " . $kuser->getCreatedAt() . " (" .  $kuser->getFormattedCreatedAt() . ")" ; 
 } ?>
 <br> 
 
-<?php echo $delete_text . "'" . $kshow->getName() ."' [" . $kshow->getId() ."] with band id . " . $kshow->getIndexedCustomData1() . ":" ?>
+<?php echo $delete_text . "'" . $hshow->getName() ."' [" . $hshow->getId() ."] with band id . " . $hshow->getIndexedCustomData1() . ":" ?>
 <br>
 <table>
 <?php 
-echo investigate::printKshowHeader();
-echo investigate::printKshow( $kshow );
+echo investigate::printHshowHeader();
+echo investigate::printHshow( $hshow );
 ?>
 </table>
 <br>
@@ -76,15 +76,15 @@ foreach ( $entries as $entry )
 <script>
 function deleteme()
 {
-<?php if ( $kshow_count ) { ?> 
-	text = "kuser '<?php echo $kuser->getScreenName()?>' will not be deleted becuase he/she has (<?php echo $kshow_count ?>) kshows.'\n" + 
-		"One of the kshows: kshow '<?php echo $kshow->getName() ?>' with all (<?php echo count ( $entries ) ?>) entries\n" +
+<?php if ( $hshow_count ) { ?>
+	text = "kuser '<?php echo $kuser->getScreenName()?>' will not be deleted becuase he/she has (<?php echo $hshow_count ?>) hshows.'\n" + 
+		"One of the hshows: hshow '<?php echo $hshow->getName() ?>' with all (<?php echo count ( $entries ) ?>) entries\n" +
 			"????\n\n" +
 			"Remember - this action is NOT reversible!!" ;
 	
 <?php } else { ?>
 	text = "Do you really want to delete poor kuser '<?php echo $kuser->getScreenName()?>'\n" + 
-		"and it's kshow '<?php echo $kshow->getName() ?>' with all (<?php echo count ( $entries ) ?>) entries\n" +
+		"and it's hshow '<?php echo $hshow->getName() ?>' with all (<?php echo count ( $entries ) ?>) entries\n" +
 			"????\n\n" +
 			"Remember - this action is NOT reversible!!" ;
 <?php } ?>

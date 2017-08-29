@@ -9,7 +9,7 @@ class KalturaSessionInfo extends KalturaObject
 	 * @var string
 	 * @readonly
 	 */
-	public $ks;
+	public $hs;
 
 	/**
 	 * @var KalturaSessionType

@@ -141,8 +141,8 @@ class BulkUploadSchedulePlugin extends KalturaPlugin implements IKalturaBulkUplo
 		if(!count($bulkUploadResults))
 			die("Log file is not ready");
 		
-		kSchedulingICalComponent::setWriteToStdout(true);
-		$calendar = new kSchedulingICalCalendar();
+		hSchedulingICalComponent::setWriteToStdout(true);
+		$calendar = new hSchedulingICalCalendar();
 		$calendar->begin();
 		
 		$handledResults = 0;
@@ -172,11 +172,11 @@ class BulkUploadSchedulePlugin extends KalturaPlugin implements IKalturaBulkUplo
 				{
 					$scheduleEventObject = KalturaScheduleEvent::getInstance($scheduleEvent);
 					/* @var $scheduleEventObject KalturaScheduleEvent */
-					$event = kSchedulingICalEvent::fromObject($scheduleEventObject);
+					$event = hSchedulingICalEvent::fromObject($scheduleEventObject);
 				}
 				else
 				{
-					$event = new kSchedulingICalEvent($bulkUploadResult->getRowData());
+					$event = new hSchedulingICalEvent($bulkUploadResult->getRowData());
 				}
 				$event->addFields($extraAttributes, 'x-kaltura');
 				$event->write();

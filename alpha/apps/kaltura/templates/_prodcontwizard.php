@@ -1,7 +1,7 @@
 <?php
 	$host = requestUtils::getHost() ;
 	$recorderUrl = "";
-	if ( ! kString::beginsWith( $host , "http://www.kaltura.com" ) )
+	if ( ! hString::beginsWith( $host , "http://www.kaltura.com" ) )
 	{ 
 		$rtmp_host = str_replace ( "http:" , "rtmp:" , $host );
 		$recorderUrl = "Red5ServerURL=$rtmp_host/oflaDemo&"; 
@@ -28,7 +28,7 @@ else
 	</div>
 	<div class="container">
 		<div class="radioGroup clearfix">			
-			<?php  $types =  kshow::getTypes();
+			<?php  $types =  hshow::getTypes();
 				foreach ( $types as $type => $type_text ) 
 					echo "<label><input name='prod_ShowType' type='radio' value='".$type."' />".$type_text."</label>"; 
 			?>
@@ -73,21 +73,21 @@ else
 		<fieldset>
 			<div class="col">
 				<span>Who can view</span>
-				<label><input type="radio" class="radio" id="prod_ViewShow1" name="prod_ViewShow" checked="checked" value="<?php echo kshow::KSHOW_PERMISSION_EVERYONE; ?>" />Everyone</label>
-				<label><input type="radio" class="radio" id="prod_ViewShow2" name="prod_ViewShow" value="<?php echo kshow::KSHOW_PERMISSION_JUST_ME; ?>" />Just me (draft)</label>
-				<label><input type="radio" class="radio" id="prod_ViewShow3" name="prod_ViewShow" value="<?php echo kshow::KSHOW_PERMISSION_INVITE_ONLY; ?>" />By invitation only</label><div class="pass"><input id="prod_ViewShow_Invite_pass" defValue="Enter password"/>Send password by email to friends.</div>
+				<label><input type="radio" class="radio" id="prod_ViewShow1" name="prod_ViewShow" checked="checked" value="<?php echo hshow::HSHOW_PERMISSION_EVERYONE; ?>" />Everyone</label>
+				<label><input type="radio" class="radio" id="prod_ViewShow2" name="prod_ViewShow" value="<?php echo hshow::HSHOW_PERMISSION_JUST_ME; ?>" />Just me (draft)</label>
+				<label><input type="radio" class="radio" id="prod_ViewShow3" name="prod_ViewShow" value="<?php echo hshow::HSHOW_PERMISSION_INVITE_ONLY; ?>" />By invitation only</label><div class="pass"><input id="prod_ViewShow_Invite_pass" defValue="Enter password"/>Send password by email to friends.</div>
 			</div>
 			<div class="col">
 				<span>Who can contribute media</span>
-				<label><input type="radio" class="radio" id="prod_ContributeShow1" name="prod_ContributeShow" checked="checked" value="<?php echo kshow::KSHOW_PERMISSION_REGISTERED; ?>" />Everyone</label>
-				<label><input type="radio" class="radio" id="prod_ContributeShow2" name="prod_ContributeShow" value="<?php echo kshow::KSHOW_PERMISSION_JUST_ME; ?>" />Just me</label>
-				<label><input type="radio" class="radio" id="prod_ContributeShow3" name="prod_ContributeShow" value="<?php echo kshow::KSHOW_PERMISSION_INVITE_ONLY; ?>" />By invitation only</label><div class="pass"><input id="prod_ContributeShow_Invite_pass" defValue="Enter password"/>Send password by email to friends.</div>
+				<label><input type="radio" class="radio" id="prod_ContributeShow1" name="prod_ContributeShow" checked="checked" value="<?php echo hshow::HSHOW_PERMISSION_REGISTERED; ?>" />Everyone</label>
+				<label><input type="radio" class="radio" id="prod_ContributeShow2" name="prod_ContributeShow" value="<?php echo hshow::HSHOW_PERMISSION_JUST_ME; ?>" />Just me</label>
+				<label><input type="radio" class="radio" id="prod_ContributeShow3" name="prod_ContributeShow" value="<?php echo hshow::HSHOW_PERMISSION_INVITE_ONLY; ?>" />By invitation only</label><div class="pass"><input id="prod_ContributeShow_Invite_pass" defValue="Enter password"/>Send password by email to friends.</div>
 			</div>
 			<div class="col">
 				<span>Who can edit</span>
-				<label><input type="radio" class="radio" id="prod_EditShow1" name="prod_EditShow" checked="checked" value="<?php echo kshow::KSHOW_PERMISSION_REGISTERED; ?>" />Everyone</label>
-				<label><input type="radio" class="radio" id="prod_EditShow2" name="prod_EditShow" value="<?php echo kshow::KSHOW_PERMISSION_JUST_ME; ?>" />Just me</label>
-				<label><input type="radio" class="radio" id="prod_EditShow3" name="prod_EditShow" value="<?php echo kshow::KSHOW_PERMISSION_INVITE_ONLY; ?>" />By invitation only</label><div class="pass"><input id="prod_EditShow_Invite_pass" defValue="Enter password"/>Send password by email to friends.</div>
+				<label><input type="radio" class="radio" id="prod_EditShow1" name="prod_EditShow" checked="checked" value="<?php echo hshow::HSHOW_PERMISSION_REGISTERED; ?>" />Everyone</label>
+				<label><input type="radio" class="radio" id="prod_EditShow2" name="prod_EditShow" value="<?php echo hshow::HSHOW_PERMISSION_JUST_ME; ?>" />Just me</label>
+				<label><input type="radio" class="radio" id="prod_EditShow3" name="prod_EditShow" value="<?php echo hshow::HSHOW_PERMISSION_INVITE_ONLY; ?>" />By invitation only</label><div class="pass"><input id="prod_EditShow_Invite_pass" defValue="Enter password"/>Send password by email to friends.</div>
 			</div>
 		</fieldset>
 	</div>
@@ -141,7 +141,7 @@ else
 	</div>
 	<div class="container">
 		<ul class="choose_scheme clearfix">
-			<?php  $colorSchemes = kshow::getColorSchemes();
+			<?php  $colorSchemes = hshow::getColorSchemes();
 				foreach ( $colorSchemes as $colorScheme )
 					echo '<li><div style="background-color:'.$colorScheme[0].'"><div style="background-color:'.$colorScheme[2].'; color:'.$colorScheme[1].';">a</div></div></li>';
 			?>

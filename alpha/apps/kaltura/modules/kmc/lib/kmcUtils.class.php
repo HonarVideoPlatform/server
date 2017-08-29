@@ -74,7 +74,7 @@ class kmcUtils
 		return $conf_playlist;
 	}
 
-	public static function redirectPartnerToCorrectKmc(Partner $partner, $ks, $uid=null, $screenName=null, $email=null, $validatingKmc)
+	public static function redirectPartnerToCorrectKmc(Partner $partner, $hs, $uid=null, $screenName=null, $email=null, $validatingKmc)
 	{
 		if($validatingKmc == $partner->getKmcVersion())
 		{
@@ -84,7 +84,7 @@ class kmcUtils
 		switch($partner->getKmcVersion())
 		{
 		    case 1: 
-			$kmc1 = "/index.php/kmc/kmc1?partner_id=".$partner->getId()."&subp_id=".$subpId."&ks=".$ks."&uid=".$uid."&screen_name=".$screenName."&email=".$email ;
+			$kmc1 = "/index.php/kmc/kmc1?partner_id=".$partner->getId()."&subp_id=".$subpId."&hs=".$hs."&uid=".$uid."&screen_name=".$screenName."&email=".$email ;
 			header("Location: ".$kmc1);
 			die;
 			break;

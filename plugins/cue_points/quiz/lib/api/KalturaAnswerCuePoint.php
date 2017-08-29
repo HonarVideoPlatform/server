@@ -153,7 +153,7 @@ class KalturaAnswerCuePoint extends KalturaCuePoint
 		{
 			throw new KalturaAPIException(KalturaQuizErrors::USER_ENTRY_QUIZ_ALREADY_SUBMITTED);
 		}
-		if (!kCurrentContext::$is_admin_session && ($dbUserEntry->getKuserId() != kCurrentContext::getCurrentKsKuserId()) ) {
+		if (!kCurrentContext::$is_admin_session && ($dbUserEntry->getKuserId() != kCurrentContext::getCurrentHsKuserId()) ) {
 		    throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID);
 		}
 	}

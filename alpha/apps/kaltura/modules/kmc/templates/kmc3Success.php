@@ -91,7 +91,7 @@ else
 			getuiconfs_url	: "<?php echo url_for('kmc/getuiconfs'); ?>",
 			terms_of_use	: "<?php echo kConf::get('terms_of_use_uri'); ?>",
 			jw_swf			: "<?php echo $jw_swf_name; ?>.swf",
-			ks				: "<?php echo $ks; ?>",
+			hs				: "<?php echo $hs; ?>",
 			partner_id		: "<?php echo $partner_id; ?>",
 			subp_id			: "<?php echo $subp_id; ?>",
 			user_id			: "<?php echo $uid; ?>",
@@ -101,7 +101,7 @@ else
 			paying_partner	: "<?php echo $payingPartner; ?>",
 			whitelabel		: <?php echo $templatePartnerId; ?>,
 			show_usage		: <?php echo (kConf::get("kmc_account_show_usage"))? "true" : "false"; ?>,
-			kse_uiconf		: "<?php echo $simple_editor->getId(); ?>", // add "id"
+			hse_uiconf		: "<?php echo $simple_editor->getId(); ?>", // add "id"
 			kae_uiconf		: "<?php echo $advanced_editor->getId(); ?>", // add "id"
 			kcw_uiconf		: "<?php echo $content_uiconfs_upload->getId(); ?>", // add "id"
 			default_kdp		: {

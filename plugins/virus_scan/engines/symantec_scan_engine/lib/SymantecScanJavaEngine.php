@@ -86,7 +86,7 @@ class SymantecScanJavaEngine extends SymantecScanEngine
 				return KalturaVirusScanJobResult::SCAN_ERROR;
 			}
 			
-			if (kString::beginsWith($line, self::STATUS_PREFIX)) {
+			if (hString::beginsWith($line, self::STATUS_PREFIX)) {
 				$found = $line;
 				break;
 			}

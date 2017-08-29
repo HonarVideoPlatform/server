@@ -14,7 +14,7 @@ class KalturaClientBase
 	/**
 	 * @var string
 	 */
-	private $ks;
+	private $hs;
 
 	/**
 	 * @var boolean
@@ -53,7 +53,7 @@ class KalturaClientBase
 		if (!isset($params["partnerId"]) || $params["partnerId"] === -1)
 			$params["partnerId"] = $this->config->partnerId;
 
-		$this->addParam($params, "ks", $this->ks);
+		$this->addParam($params, "hs", $this->hs);
 
 		$call = new KalturaServiceActionCall($service, $action, $params, $files);
 		$this->callsQueue[] = $call;
@@ -153,7 +153,7 @@ class KalturaClientBase
 	 */
 	private function signature($params)
 	{
-		ksort($params);
+		hsort($params);
 		$str = "";
 		foreach ($params as $k => $v)
 		{
@@ -258,17 +258,17 @@ class KalturaClientBase
 	/**
 	 * @return string
 	 */
-	public function getKs()
+	public function getHs()
 	{
-		return $this->ks;
+		return $this->hs;
 	}
 
 	/**
-	 * @param string $ks
+	 * @param string $hs
 	 */
-	public function setKs($ks)
+	public function setHs($hs)
 	{
-		$this->ks = $ks;
+		$this->hs = $hs;
 	}
 
 	/**
@@ -381,7 +381,7 @@ class KalturaClientBase
 			$this->config->getLogger()->log($msg);
 	}
 
-	public function KalturaCreateKS($sessionType, $puserId, $privileges, $adminSecret, $expiry = 7200)
+	public function KalturaCreateHS($sessionType, $puserId, $privileges, $adminSecret, $expiry = 7200)
 	{
 		$rand = rand(0, 32000);
 		$rand = microtime(true);

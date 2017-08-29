@@ -1,13 +1,13 @@
 <?php
 /**
- * kString -
+ * hString -
  * a bundle of helpful functions for manipulating strings
  *  
  * @package infra
  * @subpackage utils
  * @todo think if kClass is a good convention for helper classes ?
  */
-class kString
+class hString
 {
 	/**
 	 * return true if $str starts with $desired_prefix, false otherwise

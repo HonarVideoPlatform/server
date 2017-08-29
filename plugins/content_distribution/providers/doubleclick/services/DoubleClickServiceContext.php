@@ -1,6 +1,6 @@
 <?php
 
-class DoubleClickServiceContext extends ContentDistributionServiceContext 
+class DoubleClickServiceContext extends ContentDistributionServiceContext
 {
 	
 	public $page = 1;

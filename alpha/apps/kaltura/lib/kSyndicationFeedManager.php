@@ -1,5 +1,5 @@
 <?php
-class kSyndicationFeedManager
+class hSyndicationFeedManager
 {
 	/*
 	 * @param string $xsltStr

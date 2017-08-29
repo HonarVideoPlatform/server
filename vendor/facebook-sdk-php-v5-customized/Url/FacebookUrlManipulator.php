@@ -92,7 +92,7 @@ class FacebookUrlManipulator
         $newParams = array_merge($newParams, $existingParams);
 
         // Sort for a predicable order
-        ksort($newParams);
+        hsort($newParams);
 
         return $path . '?' . http_build_query($newParams, null, '&');
     }

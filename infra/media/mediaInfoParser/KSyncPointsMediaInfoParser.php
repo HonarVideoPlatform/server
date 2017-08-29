@@ -1,6 +1,6 @@
 <?php
 
-class KSyncPointsMediaInfoParser
+class HSyncPointsMediaInfoParser
 {
 	const MIN_DIFF_BETWEEN_SYNC_POINTS_IN_MSEC = 60000;
 	const DATA_TRACK_IDENTIFIER = "data";

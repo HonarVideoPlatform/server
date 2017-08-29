@@ -54,9 +54,9 @@ class KalturaDocCommentParser
 
     const DOCCOMMENT_DISABLE_RELATIVE_TIME = "/\\@disableRelativeTime \\$(\\w*)/";
     
-    const DOCCOMMENT_KS_OPTIONAL = "/\\@ksOptional/i";
+    const DOCCOMMENT_HS_OPTIONAL = "/\\@hsOptional/i";
     
-    const DOCCOMMENT_KS_IGNORED = "/\\@ksIgnored/i";
+    const DOCCOMMENT_HS_IGNORED = "/\\@hsIgnored/i";
     
 
     const MIN_LENGTH_CONSTRAINT = "minLength";
@@ -226,7 +226,7 @@ class KalturaDocCommentParser
      * Null - optional
      * @var bool
      */
-    public $ksNeeded = true;
+    public $hsNeeded = true;
     
     /**
      * Parse a docComment
@@ -245,13 +245,13 @@ class KalturaDocCommentParser
         $this->deprecated = preg_match( self::DOCCOMMENT_DEPRECATED, $comment);
         $this->serverOnly = preg_match( self::DOCCOMMENT_SERVER_ONLY, $comment);
 
-        if(preg_match( self::DOCCOMMENT_KS_IGNORED, $comment))
+        if(preg_match( self::DOCCOMMENT_HS_IGNORED, $comment))
         {
-        	$this->ksNeeded = false;
+        	$this->hsNeeded = false;
         }
-        elseif(preg_match( self::DOCCOMMENT_KS_OPTIONAL, $comment))
+        elseif(preg_match( self::DOCCOMMENT_HS_OPTIONAL, $comment))
         {
-        	$this->ksNeeded = null;
+        	$this->hsNeeded = null;
         }
         
         $result = null;

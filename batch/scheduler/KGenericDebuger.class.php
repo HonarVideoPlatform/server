@@ -2,7 +2,7 @@
 
 /**
  * Will schedual execution of external commands
- * Copied base functionality from KScheduler
+ * Copied base functionality from HScheduler
  *
  * @package Scheduler
  * @subpackage Debug
@@ -15,7 +15,7 @@ class KGenericDebuger
 	private $enableDebug = true;
 	
 	/**
-	 * @var KSchedulerConfig
+	 * @var HSchedulerConfig
 	 */
 	private $schedulerConfig = null;
 	
@@ -44,7 +44,7 @@ class KGenericDebuger
 		if(!is_null($this->schedulerConfig) && !$this->schedulerConfig->reloadRequired())
 			return;
 		
-		$this->schedulerConfig = new KSchedulerConfig($this->configFileName);
+		$this->schedulerConfig = new HSchedulerConfig($this->configFileName);
 		$this->logDir = $this->schedulerConfig->getLogDir();
 	}
 	
@@ -74,9 +74,9 @@ class KGenericDebuger
 	}
 	
 	/**
-	 * @param KSchedularTaskConfig $taskConfig
+	 * @param HSchedularTaskConfig $taskConfig
 	 */
-	private function exeJob(KSchedularTaskConfig $taskConfig)
+	private function exeJob(HSchedularTaskConfig $taskConfig)
 	{
 		$this->debug(__LINE__, "exeJob($taskConfig->name)");
 		

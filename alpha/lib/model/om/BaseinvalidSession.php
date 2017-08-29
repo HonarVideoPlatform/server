@@ -26,16 +26,16 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 	protected $id;
 
 	/**
-	 * The value for the ks field.
+	 * The value for the hs field.
 	 * @var        string
 	 */
-	protected $ks;
+	protected $hs;
 
 	/**
-	 * The value for the ks_valid_until field.
+	 * The value for the hs_valid_until field.
 	 * @var        string
 	 */
-	protected $ks_valid_until;
+	protected $hs_valid_until;
 
 	/**
 	 * The value for the created_at field.
@@ -111,17 +111,17 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [ks] column value.
+	 * Get the [hs] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getKs()
+	public function getHs()
 	{
-		return $this->ks;
+		return $this->hs;
 	}
 
 	/**
-	 * Get the [optionally formatted] temporal [ks_valid_until] column value.
+	 * Get the [optionally formatted] temporal [hs_valid_until] column value.
 	 * 
 	 * This accessor only only work with unix epoch dates.  Consider enabling the propel.useDateTimeClass
 	 * option in order to avoid converstions to integers (which are limited in the dates they can express).
@@ -131,22 +131,22 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 	 * @return     mixed Formatted date/time value as string or (integer) unix timestamp (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
 	 * @throws     PropelException - if unable to parse/validate the date/time value.
 	 */
-	public function getKsValidUntil($format = 'Y-m-d H:i:s')
+	public function getHsValidUntil($format = 'Y-m-d H:i:s')
 	{
-		if ($this->ks_valid_until === null) {
+		if ($this->hs_valid_until === null) {
 			return null;
 		}
 
 
-		if ($this->ks_valid_until === '0000-00-00 00:00:00') {
+		if ($this->hs_valid_until === '0000-00-00 00:00:00') {
 			// while technically this is not a default value of NULL,
 			// this seems to be closest in meaning.
 			return null;
 		} else {
 			try {
-				$dt = new DateTime($this->ks_valid_until);
+				$dt = new DateTime($this->hs_valid_until);
 			} catch (Exception $x) {
-				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->ks_valid_until, true), $x);
+				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->hs_valid_until, true), $x);
 			}
 		}
 
@@ -244,39 +244,39 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 	} // setId()
 
 	/**
-	 * Set the value of [ks] column.
+	 * Set the value of [hs] column.
 	 * 
 	 * @param      string $v new value
 	 * @return     invalidSession The current object (for fluent API support)
 	 */
-	public function setKs($v)
+	public function setHs($v)
 	{
-		if(!isset($this->oldColumnsValues[invalidSessionPeer::KS]))
-			$this->oldColumnsValues[invalidSessionPeer::KS] = $this->ks;
+		if(!isset($this->oldColumnsValues[invalidSessionPeer::HS]))
+			$this->oldColumnsValues[invalidSessionPeer::HS] = $this->hs;
 
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->ks !== $v) {
-			$this->ks = $v;
-			$this->modifiedColumns[] = invalidSessionPeer::KS;
+		if ($this->hs !== $v) {
+			$this->hs = $v;
+			$this->modifiedColumns[] = invalidSessionPeer::HS;
 		}
 
 		return $this;
-	} // setKs()
+	} // setHs()
 
 	/**
-	 * Sets the value of [ks_valid_until] column to a normalized version of the date/time value specified.
+	 * Sets the value of [hs_valid_until] column to a normalized version of the date/time value specified.
 	 * 
 	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
 	 *						be treated as NULL for temporal objects.
 	 * @return     invalidSession The current object (for fluent API support)
 	 */
-	public function setKsValidUntil($v)
+	public function setHsValidUntil($v)
 	{
-		if(!isset($this->oldColumnsValues[invalidSessionPeer::KS_VALID_UNTIL]))
-			$this->oldColumnsValues[invalidSessionPeer::KS_VALID_UNTIL] = $this->ks_valid_until;
+		if(!isset($this->oldColumnsValues[invalidSessionPeer::HS_VALID_UNTIL]))
+			$this->oldColumnsValues[invalidSessionPeer::HS_VALID_UNTIL] = $this->hs_valid_until;
 
 		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
 		// -- which is unexpected, to say the least.
@@ -301,22 +301,22 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 			}
 		}
 
-		if ( $this->ks_valid_until !== null || $dt !== null ) {
+		if ( $this->hs_valid_until !== null || $dt !== null ) {
 			// (nested ifs are a little easier to read in this case)
 
-			$currNorm = ($this->ks_valid_until !== null && $tmpDt = new DateTime($this->ks_valid_until)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+			$currNorm = ($this->hs_valid_until !== null && $tmpDt = new DateTime($this->hs_valid_until)) ? $tmpDt->format('Y-m-d H:i:s') : null;
 			$newNorm = ($dt !== null) ? $dt->format('Y-m-d H:i:s') : null;
 
 			if ( ($currNorm !== $newNorm) // normalized values don't match 
 					)
 			{
-				$this->ks_valid_until = ($dt ? $dt->format('Y-m-d H:i:s') : null);
-				$this->modifiedColumns[] = invalidSessionPeer::KS_VALID_UNTIL;
+				$this->hs_valid_until = ($dt ? $dt->format('Y-m-d H:i:s') : null);
+				$this->modifiedColumns[] = invalidSessionPeer::HS_VALID_UNTIL;
 			}
 		} // if either are not null
 
 		return $this;
-	} // setKsValidUntil()
+	} // setHsValidUntil()
 
 	/**
 	 * Sets the value of [created_at] column to a normalized version of the date/time value specified.
@@ -446,8 +446,8 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 		try {
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-			$this->ks = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-			$this->ks_valid_until = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+			$this->hs = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+			$this->hs_valid_until = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
 			$this->created_at = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
 			$this->actions_limit = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
 			$this->type = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
@@ -847,10 +847,10 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getKs();
+				return $this->getHs();
 				break;
 			case 2:
-				return $this->getKsValidUntil();
+				return $this->getHsValidUntil();
 				break;
 			case 3:
 				return $this->getCreatedAt();
@@ -883,8 +883,8 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 		$keys = invalidSessionPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getKs(),
-			$keys[2] => $this->getKsValidUntil(),
+			$keys[1] => $this->getHs(),
+			$keys[2] => $this->getHsValidUntil(),
 			$keys[3] => $this->getCreatedAt(),
 			$keys[4] => $this->getActionsLimit(),
 			$keys[5] => $this->getType(),
@@ -923,10 +923,10 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setKs($value);
+				$this->setHs($value);
 				break;
 			case 2:
-				$this->setKsValidUntil($value);
+				$this->setHsValidUntil($value);
 				break;
 			case 3:
 				$this->setCreatedAt($value);
@@ -962,8 +962,8 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 		$keys = invalidSessionPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setKs($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setKsValidUntil($arr[$keys[2]]);
+		if (array_key_exists($keys[1], $arr)) $this->setHs($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setHsValidUntil($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setCreatedAt($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setActionsLimit($arr[$keys[4]]);
 		if (array_key_exists($keys[5], $arr)) $this->setType($arr[$keys[5]]);
@@ -979,8 +979,8 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 		$criteria = new Criteria(invalidSessionPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(invalidSessionPeer::ID)) $criteria->add(invalidSessionPeer::ID, $this->id);
-		if ($this->isColumnModified(invalidSessionPeer::KS)) $criteria->add(invalidSessionPeer::KS, $this->ks);
-		if ($this->isColumnModified(invalidSessionPeer::KS_VALID_UNTIL)) $criteria->add(invalidSessionPeer::KS_VALID_UNTIL, $this->ks_valid_until);
+		if ($this->isColumnModified(invalidSessionPeer::HS)) $criteria->add(invalidSessionPeer::HS, $this->hs);
+		if ($this->isColumnModified(invalidSessionPeer::HS_VALID_UNTIL)) $criteria->add(invalidSessionPeer::HS_VALID_UNTIL, $this->hs_valid_until);
 		if ($this->isColumnModified(invalidSessionPeer::CREATED_AT)) $criteria->add(invalidSessionPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(invalidSessionPeer::ACTIONS_LIMIT)) $criteria->add(invalidSessionPeer::ACTIONS_LIMIT, $this->actions_limit);
 		if ($this->isColumnModified(invalidSessionPeer::TYPE)) $criteria->add(invalidSessionPeer::TYPE, $this->type);
@@ -1038,9 +1038,9 @@ abstract class BaseinvalidSession extends BaseObject  implements Persistent {
 	public function copyInto($copyObj, $deepCopy = false)
 	{
 
-		$copyObj->setKs($this->ks);
+		$copyObj->setHs($this->hs);
 
-		$copyObj->setKsValidUntil($this->ks_valid_until);
+		$copyObj->setHsValidUntil($this->hs_valid_until);
 
 		$copyObj->setCreatedAt($this->created_at);
 

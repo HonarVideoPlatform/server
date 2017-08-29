@@ -8,27 +8,27 @@ abstract class oauth2Action extends sfAction{
 
 	const EXPIRY_SECONDS = 1800; // 30 minutes
 
-	private function generateKs($partnerId, $additionalData, $privileges)
+	private function generateHs($partnerId, $additionalData, $privileges)
 	{
 		$partner = $this->getPartner($partnerId);
-		$limitedKs = '';
-		$result = kSessionUtils::startKSession($partnerId, $partner->getAdminSecret(), '', $limitedKs, self::EXPIRY_SECONDS, kSessionBase::SESSION_TYPE_ADMIN, '', $privileges, null, $additionalData);
+		$limitedHs = '';
+		$result = hSessionUtils::startHSession($partnerId, $partner->getAdminSecret(), '', $limitedHs, self::EXPIRY_SECONDS, hSessionBase::SESSION_TYPE_ADMIN, '', $privileges, null, $additionalData);
 		if ($result < 0)
 			throw new Exception('Failed to create limited session for partner '.$partnerId);
 
-		return $limitedKs;
+		return $limitedHs;
 	}
 
-	protected function generateTimeLimitedKsWithData($partnerId, $stateData)
+	protected function generateTimeLimitedHsWithData($partnerId, $stateData)
 	{
-		$privileges = kSessionBase::PRIVILEGE_ACTIONS_LIMIT.':0';
+		$privileges = hSessionBase::PRIVILEGE_ACTIONS_LIMIT.':0';
 		$additionalData =  json_encode($stateData);
-		return $this->generateKs($partnerId, $additionalData, $privileges);
+		return $this->generateHs($partnerId, $additionalData, $privileges);
 	}
 
-	protected function generateTimeLimitedKs($partnerId)
+	protected function generateTimeLimitedHs($partnerId)
 	{
-		return $this->generateKs($partnerId, null, null);
+		return $this->generateHs($partnerId, null, null);
 	}
 
 	protected function getPartner($partnerId)
@@ -40,11 +40,11 @@ abstract class oauth2Action extends sfAction{
 		return $partner;
 	}
 
-	protected function processKs($ksStr, $requiredPermission = null)
+	protected function processHs($hsStr, $requiredPermission = null)
 	{
 		try
 		{
-			kCurrentContext::initKsPartnerUser($ksStr);
+			kCurrentContext::initHsPartnerUser($hsStr);
 		}
 		catch(Exception $ex)
 		{
@@ -52,9 +52,9 @@ abstract class oauth2Action extends sfAction{
 			return false;
 		}
 
-		if (kCurrentContext::$ks_object->type != ks::SESSION_TYPE_ADMIN)
+		if (kCurrentContext::$hs_object->type != hs::SESSION_TYPE_ADMIN)
 		{
-			KalturaLog::err('Ks is not admin');
+			KalturaLog::err('Hs is not admin');
 			return false;
 		}
 
@@ -64,7 +64,7 @@ abstract class oauth2Action extends sfAction{
 		}
 		catch(Exception $ex)
 		{
-			if (strpos($ex->getCode(), 'INVALID_ACTIONS_LIMIT') === false) // allow using limited ks
+			if (strpos($ex->getCode(), 'INVALID_ACTIONS_LIMIT') === false) // allow using limited hs
 			{
 				KalturaLog::err($ex);
 				return false;
@@ -74,7 +74,7 @@ abstract class oauth2Action extends sfAction{
 		{
 			if (!kPermissionManager::isPermitted(PermissionName::ADMIN_PUBLISHER_MANAGE))
 			{
-				KalturaLog::err('Ks is missing "ADMIN_PUBLISHER_MANAGE" permission');
+				KalturaLog::err('Hs is missing "ADMIN_PUBLISHER_MANAGE" permission');
 				return false;
 			}
 		}

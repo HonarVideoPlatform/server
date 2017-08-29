@@ -16,10 +16,10 @@ class kTimeContextField extends kIntegerField
 	/* (non-PHPdoc)
 	 * @see kIntegerField::getFieldValue()
 	 */
-	protected function getFieldValue(kScope $scope = null)
+	protected function getFieldValue(hScope $scope = null)
 	{
 		if(!$scope)
-			$scope = new kScope();
+			$scope = new hScope();
 			
 		return $scope->getTime() + $this->offset;
 	}

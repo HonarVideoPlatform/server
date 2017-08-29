@@ -54,7 +54,7 @@ class KalturaHttpNotificationDataText extends KalturaHttpNotificationData
 			$contentType = get_class($dbObject->getContent());
 			switch ($contentType)
 			{
-				case 'kStringValue':
+				case 'hStringValue':
 					$this->content = new KalturaStringValue();
 					break;
 					

@@ -16,7 +16,7 @@
 		<column primaryKey="false" required="false" lazyLoad="false" name="kuser_id" type="integer" />
 		<column primaryKey="false" required="false" lazyLoad="false" name="action" type="varchar" size="31" />
 		<column primaryKey="false" required="false" lazyLoad="false" name="data" type="longvarchar" />
-		<column primaryKey="false" required="false" lazyLoad="false" name="ks" type="varchar" size="511" />
+		<column primaryKey="false" required="false" lazyLoad="false" name="hs" type="varchar" size="511" />
 		<column primaryKey="false" required="false" lazyLoad="false" name="context" type="tinyint" />
 		<column primaryKey="false" required="false" lazyLoad="false" name="entry_point" type="varchar" size="127" />
 		<column primaryKey="false" required="false" lazyLoad="false" name="server_name" type="varchar" size="63" />

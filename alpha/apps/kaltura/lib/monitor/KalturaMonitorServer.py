@@ -300,5 +300,5 @@ requestsListener = threading.Thread(target = collectRequests)
 requestsListener.setDaemon(True)
 requestsListener.start()
 
-kSocketServer = tornadio2.server.SocketServer(application)	
+hSocketServer = tornadio2.server.SocketServer(application)	
 		

@@ -22,7 +22,7 @@ class VarConsoleService extends KalturaBaseService
     }
     
     /**
-     * Action which checks whther user login 
+     * Action which checks whther user login
      * @action checkLoginDataExists
      * @actionAlias user.checkLoginDataExists
      * @param KalturaUserLoginDataFilter $filter

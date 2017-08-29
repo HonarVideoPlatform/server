@@ -27,7 +27,7 @@ if ($handle) {
     }
     fclose($handle);
     
-    ksort($summary);
+    hsort($summary);
 	foreach($summary as $key => $value)
 		print "$key,".floor($value)."\n"; 
     //print_r($summary);

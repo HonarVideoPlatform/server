@@ -1,5 +1,5 @@
 <?php
-class kShortLinkFlowManager implements kObjectDeletedEventConsumer
+class hShortLinkFlowManager implements kObjectDeletedEventConsumer
 {
 	/* (non-PHPdoc)
 	 * @see kObjectDeletedEventConsumer::shouldConsumeDeletedEvent()

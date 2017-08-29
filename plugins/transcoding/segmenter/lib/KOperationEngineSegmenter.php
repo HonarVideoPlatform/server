@@ -3,7 +3,7 @@
  * @package plugins.segmenter
  * @subpackage lib
  */
-class KOperationEngineSegmenter  extends KSingleOutputOperationEngine
+class KOperationEngineSegmenter  extends HSingleOutputOperationEngine
 {
 
 	public function __construct($cmd, $outFilePath)

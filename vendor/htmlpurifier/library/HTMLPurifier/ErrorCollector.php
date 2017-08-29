@@ -127,8 +127,8 @@ class HTMLPurifier_ErrorCollector
             } else {
                 $struct = $this->lines[$line][$col] = $new_struct;
             }
-            // These ksorts may present a performance problem
-            ksort($this->lines[$line], SORT_NUMERIC);
+            // These hsorts may present a performance problem
+            hsort($this->lines[$line], SORT_NUMERIC);
         } else {
             if (isset($this->lines[-1])) {
                 $struct = $this->lines[-1];
@@ -136,7 +136,7 @@ class HTMLPurifier_ErrorCollector
                 $struct = $this->lines[-1] = $new_struct;
             }
         }
-        ksort($this->lines, SORT_NUMERIC);
+        hsort($this->lines, SORT_NUMERIC);
 
         // Now, check if we need to operate on a lower structure
         if (!empty($attr)) {

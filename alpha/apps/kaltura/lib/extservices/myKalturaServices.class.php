@@ -98,7 +98,7 @@ class myKalturaServices extends myBaseMediaSource implements IMediaSource
 		{
 			list ( $kuser_id , $hash ) = explode ( "I" , $authData );
 			$fetch = false;
-			$hash_res  = kString::verifyExpiryHash( $kuser_id , self::AUTH_SALT  , $hash , self::AUTH_INTERVAL );
+			$hash_res  = hString::verifyExpiryHash( $kuser_id , self::AUTH_SALT  , $hash , self::AUTH_INTERVAL );
 			
 			if ( 0 < $hash_res )
 			{
@@ -191,7 +191,7 @@ class myKalturaServices extends myBaseMediaSource implements IMediaSource
 
 	private static function createHashString ( $kuser_id )	
 	{
-		$hash = kString::expiryHash($kuser_id , self::AUTH_SALT  , self::AUTH_INTERVAL  ) ;
+		$hash = hString::expiryHash($kuser_id , self::AUTH_SALT  , self::AUTH_INTERVAL  ) ;
 		$authData= $kuser_id . "I" . $hash;
 		return $authData;
 	}

@@ -59,7 +59,7 @@ class KalturaStreamContainer extends KalturaObject
 	{
 		if (!$dbObject)
 		{
-			$dbObject = new kStreamContainer();
+			$dbObject = new hStreamContainer();
 		}
 
 		return parent::toObject($dbObject, $propsToSkip);

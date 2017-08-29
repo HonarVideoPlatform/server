@@ -50,7 +50,7 @@ class PartnerTableMap extends TableMap {
 		$this->addColumn('CREATED_AT', 'CreatedAt', 'TIMESTAMP', false, null, null);
 		$this->addColumn('UPDATED_AT', 'UpdatedAt', 'TIMESTAMP', false, null, null);
 		$this->addForeignKey('ANONYMOUS_KUSER_ID', 'AnonymousKuserId', 'INTEGER', 'kuser', 'ID', false, null, null);
-		$this->addColumn('KS_MAX_EXPIRY_IN_SECONDS', 'KsMaxExpiryInSeconds', 'INTEGER', false, null, 86400);
+		$this->addColumn('HS_MAX_EXPIRY_IN_SECONDS', 'HsMaxExpiryInSeconds', 'INTEGER', false, null, 86400);
 		$this->addColumn('CREATE_USER_ON_DEMAND', 'CreateUserOnDemand', 'TINYINT', false, null, 1);
 		$this->addColumn('PREFIX', 'Prefix', 'VARCHAR', false, 32, null);
 		$this->addColumn('ADMIN_NAME', 'AdminName', 'VARCHAR', false, 50, null);

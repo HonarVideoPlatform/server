@@ -34,13 +34,13 @@ class KalturaDispatcher
 		$start = microtime( true );
 		
 		$userId = "";
-		$ksStr = isset($params["ks"]) ? $params["ks"] : null ;
+		$hsStr = isset($params["hs"]) ? $params["hs"] : null ;
 		
-		//If trying to impersonate to partner zero validate that a ksString is provided,
+		//If trying to impersonate to partner zero validate that a hsString is provided,
 		//In case an invalid partner tries to do the impersonation it will be prevented when building the current context.
-		$p = isset($params["p"]) && ($params["p"] || $ksStr) ? $params["p"] : null;
+		$p = isset($params["p"]) && ($params["p"] || $hsStr) ? $params["p"] : null;
 		if (!$p)
-			$p = isset($params["partnerId"]) && ($params["partnerId"] || $ksStr) ? $params["partnerId"] : null;
+			$p = isset($params["partnerId"]) && ($params["partnerId"] || $hsStr) ? $params["partnerId"] : null;
 		
 		$GLOBALS["partnerId"] = $p; // set for logger
 		 
@@ -76,7 +76,7 @@ class KalturaDispatcher
 		kCurrentContext::$service = $serviceActionItem->serviceInfo->serviceName;
 		kCurrentContext::$action =  $action;
 		kCurrentContext::$client_lang =  isset($params['clientTag']) ? $params['clientTag'] : null;
-		kCurrentContext::initKsPartnerUser($ksStr, $p, $userId);
+		kCurrentContext::initHsPartnerUser($hsStr, $p, $userId);
 
 		// validate it's ok to access this service
 		$deserializer = new KalturaRequestDeserializer($params);
@@ -150,13 +150,13 @@ class KalturaDispatcher
 	 * @param string $objectId
 	 * @param string $privilege optional
 	 * @param string $options optional
-	 * @throws KalturaErrors::INVALID_KS
+	 * @throws KalturaErrors::INVALID_HS
 	 */
 	protected function validateUser($objectClass, $objectId, $privilege = null, $options = null)
 	{
-		// don't allow operations without ks
-		if (!kCurrentContext::$ks_object)
-			throw new KalturaAPIException(KalturaErrors::INVALID_KS, "", ks::INVALID_TYPE, ks::getErrorStr(ks::INVALID_TYPE));
+		// don't allow operations without hs
+		if (!kCurrentContext::$hs_object)
+			throw new KalturaAPIException(KalturaErrors::INVALID_HS, "", hs::INVALID_TYPE, hs::getErrorStr(hs::INVALID_TYPE));
 
 		// if admin always allowed
 		if (kCurrentContext::$is_admin_session)
@@ -202,29 +202,29 @@ class KalturaDispatcher
 		if($privilege)
 		{
 			// check if all ids are privileged
-			if (kCurrentContext::$ks_object->verifyPrivileges($privilege, ks::PRIVILEGE_WILDCARD))
+			if (kCurrentContext::$hs_object->verifyPrivileges($privilege, hs::PRIVILEGE_WILDCARD))
 			{
 				return;
 			}
 				
 			// check if object id is privileged
-			if (kCurrentContext::$ks_object->verifyPrivileges($privilege, $dbObject->getId()))
+			if (kCurrentContext::$hs_object->verifyPrivileges($privilege, $dbObject->getId()))
 			{
 				return;
 			}
 			
 		}
 		
-		if ((strtolower($dbObject->getPuserId()) != strtolower(kCurrentContext::$ks_uid)) && (kCurrentContext::$ks_partner_id != Partner::MEDIA_SERVER_PARTNER_ID))
+		if ((strtolower($dbObject->getPuserId()) != strtolower(kCurrentContext::$hs_uid)) && (kCurrentContext::$hs_partner_id != Partner::MEDIA_SERVER_PARTNER_ID))
 		{
 			$optionsArray = array();
 			if ( $options ) {
 				$optionsArray = explode(",", $options);
 			}
-			if (!$dbObject->isEntitledKuserEdit(kCurrentContext::getCurrentKsKuserId())
+			if (!$dbObject->isEntitledKuserEdit(kCurrentContext::getCurrentHsKuserId())
 				||
-				(in_array(self::OWNER_ONLY_OPTION,$optionsArray)) && !$dbObject->isOwnerActionsAllowed(kCurrentContext::getCurrentKsKuserId()))
-					throw new KalturaAPIException(KalturaErrors::INVALID_KS, "", ks::INVALID_TYPE, ks::getErrorStr(ks::INVALID_TYPE));
+				(in_array(self::OWNER_ONLY_OPTION,$optionsArray)) && !$dbObject->isOwnerActionsAllowed(kCurrentContext::getCurrentHsKuserId()))
+					throw new KalturaAPIException(KalturaErrors::INVALID_HS, "", hs::INVALID_TYPE, hs::getErrorStr(hs::INVALID_TYPE));
 		}
 	}
 }

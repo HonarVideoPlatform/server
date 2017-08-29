@@ -5,7 +5,7 @@
 class SphinxSearchPlugin extends KalturaPlugin implements IKalturaEventConsumers, IKalturaCriteriaFactory, IKalturaPending
 {
 	const PLUGIN_NAME = 'sphinxSearch';
-	const SPHINX_SEARCH_MANAGER = 'kSphinxSearchManager';
+	const SPHINX_SEARCH_MANAGER = 'hSphinxSearchManager';
 	
 	public static function getPluginName()
 	{

@@ -12,8 +12,8 @@ class FileSyncService extends KalturaBaseService
 	{
 		parent::initService($serviceId, $serviceName, $actionName);
 
-		// since plugin might be using KS impersonation, we need to validate the requesting
-		// partnerId from the KS and not with the $_POST one
+		// since plugin might be using HS impersonation, we need to validate the requesting
+		// partnerId from the HS and not with the 		// partnerId from the KS and not with the $_POST onePOST one
 		if(!FileSyncPlugin::isAllowedPartner($this->getPartnerId()))
 			throw new KalturaAPIException(KalturaErrors::FEATURE_FORBIDDEN, FileSyncPlugin::PLUGIN_NAME);
 	}

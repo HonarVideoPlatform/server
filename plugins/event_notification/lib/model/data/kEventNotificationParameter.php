@@ -18,7 +18,7 @@ class kEventNotificationParameter
 	
 	/**
 	 * The value that replace the key 
-	 * @var kStringValue
+	 * @var hStringValue
 	 */
 	protected $value;
 	
@@ -31,7 +31,7 @@ class kEventNotificationParameter
 	}
 
 	/**
-	 * @return kStringValue $value
+	 * @return hStringValue $value
 	 */
 	public function getValue()
 	{
@@ -63,9 +63,9 @@ class kEventNotificationParameter
 	}
 
 	/**
-	 * @param kStringValue $value
+	 * @param hStringValue $value
 	 */
-	public function setValue(kStringValue $value)
+	public function setValue(hStringValue $value)
 	{
 		$this->value = $value;
 	}

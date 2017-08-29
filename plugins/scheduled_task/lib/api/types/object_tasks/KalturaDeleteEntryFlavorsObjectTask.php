@@ -30,7 +30,7 @@ class KalturaDeleteEntryFlavorsObjectTask extends KalturaObjectTask
 		/** @var kObjectTask $dbObject */
 		$dbObject = parent::toObject($dbObject, $skip);
 
-		$flavorParamsIds = array_unique(kString::fromCommaSeparatedToArray($this->flavorParamsIds));
+		$flavorParamsIds = array_unique(hString::fromCommaSeparatedToArray($this->flavorParamsIds));
 		$dbObject->setDataValue('deleteType', $this->deleteType);
 		$dbObject->setDataValue('flavorParamsIds', $flavorParamsIds);
 		return $dbObject;

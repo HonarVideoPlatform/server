@@ -32,7 +32,7 @@ class KalturaStorageExportJobData extends KalturaStorageJobData
 	public function toObject($dbData = null, $props_to_skip = array()) 
 	{
 		if(is_null($dbData))
-			$dbData = new kStorageExportJobData();
+			$dbData = new hStorageExportJobData();
 			
 		return parent::toObject($dbData);
 	}

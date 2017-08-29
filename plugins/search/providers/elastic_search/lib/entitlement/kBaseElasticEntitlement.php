@@ -8,7 +8,7 @@ abstract class kBaseElasticEntitlement
 {
     public static $isInitialized = false;
     public static $partnerId;
-    public static $ks;
+    public static $hs;
 
     public static function init()
     {
@@ -18,8 +18,8 @@ abstract class kBaseElasticEntitlement
     
     protected static function initialize()
     {
-        self::$ks = ks::fromSecureString(kCurrentContext::$ks);
-        self::$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+        self::$hs = hs::fromSecureString(kCurrentContext::$hs);
+        self::$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
     }
     
 }

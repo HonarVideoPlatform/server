@@ -175,7 +175,7 @@ class sfI18N
       'y' => strpos($dateFormat, 'y'),
     );
     $tmp = array_flip($a);
-    ksort($tmp);
+    hsort($tmp);
     $i = 0;
     $c = array();
     foreach ($tmp as $value) $c[++$i] = $value;

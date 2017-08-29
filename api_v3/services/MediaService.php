@@ -291,7 +291,7 @@ class MediaService extends KalturaEntryService
 		if($bulkUploadId)
 			$dbEntry->setBulkUploadId($bulkUploadId);
 
-        $kshowId = $dbEntry->getKshowId();
+        $hshowId = $dbEntry->getHshowId();
 
 		// setup the needed params for my insert entry helper
 		$paramsArray = array (
@@ -304,15 +304,15 @@ class MediaService extends KalturaEntryService
 			"entry_tags" => $dbEntry->getTags(),
 		);
 
-		$token = $this->getKsUniqueString();
-		$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $kshowId, $paramsArray);
+		$token = $this->getHsUniqueString();
+		$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 		$insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 		$insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
 		$dbEntry = $insert_entry_helper->getEntry();
 
 		myNotificationMgr::createNotification( kNotificationJobData::NOTIFICATION_TYPE_ENTRY_ADD, $dbEntry, $this->getPartnerId(), null, null, null, $dbEntry->getId());
 
-		// FIXME: need to remove something from cache? in the old code the kshow was removed
+		// FIXME: need to remove something from cache? in the old code the hshow was removed
 		$mediaEntry->fromObject($dbEntry, $this->getResponseProfile());
 		return $mediaEntry;
 	}
@@ -371,14 +371,14 @@ class MediaService extends KalturaEntryService
 		$dbEntry = $this->prepareEntryForInsert($mediaEntry);
       	$dbEntry->setSourceId( $searchResult->id );
 
-        $kshowId = $dbEntry->getKshowId();
+        $hshowId = $dbEntry->getHshowId();
 
        	// $searchResult->licenseType; // FIXME, No support for licenseType
         // FIXME - no need to clone entry if $dbEntry->getSource() == entry::ENTRY_MEDIA_SOURCE_KALTURA_USER_CLIPS
 		if ($dbEntry->getSource() == entry::ENTRY_MEDIA_SOURCE_KALTURA ||
 			$dbEntry->getSource() == entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER ||
-			$dbEntry->getSource() == entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_KSHOW ||
-			$dbEntry->getSource() == entry::ENTRY_MEDIA_SOURCE_KALTURA_KSHOW ||
+			$dbEntry->getSource() == entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_HSHOW ||
+			$dbEntry->getSource() == entry::ENTRY_MEDIA_SOURCE_KALTURA_HSHOW ||
 			$dbEntry->getSource() == entry::ENTRY_MEDIA_SOURCE_KALTURA_USER_CLIPS)
 		{
 			$sourceEntryId = $searchResult->id;
@@ -403,8 +403,8 @@ class MediaService extends KalturaEntryService
 				"entry_tags" => $dbEntry->getTags(),
 			);
 
-			$token = $this->getKsUniqueString();
-			$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $kshowId, $paramsArray);
+			$token = $this->getHsUniqueString();
+			$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 			$insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 			$insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
 			$dbEntry = $insert_entry_helper->getEntry();
@@ -476,7 +476,7 @@ class MediaService extends KalturaEntryService
 
 		$dbEntry = parent::add($mediaEntry, $mediaEntry->conversionProfileId);
 
-        $kshowId = $dbEntry->getKshowId();
+        $hshowId = $dbEntry->getHshowId();
 
 		// setup the needed params for my insert entry helper
 		$paramsArray = array (
@@ -489,8 +489,8 @@ class MediaService extends KalturaEntryService
 			"entry_tags" => $dbEntry->getTags(),
 		);
 
-		$token = $this->getKsUniqueString();
-		$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $kshowId, $paramsArray);
+		$token = $this->getHsUniqueString();
+		$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 		$insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 		$insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
 		$dbEntry = $insert_entry_helper->getEntry();
@@ -549,7 +549,7 @@ class MediaService extends KalturaEntryService
 
 		$dbEntry = $this->prepareEntryForInsert($mediaEntry);
 
-        $kshowId = $dbEntry->getKshowId();
+        $hshowId = $dbEntry->getHshowId();
 
 		// setup the needed params for my insert entry helper
 		$paramsArray = array (
@@ -562,8 +562,8 @@ class MediaService extends KalturaEntryService
 			"entry_tags" => $dbEntry->getTags(),
 		);
 
-		$token = $this->getKsUniqueString();
-		$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $kshowId, $paramsArray);
+		$token = $this->getHsUniqueString();
+		$insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 		$insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 		$insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
 		$dbEntry = $insert_entry_helper->getEntry();
@@ -895,12 +895,12 @@ class MediaService extends KalturaEntryService
 	 */
 	function uploadAction($fileData)
 	{
-		$ksUnique = $this->getKsUniqueString();
+		$hsUnique = $this->getHsUniqueString();
 
 		$uniqueId = substr(base_convert(md5(uniqid(rand(), true)), 16, 36), 1, 20);
 
 		$ext = pathinfo($fileData["name"], PATHINFO_EXTENSION);
-		$token = $ksUnique."_".$uniqueId.".".$ext;
+		$token = $hsUnique."_".$uniqueId.".".$ext;
 
 		$res = myUploadUtils::uploadFileByToken($fileData, $token, "", null, true);
 
@@ -1025,7 +1025,7 @@ class MediaService extends KalturaEntryService
 	 * @action flag
 	 * @param string $entryId
 	 * @param KalturaModerationFlag $moderationFlag
-	 * @ksOptional
+	 * @hsOptional
 	 *
  	 * @throws KalturaErrors::ENTRY_ID_NOT_FOUND
 	 */
@@ -1109,9 +1109,9 @@ class MediaService extends KalturaEntryService
 
 		$dbEntry = parent::prepareEntryForInsert($entry, $dbEntry);
 
-		$kshow = $this->createDummyKShow();
-        $kshowId = $kshow->getId();
-        $dbEntry->setKshowId($kshowId);
+		$hshow = $this->createDummyHShow();
+        $hshowId = $hshow->getId();
+        $dbEntry->setHshowId($hshowId);
 		$dbEntry->save();
 		return $dbEntry;
 	}

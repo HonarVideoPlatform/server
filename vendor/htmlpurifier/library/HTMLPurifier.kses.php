@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Emulation layer for code that used kses(), substituting in HTML Purifier.
+ * Emulation layer for code that used hses(), substituting in HTML Purifier.
  */
 
 require_once dirname(__FILE__) . '/HTMLPurifier.auto.php';
 
-function kses($string, $allowed_html, $allowed_protocols = null)
+function hses($string, $allowed_html, $allowed_protocols = null)
 {
     $config = HTMLPurifier_Config::createDefault();
     $allowed_elements = array();

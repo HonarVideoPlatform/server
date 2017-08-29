@@ -79,7 +79,7 @@ class myFlickrServices extends myBaseMediaSource implements IMediaSource
 		if ($url != "auth")
 			$params['format'] = 'php_serial';
 
-		ksort($params);
+		hsort($params);
 		foreach ($params as $k => $v){
 			$encoded_params[] = urlencode($k).'='.urlencode($v);
 			$api_sig .= $k.$v;

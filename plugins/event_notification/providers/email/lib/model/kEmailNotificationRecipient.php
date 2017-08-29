@@ -7,18 +7,18 @@ class kEmailNotificationRecipient
 {
 	/**
 	 * Recipient e-mail address
-	 * @var kStringValue
+	 * @var hStringValue
 	 */
 	protected $email;
 	
 	/**
 	 * Recipient name
-	 * @var kStringValue
+	 * @var hStringValue
 	 */
 	protected $name;
 	
 	/**
-	 * @return kStringValue $email
+	 * @return hStringValue $email
 	 */
 	public function getEmail()
 	{
@@ -26,7 +26,7 @@ class kEmailNotificationRecipient
 	}
 
 	/**
-	 * @return kStringValue $name
+	 * @return hStringValue $name
 	 */
 	public function getName()
 	{
@@ -34,17 +34,17 @@ class kEmailNotificationRecipient
 	}
 
 	/**
-	 * @param kStringValue $email
+	 * @param hStringValue $email
 	 */
-	public function setEmail(kStringValue $email)
+	public function setEmail(hStringValue $email)
 	{
 		$this->email = $email;
 	}
 
 	/**
-	 * @param kStringValue $name
+	 * @param hStringValue $name
 	 */
-	public function setName(kStringValue $name)
+	public function setName(hStringValue $name)
 	{
 		$this->name = $name;
 	}

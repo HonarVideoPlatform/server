@@ -54,10 +54,10 @@ class sfDebug
       {
         $values[$name][$key] = $value;
       }
-      ksort($values[$name]);
+      hsort($values[$name]);
     }
 
-    ksort($values);
+    hsort($values);
 
     return $values;
   }
@@ -71,7 +71,7 @@ class sfDebug
   {
     $config = sfConfig::getAll();
 
-    ksort($config);
+    hsort($config);
 
     return $config;
   }
@@ -155,10 +155,10 @@ class sfDebug
       {
         $values[$ns][$key] = $value;
       }
-      ksort($values[$ns]);
+      hsort($values[$ns]);
     }
 
-    ksort($values);
+    hsort($values);
 
     return $values;
   }

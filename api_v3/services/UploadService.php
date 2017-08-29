@@ -17,12 +17,12 @@ class UploadService extends KalturaEntryService
 	 */
 	function uploadAction($fileData)
 	{
-		$ksUnique = md5($this->getKs()->toSecureString());
+		$hsUnique = md5($this->getHs()->toSecureString());
 		
 		$uniqueId = md5($fileData["name"]);
 		
 		$ext = pathinfo($fileData["name"], PATHINFO_EXTENSION);
-		$token = $ksUnique."_".$uniqueId.".".$ext;
+		$token = $hsUnique."_".$uniqueId.".".$ext;
 		
 		$res = myUploadUtils::uploadFileByToken($fileData, $token, "", null, true);
 	
@@ -40,12 +40,12 @@ class UploadService extends KalturaEntryService
 		KalturaResponseCacher::disableConditionalCache();
 		
 		$res = new KalturaUploadResponse();
-		$ksUnique = md5($this->getKs()->toSecureString());
+		$hsUnique = md5($this->getHs()->toSecureString());
 		
 		$uniqueId = md5($fileName);
 		
 		$ext = pathinfo($fileName, PATHINFO_EXTENSION);
-		$token = $ksUnique."_".$uniqueId.".".$ext;
+		$token = $hsUnique."_".$uniqueId.".".$ext;
 		
 		$entryFullPath = myUploadUtils::getUploadPath($token, "", null , strtolower($ext)); // filesync ok
 		if (!file_exists($entryFullPath))

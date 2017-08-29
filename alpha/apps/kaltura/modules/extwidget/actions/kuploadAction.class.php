@@ -30,7 +30,7 @@ class kuploadAction extends sfAction
 			KExternalErrors::dieError(KExternalErrors::ILLEGAL_UI_CONF, "SWF URL not found in UI conf");
 		}
 			
-		if( kString::beginsWith( $ui_conf_swf_url , "http") )
+		if( hString::beginsWith( $ui_conf_swf_url , "http") )
 		{
 			$swf_url = 	$ui_conf_swf_url; // absolute URL 
 		}

@@ -28,7 +28,7 @@ class TrackEntry extends BaseTrackEntry
 		// can be switched of once we decide this is not needed
 		if ( true )
 		{
-			if ( ! $te->getKs() ) $te->setKs ( kCurrentContext::$ks );
+			if ( ! $te->getHs() ) $te->setHs ( kCurrentContext::$hs );
 			if ( ! $te->getPartnerId() ) $te->setPartnerId( kCurrentContext::$partner_id );
 			if ( ! $te->getPsVersion() ) $te->setPsVersion( kCurrentContext::$ps_vesion );
 			if ( ! $te->getHostName() ) $te->setHostName( kCurrentContext::$host );

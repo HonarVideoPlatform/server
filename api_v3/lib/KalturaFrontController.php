@@ -68,9 +68,9 @@ class KalturaFrontController
 			'request_end',
 			'partnerId' => kCurrentContext::$partner_id,
 			'masterPartnerId' => kCurrentContext::$master_partner_id,
-			'ks' => kCurrentContext::$ks,
+			'hs' => kCurrentContext::$hs,
 			'isAdmin' => intval(kCurrentContext::$is_admin_session),
-			'kuserId' => '"' . str_replace('"', '\\"', (kCurrentContext::$uid ? kCurrentContext::$uid : kCurrentContext::$ks_uid)) . '"',
+			'kuserId' => '"' . str_replace('"', '\\"', (kCurrentContext::$uid ? kCurrentContext::$uid : kCurrentContext::$hs_uid)) . '"',
 			'duration' => $duration,
 			'success' => intval($success),
 			'errorCode' => $errorCode,
@@ -186,7 +186,7 @@ class KalturaFrontController
 		$listOfRequests = array();
 		$requestStartIndex = 1;
 		$requestEndIndex = 1;
-		$ksArray = array();
+		$hsArray = array();
 
 		foreach ($this->params as $paramName => $paramValue)
 		{
@@ -196,8 +196,8 @@ class KalturaFrontController
 				$requestStartIndex = min($requestStartIndex, $paramName);
 				$requestEndIndex = max($requestEndIndex, $paramName);
 				$listOfRequests[$paramName] = $paramValue;
-				if (isset($paramValue['ks'])) {
-					$ksArray[$paramValue['ks']] = true;
+				if (isset($paramValue['hs'])) {
+					$hsArray[$paramValue['hs']] = true;
 				}
 
 				continue;
@@ -221,13 +221,13 @@ class KalturaFrontController
 				$listOfRequests[$requestIndex][$paramName] = $paramValue;
 			}
 
-			if ($paramName == 'ks') {
-				$ksArray[$paramValue] = true;
+			if ($paramName == 'hs') {
+				$hsArray[$paramValue] = true;
 			}
 		}
 
-		//enable multi deferred events only if all ks's are the same
-		if ( count($ksArray)==1 ) {
+		//enable multi deferred events only if all hs's are the same
+		if ( count($hsArray)==1 ) {
 			kEventsManager::enableMultiDeferredEvents(true);
 		} else {
 			kEventsManager::enableMultiDeferredEvents(false);
@@ -256,9 +256,9 @@ class KalturaFrontController
 				$currentParams['clientTag'] = $commonParams['clientTag'];
 			}
 
-			if (isset($commonParams['ks']) && !isset($currentParams['ks']))
+			if (isset($commonParams['hs']) && !isset($currentParams['hs']))
 			{
-				$currentParams['ks'] = $commonParams['ks'];
+				$currentParams['hs'] = $commonParams['hs'];
 			}
 
 			if (isset($commonParams['partnerId']) && !isset($currentParams['partnerId']))
@@ -420,8 +420,8 @@ class KalturaFrontController
 					$object = new KalturaAPIException(KalturaErrors::SERVICE_FORBIDDEN_CONTENT_BLOCKED);
 					break;
 					
-				case kCoreException::INVALID_KS:
-					$object = new KalturaAPIException(KalturaErrors::INVALID_KS, $ex->getData(), ks::INVALID_STR, 'INVALID_STR');
+				case kCoreException::INVALID_HS:
+					$object = new KalturaAPIException(KalturaErrors::INVALID_HS, $ex->getData(), hs::INVALID_STR, 'INVALID_STR');
 					break;
 					
 				case kCoreException::MAX_NUMBER_OF_ACCESS_CONTROLS_REACHED:

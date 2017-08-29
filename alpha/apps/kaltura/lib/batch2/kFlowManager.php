@@ -132,7 +132,7 @@ class kFlowManager implements kBatchJobStatusEventConsumer, kObjectAddedEventCon
 		}
 	}
 
-	protected function updatedStorageExport(BatchJob $dbBatchJob, kStorageExportJobData $data)
+	protected function updatedStorageExport(BatchJob $dbBatchJob, hStorageExportJobData $data)
 	{
 		switch($dbBatchJob->getStatus())
 		{
@@ -146,7 +146,7 @@ class kFlowManager implements kBatchJobStatusEventConsumer, kObjectAddedEventCon
 		}
 	}
 
-	protected function updatedStorageDelete(BatchJob $dbBatchJob, kStorageDeleteJobData $data)
+	protected function updatedStorageDelete(BatchJob $dbBatchJob, hStorageDeleteJobData $data)
 	{
 		switch($dbBatchJob->getStatus())
 		{

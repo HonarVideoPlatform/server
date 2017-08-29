@@ -46,7 +46,7 @@ while($entries)
 	$count += count($entries);
 	foreach($entries as $entry)
 	{
-		kCurrentContext::$ks_partner_id = $entry->getPartnerId();
+		kCurrentContext::$hs_partner_id = $entry->getPartnerId();
 		kCurrentContext::$partner_id = $entry->getPartnerId();
 		kCurrentContext::$master_partner_id = $entry->getPartnerId();
 		

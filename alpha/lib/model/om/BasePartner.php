@@ -101,11 +101,11 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 	protected $anonymous_kuser_id;
 
 	/**
-	 * The value for the ks_max_expiry_in_seconds field.
+	 * The value for the hs_max_expiry_in_seconds field.
 	 * Note: this column has a database default value of: 86400
 	 * @var        int
 	 */
-	protected $ks_max_expiry_in_seconds;
+	protected $hs_max_expiry_in_seconds;
 
 	/**
 	 * The value for the create_user_on_demand field.
@@ -347,7 +347,7 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 		$this->max_number_of_hits_per_day = -1;
 		$this->appear_in_search = 2;
 		$this->debug_level = 0;
-		$this->ks_max_expiry_in_seconds = 86400;
+		$this->hs_max_expiry_in_seconds = 86400;
 		$this->create_user_on_demand = 1;
 		$this->commercial_use = 0;
 		$this->moderate_content = 0;
@@ -564,13 +564,13 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [ks_max_expiry_in_seconds] column value.
+	 * Get the [hs_max_expiry_in_seconds] column value.
 	 * 
 	 * @return     int
 	 */
-	public function getKsMaxExpiryInSeconds()
+	public function getHsMaxExpiryInSeconds()
 	{
-		return $this->ks_max_expiry_in_seconds;
+		return $this->hs_max_expiry_in_seconds;
 	}
 
 	/**
@@ -1189,27 +1189,27 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 	} // setAnonymousKuserId()
 
 	/**
-	 * Set the value of [ks_max_expiry_in_seconds] column.
+	 * Set the value of [hs_max_expiry_in_seconds] column.
 	 * 
 	 * @param      int $v new value
 	 * @return     Partner The current object (for fluent API support)
 	 */
-	public function setKsMaxExpiryInSeconds($v)
+	public function setHsMaxExpiryInSeconds($v)
 	{
-		if(!isset($this->oldColumnsValues[PartnerPeer::KS_MAX_EXPIRY_IN_SECONDS]))
-			$this->oldColumnsValues[PartnerPeer::KS_MAX_EXPIRY_IN_SECONDS] = $this->ks_max_expiry_in_seconds;
+		if(!isset($this->oldColumnsValues[PartnerPeer::HS_MAX_EXPIRY_IN_SECONDS]))
+			$this->oldColumnsValues[PartnerPeer::HS_MAX_EXPIRY_IN_SECONDS] = $this->hs_max_expiry_in_seconds;
 
 		if ($v !== null) {
 			$v = (int) $v;
 		}
 
-		if ($this->ks_max_expiry_in_seconds !== $v || $this->isNew()) {
-			$this->ks_max_expiry_in_seconds = $v;
-			$this->modifiedColumns[] = PartnerPeer::KS_MAX_EXPIRY_IN_SECONDS;
+		if ($this->hs_max_expiry_in_seconds !== $v || $this->isNew()) {
+			$this->hs_max_expiry_in_seconds = $v;
+			$this->modifiedColumns[] = PartnerPeer::HS_MAX_EXPIRY_IN_SECONDS;
 		}
 
 		return $this;
-	} // setKsMaxExpiryInSeconds()
+	} // setHsMaxExpiryInSeconds()
 
 	/**
 	 * Set the value of [create_user_on_demand] column.
@@ -1828,7 +1828,7 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 				return false;
 			}
 
-			if ($this->ks_max_expiry_in_seconds !== 86400) {
+			if ($this->hs_max_expiry_in_seconds !== 86400) {
 				return false;
 			}
 
@@ -1922,7 +1922,7 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 			$this->created_at = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
 			$this->updated_at = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
 			$this->anonymous_kuser_id = ($row[$startcol + 12] !== null) ? (int) $row[$startcol + 12] : null;
-			$this->ks_max_expiry_in_seconds = ($row[$startcol + 13] !== null) ? (int) $row[$startcol + 13] : null;
+			$this->hs_max_expiry_in_seconds = ($row[$startcol + 13] !== null) ? (int) $row[$startcol + 13] : null;
 			$this->create_user_on_demand = ($row[$startcol + 14] !== null) ? (int) $row[$startcol + 14] : null;
 			$this->prefix = ($row[$startcol + 15] !== null) ? (string) $row[$startcol + 15] : null;
 			$this->admin_name = ($row[$startcol + 16] !== null) ? (string) $row[$startcol + 16] : null;
@@ -2565,7 +2565,7 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 				return $this->getAnonymousKuserId();
 				break;
 			case 13:
-				return $this->getKsMaxExpiryInSeconds();
+				return $this->getHsMaxExpiryInSeconds();
 				break;
 			case 14:
 				return $this->getCreateUserOnDemand();
@@ -2679,7 +2679,7 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 			$keys[10] => $this->getCreatedAt(),
 			$keys[11] => $this->getUpdatedAt(),
 			$keys[12] => $this->getAnonymousKuserId(),
-			$keys[13] => $this->getKsMaxExpiryInSeconds(),
+			$keys[13] => $this->getHsMaxExpiryInSeconds(),
 			$keys[14] => $this->getCreateUserOnDemand(),
 			$keys[15] => $this->getPrefix(),
 			$keys[16] => $this->getAdminName(),
@@ -2777,7 +2777,7 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 				$this->setAnonymousKuserId($value);
 				break;
 			case 13:
-				$this->setKsMaxExpiryInSeconds($value);
+				$this->setHsMaxExpiryInSeconds($value);
 				break;
 			case 14:
 				$this->setCreateUserOnDemand($value);
@@ -2894,7 +2894,7 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[10], $arr)) $this->setCreatedAt($arr[$keys[10]]);
 		if (array_key_exists($keys[11], $arr)) $this->setUpdatedAt($arr[$keys[11]]);
 		if (array_key_exists($keys[12], $arr)) $this->setAnonymousKuserId($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setKsMaxExpiryInSeconds($arr[$keys[13]]);
+		if (array_key_exists($keys[13], $arr)) $this->setHsMaxExpiryInSeconds($arr[$keys[13]]);
 		if (array_key_exists($keys[14], $arr)) $this->setCreateUserOnDemand($arr[$keys[14]]);
 		if (array_key_exists($keys[15], $arr)) $this->setPrefix($arr[$keys[15]]);
 		if (array_key_exists($keys[16], $arr)) $this->setAdminName($arr[$keys[16]]);
@@ -2945,7 +2945,7 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(PartnerPeer::CREATED_AT)) $criteria->add(PartnerPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(PartnerPeer::UPDATED_AT)) $criteria->add(PartnerPeer::UPDATED_AT, $this->updated_at);
 		if ($this->isColumnModified(PartnerPeer::ANONYMOUS_KUSER_ID)) $criteria->add(PartnerPeer::ANONYMOUS_KUSER_ID, $this->anonymous_kuser_id);
-		if ($this->isColumnModified(PartnerPeer::KS_MAX_EXPIRY_IN_SECONDS)) $criteria->add(PartnerPeer::KS_MAX_EXPIRY_IN_SECONDS, $this->ks_max_expiry_in_seconds);
+		if ($this->isColumnModified(PartnerPeer::HS_MAX_EXPIRY_IN_SECONDS)) $criteria->add(PartnerPeer::HS_MAX_EXPIRY_IN_SECONDS, $this->hs_max_expiry_in_seconds);
 		if ($this->isColumnModified(PartnerPeer::CREATE_USER_ON_DEMAND)) $criteria->add(PartnerPeer::CREATE_USER_ON_DEMAND, $this->create_user_on_demand);
 		if ($this->isColumnModified(PartnerPeer::PREFIX)) $criteria->add(PartnerPeer::PREFIX, $this->prefix);
 		if ($this->isColumnModified(PartnerPeer::ADMIN_NAME)) $criteria->add(PartnerPeer::ADMIN_NAME, $this->admin_name);
@@ -3074,7 +3074,7 @@ abstract class BasePartner extends BaseObject  implements Persistent {
 
 		$copyObj->setAnonymousKuserId($this->anonymous_kuser_id);
 
-		$copyObj->setKsMaxExpiryInSeconds($this->ks_max_expiry_in_seconds);
+		$copyObj->setHsMaxExpiryInSeconds($this->hs_max_expiry_in_seconds);
 
 		$copyObj->setCreateUserOnDemand($this->create_user_on_demand);
 

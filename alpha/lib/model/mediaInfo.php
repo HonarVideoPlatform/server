@@ -33,7 +33,7 @@ class mediaInfo extends BasemediaInfo
 	public function getRawDataXml()
 	{
 		$rawData = $this->getRawData();
-		$tokenizer = new KStringTokenizer ( $rawData, "\t\n" );
+		$tokenizer = new HStringTokenizer ( $rawData, "\t\n" );
 	
 		$rawDataXml = new DOMDocument();
 		$rootNode = $rawDataXml->createElement("RawData");

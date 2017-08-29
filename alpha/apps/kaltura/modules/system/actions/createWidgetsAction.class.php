@@ -21,7 +21,7 @@ class createWidgetsAction extends kalturaSystemAction
 	{
 		$this->forceSystemAuthentication();
 		
-		$kshow_ids = $this->getP ( "kshow_ids") ;
+		$hshow_ids = $this->getP ( "hshow_ids") ;
 		$partner_id = $this->getP ( "partner_id") ;
 //		$subp_id = $this->getP ( "subp_id") ;
 		$source_widget_id= $this->getP ( "source_widget_id" , 201 ) ;
@@ -31,7 +31,7 @@ class createWidgetsAction extends kalturaSystemAction
 		$limit = $this->getP ( "limit" , 20 );
 		if ( $limit > 300 ) $limit = 300;
 		
-		$this->kshow_ids = $kshow_ids;
+		$this->hshow_ids = $hshow_ids;
 		$this->partner_id = $partner_id;
 //		$this->subp_id = $subp_id;
 		$this->source_widget_id = $source_widget_id;
@@ -45,67 +45,67 @@ class createWidgetsAction extends kalturaSystemAction
 		
 		if ( $submitted )
 		{
-			// fetch all kshows that don't have widgets
+			// fetch all hshows that don't have widgets
 			$c = new Criteria();
 			$c->setLimit ( $limit );
 			if ( $method == "list" )
 			{
-				$c->add ( kshowPeer::ID , @explode ( "," , $kshow_ids ) , Criteria::IN );				
+				$c->add ( hshowPeer::ID , @explode ( "," , $hshow_ids ) , Criteria::IN );				
 			}
 			else
 			{
-				$c->add ( kshowPeer::PARTNER_ID , $partner_id );
+				$c->add ( hshowPeer::PARTNER_ID , $partner_id );
 				if ( $create )
 				{
-					// because we want to create - select those kshows that are not marked as "have widgets"
-					$c->add ( kshowPeer::INDEXED_CUSTOM_DATA_3 , NULL , Criteria::EQUAL );
+					// because we want to create - select those hshows that are not marked as "have widgets"
+					$c->add ( hshowPeer::INDEXED_CUSTOM_DATA_3 , NULL , Criteria::EQUAL );
 				}
 			}
-			$c->addAscendingOrderByColumn( kshowPeer::CREATED_AT );
+			$c->addAscendingOrderByColumn( hshowPeer::CREATED_AT );
 			// start at a specific int_id
 			// TODO
-			$kshows = kshowPeer::doSelect( $c );
-			$kshow_id_list = $this->getIdList ( $kshows , $partner_id , $errors );
+			$hshows = hshowPeer::doSelect( $c );
+			$hshow_id_list = $this->getIdList ( $hshows , $partner_id , $errors );
 			
-			$fixed_kshows = array();
+			$fixed_hshows = array();
 			
-//			$res [] = print_r ( $kshow_id_list ,true );
+//			$res [] = print_r ( $hshow_id_list ,true );
 			$this->res = $res;			//return;
 			$this->errors = $errors;
 			
-			if ( $kshow_id_list )
+			if ( $hshow_id_list )
 			{
-			//	$kshow_id_list_copy = array_  $kshow_id_list ;
+			//	$hshow_id_list_copy = array_  $hshow_id_list ;
 				$widget_c = new Criteria();
 				$widget_c->add ( widgetPeer::PARTNER_ID , $partner_id );
-				$widget_c->add ( widgetPeer::KSHOW_ID , $kshow_id_list , Criteria::IN );
+				$widget_c->add ( widgetPeer::HSHOW_ID , $hshow_id_list , Criteria::IN );
 				$widgets = widgetPeer::doSelect( $widget_c );
 				
-				// - IMPORTANT - add the kshow->setIndexedCustomData3 ( $widget_id ) for wikis
+				// - IMPORTANT - add the hshow->setIndexedCustomData3 ( $widget_id ) for wikis
 
 				
 				foreach ( $widgets as $widget )
 				{
-					$kshow_id = $widget->getKshowId();
-					if ( in_array ( $kshow_id, $fixed_kshows ) ) continue;
-					// mark the kshow as one that has a widget
-					$kshow = $this->getKshow ( $kshows , $kshow_id );
-					$kshow->setIndexedCustomData3( $widget->getId());
-					$kshow->save();
-					unset ( $kshow_id_list[$kshow_id]);
-					$fixed_kshows[$kshow_id]=$kshow_id;
-//					print_r ( $kshow_id_list );
+					$hshow_id = $widget->getHshowId();
+					if ( in_array ( $hshow_id, $fixed_hshows ) ) continue;
+					// mark the hshow as one that has a widget
+					$hshow = $this->getHshow ( $hshows , $hshow_id );
+					$hshow->setIndexedCustomData3( $widget->getId());
+					$hshow->save();
+					unset ( $hshow_id_list[$hshow_id]);
+					$fixed_hshows[$hshow_id]=$hshow_id;
+//					print_r ( $hshow_id_list );
 				}
 
 			// create widgets for those who are still on the list === don't have a widget				
-				foreach ( $kshow_id_list as $kshow_id )
+				foreach ( $hshow_id_list as $hshow_id )
 				{
-					if ( in_array ( $kshow_id, $fixed_kshows ) ) continue;
-					$kshow = $this->getKshow ( $kshows , $kshow_id );
-					$widget = widget::createWidget( $kshow , null , $source_widget_id ,null);
-					$kshow->setIndexedCustomData3( $widget->getId());
-					$kshow->save();
-					$fixed_kshows[$kshow_id]=$kshow_id;
+					if ( in_array ( $hshow_id, $fixed_hshows ) ) continue;
+					$hshow = $this->getHshow ( $hshows , $hshow_id );
+					$widget = widget::createWidget( $hshow , null , $source_widget_id ,null);
+					$hshow->setIndexedCustomData3( $widget->getId());
+					$hshow->save();
+					$fixed_hshows[$hshow_id]=$hshow_id;
 				}
 			
 			}
@@ -116,20 +116,20 @@ class createWidgetsAction extends kalturaSystemAction
 			if  ( $partner )
 			{
 				$secret = $partner->getSecret ();	
-				foreach ( $kshows as $kshow )
+				foreach ( $hshows as $hshow )
 				{
-					$kshow_id = $kshow->getId();
-					$article_name = "Video $kshow_id";
-					$widget_id = $kshow->getIndexedCustomData3(); // by now this kshow should have the widget id 
-					$subp_id = $kshow->getSubpId();
-					$md5 = md5 ( $kshow_id  . $partner_id  .$subp_id . $article_name . $widget_id .  $secret );
+					$hshow_id = $hshow->getId();
+					$article_name = "Video $hshow_id";
+					$widget_id = $hshow->getIndexedCustomData3(); // by now this hshow should have the widget id 
+					$subp_id = $hshow->getSubpId();
+					$md5 = md5 ( $hshow_id  . $partner_id  .$subp_id . $article_name . $widget_id .  $secret );
 					$hash = substr ( $md5 , 1 , 10 );
-					$values = array ( $kshow_id , $partner_id , $subp_id , $article_name ,$widget_id , $hash);
+					$values = array ( $hshow_id , $partner_id , $subp_id , $article_name ,$widget_id , $hash);
 					
 					$str = implode ( "|" , $values);
 					$base64_str = base64_encode( $str );
 					
-					$res [] = "kalturaid='$kshow_id'	kwid='$base64_str'	'$str'\n";
+					$res [] = "kalturaid='$hshow_id'	kwid='$base64_str'	'$str'\n";
 				}
 			}
 		}
@@ -159,11 +159,11 @@ class createWidgetsAction extends kalturaSystemAction
 		return null;
 	}
 	
-	private function getKshow ( $kshows , $kshow_id )
+	private function getHshow ( $hshows , $hshow_id )
 	{
-		foreach ( $kshows as $kshow )
+		foreach ( $hshows as $hshow )
 		{
-			if( $kshow_id == $kshow->getId() ) return $kshow;
+			if( $hshow_id == $hshow->getId() ) return $hshow;
 		}
 		return null;
 	}

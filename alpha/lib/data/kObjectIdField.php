@@ -6,12 +6,12 @@
  * @subpackage model.data
  *
  */
-class kObjectIdField extends kStringField
+class kObjectIdField extends hStringField
 {
 	/* (non-PHPdoc)
-	 * @see kStringField::getFieldValue()
+	 * @see hStringField::getFieldValue()
 	 */
-	protected function getFieldValue(kScope $scope = null)
+	protected function getFieldValue(hScope $scope = null)
 	{
 		if(!$scope)
 		{

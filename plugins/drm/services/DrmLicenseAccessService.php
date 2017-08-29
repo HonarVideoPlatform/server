@@ -14,7 +14,7 @@ class DrmLicenseAccessService extends KalturaBaseService
 	public function initService($serviceId, $serviceName, $actionName)
 	{
 		parent::initService($serviceId, $serviceName, $actionName);
-		if (!DrmPlugin::isAllowedPartner(kCurrentContext::$ks_partner_id))
+		if (!DrmPlugin::isAllowedPartner(kCurrentContext::$hs_partner_id))
 			throw new KalturaAPIException(KalturaErrors::FEATURE_FORBIDDEN, DrmPlugin::PLUGIN_NAME);
 	}
 

@@ -202,13 +202,13 @@ class ReportService extends KalturaBaseService
 	 * 
 	 * @param string $id - the requested id
 	 * @return string
-	 * @ksOptional 
+	 * @hsOptional 
 	 */
 	public function serveAction($id) {
 		
-		// KS verification - we accept either admin session or download privilege of the file 
-		$ks = $this->getKs();
-		if(!$ks || !($ks->isAdmin() || $ks->verifyPrivileges(ks::PRIVILEGE_DOWNLOAD, $id)))
+		// HS verification - we accept either admin session or download privilege of the file 
+		$hs = $this->getHs();
+		if(!$hs || !($hs->isAdmin() || $hs->verifyPrivileges(hs::PRIVILEGE_DOWNLOAD, $id)))
 			KExternalErrors::dieError(KExternalErrors::ACCESS_CONTROL_RESTRICTED);
 		
 		if(!preg_match('/^[\w-_]*$/', $id))

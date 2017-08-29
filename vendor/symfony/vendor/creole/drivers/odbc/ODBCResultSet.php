@@ -31,7 +31,7 @@ require_once 'creole/drivers/odbc/ODBCResultSetCommon.php';
  * This class also emulates a row count if the driver is not capable of 
  * providing one natively.
  * 
- * NOTE: This class only works with drivers that support absolute cursor 
+ * NOTE: This class only works with drivers that support absolute cursor
  *       positioning (SQL_FETCH_DIRECTION = SQL_FD_FETCH_ABSOLUTE). If the
  *       driver you are using does not support reverse/absolute cursor 
  *       scrolling, you should use the {@link ODBCCachedResultSet} class instead.

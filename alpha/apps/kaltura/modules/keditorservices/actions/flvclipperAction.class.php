@@ -27,7 +27,7 @@ class flvclipperAction extends kalturaAction
 		requestUtils::handleConditionalGet();
 
 		$entry_id = $this->getRequestParameter ( "entry_id" );
-		$ks_str = $this->getRequestParameter("ks");
+		$hs_str = $this->getRequestParameter("hs");
 		$base64_referrer = $this->getRequestParameter("referrer");
 		$referrer = base64_decode($base64_referrer);
 		if (!is_string($referrer)) // base64_decode can return binary data
@@ -40,18 +40,18 @@ class flvclipperAction extends kalturaAction
 		
 		// remove dynamic fields from the url so we'll request a single url from the cdn
 		$request = str_replace("/referrer/$base64_referrer", "", $request);
-		$request = str_replace("/ks/$ks_str", "", $request);
+		$request = str_replace("/hs/$hs_str", "", $request);
 		
 		$entry = null;
 		
-		if($ks_str)
+		if($hs_str)
 		{
 			try {
-				kCurrentContext::initKsPartnerUser($ks_str);
+				kCurrentContext::initHsPartnerUser($hs_str);
 			}
 			catch (Exception $ex)
 			{
-				KExternalErrors::dieError(KExternalErrors::INVALID_KS);	
+				KExternalErrors::dieError(KExternalErrors::INVALID_HS);	
 			}
 		}
 		else
@@ -133,14 +133,14 @@ class flvclipperAction extends kalturaAction
 			kFileUtils::dumpFile($tempThumbPath, null, strpos($tempThumbPath, "_NOCACHE_") === false ? null : 0);
 		}
 
-		$securyEntryHelper = new KSecureEntryHelper($entry, $ks_str, $referrer, ContextType::PLAY);
+		$securyEntryHelper = new HSecureEntryHelper($entry, $hs_str, $referrer, ContextType::PLAY);
 		if ($securyEntryHelper->shouldPreview())
 		{
 			$this->checkForPreview($securyEntryHelper, $clip_to);
 		}
 		else
 		{
-			$securyEntryHelper->validateForPlay($entry, $ks_str);
+			$securyEntryHelper->validateForPlay($entry, $hs_str);
 		}
 		
 		$audio_only = $this->getRequestParameter ( "audio_only" ); // milliseconds
@@ -322,8 +322,8 @@ class flvclipperAction extends kalturaAction
 		{
 			// we have three options:
 			// arrived through limelight mediavault url - the url is secured
-			// arrived directly through limelight (not secured through mediavault) - enforce ks and redirect to mediavault url
-			// didnt use limelight - enforce ks
+			// arrived directly through limelight (not secured through mediavault) - enforce hs and redirect to mediavault url
+			// didnt use limelight - enforce hs
 			
 			// the cdns are configured to authenticate request for /s/....
 			// check if we're already in a redirected secure link using the "/s/" prefix
@@ -335,30 +335,30 @@ class flvclipperAction extends kalturaAction
 			}
 			else
 			{
-				// extract ks
-				$ks_str = $this->getRequestParameter ( "ks", "" );
+				// extract hs
+				$hs_str = $this->getRequestParameter ( "hs", "" );
 					
 				if ($entry->getSecurityPolicy())
 				{
-					if (!$ks_str)
+					if (!$hs_str)
 					{
-						$this->logMessage( "flvclipper - no KS" );
+						$this->logMessage( "flvclipper - no HS" );
 						KExternalErrors::dieGracefully();
 					}
 					
-					$ks = kSessionUtils::crackKs($ks_str);
-					if (!$ks)
+					$hs = hSessionUtils::crackHs($hs_str);
+					if (!$hs)
 					{
-						$this->logMessage( "flvclipper - invalid ks [$ks_str]" );		
+						$this->logMessage( "flvclipper - invalid hs [$hs_str]" );		
 						KExternalErrors::dieGracefully();
 					}
 				
-					$matched_privs = $ks->verifyPrivileges ( "sview" , $entry_id );
+					$matched_privs = $hs->verifyPrivileges ( "sview" , $entry_id );
 					$this->logMessage( "flvclipper - verifyPrivileges name [sview], priv [$entry_id] [$matched_privs]" );		
 	
 					if ( ! $matched_privs )
 					{
-						$this->logMessage( "flvclipper - doesnt not match required privlieges [$ks_str]" );		
+						$this->logMessage( "flvclipper - doesnt not match required privlieges [$hs_str]" );		
 						KExternalErrors::dieGracefully();
 					}
 				}
@@ -514,7 +514,7 @@ class flvclipperAction extends kalturaAction
 		return sfView::SUCCESS;
 	}
 	
-	function checkForPreview(KSecureEntryHelper $securyEntryHelper, $clip_to)
+	function checkForPreview(HSecureEntryHelper $securyEntryHelper, $clip_to)
 	{
 		$request = $_SERVER["REQUEST_URI"];
 		$preview_length_msec = $securyEntryHelper->getPreviewLength() * 1000;

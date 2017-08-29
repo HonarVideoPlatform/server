@@ -657,7 +657,7 @@ abstract class baseObjectFilter extends myBaseObject
 	//				echo ( "<br>Adding to criteria [" . $colname . "] = [" . $value . "] , " . $criteria_operator . "<br>");
 
 		// TODO - is this huristics OK ? can we really say for sure that fields that end with _date are time objects ?
-		if ( kString::endsWith( $colname , "_date" ) )
+		if ( hString::endsWith( $colname , "_date" ) )
 		{
 			$value_to_set = strtotime ( $value );
 		}

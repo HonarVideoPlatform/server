@@ -340,9 +340,9 @@ class KalturaPartner extends KalturaObject implements IFilterable
 	{
 		parent::doFromObject($partner);
 		
-		$this->name = kString::stripUtf8InvalidChars($this->name);
-		$this->description = kString::stripUtf8InvalidChars($this->description);
-		$this->adminName = kString::stripUtf8InvalidChars($this->adminName);
+		$this->name = hString::stripUtf8InvalidChars($this->name);
+		$this->description = hString::stripUtf8InvalidChars($this->description);
+		$this->adminName = hString::stripUtf8InvalidChars($this->adminName);
 		$this->additionalParams = KalturaKeyValueArray::fromKeyValueArray($partner->getAdditionalParams());
 		if (!$this->host){
 			$this->host = null;
@@ -426,7 +426,7 @@ class KalturaPartner extends KalturaObject implements IFilterable
 	{
 		if (!$this->partnerPackage)
 			return true;
-		if (kCurrentContext::$ks_partner_id == Partner::ADMIN_CONSOLE_PARTNER_ID)
+		if (kCurrentContext::$hs_partner_id == Partner::ADMIN_CONSOLE_PARTNER_ID)
 			return true;
 		if (in_array($this->partnerPackage,kConf::get('allowed_partner_packages_for_all','local', array())))
 			return true;

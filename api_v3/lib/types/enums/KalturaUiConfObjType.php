@@ -23,7 +23,7 @@ class KalturaUiConfObjType extends KalturaEnum
 	const KMC_GENERAL = 16;
 	const KMC_ROLES_AND_PERMISSIONS = 17;
 	const CLIPPER = 18;
-	const KSR = 19;
+	const HSR = 19;
 	const KUPLOAD = 20;
 	const WEBCASTING = 21;
 }

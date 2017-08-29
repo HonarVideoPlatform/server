@@ -70,7 +70,7 @@ class KalturaLanguageCode extends KalturaStringEnum
 	const JA = 'ja';
 	const JV = 'jv';
 	const KN = 'kn';
-	const KS = 'ks';
+	const HS = 'hs';
 	const KK = 'kk';
 	const RW = 'rw';
 	const KY = 'ky';

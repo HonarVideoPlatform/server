@@ -59,7 +59,7 @@ class kIpAddressCondition extends kMatchCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::getFieldValue()
 	 */
-	public function getFieldValue(kScope $scope)
+	public function getFieldValue(hScope $scope)
 	{
 		if ($this->getHttpHeader() || $this->getAcceptInternalIps())
 		{
@@ -84,7 +84,7 @@ class kIpAddressCondition extends kMatchCondition
 	}
 
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool
 	 */
 	public function shouldFieldDisableCache($scope)

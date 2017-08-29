@@ -46,7 +46,7 @@ CREATE TABLE `kuser`
 	`fans` INTEGER default 0,
 	`entries` INTEGER default 0,
 	`storage_size` INTEGER default 0,
-	`produced_kshows` INTEGER default 0,
+	`produced_hshows` INTEGER default 0,
 	`status` INTEGER,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
@@ -73,13 +73,13 @@ CREATE TABLE `kuser`
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- kshow
+#-- hshow
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `kshow`;
+DROP TABLE IF EXISTS `hshow`;
 
 
-CREATE TABLE `kshow`
+CREATE TABLE `hshow`
 (
 	`id` VARCHAR(20)  NOT NULL,
 	`producer_id` INTEGER,
@@ -143,7 +143,7 @@ CREATE TABLE `kshow`
 	KEY `producer_id_index`(`producer_id`),
 	KEY `display_in_search_index`(`display_in_search`),
 	KEY `partner_group_index`(`partner_id`, `group_id`),
-	CONSTRAINT `kshow_FK_1`
+	CONSTRAINT `hshow_FK_1`
 		FOREIGN KEY (`producer_id`)
 		REFERENCES `kuser` (`id`)
 )Type=InnoDB;
@@ -158,7 +158,7 @@ DROP TABLE IF EXISTS `entry`;
 CREATE TABLE `entry`
 (
 	`id` VARCHAR(20)  NOT NULL,
-	`kshow_id` VARCHAR(20),
+	`hshow_id` VARCHAR(20),
 	`kuser_id` INTEGER,
 	`name` VARCHAR(60),
 	`type` SMALLINT,
@@ -211,10 +211,10 @@ CREATE TABLE `entry`
 	`available_from` DATETIME,
 	`last_played_at` DATETIME,
 	PRIMARY KEY (`id`),
-	KEY `kshow_rank_index`(`kshow_id`, `rank`),
-	KEY `kshow_views_index`(`kshow_id`, `views`),
-	KEY `kshow_votes_index`(`kshow_id`, `votes`),
-	KEY `kshow_created_index`(`kshow_id`, `created_at`),
+	KEY `hshow_rank_index`(`hshow_id`, `rank`),
+	KEY `hshow_views_index`(`hshow_id`, `views`),
+	KEY `hshow_votes_index`(`hshow_id`, `votes`),
+	KEY `hshow_created_index`(`hshow_id`, `created_at`),
 	KEY `views_index`(`views`),
 	KEY `votes_index`(`votes`),
 	KEY `display_in_search_index`(`display_in_search`),
@@ -284,7 +284,7 @@ DROP TABLE IF EXISTS `kvote`;
 CREATE TABLE `kvote`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`kshow_id` VARCHAR(20),
+	`hshow_id` VARCHAR(20),
 	`entry_id` VARCHAR(20),
 	`kuser_id` INTEGER,
 	`puser_id` VARCHAR(100),
@@ -295,18 +295,18 @@ CREATE TABLE `kvote`
 	`created_at` DATETIME,
 	`custom_data` TEXT,
 	PRIMARY KEY (`id`),
-	KEY `kshow_index`(`kshow_id`),
+	KEY `hshow_index`(`hshow_id`),
 	KEY `entry_user_status_index`(`entry_id`, `kuser_id`, `status`),
 	CONSTRAINT `kvote_FK_1`
-		FOREIGN KEY (`kshow_id`)
-		REFERENCES `kshow` (`id`),
+		FOREIGN KEY (`hshow_id`)
+		REFERENCES `hshow` (`id`),
 	CONSTRAINT `kvote_FK_2`
 		FOREIGN KEY (`entry_id`)
 		REFERENCES `entry` (`id`),
 	INDEX `kvote_FI_3` (`kuser_id`),
 	CONSTRAINT `kvote_FK_3`
 		FOREIGN KEY (`kuser_id`)
-		REFERENCES `kshow` (`id`)
+		REFERENCES `hshow` (`id`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -382,27 +382,27 @@ CREATE TABLE `favorite`
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- kshow_kuser
+#-- hshow_kuser
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `kshow_kuser`;
+DROP TABLE IF EXISTS `hshow_kuser`;
 
 
-CREATE TABLE `kshow_kuser`
+CREATE TABLE `hshow_kuser`
 (
-	`kshow_id` VARCHAR(20),
+	`hshow_id` VARCHAR(20),
 	`kuser_id` INTEGER,
 	`subscription_type` INTEGER,
 	`alert_type` INTEGER,
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (`id`),
-	KEY `kshow_index`(`kshow_id`),
+	KEY `hshow_index`(`hshow_id`),
 	KEY `kuser_index`(`kuser_id`),
-	KEY `subscription_index`(`kshow_id`, `subscription_type`),
-	CONSTRAINT `kshow_kuser_FK_1`
-		FOREIGN KEY (`kshow_id`)
-		REFERENCES `kshow` (`id`),
-	CONSTRAINT `kshow_kuser_FK_2`
+	KEY `subscription_index`(`hshow_id`, `subscription_type`),
+	CONSTRAINT `hshow_kuser_FK_1`
+		FOREIGN KEY (`hshow_id`)
+		REFERENCES `hshow` (`id`),
+	CONSTRAINT `hshow_kuser_FK_2`
 		FOREIGN KEY (`kuser_id`)
 		REFERENCES `kuser` (`id`)
 )Type=InnoDB;
@@ -886,7 +886,7 @@ DROP TABLE IF EXISTS `puser_role`;
 CREATE TABLE `puser_role`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`kshow_id` VARCHAR(20),
+	`hshow_id` VARCHAR(20),
 	`partner_id` INTEGER,
 	`puser_id` VARCHAR(64),
 	`role` INTEGER,
@@ -895,10 +895,10 @@ CREATE TABLE `puser_role`
 	`subp_id` INTEGER default 0,
 	PRIMARY KEY (`id`),
 	KEY `partner_puser_index`(`partner_id`, `puser_id`),
-	KEY `kshow_id_index`(`kshow_id`),
+	KEY `hshow_id_index`(`hshow_id`),
 	CONSTRAINT `puser_role_FK_1`
-		FOREIGN KEY (`kshow_id`)
-		REFERENCES `kshow` (`id`),
+		FOREIGN KEY (`hshow_id`)
+		REFERENCES `hshow` (`id`),
 	CONSTRAINT `puser_role_FK_2`
 		FOREIGN KEY (`partner_id`)
 		REFERENCES `puser_kuser` (`partner_id`),
@@ -930,7 +930,7 @@ CREATE TABLE `partner`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	`anonymous_kuser_id` INTEGER,
-	`ks_max_expiry_in_seconds` INTEGER default 86400,
+	`hs_max_expiry_in_seconds` INTEGER default 86400,
 	`create_user_on_demand` TINYINT default 1,
 	`prefix` VARCHAR(32),
 	`admin_name` VARCHAR(50),
@@ -976,7 +976,7 @@ DROP TABLE IF EXISTS `widget_log`;
 CREATE TABLE `widget_log`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`kshow_id` VARCHAR(20),
+	`hshow_id` VARCHAR(20),
 	`entry_id` VARCHAR(20),
 	`kmedia_type` INTEGER,
 	`widget_type` VARCHAR(32),
@@ -993,7 +993,7 @@ CREATE TABLE `widget_log`
 	`subp_id` INTEGER default 0,
 	PRIMARY KEY (`id`),
 	KEY `referer_index`(`referer`),
-	KEY `entry_id_kshow_id_index`(`entry_id`, `kshow_id`),
+	KEY `entry_id_hshow_id_index`(`entry_id`, `hshow_id`),
 	KEY `partner_id_subp_id_index`(`partner_id`, `subp_id`),
 	CONSTRAINT `widget_log_FK_1`
 		FOREIGN KEY (`entry_id`)
@@ -1081,7 +1081,7 @@ CREATE TABLE `roughcut_entry`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`roughcut_id` VARCHAR(20),
 	`roughcut_version` INTEGER,
-	`roughcut_kshow_id` VARCHAR(20),
+	`roughcut_hshow_id` VARCHAR(20),
 	`entry_id` VARCHAR(20),
 	`partner_id` INTEGER,
 	`op_type` SMALLINT,
@@ -1091,13 +1091,13 @@ CREATE TABLE `roughcut_entry`
 	KEY `partner_id_index`(`partner_id`),
 	KEY `entry_id_index`(`entry_id`),
 	KEY `roughcut_id_index`(`roughcut_id`),
-	KEY `roughcut_kshow_id_index`(`roughcut_kshow_id`),
+	KEY `roughcut_hshow_id_index`(`roughcut_hshow_id`),
 	CONSTRAINT `roughcut_entry_FK_1`
 		FOREIGN KEY (`roughcut_id`)
 		REFERENCES `entry` (`id`),
 	CONSTRAINT `roughcut_entry_FK_2`
-		FOREIGN KEY (`roughcut_kshow_id`)
-		REFERENCES `kshow` (`id`),
+		FOREIGN KEY (`roughcut_hshow_id`)
+		REFERENCES `hshow` (`id`),
 	CONSTRAINT `roughcut_entry_FK_3`
 		FOREIGN KEY (`entry_id`)
 		REFERENCES `entry` (`id`)
@@ -1118,7 +1118,7 @@ CREATE TABLE `widget`
 	`root_widget_id` VARCHAR(32),
 	`partner_id` INTEGER,
 	`subp_id` INTEGER,
-	`kshow_id` VARCHAR(20),
+	`hshow_id` VARCHAR(20),
 	`entry_id` VARCHAR(20),
 	`ui_conf_id` INTEGER,
 	`custom_data` VARCHAR(1024),
@@ -1129,10 +1129,10 @@ CREATE TABLE `widget`
 	`partner_data` VARCHAR(4096),
 	PRIMARY KEY (`id`),
 	KEY `int_id_index`(`int_id`),
-	INDEX `widget_FI_1` (`kshow_id`),
+	INDEX `widget_FI_1` (`hshow_id`),
 	CONSTRAINT `widget_FK_1`
-		FOREIGN KEY (`kshow_id`)
-		REFERENCES `kshow` (`id`),
+		FOREIGN KEY (`hshow_id`)
+		REFERENCES `hshow` (`id`),
 	INDEX `widget_FI_2` (`entry_id`),
 	CONSTRAINT `widget_FK_2`
 		FOREIGN KEY (`entry_id`)
@@ -1200,8 +1200,8 @@ CREATE TABLE `partner_stats`
 	`users_2` INTEGER,
 	`rc_1` INTEGER,
 	`rc_2` INTEGER,
-	`kshows_1` INTEGER,
-	`kshows_2` INTEGER,
+	`hshows_1` INTEGER,
+	`hshows_2` INTEGER,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	`custom_data` TEXT,
@@ -1378,7 +1378,7 @@ CREATE TABLE `access_control`
 	`site_restrict_list` VARCHAR(1024),
 	`country_restrict_type` TINYINT,
 	`country_restrict_list` VARCHAR(1024),
-	`ks_restrict_privilege` VARCHAR(20),
+	`hs_restrict_privilege` VARCHAR(20),
 	`prv_restrict_privilege` VARCHAR(20),
 	`prv_restrict_length` INTEGER,
 	`kdir_restrict_type` TINYINT,
@@ -1821,7 +1821,7 @@ CREATE TABLE `track_entry`
 	`param_1_str` VARCHAR(255),
 	`param_2_str` VARCHAR(511),
 	`param_3_str` VARCHAR(511),
-	`ks` VARCHAR(511),
+	`hs` VARCHAR(511),
 	`description` VARCHAR(127),
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
@@ -2027,13 +2027,13 @@ DROP TABLE IF EXISTS `invalid_session`;
 CREATE TABLE `invalid_session`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`ks` VARCHAR(300),
-	`ks_valid_until` DATETIME,
+	`hs` VARCHAR(300),
+	`hs_valid_until` DATETIME,
 	`created_at` DATETIME,
 	`actions_limit` INTEGER,
 	`type` INTEGER,
 	PRIMARY KEY (`id`),
-	KEY `ks_index`(`ks`)
+	KEY `hs_index`(`hs`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------

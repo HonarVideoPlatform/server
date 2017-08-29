@@ -578,7 +578,7 @@ class Zend_Loader_Autoloader
             }
         }
 
-        uksort($versions, 'version_compare');
+        uhsort($versions, 'version_compare');
         return $versions;
     }
 }

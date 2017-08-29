@@ -45,10 +45,10 @@ class WidevineDrmService extends KalturaBaseService
 			$this->validateLicenseRequest($flavorAssetId, $wvAssetId, $referrer);
 			$privileges = null;
 			$isAdmin = false;
-			if(kCurrentContext::$ks_object)
+			if(kCurrentContext::$hs_object)
 			{
-				$privileges = kCurrentContext::$ks_object->getPrivileges();
-				$isAdmin = kCurrentContext::$ks_object->isAdmin();
+				$privileges = kCurrentContext::$hs_object->getPrivileges();
+				$isAdmin = kCurrentContext::$hs_object->isAdmin();
 			}
 			$response = WidevineLicenseProxyUtils::sendLicenseRequest($requestParams, $privileges, $isAdmin);
 		}
@@ -92,8 +92,8 @@ class WidevineDrmService extends KalturaBaseService
 		$referrer = base64_decode(str_replace(" ", "+", $referrer64base));
 		if (!is_string($referrer))
 			$referrer = ""; // base64_decode can return binary data		
-		$secureEntryHelper = new KSecureEntryHelper($entry, kCurrentContext::$ks, $referrer, ContextType::PLAY);
-		if(!$secureEntryHelper->isKsAdmin())
+		$secureEntryHelper = new HSecureEntryHelper($entry, kCurrentContext::$hs, $referrer, ContextType::PLAY);
+		if(!$secureEntryHelper->isHsAdmin())
 		{
 			if(!$entry->isScheduledNow())
 				throw new KalturaWidevineLicenseProxyException(KalturaWidevineErrorCodes::ENTRY_NOT_SCHEDULED_NOW);
@@ -112,7 +112,7 @@ class WidevineDrmService extends KalturaBaseService
 	{
 		try
 		{
-			if (!kCurrentContext::$ks)
+			if (!kCurrentContext::$hs)
 			{
 				$flavorAsset = kCurrentContext::initPartnerByAssetId($flavorAssetId);							
 				// enforce entitlement

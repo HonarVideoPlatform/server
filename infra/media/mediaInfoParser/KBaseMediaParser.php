@@ -19,10 +19,10 @@ abstract class KBaseMediaParser
 	/**
 	 * @param string $type
 	 * @param string $filePath
-	 * @param KSchedularTaskConfig $taskConfig
+	 * @param HSchedularTaskConfig $taskConfig
 	 * @return KBaseMediaParser
 	 */
-	public static function getParser($type, $filePath, KSchedularTaskConfig $taskConfig, KalturaBatchJob $job)
+	public static function getParser($type, $filePath, HSchedularTaskConfig $taskConfig, KalturaBatchJob $job)
 	{
 		switch($type)
 		{

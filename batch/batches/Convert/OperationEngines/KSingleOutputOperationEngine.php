@@ -5,7 +5,7 @@
  * @package Scheduler
  * @subpackage Conversion
  */
-class KSingleOutputOperationEngine extends KOperationEngine
+class HSingleOutputOperationEngine extends KOperationEngine
 {
 	/**
 	 * @var string
