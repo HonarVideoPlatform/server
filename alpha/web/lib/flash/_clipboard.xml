@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<swf compression="ZLIB" frameCount="1" frameRate="12.0" gfx="false" hasEndTag="true" type="SWF" version="7">
+  <!--WARNING: The structure of this XML is not final. In later versions of FFDec it can be changed.-->
+  <!--JPEXS Free Flash Decompiler v.10.0.0 nightly build 1655-->
+  <displayRect Xmax="11000" Xmin="0" Ymax="8000" Ymin="0" nbits="15" type="RECT"/>
+  <tags>
+    <item type="SetBackgroundColorTag">
+      <backgroundColor blue="255" green="255" red="255" type="RGB"/>
+    </item>
+    <item actionBytes="8827000400636c6970626f617264006c656e6774680053797374656d00736574436c6970626f6172640096020008001c96020008014e129d0200180096020008001c960700070100000008021c9602000803521700" type="DoActionTag"/>
+    <item type="ShowFrameTag"/>
+  </tags>
+</swf>

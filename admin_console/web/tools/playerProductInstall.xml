@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<swf compression="ZLIB" frameCount="1" frameRate="12.0" gfx="false" hasEndTag="true" type="SWF" version="6">
+  <!--WARNING: The structure of this XML is not final. In later versions of FFDec it can be changed.-->
+  <!--JPEXS Free Flash Decompiler v.10.0.0 nightly build 1655-->
+  <displayRect Xmax="11000" Xmin="0" Ymax="6000" Ymin="0" nbits="15" type="RECT"/>
+  <tags>
+    <item type="SetBackgroundColorTag">
+      <backgroundColor blue="165" green="110" red="58" type="RGB"/>
+    </item>
+    <item shapeId="1" type="DefineShapeTag">
+      <shapeBounds Xmax="4300" Xmin="0" Ymax="2760" Ymin="0" nbits="14" type="RECT"/>
+      <shapes numFillBits="1" numLineBits="0" type="SHAPEWITHSTYLE">
+        <fillStyles type="FILLSTYLEARRAY">
+          <fillStyles>
+            <item bitmapId="0" fillStyleType="0" type="FILLSTYLE">
+              <color blue="204" green="204" red="204" type="RGB"/>
+            </item>
+          </fillStyles>
+        </fillStyles>
+        <lineStyles type="LINESTYLEARRAY">
+          <lineStyles/>
+        </lineStyles>
+        <shapeRecords>
+          <item fillStyle0="1" fillStyle1="0" lineStyle="0" moveBits="9" moveDeltaX="244" moveDeltaY="0" numFillBits="0" numLineBits="0" stateFillStyle0="true" stateFillStyle1="false" stateLineStyle="false" stateMoveTo="true" stateNewStyles="false" type="StyleChangeRecord"/>
+          <item anchorDeltaX="-72" anchorDeltaY="85" controlDeltaX="-101" controlDeltaY="-1" numBits="6" type="CurvedEdgeRecord"/>
+          <item anchorDeltaX="0" anchorDeltaY="121" controlDeltaX="-71" controlDeltaY="85" numBits="6" type="CurvedEdgeRecord"/>
+          <item deltaX="0" deltaY="2179" generalLineFlag="false" numBits="11" type="StraightEdgeRecord" vertLineFlag="true"/>
+          <item anchorDeltaX="71" anchorDeltaY="85" controlDeltaX="0" controlDeltaY="120" numBits="6" type="CurvedEdgeRecord"/>
+          <item anchorDeltaX="101" anchorDeltaY="1" controlDeltaX="72" controlDeltaY="85" numBits="6" type="CurvedEdgeRecord"/>
+          <item deltaX="3812" deltaY="0" generalLineFlag="false" numBits="11" type="StraightEdgeRecord" vertLineFlag="false"/>
+          <item anchorDeltaX="71" anchorDeltaY="-85" controlDeltaX="101" controlDeltaY="-1" numBits="6" type="CurvedEdgeRecord"/>
+          <item anchorDeltaX="0" anchorDeltaY="-120" controlDeltaX="72" controlDeltaY="-85" numBits="6" type="CurvedEdgeRecord"/>
+          <item deltaX="0" deltaY="-2179" generalLineFlag="false" numBits="11" type="StraightEdgeRecord" vertLineFlag="true"/>
+          <item anchorDeltaX="-72" anchorDeltaY="-85" controlDeltaX="0" controlDeltaY="-121" numBits="6" type="CurvedEdgeRecord"/>
+          <item anchorDeltaX="-101" anchorDeltaY="1" controlDeltaX="-71" controlDeltaY="-85" numBits="6" type="CurvedEdgeRecord"/>
+          <item deltaX="-3812" deltaY="0" generalLineFlag="false" numBits="11" type="StraightEdgeRecord" vertLineFlag="false"/>
+          <item endOfShape="0" type="EndShapeRecord"/>
+        </shapeRecords>
+      </shapes>
+    </item>
+    <item frameCount="1" hasEndTag="true" spriteId="2" type="DefineSpriteTag">
+      <subTags>
+        <item characterId="1" clipDepth="0" depth="1" placeFlagHasCharacter="true" placeFlagHasClipActions="false" placeFlagHasClipDepth="false" placeFlagHasColorTransform="false" placeFlagHasMatrix="true" placeFlagHasName="false" placeFlagHasRatio="false" placeFlagMove="false" ratio="0" type="PlaceObject2Tag">
+          <matrix hasRotate="false" hasScale="false" nRotateBits="0" nScaleBits="0" nTranslateBits="0" rotateSkew0="0" rotateSkew1="0" scaleX="0" scaleY="0" translateX="0" translateY="0" type="MATRIX"/>
+        </item>
+        <item type="ShowFrameTag"/>
+      </subTags>
+    </item>
+    <item frameCount="1" hasEndTag="true" spriteId="3" type="DefineSpriteTag">
+      <subTags>
+        <item actionBytes="8898011c006c6f61646572436c697000737461727455706461746500746f537472696e67005b747970652046756e6374696f6e5d00696400636c656172496e74657276616c006c6f6164436f6d706c657465005f726f6f7400726564697265637455524c004d4d726564697265637455524c004d4d706c6179657254797065004d4d646f637469746c650073746174757356616c756500446f776e6c6f61642e436f6d706c65746500446f776e6c6f61642e43616e63656c6c656400446f776e6c6f61642e4661696c6564006670646f776e6c6f61642e6d6163726f6d656469612e636f6d0053797374656d00736563757269747900616c6c6f77446f6d61696e006361636865427573746572004d6174680072616e646f6d0075706461746553574600687474703a2f2f6670646f776e6c6f61642e6d6163726f6d656469612e636f6d2f7075622f666c617368706c617965722f7570646174652f63757272656e742f7377662f6175746f557064617465722e7377663f006c6f61644d6f76696500636865636b4c6f6164656400736574496e74657276616c009b1000636865636b4c6f616465640000004900960b0006000000000000000008001c96020008014e960200080252960200080349129d0200220096020008041c960700070100000008053d17960b0006000000000000000008063d179b11006c6f6164436f6d706c6574650000005e00960200040196020008071c870100011796020008001c9606000808040108094e4f96020008001c960600080a0401080a4e4f96020008001c960600080b0401080b4e4f960b0006000000000000000008001c9602000801521787010001179b1e00696e7374616c6c53746174757300010073746174757356616c75650049009602000401960200080c1c87010001179604000401080d49129d0200050099020021009604000401080e49129d020005009902000e009604000401080f49129d0200000087010001179609000810070100000008111c96020008124e96020008135217960d00081406000000000000000008151c9602000816523c9606000817081808141c473c96020008171c960700070100000008001c960200081952179609000804070a000000081a1c9607000702000000081b3d3c00" type="DoActionTag"/>
+        <item characterId="2" clipDepth="0" depth="1" name="loaderClip" placeFlagHasCharacter="true" placeFlagHasClipActions="false" placeFlagHasClipDepth="false" placeFlagHasColorTransform="false" placeFlagHasMatrix="true" placeFlagHasName="true" placeFlagHasRatio="false" placeFlagMove="false" ratio="0" type="PlaceObject2Tag">
+          <matrix hasRotate="false" hasScale="false" nRotateBits="0" nScaleBits="0" nTranslateBits="6" rotateSkew0="0" rotateSkew1="0" scaleX="0" scaleY="0" translateX="-30" translateY="-1" type="MATRIX"/>
+        </item>
+        <item type="ShowFrameTag"/>
+      </subTags>
+    </item>
+    <item characterId="3" clipDepth="0" depth="1" placeFlagHasCharacter="true" placeFlagHasClipActions="false" placeFlagHasClipDepth="false" placeFlagHasColorTransform="false" placeFlagHasMatrix="true" placeFlagHasName="false" placeFlagHasRatio="false" placeFlagMove="false" ratio="0" type="PlaceObject2Tag">
+      <matrix hasRotate="false" hasScale="false" nRotateBits="0" nScaleBits="0" nTranslateBits="13" rotateSkew0="0" rotateSkew1="0" scaleX="0" scaleY="0" translateX="3326" translateY="722" type="MATRIX"/>
+    </item>
+    <item type="ShowFrameTag"/>
+  </tags>
+</swf>
