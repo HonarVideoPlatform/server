@@ -3,7 +3,7 @@
  * @package plugins.synacorHboDistribution
  * @subpackage lib
  */
-class kSynacorHboFlowManager implements kBatchJobStatusEventConsumer
+class hSynacorHboFlowManager implements kBatchJobStatusEventConsumer
 {
 	/* (non-PHPdoc)
 	 * @see kBatchJobStatusEventConsumer::shouldConsumeJobStatusEvent()

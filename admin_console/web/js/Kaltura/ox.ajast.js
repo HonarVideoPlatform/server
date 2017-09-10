@@ -66,7 +66,7 @@ OX.AJAST =
       if(OX.AJAST.__callbacks__[callbackid] !== 'undefined') // If the callback still exists...
       {
         // Replace original wrapped callback with a dummy that just deletes itself
-        OX.AJAST.__callbacks__[callbackid] = function(){ delete OX.AJAST.__callbacks__[callbackid]; }; 
+        OX.AJAST.__callbacks__[callbackid] = function(){ delete OX.AJAST.__callbacks__[callbackid]; };
         // Signal that the call timed out
         callbackfunction(false); 
         // Remove the script tag (timed out)

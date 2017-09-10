@@ -10,7 +10,7 @@ class getuiconfsAction extends kalturaAction
 		header('Access-Control-Allow-Origin:*');
 
 		$this->partner_id = $this->getP ( "partner_id" );
-		$this->ks = $this->getP ( "ks" );
+		$this->hs = $this->getP ( "hs" );
 		$type = $this->getP("type");
 		
 		$this->partner = PartnerPeer::retrieveByPK($this->partner_id);
@@ -23,7 +23,7 @@ class getuiconfsAction extends kalturaAction
 		$this->templatePartnerId = $this->partner ? $this->partner->getTemplatePartnerId() : 0;
 		$this->isKDP3 = ($this->partner->getKmcVersion() != '1')? true: false;
 
-		// FIXME: validate the ks!
+		// FIXME: validate the hs!
 		
 		
 		$partnerUiconfs = kmcUtils::getPartnersUiconfs($this->partner_id, $type);

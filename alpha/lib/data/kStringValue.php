@@ -5,7 +5,7 @@
  * @package Core
  * @subpackage model.data
  */
-class kStringValue extends kValue
+class hStringValue extends kValue
 {
 	/**
 	 * @param string $value
@@ -32,7 +32,7 @@ class kStringValue extends kValue
 	}
 
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool
 	 */
 	public function shouldDisableCache($scope)

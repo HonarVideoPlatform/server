@@ -478,14 +478,14 @@ class KalturaBaseEntry extends KalturaObject implements IRelatedFilterable, IApi
 		entryPeer::addValidatedEntry($sourceObject->getId());		
 		parent::doFromObject($sourceObject, $responseProfile);
 		
-		$partnerId = kCurrentContext::$ks_partner_id ? kCurrentContext::$ks_partner_id : kCurrentContext::$partner_id;
+		$partnerId = kCurrentContext::$hs_partner_id ? kCurrentContext::$hs_partner_id : kCurrentContext::$partner_id;
 		
-		if (implode(',', kEntitlementUtils::getKsPrivacyContext()) != kEntitlementUtils::getDefaultContextString($partnerId) )
+		if (implode(',', kEntitlementUtils::getHsPrivacyContext()) != kEntitlementUtils::getDefaultContextString($partnerId) )
 		{
 			$this->categories = null;
 			$this->categoriesIds = null;
 		}
-		if (!kConf::hasParam('protect_userid_in_api') || !in_array($sourceObject->getPartnerId(), kConf::get('protect_userid_in_api')) || !in_array(kCurrentContext::getCurrentSessionType(), array(kSessionBase::SESSION_TYPE_NONE,kSessionBase::SESSION_TYPE_WIDGET))){
+		if (!kConf::hasParam('protect_userid_in_api') || !in_array($sourceObject->getPartnerId(), kConf::get('protect_userid_in_api')) || !in_array(kCurrentContext::getCurrentSessionType(), array(hSessionBase::SESSION_TYPE_NONE,hSessionBase::SESSION_TYPE_WIDGET))){
 			if($this->shouldGet('userId', $responseProfile))
 				$this->userId = $sourceObject->getPuserId();
 			if($this->shouldGet('creatorId', $responseProfile))
@@ -572,9 +572,9 @@ class KalturaBaseEntry extends KalturaObject implements IRelatedFilterable, IApi
 	 */
 	public function validateCategories()
 	{
-		$partnerId = kCurrentContext::$ks_partner_id ? kCurrentContext::$ks_partner_id : kCurrentContext::$partner_id;
+		$partnerId = kCurrentContext::$hs_partner_id ? kCurrentContext::$hs_partner_id : kCurrentContext::$partner_id;
 		
-		if (implode(',', kEntitlementUtils::getKsPrivacyContext()) !=  kEntitlementUtils::getDefaultContextString($partnerId) &&
+		if (implode(',', kEntitlementUtils::getHsPrivacyContext()) !=  kEntitlementUtils::getDefaultContextString($partnerId) &&
 			($this->categoriesIds != null || $this->categories != null))
 			throw new KalturaAPIException(KalturaErrors::ENTRY_CATEGORY_FIELD_IS_DEPRECATED);
 			
@@ -615,7 +615,7 @@ class KalturaBaseEntry extends KalturaObject implements IRelatedFilterable, IApi
 	
 	public function validateUsers()
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		
 		if(!$this->isNull('entitledUsersEdit'))
 		{

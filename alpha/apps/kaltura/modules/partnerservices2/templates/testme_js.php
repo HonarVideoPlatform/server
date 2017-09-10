@@ -177,7 +177,7 @@ function simulateStartSession ( url )
 	jQuery.ajax({
 			url: fixed_url ,
 			async: true , 
-			complete: fillKs
+			complete: fillHs
 		} );	
 }
 
@@ -195,14 +195,14 @@ function gv ( elem_name )
 	return elem.value;
 }
 
-function fillKs ( res  )
+function fillHs ( res  )
 {
-	m = res.responseText.match ( "<ks>(.*)</ks>");
+	m = res.responseText.match ( "<hs>(.*)</hs>");
 	if ( m != null  ) 
 	{
-		ks = m[1];
-		el = jQuery ( "input[@name=ks]" );
-		el[0].value = ks ;
+		hs = m[1];
+		el = jQuery ( "input[@name=hs]" );
+		el[0].value = hs ;
 		admin = gv ("admin" );
 		if ( admin == "1" )
 			el[0].style.color = "red";
@@ -213,18 +213,18 @@ function fillKs ( res  )
 	
 }
 
-function switchKs ()
+function switchHs ()
 {
-	ks1_elem = jQuery ( "input[@name=ks]" )[0];
-	ks2_elem = jQuery ( "input[@name=ks2]" )[0];
-	ks1 = ks1_elem.value;
-	ks2 = ks2_elem.value;
-	ks1_elem.value = ks2;
-	ks2_elem.value = ks1;
+	hs1_elem = jQuery ( "input[@name=hs]" )[0];
+	hs2_elem = jQuery ( "input[@name=hs2]" )[0];
+	hs1 = hs1_elem.value;
+	hs2 = hs2_elem.value;
+	hs1_elem.value = hs2;
+	hs2_elem.value = hs1;
 
-	color = ks1_elem.style.color;
-	ks1_elem.style.color = ks2_elem.style.color;
-	ks2_elem.style.color = color;
+	color = hs1_elem.style.color;
+	hs1_elem.style.color = hs2_elem.style.color;
+	hs2_elem.style.color = color;
 	return false;
 }
 

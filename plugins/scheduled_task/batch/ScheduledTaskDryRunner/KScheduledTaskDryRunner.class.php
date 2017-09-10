@@ -3,7 +3,7 @@
  * @package plugins.scheduledTask
  * @subpackage Scheduler
  */
-class KScheduledTaskDryRunner extends KJobHandlerWorker
+class HScheduledTaskDryRunner extends KJobHandlerWorker
 {
 	/* (non-PHPdoc)
 	 * @see KBatchBase::getType()
@@ -54,8 +54,8 @@ class KScheduledTaskDryRunner extends KJobHandlerWorker
 		while(true)
 		{
 			$client = $this->getClient();
-			$ks = $this->createKs($client, $jobData);
-			$client->setKs($ks);
+			$hs = $this->createHs($client, $jobData);
+			$client->setHs($hs);
 			$this->impersonate($scheduledTaskProfile->partnerId);
 			try
 			{
@@ -95,7 +95,7 @@ class KScheduledTaskDryRunner extends KJobHandlerWorker
 		return KalturaScheduledTaskClientPlugin::get($client);
 	}
 
-	private function createKs(KalturaClient $client, KalturaScheduledTaskJobData $jobData)
+	private function createHs(KalturaClient $client, KalturaScheduledTaskJobData $jobData)
 	{
 		$partnerId = self::$taskConfig->getPartnerId();
 		$sessionType = KalturaSessionType::ADMIN;

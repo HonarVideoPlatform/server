@@ -168,12 +168,12 @@ class accessControl extends BaseaccessControl implements IBaseObject
 			$this->setScope($scope);
 
 		$disableCache = false;
-		$isKsAdmin = $this->scope && $this->scope->getKs() && $this->scope->getKs()->isAdmin();
+		$isHsAdmin = $this->scope && $this->scope->getHs() && $this->scope->getHs()->isAdmin();
 		
 		$rules = $this->getRulesArray();
 		foreach($rules as $rule)
 		{
-			if($isKsAdmin && !$rule->getForceAdminValidation())
+			if($isHsAdmin && !$rule->getForceAdminValidation())
 				continue;
 				
 			/* @var $rule kRule */
@@ -256,7 +256,7 @@ class accessControl extends BaseaccessControl implements IBaseObject
 			if (!is_null($this->getCountryRestrictType()))
 				$rules[] = new kAccessControlCountryRestriction($this);
 				
-			if (!is_null($this->getKsRestrictPrivilege()))
+			if (!is_null($this->getHsRestrictPrivilege()))
 			{
 				if($this->getPrvRestrictPrivilege())
 					$rules[] = new kAccessControlPreviewRestriction($this);

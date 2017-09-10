@@ -23,7 +23,7 @@ class adduiconfAction extends defPartnerservices2Action
 					),
 				"errors" => array (
 					APIErrors::NO_FIELDS_SET_FOR_GENERIC_ENTRY ,
-					APIErrors::INVALID_KSHOW_ID
+					APIErrors::INVALID_HSHOW_ID
 				)
 			); 
 	}

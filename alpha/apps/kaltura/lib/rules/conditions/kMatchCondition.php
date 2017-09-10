@@ -7,7 +7,7 @@
 abstract class kMatchCondition extends kCondition
 {
 	/**
-	 * @var array<kStringValue>
+	 * @var array<hStringValue>
 	 */
 	protected $values;
 	
@@ -26,12 +26,12 @@ abstract class kMatchCondition extends kCondition
 	 */
 	function setValues(array $values)
 	{
-		$kStringValues = $values;
+		$hStringValues = $values;
 		foreach($values as $index => $value)
 			if(is_string($value))
-				$kStringValues[$index] = new kStringValue($value);
+				$hStringValues[$index] = new hStringValue($value);
 				
-		$this->values = $kStringValues;
+		$this->values = $hStringValues;
 	}
 	
 	/**
@@ -63,14 +63,14 @@ abstract class kMatchCondition extends kCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::applyDynamicValues()
 	 */
-	protected function applyDynamicValues(kScope $scope)
+	protected function applyDynamicValues(hScope $scope)
 	{
 		parent::applyDynamicValues($scope);
 		$this->dynamicValues = $scope->getDynamicValues('{', '}');
 	}
 	
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return array<string>
 	 */
 	function getStringValues($scope = null)
@@ -85,11 +85,11 @@ abstract class kMatchCondition extends kCondition
 		
 		foreach($this->values as $value)
 		{
-			/* @var $value kStringValue */
+			/* @var $value hStringValue */
 			$calculatedValue = null;
 			if(is_object($value))
 			{
-				if($scope && $value instanceof kStringField)
+				if($scope && $value instanceof hStringField)
 					$value->setScope($scope);
 				
 				$calculatedValue = $value->getValue();
@@ -109,10 +109,10 @@ abstract class kMatchCondition extends kCondition
 	}
 	
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return string the field content
 	 */
-	abstract public function getFieldValue(kScope $scope);
+	abstract public function getFieldValue(hScope $scope);
 	
 	/**
 	 * @param string $field
@@ -152,7 +152,7 @@ abstract class kMatchCondition extends kCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::internalFulfilled()
 	 */
-	protected function internalFulfilled(kScope $scope)
+	protected function internalFulfilled(hScope $scope)
 	{
 		$field = $this->getFieldValue($scope);
 		$values = $this->getStringValues($scope);
@@ -221,7 +221,7 @@ abstract class kMatchCondition extends kCondition
 	}
 
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool
 	 */
 	public function shouldFieldDisableCache($scope)

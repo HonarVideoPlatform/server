@@ -60,7 +60,7 @@ class PushNotificationTemplateService extends KalturaBaseService
 				$valueToken = $queueKeyParams[$userParamKey]->getQueueKeyToken();
 				if($valueToken && kApiCache::getEnableResponsePostProcessor())
 				{
-					$userParam->setValue(new kStringValue($valueToken));
+					$userParam->setValue(new hStringValue($valueToken));
 					$postProcessor->addToken($userParamKey, $valueToken);
 				}
 				$userQueueKeyParams[] = $userParam;

@@ -2345,7 +2345,7 @@ abstract class BaseuiConf extends BaseObject  implements Persistent {
 	 * api reasonable.  You can provide public methods for those you
 	 * actually need in uiConf.
 	 */
-	public function getwidgetsJoinkshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getwidgetsJoinhshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(uiConfPeer::DATABASE_NAME);
@@ -2362,7 +2362,7 @@ abstract class BaseuiConf extends BaseObject  implements Persistent {
 
 				$criteria->add(widgetPeer::UI_CONF_ID, $this->id);
 
-				$this->collwidgets = widgetPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
+				$this->collwidgets = widgetPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
@@ -2372,7 +2372,7 @@ abstract class BaseuiConf extends BaseObject  implements Persistent {
 			$criteria->add(widgetPeer::UI_CONF_ID, $this->id);
 
 			if (!isset($this->lastwidgetCriteria) || !$this->lastwidgetCriteria->equals($criteria)) {
-				$this->collwidgets = widgetPeer::doSelectJoinkshow($criteria, $con, $join_behavior);
+				$this->collwidgets = widgetPeer::doSelectJoinhshow($criteria, $con, $join_behavior);
 			}
 		}
 		$this->lastwidgetCriteria = $criteria;

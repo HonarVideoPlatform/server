@@ -24,7 +24,7 @@ class BulkUploadEngineICal extends KBulkUploadEngine
     
 	/**
 	 * The bulk upload items
-	 * @var array<kSchedulingICalEvent>
+	 * @var array<hSchedulingICalEvent>
 	 */
 	protected $items = array();
     
@@ -44,7 +44,7 @@ class BulkUploadEngineICal extends KBulkUploadEngine
 			KBatchBase::$kClient->startMultiRequest();
 			foreach($chunk as $item)
 			{
-				/* @var $item kSchedulingICalEvent */
+				/* @var $item hSchedulingICalEvent */
 				$bulkUploadResult = $this->createUploadResult($item);
 				if($bulkUploadResult)
 				{
@@ -59,7 +59,7 @@ class BulkUploadEngineICal extends KBulkUploadEngine
 		}
     }
     
-    protected function createUploadResult(kSchedulingICalEvent $iCal)
+    protected function createUploadResult(hSchedulingICalEvent $iCal)
     {
     	if($this->handledRecordsThisRun > $this->maxRecordsEachRun)
     	{
@@ -78,7 +78,7 @@ class BulkUploadEngineICal extends KBulkUploadEngine
 		$bulkUploadResult->objectStatus = KalturaScheduleEventStatus::ACTIVE;
 		$bulkUploadResult->status = KalturaBulkUploadResultStatus::IN_PROGRESS;
 
-    	if($iCal->getMethod() == kSchedulingICal::METHOD_CANCEL)
+    	if($iCal->getMethod() == hSchedulingICal::METHOD_CANCEL)
     	{
     		$bulkUploadResult->action = KalturaBulkUploadAction::CANCEL;
     	}
@@ -141,7 +141,7 @@ class BulkUploadEngineICal extends KBulkUploadEngine
 		    	continue;
 		    
 		    $item = $this->items[$bulkUploadResult->lineIndex];
-		    /* @var $item kSchedulingICalEvent */
+		    /* @var $item hSchedulingICalEvent */
 		    
 		    if(!$item->getUid())
 		    	continue;
@@ -192,7 +192,7 @@ class BulkUploadEngineICal extends KBulkUploadEngine
 		foreach($this->bulkUploadResults as $bulkUploadResult)
 		{
 		    $item = $this->items[$bulkUploadResult->lineIndex];
-		    /* @var $item kSchedulingICalEvent */
+		    /* @var $item hSchedulingICalEvent */
 		    
 			$bulkUploadResultChunk[] = $bulkUploadResult;
 			KBatchBase::impersonate($this->currentPartnerId);;
@@ -241,7 +241,7 @@ class BulkUploadEngineICal extends KBulkUploadEngine
 	 */
 	public function handleBulkUpload()
 	{
-		$calendar = kSchedulingICal::parse(file_get_contents($this->data->filePath), $this->data->eventsType);
+		$calendar = hSchedulingICal::parse(file_get_contents($this->data->filePath), $this->data->eventsType);
 		$this->items = $calendar->getComponents();
 		
 		$this->createUploadResults();

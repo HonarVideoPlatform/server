@@ -218,7 +218,7 @@ class requestUtils extends infraRequestUtils
 		$name = null;
 		foreach ( $cookies as $name => $value )
 		{
-			if ( kString::beginsWith( $name , self::SECURE_COOKIE_PREFIX ) )
+			if ( hString::beginsWith( $name , self::SECURE_COOKIE_PREFIX ) )
 			{
 				self::removeSecureCookieByName ( $name );
 			}

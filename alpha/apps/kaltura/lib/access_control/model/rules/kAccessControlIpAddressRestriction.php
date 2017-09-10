@@ -44,7 +44,7 @@ class kAccessControlIpAddressRestriction extends kAccessControlRestriction
 	}
 
 	/**
-	 * @return kSiteCondition
+	 * @return hSiteCondition
 	 */
 	private function getCondition()
 	{
@@ -71,7 +71,7 @@ class kAccessControlIpAddressRestriction extends kAccessControlRestriction
 		$values = explode(',', $values);
 		$stringValues = array();
 		foreach($values as $value)
-			$stringValues[] = new kStringValue($value);
+			$stringValues[] = new hStringValue($value);
 			
 		$this->getCondition()->setValues($stringValues);
 	}

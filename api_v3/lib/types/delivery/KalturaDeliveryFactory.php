@@ -76,8 +76,8 @@ class KalturaDeliveryProfileFactory {
 				return new KalturaUrlTokenizerCht();
 			case 'kChinaCacheUrlTokenizer':
 				return new KalturaUrlTokenizerChinaCache();	
-			case 'kKsUrlTokenizer':
-				return new KalturaUrlTokenizerKs();
+			case 'kHsUrlTokenizer':
+				return new KalturaUrlTokenizerHs();
 
 			// Add other tokenizers here
 			default:

@@ -69,31 +69,31 @@ class embedIframeAction extends sfAction
 					$arr = explode ( ";" , $custom_data );
 					$countries_str = $arr[0]; 
 					$fallback_entry_id = (isset($arr[1]) ? $arr[1] : null);
-					$fallback_kshow_id = (isset($arr[2]) ? $arr[2] : null);
+					$fallback_hshow_id = (isset($arr[2]) ? $arr[2] : null);
 					$current_country = "";
 	
 					$valid_country = requestUtils::matchIpCountry( $countries_str , $current_country );
 					if ( ! $valid_country )
 					{
-						KalturaLog::log("Attempting to access widget [$widget_id] and entry [$entry_id] from country [$current_country]. Retrning entry_id: [$fallback_entry_id] kshow_id [$fallback_kshow_id]" );
+						KalturaLog::log("Attempting to access widget [$widget_id] and entry [$entry_id] from country [$current_country]. Retrning entry_id: [$fallback_entry_id] hshow_id [$fallback_hshow_id]" );
 						$entry_id = $fallback_entry_id;
 					}
 				}
 				break;
 			
-			case widget::WIDGET_SECURITY_TYPE_FORCE_KS:
-				$ks_str = $this->getRequestParameter('ks');
+			case widget::WIDGET_SECURITY_TYPE_FORCE_HS:
+				$hs_str = $this->getRequestParameter('hs');
 				try
 				{
-					$ks = kSessionUtils::crackKs($ks_str);
+					$hs = hSessionUtils::crackHs($hs_str);
 				}
 				catch (Exception $e)
 				{
-					KExternalErrors::dieError(KExternalErrors::INVALID_KS);
+					KExternalErrors::dieError(KExternalErrors::INVALID_HS);
 				}
-				$res = kSessionUtils::validateKSession2(1, $partner_id, 0, $ks_str, $ks);
+				$res = hSessionUtils::validateHSession2(1, $partner_id, 0, $hs_str, $hs);
 				if ($res <= 0)
-					KExternalErrors::dieError(KExternalErrors::INVALID_KS);
+					KExternalErrors::dieError(KExternalErrors::INVALID_HS);
 					
 				break;
 			
@@ -142,7 +142,7 @@ class embedIframeAction extends sfAction
 		if($ui_conf_html5_url)
 		{
 			$url = str_replace(array('mwEmbedLoader.php', '{latest}'), array('mwEmbedFrame.php', $html5_version), $ui_conf_html5_url);
-			if (!kString::beginsWith($ui_conf_html5_url , "http")) // absolute URL
+			if (!hString::beginsWith($ui_conf_html5_url , "http")) // absolute URL
 				$url = $host . $url;
 		}
 		else

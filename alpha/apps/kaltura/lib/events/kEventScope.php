@@ -3,7 +3,7 @@
  * @package Core
  * @subpackage events
  */
-class kEventScope extends kScope
+class kEventScope extends hScope
 {
 	/**
 	 * @var KalturaEvent
@@ -55,7 +55,7 @@ class kEventScope extends kScope
 	{
 	    if (! $this->partnerId)
 	    {
-	        return kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+	        return kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 	    }
 		
 	    return $this->partnerId;

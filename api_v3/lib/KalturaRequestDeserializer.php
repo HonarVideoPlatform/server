@@ -8,7 +8,7 @@ class KalturaRequestDeserializer
 	private $params = null;
 	private $paramsGrouped = array();
 	private $objects = array();
-	private $extraParams = array("format", "ks", "fullObjects");
+	private $extraParams = array("format", "hs", "fullObjects");
 	private $disableRelativeTime = false;
 
 	const PREFIX = ":";
@@ -165,7 +165,7 @@ class KalturaRequestDeserializer
 					}
 					else
 					{
-						ksort($this->paramsGrouped[$name]);
+						hsort($this->paramsGrouped[$name]);
 						foreach($this->paramsGrouped[$name] as $arrayItemParams)
 						{
 							$arrayObj[] = $this->buildObject($actionParam->getArrayTypeReflector(), $arrayItemParams, $name);
@@ -287,7 +287,7 @@ class KalturaRequestDeserializer
 		foreach($params as $name => $value)
 		{
 			$isNull = false;
-			if (kString::endsWith($name, '__null'))
+			if (hString::endsWith($name, '__null'))
 			{
 				$name = str_replace('__null', '', $name);
 				$isNull = true;
@@ -365,7 +365,7 @@ class KalturaRequestDeserializer
 				}
 				else
 				{
-					ksort($value);
+					hsort($value);
 					foreach($value as $arrayItemKey => $arrayItemParams)
 					{
 						if($arrayItemKey === '-')
@@ -399,7 +399,7 @@ class KalturaRequestDeserializer
 			case "int":
 				return (int)$var;
 			case "string":
-				return kString::stripUtf8InvalidChars((string)$var);
+				return hString::stripUtf8InvalidChars((string)$var);
 			case "bool":
 				if (strtolower($var) === "false")
 					return false;

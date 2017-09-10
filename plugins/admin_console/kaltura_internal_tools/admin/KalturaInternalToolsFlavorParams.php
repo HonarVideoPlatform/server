@@ -71,14 +71,14 @@ class KalturaInternalToolsPluginFlavorParams extends KalturaApplicationPlugin
                     $filter = new Kaltura_Client_SystemPartner_Type_SystemPartnerFilter();
                     $partner = $systemPartnerPlugin -> systemPartner -> get($fp -> partnerId);
 
-                    $oldKs = $client -> getKs();
+                    $oldHs = $client -> getHs();
 
-                    $newKs = $client -> generateSession($partner -> adminSecret, "", Kaltura_Client_Enum_SessionType::ADMIN, $fp -> partnerId, 86400, "");
-                    $client -> setKs($newKs);
+                    $newHs = $client -> generateSession($partner -> adminSecret, "", Kaltura_Client_Enum_SessionType::ADMIN, $fp -> partnerId, 86400, "");
+                    $client -> setHs($newHs);
 
                     $result = $client -> flavorParams -> add($fp);
 
-                    $client -> setKs($oldKs);
+                    $client -> setHs($oldHs);
 
                     $action -> view -> resultString = 'Flavor named \'' . $result -> name . '\' successfully created ID is: ' . $result -> id;
                 }

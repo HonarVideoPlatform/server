@@ -29,7 +29,7 @@ class syndicationFeed extends BasesyndicationFeed implements IBaseObject
 		$dc = kDataCenterMgr::getCurrentDc();
 		for ( $i = 0 ; $i < 10 ; ++$i)
 		{
-			$id = $dc["id"].'_'.kString::generateStringId();
+			$id = $dc["id"].'_'.hString::generateStringId();
 			$existing_object = syndicationFeedPeer::retrieveByPKNoFilter( $id );
 			
 			if ( ! $existing_object ) return $id;

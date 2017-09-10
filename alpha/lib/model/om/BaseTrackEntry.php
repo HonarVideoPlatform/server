@@ -98,10 +98,10 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 	protected $param_3_str;
 
 	/**
-	 * The value for the ks field.
+	 * The value for the hs field.
 	 * @var        string
 	 */
-	protected $ks;
+	protected $hs;
 
 	/**
 	 * The value for the description field.
@@ -309,13 +309,13 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [ks] column value.
+	 * Get the [hs] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getKs()
+	public function getHs()
 	{
-		return $this->ks;
+		return $this->hs;
 	}
 
 	/**
@@ -728,27 +728,27 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 	} // setParam3Str()
 
 	/**
-	 * Set the value of [ks] column.
+	 * Set the value of [hs] column.
 	 * 
 	 * @param      string $v new value
 	 * @return     TrackEntry The current object (for fluent API support)
 	 */
-	public function setKs($v)
+	public function setHs($v)
 	{
-		if(!isset($this->oldColumnsValues[TrackEntryPeer::KS]))
-			$this->oldColumnsValues[TrackEntryPeer::KS] = $this->ks;
+		if(!isset($this->oldColumnsValues[TrackEntryPeer::HS]))
+			$this->oldColumnsValues[TrackEntryPeer::HS] = $this->hs;
 
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->ks !== $v) {
-			$this->ks = $v;
-			$this->modifiedColumns[] = TrackEntryPeer::KS;
+		if ($this->hs !== $v) {
+			$this->hs = $v;
+			$this->modifiedColumns[] = TrackEntryPeer::HS;
 		}
 
 		return $this;
-	} // setKs()
+	} // setHs()
 
 	/**
 	 * Set the value of [description] column.
@@ -959,7 +959,7 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 			$this->param_1_str = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
 			$this->param_2_str = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
 			$this->param_3_str = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
-			$this->ks = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
+			$this->hs = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
 			$this->description = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
 			$this->created_at = ($row[$startcol + 15] !== null) ? (string) $row[$startcol + 15] : null;
 			$this->updated_at = ($row[$startcol + 16] !== null) ? (string) $row[$startcol + 16] : null;
@@ -1401,7 +1401,7 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 				return $this->getParam3Str();
 				break;
 			case 13:
-				return $this->getKs();
+				return $this->getHs();
 				break;
 			case 14:
 				return $this->getDescription();
@@ -1452,7 +1452,7 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 			$keys[10] => $this->getParam1Str(),
 			$keys[11] => $this->getParam2Str(),
 			$keys[12] => $this->getParam3Str(),
-			$keys[13] => $this->getKs(),
+			$keys[13] => $this->getHs(),
 			$keys[14] => $this->getDescription(),
 			$keys[15] => $this->getCreatedAt(),
 			$keys[16] => $this->getUpdatedAt(),
@@ -1529,7 +1529,7 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 				$this->setParam3Str($value);
 				break;
 			case 13:
-				$this->setKs($value);
+				$this->setHs($value);
 				break;
 			case 14:
 				$this->setDescription($value);
@@ -1583,7 +1583,7 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[10], $arr)) $this->setParam1Str($arr[$keys[10]]);
 		if (array_key_exists($keys[11], $arr)) $this->setParam2Str($arr[$keys[11]]);
 		if (array_key_exists($keys[12], $arr)) $this->setParam3Str($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setKs($arr[$keys[13]]);
+		if (array_key_exists($keys[13], $arr)) $this->setHs($arr[$keys[13]]);
 		if (array_key_exists($keys[14], $arr)) $this->setDescription($arr[$keys[14]]);
 		if (array_key_exists($keys[15], $arr)) $this->setCreatedAt($arr[$keys[15]]);
 		if (array_key_exists($keys[16], $arr)) $this->setUpdatedAt($arr[$keys[16]]);
@@ -1613,7 +1613,7 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(TrackEntryPeer::PARAM_1_STR)) $criteria->add(TrackEntryPeer::PARAM_1_STR, $this->param_1_str);
 		if ($this->isColumnModified(TrackEntryPeer::PARAM_2_STR)) $criteria->add(TrackEntryPeer::PARAM_2_STR, $this->param_2_str);
 		if ($this->isColumnModified(TrackEntryPeer::PARAM_3_STR)) $criteria->add(TrackEntryPeer::PARAM_3_STR, $this->param_3_str);
-		if ($this->isColumnModified(TrackEntryPeer::KS)) $criteria->add(TrackEntryPeer::KS, $this->ks);
+		if ($this->isColumnModified(TrackEntryPeer::HS)) $criteria->add(TrackEntryPeer::HS, $this->hs);
 		if ($this->isColumnModified(TrackEntryPeer::DESCRIPTION)) $criteria->add(TrackEntryPeer::DESCRIPTION, $this->description);
 		if ($this->isColumnModified(TrackEntryPeer::CREATED_AT)) $criteria->add(TrackEntryPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(TrackEntryPeer::UPDATED_AT)) $criteria->add(TrackEntryPeer::UPDATED_AT, $this->updated_at);
@@ -1709,7 +1709,7 @@ abstract class BaseTrackEntry extends BaseObject  implements Persistent {
 
 		$copyObj->setParam3Str($this->param_3_str);
 
-		$copyObj->setKs($this->ks);
+		$copyObj->setHs($this->hs);
 
 		$copyObj->setDescription($this->description);
 

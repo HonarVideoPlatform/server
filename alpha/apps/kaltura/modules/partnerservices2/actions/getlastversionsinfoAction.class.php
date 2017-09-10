@@ -13,7 +13,7 @@ class getlastversionsinfoAction extends defPartnerservices2Action
 				"desc" => "" ,
 				"in" => array (
 					"mandatory" => array ( 
-						"kshow_id" => array ("type" => "string", "desc" => "")
+						"hshow_id" => array ("type" => "string", "desc" => "")
 						)
 					),
 				"out" => array (
@@ -32,22 +32,22 @@ class getlastversionsinfoAction extends defPartnerservices2Action
 	
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
-		$kshowId = $this->getP("kshow_id");
+		$hshowId = $this->getP("hshow_id");
 		$numberOfVersions = $this->getP("number_of_versions", 5);
 		
 		// must be int and not more than 50
 		$numberOfVersions = (int)$numberOfVersions;
 		$numberOfVersions = min($numberOfVersions, 50);
 
-		$kshow = kshowPeer::retrieveByPK( $kshowId );
+		$hshow = hshowPeer::retrieveByPK( $hshowId );
 		
-		if (!$kshow)
+		if (!$hshow)
 		{
-			$this->addError(APIErrors::KSHOW_DOES_NOT_EXISTS);
+			$this->addError(APIErrors::HSHOW_DOES_NOT_EXISTS);
 			return;
 		}
 		
-		$showEntry = $kshow->getShowEntry();
+		$showEntry = $hshow->getShowEntry();
 		if (!$showEntry)
 		{
 			$this->addError(APIErrors::ROUGHCUT_NOT_FOUND);

@@ -13,7 +13,7 @@ class KProcessWrapper
 	public $handle;
 	
 	/**
-	 * @var KSchedularTaskConfig
+	 * @var HSchedularTaskConfig
 	 */
 	public $taskConfig;
 	
@@ -42,7 +42,7 @@ class KProcessWrapper
 	 */
 	private $isMockedProcess;
 	
-	public function __construct(KSchedularTaskConfig $taskConfig, $taskIndex) {
+	public function __construct(HSchedularTaskConfig $taskConfig, $taskIndex) {
 		$taskConfig->setTaskIndex($taskIndex);
 		$this->taskConfig = $taskConfig;
 		
@@ -60,7 +60,7 @@ class KProcessWrapper
 	 * @param string $logDir
 	 * @param string $phpPath
 	 * @param string $tasksetPath
-	 * @param KSchedularTaskConfig $taskConfig
+	 * @param HSchedularTaskConfig $taskConfig
 	 */
 	public function init($logDir, $phpPath, $tasksetPath)
 	{
@@ -154,7 +154,7 @@ class KProcessWrapper
 		
 		if($this->isMockedProcess) {
 			$this->killProcess();
-			KScheduleHelperManager::unlinkRunningBatch($this->taskConfig->name, $this->taskConfig->getTaskIndex());
+			HScheduleHelperManager::unlinkRunningBatch($this->taskConfig->name, $this->taskConfig->getTaskIndex());
 			return;
 		}
 		

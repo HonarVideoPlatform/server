@@ -34,7 +34,7 @@ class conversionProfileMgrAction extends kalturaSystemAction
 			
 			$filter->attachToCriteria( $c );
 			
-			//if ($order_by != -1) kshowPeer::setOrder( $c , $order_by );
+			//if ($order_by != -1) hshowPeer::setOrder( $c , $order_by );
 			$this->list = ConversionProfilePeer::doSelect( $c );
 		}
 

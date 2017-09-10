@@ -62,11 +62,11 @@ class kEntitlementUtils
 		return self::$initialized;
 	}
 
-	public static function isKsPrivacyContextSet()
+	public static function isHsPrivacyContextSet()
 	{
-		$ks = ks::fromSecureString(kCurrentContext::$ks);
+		$hs = hs::fromSecureString(kCurrentContext::$hs);
 
-		if(!$ks || !$ks->getPrivacyContext())
+		if(!$hs || !$hs->getPrivacyContext())
 			return false;
 
 		return true;
@@ -90,7 +90,7 @@ class kEntitlementUtils
 			}
 		}
 
-		$ks = ks::fromSecureString(kCurrentContext::$ks);
+		$hs = hs::fromSecureString(kCurrentContext::$hs);
 
 		if(self::$entitlementForced === false)
 		{
@@ -99,8 +99,8 @@ class kEntitlementUtils
 		}
 
 		// entry is entitled when entitlement is disable
-		// for actions with no ks - need to check if partner have default entitlement feature enable.
-		if(!self::getEntitlementEnforcement() && $ks)
+		// for actions with no hs - need to check if partner have default entitlement feature enable.
+		if(!self::getEntitlementEnforcement() && $hs)
 		{
 			KalturaLog::log('Entry entitled: entitlement disabled');
 			return true;
@@ -108,41 +108,41 @@ class kEntitlementUtils
 
 		$partner = $entry->getPartner();
 
-		if(!$ks && !$partner->getDefaultEntitlementEnforcement())
+		if(!$hs && !$partner->getDefaultEntitlementEnforcement())
 		{
-			KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: no ks and default is with no enforcement');
+			KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: no hs and default is with no enforcement');
 			return true;
 		}
 
-		if($ks && in_array($entry->getId(), $ks->getDisableEntitlementForEntry()))
+		if($hs && in_array($entry->getId(), $hs->getDisableEntitlementForEntry()))
 		{
-			KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: ks disble entitlement for this entry');
+			KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: hs disble entitlement for this entry');
 			return true;
 		}
 
-		$kuserId = self::getKuserIdForEntitlement($kuserId, $ks);
+		$kuserId = self::getKuserIdForEntitlement($kuserId, $hs);
 
-		if($ks && $kuserId)
+		if($hs && $kuserId)
 		{
 			// kuser is set on the entry as creator or uploader
 			if ($kuserId != '' && ($entry->getKuserId() == $kuserId))
 			{
-				KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: ks user is the same as entry->kuserId or entry->creatorKuserId [' . $kuserId . ']');
+				KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: hs user is the same as entry->kuserId or entry->creatorKuserId [' . $kuserId . ']');
 				return true;
 			}
 
 			// kuser is set on the entry entitled users edit or publish
 			if($entry->isEntitledKuserEdit($kuserId) || $entry->isEntitledKuserPublish($kuserId))
 			{
-				KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: ks user is the same as entry->entitledKusersEdit or entry->entitledKusersPublish');
+				KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: hs user is the same as entry->entitledKusersEdit or entry->entitledKusersPublish');
 				return true;
 			}
 		}
 
-		if(!$ks)
+		if(!$hs)
 		{
 			// entry that doesn't belong to any category is public
-			//when ks is not provided - the entry is still public (for example - download action)
+			//when hs is not provided - the entry is still public (for example - download action)
 			$categoryEntry = categoryEntryPeer::retrieveOneActiveByEntryId($entry->getId());
 			if(!$categoryEntry)
 			{
@@ -151,46 +151,46 @@ class kEntitlementUtils
 			}
 		}
 
-		$ksPrivacyContexts = null;
-		if($ks)
-			$ksPrivacyContexts = $ks->getPrivacyContext();
+		$hsPrivacyContexts = null;
+		if($hs)
+			$hsPrivacyContexts = $hs->getPrivacyContext();
 
 		$allCategoriesEntry = array();
 
 		if(PermissionPeer::isValidForPartner(PermissionName::FEATURE_DISABLE_CATEGORY_LIMIT, $partner->getId()))
 		{
-			if(!$ksPrivacyContexts || trim($ksPrivacyContexts) == '')
+			if(!$hsPrivacyContexts || trim($hsPrivacyContexts) == '')
 			{
 				$categoryEntry = categoryEntryPeer::retrieveOneByEntryIdStatusPrivacyContextExistance($entry->getId(), array(CategoryEntryStatus::PENDING, CategoryEntryStatus::ACTIVE));
 				if($categoryEntry)
 				{
-					KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: entry belongs to public category and privacy context on the ks is not set');
+					KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: entry belongs to public category and privacy context on the hs is not set');
 					return true;
 				}
 			}
 			else
-				$allCategoriesEntry = categoryEntryPeer::retrieveActiveAndPendingByEntryIdAndPrivacyContext($entry->getId(), $ksPrivacyContexts);
+				$allCategoriesEntry = categoryEntryPeer::retrieveActiveAndPendingByEntryIdAndPrivacyContext($entry->getId(), $hsPrivacyContexts);
 		}
 		else
 		{
 			$allCategoriesEntry = categoryEntryPeer::retrieveActiveAndPendingByEntryId($entry->getId());
-			if($ks && (!$ksPrivacyContexts || trim($ksPrivacyContexts) == '') && !count($allCategoriesEntry))
+			if($hs && (!$hsPrivacyContexts || trim($hsPrivacyContexts) == '') && !count($allCategoriesEntry))
 			{
 				// entry that doesn't belong to any category is public
-				KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: entry does not belong to any category and privacy context on the ks is not set');
+				KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: entry does not belong to any category and privacy context on the hs is not set');
 				return true;
 			}
 		}
 
-		return self::isMemberOfCategory($allCategoriesEntry, $entry, $partner, $kuserId, $ks, $ksPrivacyContexts);
+		return self::isMemberOfCategory($allCategoriesEntry, $entry, $partner, $kuserId, $hs, $hsPrivacyContexts);
 	}
 
-	private static function getKuserIdForEntitlement($kuserId = null, $ks = null)
+	private static function getKuserIdForEntitlement($kuserId = null, $hs = null)
 	{
-		if($ks && !$kuserId)
+		if($hs && !$kuserId)
 		{
-			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
-			$kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$ks_uid, true);
+			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
+			$kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$hs_uid, true);
 			if($kuser)
 				$kuserId = $kuser->getId();
 		}
@@ -198,7 +198,7 @@ class kEntitlementUtils
 		return $kuserId;
 	}
 
-	private static function isMemberOfCategory($allCategoriesEntry, entry $entry, Partner $partner, $kuserId = null, $ks = null, $ksPrivacyContexts = null)
+	private static function isMemberOfCategory($allCategoriesEntry, entry $entry, Partner $partner, $kuserId = null, $hs = null, $hsPrivacyContexts = null)
 	{
 		$categories = array();
 		foreach($allCategoriesEntry as $categoryEntry)
@@ -211,22 +211,22 @@ class kEntitlementUtils
 		$c->add(categoryPeer::ID, $categories, Criteria::IN);
 
 		$privacy = array(category::formatPrivacy(PrivacyType::ALL, $partner->getId()));
-		if($ks && !$ks->isAnonymousSession())
+		if($hs && !$hs->isAnonymousSession())
 			$privacy[] = category::formatPrivacy(PrivacyType::AUTHENTICATED_USERS, $partner->getId());
 
 		$crit = $c->getNewCriterion (categoryPeer::PRIVACY, $privacy, Criteria::IN);
 
-		if($ks)
+		if($hs)
 		{
-			if (!$ksPrivacyContexts || trim($ksPrivacyContexts) == '')
-				$ksPrivacyContexts = self::getDefaultContextString( $partner->getId());
+			if (!$hsPrivacyContexts || trim($hsPrivacyContexts) == '')
+				$hsPrivacyContexts = self::getDefaultContextString( $partner->getId());
 			else
 			{
-				$ksPrivacyContexts = explode(',', $ksPrivacyContexts);
-				$ksPrivacyContexts = self::addPrivacyContextsPrefix( $ksPrivacyContexts, $partner->getId() );
+				$hsPrivacyContexts = explode(',', $hsPrivacyContexts);
+				$hsPrivacyContexts = self::addPrivacyContextsPrefix( $hsPrivacyContexts, $partner->getId() );
 			}
 
-			$c->add(categoryPeer::PRIVACY_CONTEXTS, $ksPrivacyContexts, KalturaCriteria::IN_LIKE);
+			$c->add(categoryPeer::PRIVACY_CONTEXTS, $hsPrivacyContexts, KalturaCriteria::IN_LIKE);
 
 			// kuser is set on the category as member
 			// this ugly code is temporery - since we have a bug in sphinxCriteria::getAllCriterionFields
@@ -242,7 +242,7 @@ class kEntitlementUtils
 		}
 		else
 		{
-			//no ks = set privacy context to default.
+			//no hs = set privacy context to default.
 			$c->add(categoryPeer::PRIVACY_CONTEXTS, array( self::getDefaultContextString( $partner->getId() )) , KalturaCriteria::IN_LIKE);
 		}
 
@@ -255,7 +255,7 @@ class kEntitlementUtils
 
 		if($category)
 		{
-			KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: ks user is a member of this category or category privacy is set to public of authenticated');
+			KalturaLog::info('Entry [' . print_r($entry->getId(), true) . '] entitled: hs user is a member of this category or category privacy is set to public of authenticated');
 			return true;
 		}
 
@@ -284,14 +284,14 @@ class kEntitlementUtils
 		if (!$partner)
 			return;
 
-		$ks = null;
-		$ksString = kCurrentContext::$ks ? kCurrentContext::$ks : '';
-		if ($ksString != '') // for actions with no KS or when creating ks.
+		$hs = null;
+		$hsString = kCurrentContext::$hs ? kCurrentContext::$hs : '';
+		if ($hsString != '') // for actions with no HS or when creating hs.
 		{
-			$ks = ks::fromSecureString($ksString);
+			$hs = hs::fromSecureString($hsString);
 		}
 
-		self::initCategoryModeration($ks);
+		self::initCategoryModeration($hs);
 
 		if(!PermissionPeer::isValidForPartner(PermissionName::FEATURE_ENTITLEMENT, $partnerId))
 			return;
@@ -304,13 +304,13 @@ class kEntitlementUtils
 
 		self::$entitlementEnforcement = $partnerDefaultEntitlementEnforcement;
 
-		if ($ks) // for actions with no KS or when creating ks.
+		if ($hs) // for actions with no KS or when creating ks.
 		{
-			$enableEntitlement = $ks->getDisableEntitlement();
+			$enableEntitlement = $hs->getDisableEntitlement();
 			if ($enableEntitlement)
 				self::$entitlementEnforcement = false;
 
-			$enableEntitlement = $ks->getEnableEntitlement();
+			$enableEntitlement = $hs->getEnableEntitlement();
 			if ($enableEntitlement)
 				self::$entitlementEnforcement = true;
 
@@ -331,10 +331,10 @@ class kEntitlementUtils
 		}
 	}
 
-	public static function getPrivacyForKs($partnerId)
+	public static function getPrivacyForHs($partnerId)
 	{
-		$ks = ks::fromSecureString(kCurrentContext::$ks);
-		if(!$ks || $ks->isAnonymousSession())
+		$hs = hs::fromSecureString(kCurrentContext::$hs);
+		if(!$hs || $hs->isAnonymousSession())
 			return array(category::formatPrivacy(PrivacyType::ALL, $partnerId));
 
 		return array(category::formatPrivacy(PrivacyType::ALL, $partnerId),
@@ -343,33 +343,33 @@ class kEntitlementUtils
 
 	public static function getPrivacyContextSearch()
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 
 		if (self::$privacyContextSearch)
 			return self::$privacyContextSearch;
 
 		$privacyContextSearch = array();
 
-		$ks = ks::fromSecureString(kCurrentContext::$ks);
-		if(!$ks)
+		$hs = hs::fromSecureString(kCurrentContext::$hs);
+		if(!$hs)
 			return array( self::getDefaultContextString( $partnerId ) . self::TYPE_SEPERATOR . PrivacyType::ALL);
 
-		$ksPrivacyContexts = $ks->getPrivacyContext();
+		$hsPrivacyContexts = $hs->getPrivacyContext();
 
-		if(is_null($ksPrivacyContexts))
-		{   // setting $ksPrivacyContexts only with DEFAULT_CONTEXT string (to resolve conflicts)
+		if(is_null($hsPrivacyContexts))
+		{   // setting $hsPrivacyContexts only with DEFAULT_CONTEXT string (to resolve conflicts)
 			// since prefix will be add in the addPrivacyContextsPrefix bellow
-			$ksPrivacyContexts = self::DEFAULT_CONTEXT;
+			$hsPrivacyContexts = self::DEFAULT_CONTEXT;
 		}
 
-		$ksPrivacyContexts = explode(',', $ksPrivacyContexts);
+		$hsPrivacyContexts = explode(',', $hsPrivacyContexts);
 
-		foreach ($ksPrivacyContexts as $ksPrivacyContext)
+		foreach ($hsPrivacyContexts as $hsPrivacyContext)
 		{
-			$privacyContextSearch[] = $ksPrivacyContext . self::TYPE_SEPERATOR . PrivacyType::ALL;
+			$privacyContextSearch[] = $hsPrivacyContext . self::TYPE_SEPERATOR . PrivacyType::ALL;
 
-			if (!$ks->isAnonymousSession())
-				$privacyContextSearch[] = $ksPrivacyContext . self::TYPE_SEPERATOR  . PrivacyType::AUTHENTICATED_USERS;
+			if (!$hs->isAnonymousSession())
+				$privacyContextSearch[] = $hsPrivacyContext . self::TYPE_SEPERATOR  . PrivacyType::AUTHENTICATED_USERS;
 		}
 
 		self::$privacyContextSearch = self::addPrivacyContextsPrefix( $privacyContextSearch, $partnerId );
@@ -484,26 +484,26 @@ class kEntitlementUtils
 
 	public static function getEntitledKuserByPrivacyContext()
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 
 		$privacyContextSearch = array();
 
-		$ks = ks::fromSecureString(kCurrentContext::$ks);
-		$ksPrivacyContexts = null;
-		if ($ks)
-			$ksPrivacyContexts = $ks->getPrivacyContext();
+		$hs = hs::fromSecureString(kCurrentContext::$hs);
+		$hsPrivacyContexts = null;
+		if ($hs)
+			$hsPrivacyContexts = $hs->getPrivacyContext();
 
-		if(is_null($ksPrivacyContexts) || $ksPrivacyContexts == '')
-			$ksPrivacyContexts = self::DEFAULT_CONTEXT . $partnerId;
+		if(is_null($hsPrivacyContexts) || $hsPrivacyContexts == '')
+			$hsPrivacyContexts = self::DEFAULT_CONTEXT . $partnerId;
 
-		$ksPrivacyContexts = explode(',', $ksPrivacyContexts);
+		$hsPrivacyContexts = explode(',', $hsPrivacyContexts);
 
-		$privacyContexts = $ksPrivacyContexts;
+		$privacyContexts = $hsPrivacyContexts;
 		$privacyContexts[] = self::ENTRY_PRIVACY_CONTEXT;
 
 		// get the groups that the user belongs to in case she is not associated to the category directly
-		$kuserIds = KuserKgroupPeer::retrieveKgroupIdsByKuserId(kCurrentContext::getCurrentKsKuserId());
-		$kuserIds[] = kCurrentContext::getCurrentKsKuserId();
+		$kuserIds = KuserKgroupPeer::retrieveKgroupIdsByKuserId(kCurrentContext::getCurrentHsKuserId());
+		$kuserIds[] = kCurrentContext::getCurrentHsKuserId();
 		foreach ($privacyContexts as $privacyContext){
 			foreach ( $kuserIds as $kuserId){
 				$privacyContextSearch[] = $privacyContext . '_' . $kuserId;
@@ -512,50 +512,50 @@ class kEntitlementUtils
 
 		return $privacyContextSearch;
 	}
-	public static function getKsPrivacyContext()
+	public static function getHsPrivacyContext()
 	{
-		$partnerId = kCurrentContext::$ks_partner_id ? kCurrentContext::$ks_partner_id : kCurrentContext::$partner_id;
+		$partnerId = kCurrentContext::$hs_partner_id ? kCurrentContext::$hs_partner_id : kCurrentContext::$partner_id;
 
-		$ks = ks::fromSecureString(kCurrentContext::$ks);
-		if(!$ks)
+		$hs = hs::fromSecureString(kCurrentContext::$hs);
+		if(!$hs)
 			return array(self::getDefaultContextString( $partnerId ) );
 
-		$ksPrivacyContexts = $ks->getPrivacyContext();
-		if(is_null($ksPrivacyContexts) || $ksPrivacyContexts == '')
+		$hsPrivacyContexts = $hs->getPrivacyContext();
+		if(is_null($hsPrivacyContexts) || $hsPrivacyContexts == '')
 			return array(self::getDefaultContextString( $partnerId ));
 		else
 		{
-			$ksPrivacyContexts = explode(',', $ksPrivacyContexts);
-			$ksPrivacyContexts = self::addPrivacyContextsPrefix( $ksPrivacyContexts, $partnerId);
+			$hsPrivacyContexts = explode(',', $hsPrivacyContexts);
+			$hsPrivacyContexts = self::addPrivacyContextsPrefix( $hsPrivacyContexts, $partnerId);
 		}
 
-		return $ksPrivacyContexts;
+		return $hsPrivacyContexts;
 	}
 
 	/**
-	 * Function returns the privacy context(s) found on the KS, if none are found returns array containing DEFAULT_PC
+	 * Function returns the privacy context(s) found on the HS, if none are found returns array containing DEFAULT_PC
 	 */
-	public static function getKsPrivacyContextArray()
+	public static function getHsPrivacyContextArray()
 	{
-		$partnerId = kCurrentContext::$ks_partner_id ? kCurrentContext::$ks_partner_id : kCurrentContext::$partner_id;
+		$partnerId = kCurrentContext::$hs_partner_id ? kCurrentContext::$hs_partner_id : kCurrentContext::$partner_id;
 
-		$ks = ks::fromSecureString(kCurrentContext::$ks);
-		if(!$ks)
+		$hs = hs::fromSecureString(kCurrentContext::$hs);
+		if(!$hs)
 			return array(self::DEFAULT_CONTEXT);
 
-		$ksPrivacyContexts = $ks->getPrivacyContext();
-		if(is_null($ksPrivacyContexts) || $ksPrivacyContexts == '')
+		$hsPrivacyContexts = $hs->getPrivacyContext();
+		if(is_null($hsPrivacyContexts) || $hsPrivacyContexts == '')
 			return array(self::DEFAULT_CONTEXT);
 
-		return explode(',', $ksPrivacyContexts);
+		return explode(',', $hsPrivacyContexts);
 	}
 
-	protected static function initCategoryModeration (ks $ks = null)
+	protected static function initCategoryModeration (hs $hs = null)
 	{
-		if (!$ks)
+		if (!$hs)
 			return;
 
-		$enableCategoryModeration = $ks->getEnableCategoryModeration();
+		$enableCategoryModeration = $hs->getEnableCategoryModeration();
 		if ($enableCategoryModeration)
 			self::$categoryModeration = true;
 	}
@@ -566,9 +566,9 @@ class kEntitlementUtils
 	 */
 	public static function isEntitledForEditEntry( entry $dbEntry )
 	{
-		if ( kCurrentContext::$is_admin_session || kCurrentContext::getCurrentKsKuserId() == $dbEntry->getKuserId())
+		if ( kCurrentContext::$is_admin_session || kCurrentContext::getCurrentHsKuserId() == $dbEntry->getKuserId())
 			return true;
 
-		return $dbEntry->isEntitledKuserEdit(kCurrentContext::getCurrentKsKuserId());
+		return $dbEntry->isEntitledKuserEdit(kCurrentContext::getCurrentHsKuserId());
 	}
 }

@@ -21,7 +21,7 @@ function array_xml($array, $num_prefix = "num_")
 }
 
 
-echo array_xml( $kshowdataarray, 'kshow' );
+echo array_xml( $hshowdataarray, 'hshow' );
 
 ?>
-</kshows>
+</hshows>

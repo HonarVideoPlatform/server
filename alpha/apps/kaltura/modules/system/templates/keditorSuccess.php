@@ -3,14 +3,14 @@
 
 <script type="text/javascript">
 var entry_list_as_xml = null;
-var kshowId = 10;
+var hshowId = 10;
 var MODULE_BROWSE = '<?php echo url_for( "browse") ?>';
 function getAllEntriesAsXml ( )
 {
-	kshowId = $("kshowId").value;
+	hshowId = $("hshowId").value;
 	entry_list_as_xml = null;
 	new Ajax.Request(MODULE_BROWSE + '/getAllEntriesAsXml?' +
-	'&kshow_id=' + kshowId 
+	'&hshow_id=' + hshowId 
 	, {asynchronous:false, evalScripts:false, onComplete:function(request, json){updateEditorWithAllEntries(request, json)}});
 	
 	return entry_list_as_xml ;

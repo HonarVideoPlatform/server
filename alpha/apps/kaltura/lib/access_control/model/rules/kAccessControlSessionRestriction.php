@@ -22,7 +22,7 @@ class kAccessControlSessionRestriction extends kAccessControlRestriction
 		
 		$this->condition = new kAuthenticatedCondition(true);
 		if($accessControl)
-			$this->condition->setPrivileges(array($accessControl->getKsRestrictPrivilege()));
+			$this->condition->setPrivileges(array($accessControl->getHsRestrictPrivilege()));
 		
 		$this->setConditions(array($this->getCondition()));
 	}

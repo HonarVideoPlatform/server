@@ -52,7 +52,7 @@ class KalturaCategoryUserFilter extends KalturaCategoryUserBaseFilter
 		if($this->userIdIn)
 		{
 			$usersIds = explode(',', $this->userIdIn);
-			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 
 			$c = new Criteria();
 			$c->add(kuserPeer::PARTNER_ID, $partnerId, Criteria::EQUAL);
@@ -70,7 +70,7 @@ class KalturaCategoryUserFilter extends KalturaCategoryUserBaseFilter
 		}
 
 		if ($this->relatedGroupsByUserId){
-			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 			$userIds = array();
 			$c = new Criteria();
 			$c->add(kuserPeer::PARTNER_ID, $partnerId);
@@ -100,13 +100,13 @@ class KalturaCategoryUserFilter extends KalturaCategoryUserBaseFilter
 		
 		if($this->userIdEqual)
 		{
-			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 			
 			$c = new Criteria();
 			$c->add(kuserPeer::PARTNER_ID, $partnerId);
 			$c->add(kuserPeer::PUSER_ID, $this->userIdEqual);
 			
-			if (kCurrentContext::$ks_partner_id == Partner::BATCH_PARTNER_ID) //batch should be able to get categoryUser of deleted users.
+			if (kCurrentContext::$hs_partner_id == Partner::BATCH_PARTNER_ID) //batch should be able to get categoryUser of deleted users.
 				kuserPeer::setUseCriteriaFilter(false);
 
 			// in case of more than one deleted kusers - get the last one

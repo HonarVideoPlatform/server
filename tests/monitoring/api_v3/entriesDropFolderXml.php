@@ -47,8 +47,8 @@ try
 {
 	$apiCall = 'session.start';
 	$start = microtime(true);
-	$ks = $client->session->start($config['monitor-partner']['adminSecret'], 'monitor-user', KalturaSessionType::ADMIN, $config['monitor-partner']['id']);
-	$client->setKs($ks);
+	$hs = $client->session->start($config['monitor-partner']['adminSecret'], 'monitor-user', KalturaSessionType::ADMIN, $config['monitor-partner']['id']);
+	$client->setHs($hs);
 	
 	$web_dir = $config['path']['web_dir'];
 	$app_dir = $config['path']['app_dir'];

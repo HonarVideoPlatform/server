@@ -133,7 +133,7 @@ class IsmIndexPlugin extends KalturaPlugin implements IKalturaObjectLoader, IKal
 		
 	}
 	
-	private static function getFileSyncDescriptor(kSourceFileSyncDescriptor $flavorAssetDesc, $objectSubType)
+	private static function getFileSyncDescriptor(hSourceFileSyncDescriptor $flavorAssetDesc, $objectSubType)
 	{
 		$ismDescriptor = null;
 		$flavorAsset = assetPeer::retrieveById($flavorAssetDesc->getAssetId());
@@ -141,7 +141,7 @@ class IsmIndexPlugin extends KalturaPlugin implements IKalturaObjectLoader, IKal
 		list($fileSync, $local) = kFileSyncUtils::getReadyFileSyncForKey($key);
 		if($fileSync)
 		{
-			$ismDescriptor = new kSourceFileSyncDescriptor();
+			$ismDescriptor = new hSourceFileSyncDescriptor();
 			$ismDescriptor->setFileSyncLocalPath($fileSync->getFullPath());							
 			$ismDescriptor->setFileSyncRemoteUrl($fileSync->getExternalUrl($flavorAsset->getEntryId()));
 			$ismDescriptor->setAssetId($key->getObjectId());

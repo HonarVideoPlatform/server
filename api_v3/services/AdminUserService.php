@@ -61,7 +61,7 @@ class AdminUserService extends KalturaBaseUserService
 	 * @param string $newEmail Optional, provide only when you want to update the email
 	 * @param string $newPassword
 	 * @return KalturaAdminUser
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws KalturaErrors::INVALID_FIELD_VALUE
 	 * @throws KalturaErrors::ADMIN_KUSER_WRONG_OLD_PASSWORD
@@ -98,7 +98,7 @@ class AdminUserService extends KalturaBaseUserService
 	 * 
 	 * @action resetPassword
 	 * @param string $email
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws KalturaErrors::ADMIN_KUSER_NOT_FOUND
 	 * @throws KalturaErrors::PASSWORD_STRUCTURE_INVALID
@@ -126,7 +126,7 @@ class AdminUserService extends KalturaBaseUserService
 	 * @param string $password
 	 * @param int $partnerId
 	 * @return string
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws KalturaErrors::ADMIN_KUSER_NOT_FOUND
 	 * @thrown KalturaErrors::INVALID_PARTNER_ID
@@ -140,12 +140,12 @@ class AdminUserService extends KalturaBaseUserService
 	{
 		try
 		{
-			$ks = parent::loginImpl(null, $email, $password, $partnerId);
-			$tempKs = kSessionUtils::crackKs($ks);
-			if (!$tempKs->isAdmin()) {
+			$hs = parent::loginImpl(null, $email, $password, $partnerId);
+			$tempHs = hSessionUtils::crackHs($hs);
+			if (!$tempHs->isAdmin()) {
 				throw new KalturaAPIException(KalturaErrors::ADMIN_KUSER_NOT_FOUND); 
 			}
-			return $ks;
+			return $hs;
 		}
 		catch (KalturaAPIException $e) // keep backward compatibility with changed error codes
 		{
@@ -161,7 +161,7 @@ class AdminUserService extends KalturaBaseUserService
 	 * @action setInitialPassword
 	 * @param string $hashKey
 	 * @param string $newPassword new password to set
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws KalturaErrors::ADMIN_KUSER_NOT_FOUND
 	 * @throws KalturaErrors::PASSWORD_STRUCTURE_INVALID

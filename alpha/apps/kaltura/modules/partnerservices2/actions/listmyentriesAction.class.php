@@ -45,8 +45,8 @@ class listmyentriesAction extends listentriesAction
 		return self::REQUIED_TICKET_REGULAR;
 	}
 		
-	// for this specific kshow list - the ticket is regular and the filter is for all
-	// kshows for the current user only 
+	// for this specific hshow list - the ticket is regular and the filter is for all
+	// hshows for the current user only 
 	protected function setExtraFilters ( entryFilter &$fields_set )
 	{
 		$fields_set->set( "_eq_user_id" , $this->puser_id );

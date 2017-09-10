@@ -5,22 +5,22 @@
  * @package Core
  * @subpackage model.data
  */
-abstract class kStringField extends kStringValue implements IScopeField
+abstract class hStringField extends hStringValue implements IScopeField
 {
 	/**
-	 * @var kScope
+	 * @var hScope
 	 */
 	protected $scope = null;
 	
 	/**
 	 * Calculates the value at realtime
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return string $value
 	 */
-	abstract protected function getFieldValue(kScope $scope = null);
+	abstract protected function getFieldValue(hScope $scope = null);
 	
 	/* (non-PHPdoc)
-	 * @see kStringValue::getValue()
+	 * @see hStringValue::getValue()
 	 */
 	public function getValue() 
 	{
@@ -28,15 +28,15 @@ abstract class kStringField extends kStringValue implements IScopeField
 	}
 	
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 */
-	public function setScope(kScope $scope) 
+	public function setScope(hScope $scope) 
 	{
 		$this->scope = $scope;
 	}
 
 	/* (non-PHPdoc)
-	 * @see kStringValue::shouldDisableCache()
+	 * @see hStringValue::shouldDisableCache()
 	 */
 	public function shouldDisableCache($scope)
 	{

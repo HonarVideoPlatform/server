@@ -29,7 +29,7 @@ $config['session']['adminSecret'] = $registeredPartner->adminSecret;
 write_ini_file($config);
 
 $partnerSession = $client->user->loginByLoginId($registeredPartner->adminEmail, $cmsPassword, $registeredPartner->id, 86400, 'disableentitlement');
-$client->setKs($partnerSession);
+$client->setHs($partnerSession);
 $user = $client->user->getByLoginId($registeredPartner->adminEmail);
 /* @var $user KalturaUser */
 if(!$user || !$user->id)

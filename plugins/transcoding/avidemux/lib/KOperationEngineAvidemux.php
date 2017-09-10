@@ -3,7 +3,7 @@
  * @package plugins.avidemux
  * @subpackage lib
  */
-class KOperationEngineAvidemux  extends KSingleOutputOperationEngine
+class KOperationEngineAvidemux  extends HSingleOutputOperationEngine
 {
 
 	public function __construct($cmd, $outFilePath)

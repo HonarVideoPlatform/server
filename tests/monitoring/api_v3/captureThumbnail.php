@@ -18,8 +18,8 @@ $apiCall = null;
 try
 {
 	$apiCall = 'session.start';
-	$ks = $client->session->start($config['monitor-partner']['adminSecret'], 'monitor-user', KalturaSessionType::ADMIN, $config['monitor-partner']['id']);
-	$client->setKs($ks);
+	$hs = $client->session->start($config['monitor-partner']['adminSecret'], 'monitor-user', KalturaSessionType::ADMIN, $config['monitor-partner']['id']);
+	$client->setHs($hs);
 	
 	$entry = null;
 	/* @var $entry KalturaMediaEntry */

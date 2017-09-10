@@ -22,7 +22,7 @@ class thumbAsset extends exportableAsset
 		$this->setType(assetType::THUMBNAIL);
 	}
 	
-	public function getFinalDownloadUrlPathWithoutKs()
+	public function getFinalDownloadUrlPathWithoutHs()
 	{
 		$finalPath = '/api_v3/index.php/service/thumbAsset/action/serve';
 		$finalPath .= '/thumbAssetId/' . $this->getId();
@@ -52,7 +52,7 @@ class thumbAsset extends exportableAsset
 		return false;
 	}
 	
-	public function getThumbnailUrl(KSecureEntryHelper $securyEntryHelper, $storageId = null, KalturaThumbParams $thumbParams = null)
+	public function getThumbnailUrl(HSecureEntryHelper $securyEntryHelper, $storageId = null, KalturaThumbParams $thumbParams = null)
 	{
 		if ($thumbParams)
 		{

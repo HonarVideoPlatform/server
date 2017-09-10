@@ -3,7 +3,7 @@
  * @package Core
  * @subpackage externalWidgets
  */
-class kseAction extends sfAction
+class hseAction extends sfAction
 {
 	// TODO - this is no longer se only - it should be generalized for advanced editro and simple editor
 	/**
@@ -29,7 +29,7 @@ class kseAction extends sfAction
 		if (!$ui_conf_swf_url)
 			$ui_conf_swf_url = "/swf/simpleeditor.swf";
 			
-		if( kString::beginsWith( $ui_conf_swf_url , "http") )
+		if( hString::beginsWith( $ui_conf_swf_url , "http") )
 		{
 			$swf_url = 	$ui_conf_swf_url; // absolute URL 
 		}
@@ -43,7 +43,7 @@ class kseAction extends sfAction
 		// handle buggy case for backward compatiblity
 		$partner_host = $host;
 		if ($partner_host == "http://www.kaltura.com")
-			$partner_host = 1; // otherwise the kse will build a flawed url with [[IMPORT]]
+			$partner_host = 1; // otherwise the hse will build a flawed url with [[IMPORT]]
 				
 		$params = "contentUrl=".urlencode($swf_url).
 			"&host=" . str_replace("http://", "", str_replace("https://", "", $partner_host)).

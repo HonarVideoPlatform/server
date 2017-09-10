@@ -22,7 +22,7 @@ $con = myDbHelper::getConnection(myDbHelper::DB_HELPER_CONN_PROPEL2);
 //$sphinxCon = DbManager::getSphinxConnection();
 
 $categories = categoryPeer::doSelect($c, $con);
-$sphinx = new kSphinxSearchManager();
+$sphinx = new hSphinxSearchManager();
 while(count($categories))
 {
 	foreach($categories as $category)

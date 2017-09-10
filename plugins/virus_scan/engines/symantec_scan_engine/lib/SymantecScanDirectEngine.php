@@ -118,7 +118,7 @@ Encapsulated: null-body=0
 		
 			KalturaLog::info("Buffer received from scan engine: $response");
 
-			if (!kString::beginsWith($response, 'ICAP/1.0 '))
+			if (!hString::beginsWith($response, 'ICAP/1.0 '))
 			{
 				KalturaLog::err("Response does not start with ICAP/1.0");
 				$scanAttempts++;

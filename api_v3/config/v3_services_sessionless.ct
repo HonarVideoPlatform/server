@@ -24,7 +24,7 @@ session.startwidgetsession			|			|0		|0	|0		|0		|1		|r	|		|	|	|
 
 uiconf.add							|			|2		|1	|0		|0		|1		|rw |		|	|	|app-studio
 uiconf.update						|			|2		|1	|0		|0		|1		|rw |		|	|	|app-studio
-uiconf.get							|			|0		|1	|0		|0		|1		|r 	|		|1	|	|app-studio,kdp,kcw,kse
+uiconf.get							|			|0		|1	|0		|0		|1		|r 	|		|1	|	|app-studio,kdp,kcw,hse
 uiconf.delete						|			|2		|1	|0		|0		|1		|r 	|		|	|	|app-studio
 uiconf.clone						|			|2		|1	|0		|0		|1		|r 	|		|1	|	|app-studio
 uiconf.list							|			|2		|1	|0		|0		|1		|r 	|		|1	|	|app-studio

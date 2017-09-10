@@ -37,7 +37,7 @@ class kMatchMetadataCondition extends kMatchCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::applyDynamicValues()
 	 */
-	protected function applyDynamicValues(kScope $scope)
+	protected function applyDynamicValues(hScope $scope)
 	{
 		parent::applyDynamicValues($scope);
 		
@@ -54,7 +54,7 @@ class kMatchMetadataCondition extends kMatchCondition
 	/* (non-PHPdoc)
 	 * @see kMatchCondition::getFieldValue()
 	 */
-	public function getFieldValue(kScope $scope)
+	public function getFieldValue(hScope $scope)
 	{
 		$profileId = $this->profileId;
 		if(!$profileId)
@@ -76,7 +76,7 @@ class kMatchMetadataCondition extends kMatchCondition
 		}
 		
 		$metadata = null;
-		if($scope instanceof accessControlScope || $scope instanceof kStorageProfileScope)
+		if($scope instanceof accessControlScope || $scope instanceof hStorageProfileScope)
 		{
 			$metadata = MetadataPeer::retrieveByObject($profileId, MetadataObjectType::ENTRY, $scope->getEntryId());
 		}

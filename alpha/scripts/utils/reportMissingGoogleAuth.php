@@ -54,7 +54,7 @@ fputcsv($csv, $fields);
 
 $now = time();
 $threeMonthsAgo = $now - (60 * 60 * 24 * 30 * 3);
-$ks = null;
+$hs = null;
 $distributionProfiles = DistributionProfilePeer::doSelect($criteria);
 while($distributionProfiles){
 	$lastId = 0;
@@ -73,8 +73,8 @@ while($distributionProfiles){
 		}
 		else
 		{
-			kSessionUtils::createKSessionNoValidations($currentPartnerId, null, $ks, 2592000, SessionType::ADMIN);
-			$url .= "?ks=$ks";
+			hSessionUtils::createHSessionNoValidations($currentPartnerId, null, $hs, 2592000, SessionType::ADMIN);
+			$url .= "?hs=$hs";
 		}
 		
 		$lastDistributionDate = 'Never';

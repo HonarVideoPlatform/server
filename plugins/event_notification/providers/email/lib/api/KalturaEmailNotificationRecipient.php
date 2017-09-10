@@ -51,7 +51,7 @@ class KalturaEmailNotificationRecipient extends KalturaObject
 		$emailType = get_class($dbObject->getEmail());
 		switch ($emailType)
 		{
-			case 'kStringValue':
+			case 'hStringValue':
 				$this->email = new KalturaStringValue();
 				break;
 				
@@ -74,7 +74,7 @@ class KalturaEmailNotificationRecipient extends KalturaObject
 		$nameType = get_class($dbObject->getName());
 		switch ($nameType)
 		{
-			case 'kStringValue':
+			case 'hStringValue':
 				$this->name = new KalturaStringValue();
 				break;
 				

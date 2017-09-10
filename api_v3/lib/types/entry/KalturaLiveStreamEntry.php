@@ -158,10 +158,10 @@ class KalturaLiveStreamEntry extends KalturaLiveEntry
 		/**
 		 * @var LiveStreamEntry @dbObject
 		 */
-		$ksObject = kCurrentContext::$ks_object;
+		$hsObject = kCurrentContext::$hs_object;
 		$coEditors = explode(',',$dbObject->getEntitledKusersEdit());
-		if ( !kCurrentContext::$is_admin_session && !(kCurrentContext::getCurrentKsKuserId() == $dbObject->getKuserId())
-				&& !(in_array(kCurrentContext::getCurrentKsKuserId(),$coEditors)) && (!$ksObject || !$ksObject->verifyPrivileges(ks::PRIVILEGE_EDIT, $this->id)) )
+		if ( !kCurrentContext::$is_admin_session && !(kCurrentContext::getCurrentHsKuserId() == $dbObject->getKuserId())
+				&& !(in_array(kCurrentContext::getCurrentHsKuserId(),$coEditors)) && (!$hsObject || !$hsObject->verifyPrivileges(hs::PRIVILEGE_EDIT, $this->id)) )
 		{
 			$this->primaryBroadcastingUrl = null;
 			$this->secondaryBroadcastingUrl = null;

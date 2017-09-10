@@ -20,7 +20,7 @@ class KalturaSiteCondition extends KalturaMatchCondition
 	public function toObject($dbObject = null, $skip = array())
 	{
 		if(!$dbObject)
-			$dbObject = new kSiteCondition();
+			$dbObject = new hSiteCondition();
 			
 		return parent::toObject($dbObject, $skip);
 	}

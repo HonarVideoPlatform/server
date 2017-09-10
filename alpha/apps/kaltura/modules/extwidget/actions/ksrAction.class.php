@@ -1,15 +1,15 @@
 <?php
 /**
- * KSR - Kaltura Screencast Recorder
- * This action is used for integrating the KSR widget into web pages, by returning a JS code that provides everything the integrator needs in order to load the widget
- * the KSR widget is a JAVA applet that allows the user to record the screen, and then it uploads the recording to Kaltura.
- * the JS code which is returned to the page is constructed from a template which is part of a version of the widget (e.g. flash/ksr/v1.0.32/js/*) and it is constructed with values stored in the uiconf XML.
+ * HSR - Kaltura Screencast Recorder
+ * This action is used for integrating the HSR widget into web pages, by returning a JS code that provides everything the integrator needs in order to load the widget
+ * the HSR widget is a JAVA applet that allows the user to record the screen, and then it uploads the recording to Kaltura.
+ * the JS code which is returned to the page is constructed from a template which is part of a version of the widget (e.g. flash/hsr/v1.0.32/js/*) and it is constructed with values stored in the uiconf XML.
  *
  * @package Core
  * @subpackage externalWidgets
  */
 
-class ksrAction extends sfAction 
+class hsrAction extends sfAction
 {
     const SOM_JS_FILENAME = 'som.js';
     const SOM_DETECT_JS_FILENAME = 'som-detect.js';
@@ -59,7 +59,7 @@ class ksrAction extends sfAction
     private $jsResult = '';
 
     /**
-     * Will return a JS library for integrating the KSR (similar to HTML5 in concept)
+     * Will return a JS library for integrating the HSR (similar to HTML5 in concept)
      * uiconfId specifies from which uiconf to fetch different settings that should be replaced in the JS
      */
     public function execute()
@@ -174,9 +174,9 @@ class ksrAction extends sfAction
     {
         switch($what)
         {
-            case 'id':   return kConf::get('ksr_id');
-            case 'site': return kConf::get('ksr_site');
-            case 'key':  return kConf::get('ksr_key');
+            case 'id':   return kConf::get('hsr_id');
+            case 'site': return kConf::get('hsr_site');
+            case 'key':  return kConf::get('hsr_key');
         }
     }
 

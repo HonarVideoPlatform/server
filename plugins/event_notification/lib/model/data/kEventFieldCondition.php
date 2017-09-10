@@ -31,7 +31,7 @@ class kEventFieldCondition extends kCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::internalFulfilled()
 	 */
-	protected function internalFulfilled(kScope $scope)
+	protected function internalFulfilled(hScope $scope)
 	{
 		$this->field->setScope($scope);
 		return $this->field->getValue();

@@ -158,7 +158,7 @@ index kaltura_entry:kaltura_base
 	rt_field	 = categories
 	rt_field	 = flavor_params
 	rt_field	 = source_link
-	rt_field	 = kshow_id
+	rt_field	 = hshow_id
 	rt_field	 = group_id
 	rt_field	 = description
 	rt_field	 = admin_tags

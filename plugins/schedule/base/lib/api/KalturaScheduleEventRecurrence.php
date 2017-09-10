@@ -169,7 +169,7 @@ class KalturaScheduleEventRecurrence extends KalturaObject
 	{
 		if(!$sourceObject)
 		{
-			$sourceObject = new kScheduleEventRecurrence();
+			$sourceObject = new hScheduleEventRecurrence();
 		}
 		
 		return parent::toObject($sourceObject, $propertiesToSkip);

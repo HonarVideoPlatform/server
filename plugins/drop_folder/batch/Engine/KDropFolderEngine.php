@@ -259,8 +259,8 @@ abstract class KDropFolderEngine implements IKalturaLogger
 		foreach ($categoriesArr as $category)
 		{
 			/* @var $category KalturaCategory */
-			$ks = $client->generateSessionV2($partnerInfo->adminSecret, $userId, KalturaSessionType::ADMIN, $partnerInfo->id, 86400, 'enableentitlement,privacycontext:'.$category->privacyContexts);
-			$client->setKs($ks);
+			$hs = $client->generateSessionV2($partnerInfo->adminSecret, $userId, KalturaSessionType::ADMIN, $partnerInfo->id, 86400, 'enableentitlement,privacycontext:'.$category->privacyContexts);
+			$client->setHs($hs);
 			$categoryEntry = new KalturaCategoryEntry();
 			$categoryEntry->categoryId = $category->id;
 			$categoryEntry->entryId = $entryId;

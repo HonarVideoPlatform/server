@@ -29,17 +29,17 @@ class supportAction extends kalturaAction
         }
 
         /** check parameters and verify user is logged-in **/
-        $this->ks = $this->getP ( "kmcks" );
-        if(!$this->ks)
+        $this->hs = $this->getP ( "kmchs" );
+        if(!$this->hs)
         {
-            // if kmcks from cookie doesn't exist, try ks from REQUEST
-            $this->ks = $this->getP('ks');
+            // if kmchs from cookie doesn't exist, try hs from REQUEST
+            $this->hs = $this->getP('hs');
         }
-        if (isset($this->ks))
+        if (isset($this->hs))
         {
-            $ksObj = kSessionUtils::crackKs($this->ks);
-            // Set partnerId from KS
-            $this->partner_id = $ksObj->partner_id;
+            $hsObj = hSessionUtils::crackHs($this->hs);
+            // Set partnerId from HS
+            $this->partner_id = $hsObj->partner_id;
         } else if (isset($_POST['partner_id']))
         {
             $this->partner_id = $_POST['partner_id'];

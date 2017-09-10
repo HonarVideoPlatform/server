@@ -220,7 +220,7 @@ class PartnerController extends Zend_Controller_Action
 		$systemPartnerPlugin = Kaltura_Client_SystemPartner_Plugin::get($client);
 		try
 		{
-			$ks = $systemPartnerPlugin->systemPartner->getAdminSession($partnerId, $userId);
+			$hs = $systemPartnerPlugin->systemPartner->getAdminSession($partnerId, $userId);
 		}
 		catch(Exception $e)
 		{
@@ -241,7 +241,7 @@ class PartnerController extends Zend_Controller_Action
 			$url .= '/index.php/kmc/extlogin';
 		}
 		
-		$url .= '?ks='.$ks.'&partner_id='.$partnerId;
+		$url .= '?hs='.$hs.'&partner_id='.$partnerId;
 		$this->getResponse()->setRedirect($url);
 	}
 	
@@ -732,7 +732,7 @@ class PartnerController extends Zend_Controller_Action
 		$systemPartnerPlugin = Kaltura_Client_SystemPartner_Plugin::get($client);
 		try
 		{
-			$ks = $systemPartnerPlugin->systemPartner->getAdminSession($partnerId, $userId);
+			$hs = $systemPartnerPlugin->systemPartner->getAdminSession($partnerId, $userId);
 		}
 		catch(Exception $e)
 		{
@@ -753,7 +753,7 @@ class PartnerController extends Zend_Controller_Action
 		/* @var $identiry Infra_UserIdentity */
 		
 		$formdata = array(
-			'ks' => $ks,
+			'hs' => $hs,
 			'timezone_offset' => $identiry->getTimezoneOffset(),
 		);
 		

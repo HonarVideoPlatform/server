@@ -5,7 +5,7 @@
 class ShortLinkPlugin extends KalturaPlugin implements IKalturaServices, IKalturaEventConsumers
 {
 	const PLUGIN_NAME = 'shortLink';
-	const SHORT_LINK_FLOW_MANAGER_CLASS = 'kShortLinkFlowManager';
+	const SHORT_LINK_FLOW_MANAGER_CLASS = 'hShortLinkFlowManager';
 	
 	public static function getPluginName()
 	{

@@ -281,11 +281,11 @@ $debug .= "property: $not_property = [$value]\n";
 		switch ( $notification_type )
 		{
 			case kNotificationJobData::NOTIFICATION_TYPE_ENTRY_ADD:
-				$param_names = array ( "name" , "tags" , "search_text" , "media_type" , "length_in_msecs" , "permissions", "thumbnail_url" , "kshow_id" , "roughcut_id",  
+				$param_names = array ( "name" , "tags" , "search_text" , "media_type" , "length_in_msecs" , "permissions", "thumbnail_url" , "hshow_id" , "roughcut_id",  
 					"group_id" , "partner_data", "status", "width", "height", "data_url", "download_url", "download_size", "media_date");
 				break;
 			case kNotificationJobData::NOTIFICATION_TYPE_ENTRY_UPDATE:
-				$param_names = array ( "name" , "tags" , "search_text" , "media_type" , "length_in_msecs" , "permissions", "thumbnail_url" , "kshow_id" , 
+				$param_names = array ( "name" , "tags" , "search_text" , "media_type" , "length_in_msecs" , "permissions", "thumbnail_url" , "hshow_id" , 
 					"group_id" , "partner_data", "status", "width", "height", "data_url", "download_url", "download_size", "media_date" , "moderation_status" );
 				break;
 			case kNotificationJobData::NOTIFICATION_TYPE_ENTRY_UPDATE_PERMISSIONS:
@@ -298,7 +298,7 @@ $debug .= "property: $not_property = [$value]\n";
 				$param_names = null;
 				break;
 			case kNotificationJobData::NOTIFICATION_TYPE_ENTRY_UPDATE_THUMBNAIL:
-				$param_names = array ( "thumbnail_url", "kshow_id" );
+				$param_names = array ( "thumbnail_url", "hshow_id" );
 				break;
 			case kNotificationJobData::NOTIFICATION_TYPE_ENTRY_REPORT:
 				$param_names = array ( "objectId", "comments" , "reportCode" );
@@ -306,24 +306,24 @@ $debug .= "property: $not_property = [$value]\n";
 			case kNotificationJobData::NOTIFICATION_TYPE_ENTRY_UPDATE_MODERATION:
 				$param_names = array ( "moderation_status", "moderation_count" );
 				break;
-			case kNotificationJobData::NOTIFICATION_TYPE_KSHOW_ADD:
+			case kNotificationJobData::NOTIFICATION_TYPE_HSHOW_ADD:
 				//$param_names = array ( "name" , "description" , "searchText" , "permissions" ,"groupId");
 				$param_names = array ( "name" , "description" , "tags" , "search_text" , "permissions" , "group_id" , "partner_data" , "show_entry_id" );
 				break;
-			case kNotificationJobData::NOTIFICATION_TYPE_KSHOW_DELETE:
+			case kNotificationJobData::NOTIFICATION_TYPE_HSHOW_DELETE:
 				$param_names = null;
 				break;
-			case kNotificationJobData::NOTIFICATION_TYPE_KSHOW_UPDATE_INFO:
+			case kNotificationJobData::NOTIFICATION_TYPE_HSHOW_UPDATE_INFO:
 				//$param_names = array ( "name" , "description" , "searchText" ,"groupId" );
 				$param_names = array ( "name" , "description" , "tags" , "search_text" , "group_id" , "partner_data"  );
 				break;
-			case kNotificationJobData::NOTIFICATION_TYPE_KSHOW_UPDATE_PERMISSIONS:
+			case kNotificationJobData::NOTIFICATION_TYPE_HSHOW_UPDATE_PERMISSIONS:
 				$param_names = array ( "permissions" );
 				break;
-			case kNotificationJobData::NOTIFICATION_TYPE_KSHOW_RANK:
+			case kNotificationJobData::NOTIFICATION_TYPE_HSHOW_RANK:
 				$param_names = array ( "rank" , "votes" );
 				break;
-			case kNotificationJobData::NOTIFICATION_TYPE_KSHOW_BLOCK:
+			case kNotificationJobData::NOTIFICATION_TYPE_HSHOW_BLOCK:
 				$param_namesmes = null;
 				break;
 			case kNotificationJobData::NOTIFICATION_TYPE_USER_BANNED:
@@ -364,13 +364,13 @@ $debug .= "property: $not_property = [$value]\n";
 		}
 		
 		try{
-			$ksObj = kSessionUtils::crackKs(kCurrentContext::$ks);
-			if($ksObj)
-				$params['ks_data'] = $ksObj->additional_data;
+			$hsObj = hSessionUtils::crackHs(kCurrentContext::$hs);
+			if($hsObj)
+				$params['hs_data'] = $hsObj->additional_data;
 		}
 		catch(Exception $ex)
 		{
-			KalturaLog::log('could not crack KS ['.kCurrentContext::$ks.'] for adding to notification param');
+			KalturaLog::log('could not crack HS ['.kCurrentContext::$hs.'] for adding to notification param');
 		}
 		
 		return serialize( $params );
@@ -403,8 +403,8 @@ $debug .= "property: $not_property = [$value]\n";
 		
 		if ( kNotificationJobData::isEntryNotification($type )) $params["entry_id"] = $job->getData()->getObjectId();
 			//$params["entryId"] = $not->getObjectId();
-		if ( kNotificationJobData::isKshowNotification($type )) $params["kshow_id"] = $job->getData()->getObjectId();
-//			$params["kshowId"] = $not->getObjectId();
+		if ( kNotificationJobData::isHshowNotification($type )) $params["hshow_id"] = $job->getData()->getObjectId();
+//			$params["hshowId"] = $not->getObjectId();
 
 		$object_data_params = myNotificationMgr::getDataAsArray( $job->getData()->getData() ) ;
 		
@@ -433,7 +433,7 @@ $debug .= "property: $not_property = [$value]\n";
 	
 	private static function signature ( $signature_key , $params )
 	{
-		ksort($params);
+		hsort($params);
 		$str = "";
 		foreach ($params as $k => $v)
 		{

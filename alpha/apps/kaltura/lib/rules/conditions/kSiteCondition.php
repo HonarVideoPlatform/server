@@ -3,7 +3,7 @@
  * @package Core
  * @subpackage model.data
  */
-class kSiteCondition extends kMatchCondition
+class hSiteCondition extends kMatchCondition
 {
 	/**
 	 * Indicates that global whitelist domains already appended 
@@ -23,7 +23,7 @@ class kSiteCondition extends kMatchCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::getFieldValue()
 	 */
-	public function getFieldValue(kScope $scope)
+	public function getFieldValue(hScope $scope)
 	{
 		$referrer = $scope->getReferrer();
 		return requestUtils::parseUrlHost($referrer);
@@ -32,14 +32,14 @@ class kSiteCondition extends kMatchCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::internalFulfilled()
 	 */
-	protected function internalFulfilled(kScope $scope)
+	protected function internalFulfilled(hScope $scope)
 	{
 		$referrer = $scope->getReferrer();
 
 		if ($this->getNot()===true && !$this->globalWhitelistDomainsAppended && strpos($referrer, "kwidget") === false && kConf::hasParam("global_whitelisted_domains"))
 		{
-			$ks = $scope->getKs();
-			if (!$ks || !in_array($ks->partner_id, kConf::get('global_whitelisted_domains_exclude')))
+			$hs = $scope->getHs();
+			if (!$hs || !in_array($hs->partner_id, kConf::get('global_whitelisted_domains_exclude')))
 			{
 				$this->globalWhitelistDomainsAppended = true;
 			
@@ -48,7 +48,7 @@ class kSiteCondition extends kMatchCondition
 					$globalWhitelistedDomains = explode(',', $globalWhitelistedDomains);
 				
 				foreach($globalWhitelistedDomains as $globalWhitelistedDomain)
-					$this->values[] = new kStringValue($globalWhitelistedDomain);
+					$this->values[] = new hStringValue($globalWhitelistedDomain);
 			}
 		}
 

@@ -32,7 +32,7 @@ class ScheduleSphinxPlugin extends KalturaPlugin implements IKalturaCriteriaFact
 	public static function getSphinxSchema()
 	{
 		return array(
-			kSphinxSearchManager::getSphinxIndexName('cue_point') => array (	
+			hSphinxSearchManager::getSphinxIndexName('cue_point') => array (	
 				'path'		=> '/sphinx/kaltura_cue_point_rt',
 				'fields'	=> array (
 					'parent_id' => SphinxFieldType::RT_FIELD,

@@ -31,8 +31,8 @@ try
 {
 	$apiCall = 'session.start';
 	$start = microtime(true);
-	$ks = $client->session->start($config['batch-partner']['adminSecret'], "",  KalturaSessionType::ADMIN, $config['batch-partner']['id']);
-	$client->setKs($ks);
+	$hs = $client->session->start($config['batch-partner']['adminSecret'], "",  KalturaSessionType::ADMIN, $config['batch-partner']['id']);
+	$client->setHs($hs);
 		
 	
 	$apiCall = 'batch.getQueueSize';

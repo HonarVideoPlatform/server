@@ -369,10 +369,10 @@ class DeliveryProfilePeer extends BaseDeliveryProfilePeer {
 	}
 
 	protected static function isSecured($partner, $entry) {
-		$ks = kCurrentContext::$ks_object;
+		$hs = kCurrentContext::$hs_object;
 		$isSecured = false;
 		if(PermissionPeer::isValidForPartner(PermissionName::FEATURE_ENTITLEMENT, $partner->getId()) &&
-				($partner->getDefaultEntitlementEnforcement() || ($ks && $ks->getEnableEntitlement())))
+				($partner->getDefaultEntitlementEnforcement() || ($hs && $hs->getEnableEntitlement())))
 			$isSecured = true;
 		if(!$isSecured)
 			$isSecured = $entry->isSecuredEntry();

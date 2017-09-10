@@ -17,22 +17,22 @@ class getEntryInfoAction extends defKeditorservicesAction
 		return parent::execute();
 	}
 	
-	// here the $kshow will be null (thanks to fetchKshow=false) and entry will 
-	public  function executeImpl ( kshow $kshow, entry &$entry )
+	// here the $hshow will be null (thanks to fetchHshow=false) and entry will 
+	public  function executeImpl ( hshow $hshow, entry &$entry )
 	{
 		$genericWidget = "";
 		$myspaceWidget = "";
 		
-		$kshow_id = $kshow->getId();
+		$hshow_id = $hshow->getId();
 		$entry_id = $entry->getId();
 		
-		if (!$kshow->getPartnerId() && !$this->forceViewPermissions ( $kshow, $kshow_id , false , false ))
+		if (!$hshow->getPartnerId() && !$this->forceViewPermissions ( $hshow, $hshow_id , false , false ))
 			die;
 		
-		$this->kshow_category  = $kshow->getTypeText();
-		$this->kshow_description = $kshow->getDescription();
-		$this->kshow_name = $kshow->getName();
-		$this->kshow_tags = $kshow->getTags();
+		$this->hshow_category  = $hshow->getTypeText();
+		$this->hshow_description = $hshow->getDescription();
+		$this->hshow_name = $hshow->getName();
+		$this->hshow_tags = $hshow->getTags();
 		
 		$kdata = @$_REQUEST["kdata"];
 		if ($kdata == "null")
@@ -40,14 +40,14 @@ class getEntryInfoAction extends defKeditorservicesAction
 			
 		$this->widget_type = @$_REQUEST["widget_type"];
 		
-		list($genericWidget, $myspaceWidget) = myKshowUtils::getEmbedPlayerUrl($kshow_id, $entry_id, false, $kdata); 
+		list($genericWidget, $myspaceWidget) = myHshowUtils::getEmbedPlayerUrl($hshow_id, $entry_id, false, $kdata); 
 		
 		if ($entry_id == 1002)
 			$this->share_url = requestUtils::getHost() .  "/index.php/corp/kalturaPromo";
 		else if ($kdata)
-			$this->share_url = myKshowUtils::getWidgetCmdUrl($kdata, "share");
+			$this->share_url = myHshowUtils::getWidgetCmdUrl($kdata, "share");
 		else
-			$this->share_url = myKshowUtils::getUrl( $kshow_id )."&entry_id=$entry_id";
+			$this->share_url = myHshowUtils::getUrl( $hshow_id )."&entry_id=$entry_id";
 		
 		//list($status, $kmediaType, $kmediaData) = myContentRender::createPlayerMedia($entry); // myContentRender class removed, old code
 		$status = $entry->getStatus();

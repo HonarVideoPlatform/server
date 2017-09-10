@@ -23,7 +23,7 @@ class reporterrorAction extends defPartnerservices2Action
 				"out" => array (
 					),
 				"errors" => array (
-					APIErrors::DUPLICATE_KSHOW_BY_NAME
+					APIErrors::DUPLICATE_HSHOW_BY_NAME
 				)
 			);
 	}

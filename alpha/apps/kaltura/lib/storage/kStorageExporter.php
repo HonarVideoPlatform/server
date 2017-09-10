@@ -3,7 +3,7 @@
  * @package Core
  * @subpackage storage
  */
-class kStorageExporter implements kObjectChangedEventConsumer, kBatchJobStatusEventConsumer, kObjectDeletedEventConsumer, kObjectAddedEventConsumer
+class hStorageExporter implements kObjectChangedEventConsumer, kBatchJobStatusEventConsumer, kObjectDeletedEventConsumer, kObjectAddedEventConsumer
 {
 	/**
 	 * per session cache of kRule->fulfilled result per storage profile and entry id

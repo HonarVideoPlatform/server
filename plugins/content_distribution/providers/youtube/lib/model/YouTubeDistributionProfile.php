@@ -196,7 +196,7 @@ class YouTubeDistributionProfile extends ConfigurableDistributionProfile
 		$values = explode(' ',$value);
 		foreach ($values as $val)
 		{
-			if (!is_null($val) && !kString::isEmailString($val))
+			if (!is_null($val) && !hString::isEmailString($val))
 			{
 				$errorMsg = $this->getUserFriendlyFieldName($fieldName).' value must be an email string [value:'.$val.']';
 			    $validationError = $this->createValidationError($action, DistributionErrorType::INVALID_DATA, $this->getUserFriendlyFieldName($fieldName));

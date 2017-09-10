@@ -1,6 +1,6 @@
 <?php
 
-class kDropFolderImportJobData extends kSshImportJobData
+class kDropFolderImportJobData extends hSshImportJobData
 {
     /**
      * @var int

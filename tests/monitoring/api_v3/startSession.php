@@ -7,11 +7,11 @@ require_once __DIR__  . '/common.php';
 $options = getopt('', array(
 	'service-url:',
 	'debug',
-	'ks-type:',
+	'hs-type:',
 ));
 
 $secretField = 'secret';
-if(isset($options['ks-type']) && $options['ks-type'] == 'admin')
+if(isset($options['hs-type']) && $options['hs-type'] == 'admin')
 	$secretField = 'adminSecret';
 
 $start = microtime(true);
@@ -20,7 +20,7 @@ $apiCall = null;
 try
 {
 	$apiCall = 'session.start';
-	$ks = $client->session->start($config['monitor-partner'][$secretField], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
+	$hs = $client->session->start($config['monitor-partner'][$secretField], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
 	$end = microtime(true);
 	
 	$monitorResult->executionTime = $end - $start;

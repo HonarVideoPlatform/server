@@ -13,10 +13,10 @@ class KExternalErrors
 	const ENTRY_NOT_FOUND = 1;
 	const NOT_SCHEDULED_NOW = 2;
 	const ACCESS_CONTROL_RESTRICTED = 3;
-	const INVALID_KS_SRT = 4;
+	const INVALID_HS_SRT = 4;
 	const FILE_NOT_FOUND = 5;
 	const FLAVOR_NOT_FOUND = 6;
-	const INVALID_KS = 7;
+	const INVALID_HS = 7;
 	const ENTRY_AND_WIDGET_NOT_FOUND = 8;
 	const ENTRY_DELETED_MODERATED = 9;
 	const MISSING_THUMBNAIL_FILESYNC = 10;
@@ -40,7 +40,7 @@ class KExternalErrors
 	const EXPIRED_TOKEN = 28;
 	const PROCESSING_FEED_REQUEST = 29;
 	const SERVICE_ACCESS_CONTROL_RESTRICTED = 30;
-	const KS_EXPIRED = 31;
+	const HS_EXPIRED = 31;
 	const INVALID_PARTNER = 32;
 	const ILLEGAL_UI_CONF = 33;
 	const EXCEEDED_RESTRICTED_IP = 34;
@@ -70,10 +70,10 @@ class KExternalErrors
 		self::ENTRY_NOT_FOUND => "requested entry not found",
 		self::NOT_SCHEDULED_NOW => "entry restricted due to scheduling",
 		self::ACCESS_CONTROL_RESTRICTED => "entry restricted due to access-control",
-		self::INVALID_KS_SRT => "ks is an invalid string",
+		self::INVALID_HS_SRT => "hs is an invalid string",
 		self::FILE_NOT_FOUND => "required file was not found",
 		self::FLAVOR_NOT_FOUND => "requested flavor was not found",
-		self::INVALID_KS => "ks is not valid",
+		self::INVALID_HS => "hs is not valid",
 		self::ENTRY_AND_WIDGET_NOT_FOUND => "no entry and no widget could be loaded",
 		self::ENTRY_DELETED_MODERATED => "requested entry is deleted or rejected",
 		self::MISSING_THUMBNAIL_FILESYNC => "missing thumbnail fileSync for entry",
@@ -97,7 +97,7 @@ class KExternalErrors
 		self::EXPIRED_TOKEN => "the supplied token is expired",
 		self::PROCESSING_FEED_REQUEST => "the supplied feed is already being processed",
 		self::SERVICE_ACCESS_CONTROL_RESTRICTED => "action restricted due to access-control",
-		self::KS_EXPIRED => "The given KS has expired",
+		self::HS_EXPIRED => "The given HS has expired",
 		self::INVALID_PARTNER => "The given partner isn't vaild for the request",
 		self::ILLEGAL_UI_CONF => "The given UI conf is illegal",
 		self::EXCEEDED_RESTRICTED_IP => "ip address is out of the restricted ip range",

@@ -29,21 +29,21 @@ abstract class kCondition
 	/**
 	 * Enable changing the condition attributes according to additional data in the scope
 	 */
-	protected function applyDynamicValues(kScope $scope)
+	protected function applyDynamicValues(hScope $scope)
 	{
 	}
 	
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool
 	 */
-	abstract protected function internalFulfilled(kScope $scope);
+	abstract protected function internalFulfilled(hScope $scope);
 	
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool
 	 */
-	final public function fulfilled(kScope $scope)
+	final public function fulfilled(hScope $scope)
 	{
 		$this->applyDynamicValues($scope);
 		return $this->calcNot($this->internalFulfilled($scope));
@@ -108,7 +108,7 @@ abstract class kCondition
 	}
 
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool
 	 */
 	public function shouldDisableCache($scope)

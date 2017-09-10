@@ -19,7 +19,7 @@ $beta_str = $beta ? "/beta/{$beta}" : "";
 // -----------------------------------------------------------------------------
 var _partner_id, _subp_id, _uid;
 
-function loginF( remMe , partner_id , subp_id ,  uid  ,  ks , screen_name , email  )
+function loginF( remMe , partner_id , subp_id ,  uid  ,  hs , screen_name , email  )
 {
 	var has_cookie = false;
 	if ( partner_id == null )
@@ -27,10 +27,10 @@ function loginF( remMe , partner_id , subp_id ,  uid  ,  ks , screen_name , emai
 		partner_id = getCookie ( "varpid" );
 		subp_id = getCookie ( "varsubpid" );
 		uid = getCookie ( "varuid" );
-		ks = getCookie ( "vplks" );
+		hs = getCookie ( "vplhs" );
 		screen_name = getCookie ("varscreen_name" );
 		// if any of the required params is null - return false and the login page will be displayed
-		if ( empty(partner_id) || empty(subp_id) || empty(uid) || empty(ks) ) return false;
+		if ( empty(partner_id) || empty(subp_id) || empty(uid) || empty(hs) ) return false;
 		
 		has_cookie = true;
 		
@@ -38,7 +38,7 @@ function loginF( remMe , partner_id , subp_id ,  uid  ,  ks , screen_name , emai
 	else
 	{
 	}	
-//	alert( partner_id + " | " +  subp_id + " | " +   uid + " | " + ks + " | " + remMe);
+//	alert( partner_id + " | " +  subp_id + " | " +   uid + " | " + hs + " | " + remMe);
 	_partner_id = partner_id;
 	_subp_id = subp_id;
 	_uid = uid;
@@ -51,11 +51,11 @@ function loginF( remMe , partner_id , subp_id ,  uid  ,  ks , screen_name , emai
 		setCookie ( "varpid" , partner_id , exp, path);
 		setCookie ( "varsubpid" , subp_id , exp, path);
 		setCookie ( "varuid" , uid , exp, path);
-		setCookie ( "vplks" , ks , exp, path);
+		setCookie ( "vplhs" , hs , exp, path);
 		setCookie ( "varscreen_name" , screen_name , exp, path);
 	}
 	url = "<?php echo $service_url ?>/index.php/kmc/varpartnerlist<?php echo $beta_str ?>?partner_id=" + partner_id + "&subp_id=" + subp_id + "&uid=" + 
-		uid + "&ks=" + ks + "&screen_name=" + screen_name + "&email=" + email  ;
+		uid + "&hs=" + hs + "&screen_name=" + screen_name + "&email=" + email  ;
 //	alert ( url );
 	window.location = url;
 
@@ -94,7 +94,7 @@ body { background-image:none !important; }
 	<input type="hidden" name="_partner_id">
 	<input type="hidden" name="_subp_id">
 	<input type="hidden" name="_uid">
-	<input type="hidden" name="_ks">
+	<input type="hidden" name="_hs">
 </form>	
 
 <div class="login">

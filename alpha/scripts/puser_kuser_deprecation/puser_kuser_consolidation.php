@@ -225,7 +225,7 @@ class puserKuserConsolidator
 					$kusers[] = $kuser; //add to the valid kusers
 					$this->printToLog("Kuser [$kuserId] was added to the users found in the puser kuser table");
 				}
-				else // the puser on the ksuer are different from the kuser in the puser table
+				else // the puser on the hsuer are different from the kuser in the puser table
 				{
 					$kuserTablePuserId = $kuser->getPuserId();
 					$puserTableKuserId = $puserKuser->getKuserId();
@@ -313,7 +313,7 @@ class puserKuserConsolidator
 				if( $puserId == $entryPuserId && $partnerId == $entryPartnerId ) //if partner and puser are the same (as they should)
 				{
 					$entry->setKuserId($newKuserId);
-					$this->printToLog("Changed EntryId [$entryId] from Kuser [$kuserId] to new Ksuer [$newKuserId for puser [$puserId], partner [$partnerId]\n");
+					$this->printToLog("Changed EntryId [$entryId] from Kuser [$kuserId] to new Hsuer [$newKuserId for puser [$puserId], partner [$partnerId]\n");
 					if(!$this->isDryRun)
 					{
 						$entry->save();
@@ -322,7 +322,7 @@ class puserKuserConsolidator
 				else
 				{
 					$this->printToLog("EntryId [$entryId], entryPuser [$entryPuserId], entryPartner [$entryPartnerId] NOT CHANGED ".
-					 				  "from Kuser [$kuserId] to new Ksuer [$newKuserId for puser [$puserId], partner [$partnerId]\n");
+					 				  "from Kuser [$kuserId] to new Hsuer [$newKuserId for puser [$puserId], partner [$partnerId]\n");
 				}
 			}
 		}

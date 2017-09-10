@@ -48,9 +48,9 @@ abstract class kManifestRenderer
 	public $defaultDeliveryCode = '';
 	
 	/**
-	 * @var kSessionBase
+	 * @var hSessionBase
 	 */
-	protected $ksObject = null;
+	protected $hsObject = null;
 	
 	/**
 	 * Array of classes required for load into the renderer scope in order to expand the manifest
@@ -111,14 +111,14 @@ abstract class kManifestRenderer
 	abstract protected function replacePlayServerSessionId();
 
 	/**
-	 * @param kSessionBase $ksObject
+	 * @param hSessionBase $hsObject
 	 */
-	public function setKsObject($ksObject)
+	public function setHsObject($hsObject)
 	{
-		$this->ksObject = $ksObject;
+		$this->hsObject = $hsObject;
 		if ($this->tokenizer)
 		{
-			$this->tokenizer->setKsObject($ksObject);
+			$this->tokenizer->setHsObject($hsObject);
 		}
 	}
 	
@@ -155,7 +155,7 @@ abstract class kManifestRenderer
 
 		$params = infraRequestUtils::getRequestParams();
 		$mapping = array(
-			'ks' => 'ks',
+			'hs' => 'hs',
 			'format' => 'deliveryType',
 			'uiConfId' => 'uiConfId',
 			'playSessionId' => 'sessionId',
@@ -714,7 +714,7 @@ class kF4Mv2ManifestRenderer extends kMultiFlavorManifestRenderer
 
 }
 	
-class kSilverLightManifestRenderer extends kSingleUrlManifestRenderer
+class hSilverLightManifestRenderer extends kSingleUrlManifestRenderer
 {
 	/**
 	 * @var string
@@ -750,7 +750,7 @@ class kSilverLightManifestRenderer extends kSingleUrlManifestRenderer
 	}
 }
 
-class kSmilManifestRenderer extends kMultiFlavorManifestRenderer
+class hSmilManifestRenderer extends kMultiFlavorManifestRenderer
 {
 	/**
 	 * @return array<string>

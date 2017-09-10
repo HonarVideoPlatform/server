@@ -16,7 +16,7 @@ class kEvalBooleanField extends kBooleanField
 	/* (non-PHPdoc)
 	 * @see kBooleanField::getFieldValue()
 	 */
-	protected function getFieldValue(kScope $scope = null) 
+	protected function getFieldValue(hScope $scope = null) 
 	{
 		if(!$scope)
 			return null;

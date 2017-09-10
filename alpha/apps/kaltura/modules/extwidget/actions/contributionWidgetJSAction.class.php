@@ -15,21 +15,21 @@ class contributionWidgetJSAction extends kalturaAction
 	{
 		$this->getResponse()->setHttpHeader("Content-Type", "application/x-javascript");
 		
-		$kshow_id = $this->getRequestParameter('kshow_id', 0);
+		$hshow_id = $this->getRequestParameter('hshow_id', 0);
 		$uid = kuser::ANONYMOUS_PUSER_ID;
-		$kshow = kshowPeer::retrieveByPK($kshow_id);
+		$hshow = hshowPeer::retrieveByPK($hshow_id);
 	
-		if (!$kshow)
+		if (!$hshow)
 			return sfView::ERROR;
 		
-		// kshow_id might be a string (something like "15483str") but it will be returned using retriveByPK anyways
+		// hshow_id might be a string (something like "15483str") but it will be returned using retriveByPK anyways
 		// lets make sure we pass just the id to the contribution wizard
-		$kshow_id = $kshow->getId();
+		$hshow_id = $hshow->getId();
 		
-		$partner_id = $kshow->getPartnerId();
+		$partner_id = $hshow->getPartnerId();
 		
 		$partner = PartnerPeer::retrieveByPK($partner_id);
-		$subp_id = $kshow->getSubpId();
+		$subp_id = $hshow->getSubpId();
 		$partner_secret = $partner->getSecret();
 		$partner_name = $partner->getPartnerName();
 				
@@ -46,9 +46,9 @@ class contributionWidgetJSAction extends kalturaAction
 		
 		$result = $kaltura_services->internalExecute() ;
 		
-		$this->ks = @$result["result"]["ks"];
+		$this->hs = @$result["result"]["hs"];
 		$this->widget_host = requestUtils::getHost();
-		$this->kshow_id = $kshow_id;
+		$this->hshow_id = $hshow_id;
 		$this->uid = $uid;
 		$this->partner_id = $partner_id;
 		$this->subp_id = $subp_id;

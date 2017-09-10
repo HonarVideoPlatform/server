@@ -7,9 +7,9 @@
 abstract class KalturaBaseService 
 {
 	/**
-	 * @var ks
+	 * @var hs
 	 */
-	private $ks = null;
+	private $hs = null;
 	
 	/**
 	 * @var Partner
@@ -72,7 +72,7 @@ abstract class KalturaBaseService
 	}
 	
 	/**
-	 * Should return 'false' if no partner is required for that action, to make it usable with no KS or partner_id variable.
+	 * Should return 'false' if no partner is required for that action, to make it usable with no HS or partner_id variable.
 	 * Return 'true' otherwise (most actions).
 	 * @param string $actionName
 	 */
@@ -114,12 +114,12 @@ abstract class KalturaBaseService
 		// impersonated partner = partner parameter from the request
 		$this->impersonatedPartnerId = kCurrentContext::$partner_id;
 		
-		$this->ks = kCurrentContext::$ks_object ? kCurrentContext::$ks_object : null;
+		$this->hs = kCurrentContext::$hs_object ? kCurrentContext::$hs_object : null;
 		
-		// operating partner = partner from the request or the ks partner
+		// operating partner = partner from the request or the hs partner
 		$partnerId = kCurrentContext::getCurrentPartnerId();
 		
-		// if there is no session, assume it's partner 0 using actions that doesn't require ks
+		// if there is no session, assume it's partner 0 using actions that doesn't require hs
 		if(is_null($partnerId))
 			$partnerId = 0;
 		
@@ -132,7 +132,7 @@ abstract class KalturaBaseService
 		// action not permitted at all, not even kaltura network
 		if (!$actionPermitted)
 		{			
-			$e = new KalturaAPIException ( APIErrors::SERVICE_FORBIDDEN, $this->serviceId.'->'.$this->actionName); //TODO: should sometimes thorow MISSING_KS instead
+			$e = new KalturaAPIException ( APIErrors::SERVICE_FORBIDDEN, $this->serviceId.'->'.$this->actionName); //TODO: should sometimes thorow MISSING_HS instead
 			header("X-Kaltura:error-".$e->getCode());
 			header("X-Kaltura-App: exiting on error ".$e->getCode()." - ".$e->getMessage());
 			throw $e;		
@@ -167,18 +167,18 @@ abstract class KalturaBaseService
 /* >--------------------- Security and config settings ----------------------- */
 
 	/**
-	 * Check if current action is permitted for current context (ks/partner/user)
+	 * Check if current action is permitted for current context (hs/partner/user)
 	 * @param bool $allowPrivatePartnerData true if access to private partner data is allowed, false otherwise (kaltura network)
-	 * @throws KalturaErrors::MISSING_KS
+	 * @throws KalturaErrors::MISSING_HS
 	 */
 	protected function isPermitted(&$allowPrivatePartnerData)
 	{		
-		// if no partner defined but required -> error MISSING_KS
+		// if no partner defined but required -> error MISSING_HS
 		if ($this->partnerRequired($this->actionName) && 
 			$this->partnerId != Partner::BATCH_PARTNER_ID && 
 			!$this->getPartner())
 		{
-			throw new KalturaAPIException(KalturaErrors::MISSING_KS);
+			throw new KalturaAPIException(KalturaErrors::MISSING_HS);
 		}
 		
 		// check if actions is permitted for current context
@@ -192,7 +192,7 @@ abstract class KalturaBaseService
 		KalturaLog::err("Action is not permitted");
 		
 		// action not permitted for current user - check if kaltura network is allowed
-		if (!kCurrentContext::$ks && $this->kalturaNetworkAllowed($this->actionName))
+		if (!kCurrentContext::$hs && $this->kalturaNetworkAllowed($this->actionName))
 		{
 			// if the service action support kaltura network - continue without private data
 			$allowPrivatePartnerData = false; // DO NOT allow private partner data
@@ -241,11 +241,11 @@ abstract class KalturaBaseService
 	
 	/**
 	 * 
-	 * @return ks
+	 * @return hs
 	 */
-	public function getKs()
+	public function getHs()
 	{
-		return $this->ks;
+		return $this->hs;
 	}
 
 	public function getPartnerId()
@@ -273,9 +273,9 @@ abstract class KalturaBaseService
 	{
 		if (!$this->kuser)
 		{
-			// if no ks, puser id will be null
-			if ($this->ks)
-				$puserId = $this->ks->user;
+			// if no hs, puser id will be null
+			if ($this->hs)
+				$puserId = $this->hs->user;
 			else
 				$puserId = null;
 				
@@ -290,11 +290,11 @@ abstract class KalturaBaseService
 		return $this->kuser;
 	}
 	
-	protected function getKsUniqueString()
+	protected function getHsUniqueString()
 	{
-		if ($this->ks)
+		if ($this->hs)
 		{
-			return $this->ks->getUniqueString();
+			return $this->hs->getUniqueString();
 		}
 		else
 		{
@@ -312,9 +312,9 @@ abstract class KalturaBaseService
 	protected function dumpFile($filePath, $mimeType)
 	{
 		$maxAge = null;
-		if ($this->ks)
+		if ($this->hs)
 		{
-			$maxAge = min(max($this->ks->valid_until - time(), 1), 8640000);
+			$maxAge = min(max($this->hs->valid_until - time(), 1), 8640000);
 		}
 
 		return kFileUtils::getDumpFileRenderer($filePath, $mimeType, $maxAge);
@@ -368,8 +368,8 @@ abstract class KalturaBaseService
 	protected function validateApiAccessControl($partnerId = null)
 	{
 		// ignore for system partners
-		// for cases where an api action has a 'partnerId' parameter which will causes loading that partner instead of the ks partner
-		if ($this->getKs() && $this->getKs()->partner_id < 0)
+		// for cases where an api action has a 'partnerId' parameter which will causes loading that partner instead of the hs partner
+		if ($this->getHs() && $this->getHs()->partner_id < 0)
 			return;
 		
 		if (is_null($partnerId))

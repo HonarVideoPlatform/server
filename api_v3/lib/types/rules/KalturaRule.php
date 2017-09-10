@@ -62,7 +62,7 @@ class KalturaRule extends KalturaObject
 	public $stopProcessing;
 	
 	/**
-	 * Indicates if we should force ks validation for admin ks users as well
+	 * Indicates if we should force hs validation for admin hs users as well
 	 *
 	 * @var KalturaNullableBoolean
 	 */

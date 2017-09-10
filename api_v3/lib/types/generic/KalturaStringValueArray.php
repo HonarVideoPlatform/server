@@ -8,7 +8,7 @@
 class KalturaStringValueArray extends KalturaTypedArray
 {
 	/**
-	 * @param array<string|kStringValue> $strings
+	 * @param array<string|hStringValue> $strings
 	 * @return KalturaStringValueArray
 	 */
 	public static function fromDbArray(array $strings = null, KalturaDetachedResponseProfile $responseProfile = null)

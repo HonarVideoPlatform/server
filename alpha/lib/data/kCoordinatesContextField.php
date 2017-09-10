@@ -5,7 +5,7 @@
  * @package Core
  * @subpackage model.data
  */
-class kCoordinatesContextField extends kStringField
+class kCoordinatesContextField extends hStringField
 {
 	/**
 	 * The ip geo coder engine to be used
@@ -17,12 +17,12 @@ class kCoordinatesContextField extends kStringField
 	/* (non-PHPdoc)
 	 * @see kIntegerField::getFieldValue()
 	 */
-	protected function getFieldValue(kScope $scope = null)
+	protected function getFieldValue(hScope $scope = null)
 	{
 		kApiCache::addExtraField(kApiCache::ECF_COORDINATES);
 
 		if(!$scope)
-			$scope = new kScope();
+			$scope = new hScope();
 			
 		$ip = $scope->getIp();
 		$ipGeo = kGeoCoderManager::getGeoCoder($this->getGeoCoderType());
@@ -47,7 +47,7 @@ class kCoordinatesContextField extends kStringField
 	}
 
 	/* (non-PHPdoc)
-	 * @see kStringValue::shouldDisableCache()
+	 * @see hStringValue::shouldDisableCache()
 	 */
 	public function shouldDisableCache($scope)
 	{

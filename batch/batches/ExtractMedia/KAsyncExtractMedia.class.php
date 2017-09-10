@@ -155,7 +155,7 @@ class KAsyncExtractMedia extends KJobHandlerWorker
 	{
 		try
 		{
-			$kalturaId3TagParser = new KSyncPointsMediaInfoParser($filePath);
+			$kalturaId3TagParser = new HSyncPointsMediaInfoParser($filePath);
 			$syncPointArray = $kalturaId3TagParser->getStreamSyncPointData();
 			
 			$outputFileName = pathinfo($filePath, PATHINFO_FILENAME) . ".data";

@@ -362,14 +362,14 @@ class LiveStreamService extends KalturaLiveEntryService
 	 * @param string $id ID of the live stream
 	 * @param KalturaPlaybackProtocol $protocol protocol of the stream to test.
 	 * @return bool
-	 * @ksOptional
+	 * @hsOptional
 	 * 
 	 * @throws KalturaErrors::LIVE_STREAM_STATUS_CANNOT_BE_DETERMINED
 	 * @throws KalturaErrors::INVALID_ENTRY_ID
 	 */
 	public function isLiveAction ($id, $protocol)
 	{
-		if (!kCurrentContext::$ks)
+		if (!kCurrentContext::$hs)
 		{
 			kEntitlementUtils::initEntitlementEnforcement(null, false);
 			$liveStreamEntry = kCurrentContext::initPartnerByEntryId($id);

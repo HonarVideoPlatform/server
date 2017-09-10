@@ -17,7 +17,7 @@
 		</script>
 	<?php endif; ?>
 <?php elseif ($subAction == facebookoauth2Action::SUB_ACTION_REDIRECT_SCREEN): ?>
-	<?php if ($ksError): ?>
+	<?php if ($hsError): ?>
 		Invalid parameter(s)
 	<?php elseif ($partnerError): ?>
 		Using wrong partner for login

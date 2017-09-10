@@ -14,7 +14,7 @@ class rawAction extends sfAction
 		
 		$entry_id = $this->getRequestParameter( "entry_id" );
 		$type = $this->getRequestParameter( "type" );
-		$ks = $this->getRequestParameter( "ks" );
+		$hs = $this->getRequestParameter( "hs" );
 		$file_sync = null;
 		$ret_file_name = "name";
 		$referrer = $this->getRequestParameter("referrer");
@@ -30,14 +30,14 @@ class rawAction extends sfAction
 	
 		$entry = null;
 		
-		if($ks)
+		if($hs)
 		{
 			try {
-				kCurrentContext::initKsPartnerUser($ks);
+				kCurrentContext::initHsPartnerUser($hs);
 			}
 			catch (Exception $ex)
 			{
-				KExternalErrors::dieError(KExternalErrors::INVALID_KS);
+				KExternalErrors::dieError(KExternalErrors::INVALID_HS);
 			}
 		}
 		else
@@ -66,7 +66,7 @@ class rawAction extends sfAction
 		
 		myPartnerUtils::blockInactivePartner($entry->getPartnerId());
 		
-		$securyEntryHelper = new KSecureEntryHelper($entry, $ks, $referrer, ContextType::DOWNLOAD);
+		$securyEntryHelper = new HSecureEntryHelper($entry, $hs, $referrer, ContextType::DOWNLOAD);
 		$securyEntryHelper->validateForDownload();
 
 		// relocate = did we use the redirect and added the extension to the name
@@ -92,7 +92,7 @@ class rawAction extends sfAction
 					$file_ext = pathinfo ( $relocate , PATHINFO_EXTENSION );
 					$name .= ".$file_ext";
 				}
-				$name = kString::removeNewLine($name);
+				$name = hString::removeNewLine($name);
 				if(!$direct_serve)
 				{
 					$entry_data = $entry->getData();
@@ -172,7 +172,7 @@ class rawAction extends sfAction
 					$reloc_ext = pathinfo ( $relocate , PATHINFO_EXTENSION );
 					$name = str_replace(".$reloc_ext", '', $name);
 				}
-				$name = kString::removeNewLine($name. '.' .$ext);
+				$name = hString::removeNewLine($name. '.' .$ext);
 				header("Content-Disposition: attachment; filename=\"$name\"");
 			}
 			kFileUtils::dumpFile($file_sync->getFullPath());
@@ -425,7 +425,7 @@ class rawAction extends sfAction
 		return $file_sync;
 	}
 	
-	private function getAllowedFlavorAssets(KSecureEntryHelper $secureEntryHelper, $entryId, $format = null, $isOriginal = false, $isBestPlay = false)
+	private function getAllowedFlavorAssets(HSecureEntryHelper $secureEntryHelper, $entryId, $format = null, $isOriginal = false, $isBestPlay = false)
 	{
 		$flavorAsset = null;
 		

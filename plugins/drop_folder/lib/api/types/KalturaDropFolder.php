@@ -163,7 +163,7 @@ class KalturaDropFolder extends KalturaObject implements IFilterable
 	/**
 	* @var bool
 	*/
-	public $shouldValidateKS;
+	public $shouldValidateHS;
 	
 	/*
 	 * mapping between the field on this object (on the left) and the setter/getter on the entry object (on the right)  
@@ -195,7 +195,7 @@ class KalturaDropFolder extends KalturaObject implements IFilterable
 		'metadataProfileId',
 		'categoriesMetadataFieldName',
 		'enforceEntitlement',
-		'shouldValidateKS',
+		'shouldValidateHS',
 	 );
 		 
 	public function getMapBetweenObjects()

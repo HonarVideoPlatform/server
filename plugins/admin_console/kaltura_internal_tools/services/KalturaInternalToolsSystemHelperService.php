@@ -11,7 +11,7 @@ class KalturaInternalToolsSystemHelperService extends KalturaBaseService
 {
 
 	/**
-	 * KS from Secure String
+	 * HS from Secure String
 	 * @action fromSecureString
 	 * @param string $str
 	 * @return KalturaInternalToolsSession
@@ -19,12 +19,12 @@ class KalturaInternalToolsSystemHelperService extends KalturaBaseService
 	 */
 	public function fromSecureStringAction($str)
 	{
-		$ks =  ks::fromSecureString ( $str );
+		$hs =  hs::fromSecureString ( $str );
 		
-		$ksFromSecureString = new KalturaInternalToolsSession();
-		$ksFromSecureString->fromObject($ks, $this->getResponseProfile());
+		$hsFromSecureString = new KalturaInternalToolsSession();
+		$hsFromSecureString->fromObject($hs, $this->getResponseProfile());
 		
-		return $ksFromSecureString;
+		return $hsFromSecureString;
 	}
 	
 	/**

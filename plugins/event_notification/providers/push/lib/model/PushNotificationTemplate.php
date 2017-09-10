@@ -103,7 +103,7 @@ class PushNotificationTemplate extends EventNotificationTemplate
 		return $keyValueArray;
 	}
     
-    public function getQueueKey($contentParameters, $partnerId = null, kScope $scope = null, $returnRaw = false)
+    public function getQueueKey($contentParameters, $partnerId = null, hScope $scope = null, $returnRaw = false)
     {
         $templateId = $this->getId();
         if ($scope)
@@ -114,14 +114,14 @@ class PushNotificationTemplate extends EventNotificationTemplate
         {        	
             /* @var $contentParameter kEventNotificationParameter */
             $value = $contentParameter->getValue();
-            if (($value instanceof kStringField) && ($scope) )
+            if (($value instanceof hStringField) && ($scope) )
                 $value->setScope($scope);
         
             $key = $contentParameter->getKey();
             $contentParametersValues[$key] = $value->getValue();
         }
         // sort array according to created keys
-        ksort($contentParametersValues);
+        hsort($contentParametersValues);
         
         $queueContentParams = $partnerId . '_' . implode( '_' , array_values($contentParametersValues));
         $queueKey = registerNotificationPostProcessor::QUEUE_PREFIX . $templateId . "_";
@@ -131,12 +131,12 @@ class PushNotificationTemplate extends EventNotificationTemplate
         	return $queueKey . md5($queueContentParams);
     }
     
-    public function getQueueName($queueNameParams, $partnerId = null, kScope $scope = null)
+    public function getQueueName($queueNameParams, $partnerId = null, hScope $scope = null)
     {
 		return $this->getQueueKey($queueNameParams, $partnerId, $scope);
     }
     
-    protected function getMessage(kScope $scope)
+    protected function getMessage(hScope $scope)
     {
         if ($scope instanceof kEventScope)
         {
@@ -156,7 +156,7 @@ class PushNotificationTemplate extends EventNotificationTemplate
         return call_user_func(kCurrentContext::$serializeCallback, $object, $objectType, $format, $responseProfile);
     }
     
-    public function dispatch(kScope $scope) 
+    public function dispatch(hScope $scope)
     {
     	KalturaLog::debug("Dispatching event notification with name [{$this->getName()}] systemName [{$this->getSystemName()}]");
         if (!$scope || !($scope instanceof kEventScope))

@@ -176,8 +176,8 @@ $(function() {
 						<option value="KMC User Interface">KMC User Interface</option>
 						<option value="KMS/MediaSpace">KMS/MediaSpace</option>
 						<option value="Live Streaming">Live Streaming</option>
-						<option value="KSR">KSR</option>
-						<option value="KSU">KSU</option>
+						<option value="HSR">HSR</option>
+						<option value="HSU">HSU</option>
 						<option value="Moodle">Moodle</option>
 						<option value="OnPrem - Infrastructure/ Communication/ Network">OnPrem - Infrastructure/ Communication/ Network</option>
 						<option value="Playback">Playback</option>

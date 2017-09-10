@@ -3,7 +3,7 @@
  * @package plugins.webexNbrplayer
  * @subpackage lib
  */
-class KOperationEngineWebexNbrplayer  extends KSingleOutputOperationEngine
+class KOperationEngineWebexNbrplayer  extends HSingleOutputOperationEngine
 {
 
 	/**

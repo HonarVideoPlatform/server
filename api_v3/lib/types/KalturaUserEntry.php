@@ -113,12 +113,12 @@ abstract class KalturaUserEntry extends KalturaObject implements IRelatedFiltera
 		$object_to_fill = parent::toInsertableObject($object_to_fill, $props_to_skip);
 		if (empty($this->userId))
 		{
-			$currentKsKuser = kCurrentContext::getCurrentKsKuserId();
-			$object_to_fill->setKuserId($currentKsKuser);
+			$currentHsKuser = kCurrentContext::getCurrentHsKuserId();
+			$object_to_fill->setKuserId($currentHsKuser);
 		}
 		else
 		{
-			$kuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$ks_partner_id, $this->userId);
+			$kuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$hs_partner_id, $this->userId);
 			if (!$kuser)
 			{
 				throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID, $this->userId);

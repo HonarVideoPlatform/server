@@ -161,7 +161,7 @@ function handleFile($filePath)
 			{
 				$evalString = $matches["evalString"];
 				$evaluator = new kEvalStringField();
-				$evaluator->setScope(new kScope());
+				$evaluator->setScope(new hScope());
 				$evaluator->setCode($evalString);
 				$value = $evaluator->getValue();
 				KalturaLog::info("Evaluated property value: $value");

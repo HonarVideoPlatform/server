@@ -3,7 +3,7 @@
  * @package plugins.ismIndex
  * @subpackage lib
  */
-class KOperationEngineIsmIndex  extends KSingleOutputOperationEngine
+class KOperationEngineIsmIndex  extends HSingleOutputOperationEngine
 {
 
 	public function __construct($cmd, $outFilePath)

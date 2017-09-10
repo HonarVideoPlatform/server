@@ -46,7 +46,7 @@ class HttpNotificationTemplate extends BatchEventNotificationTemplate implements
 	/* (non-PHPdoc)
 	 * @see BatchEventNotificationTemplate::getJobData()
 	 */
-	protected function getJobData(kScope $scope = null)
+	protected function getJobData(hScope $scope = null)
 	{
 		$contentParametersValues = array();
 		
@@ -55,7 +55,7 @@ class HttpNotificationTemplate extends BatchEventNotificationTemplate implements
 		{
 			/* @var $userParameter kEventNotificationParameter */
 			$value = $userParameter->getValue();
-			if($scope && $value instanceof kStringField)
+			if($scope && $value instanceof hStringField)
 				$value->setScope($scope);
 				
 			$key = $userParameter->getKey();
@@ -68,7 +68,7 @@ class HttpNotificationTemplate extends BatchEventNotificationTemplate implements
 		{
 			/* @var $contentParameter kEventNotificationParameter */
 			$value = $contentParameter->getValue();
-			if($scope && $value instanceof kStringField)
+			if($scope && $value instanceof hStringField)
 				$value->setScope($scope);
 				
 			$key = $contentParameter->getKey();

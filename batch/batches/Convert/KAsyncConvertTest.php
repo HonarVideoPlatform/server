@@ -111,7 +111,7 @@ class KAsyncConvertTest extends PHPUnit_Framework_TestCase
 	private function doTest($engineType, $filePath, $flavorParams, $expectedStatus)
 	{
 		$iniFile = "batch_config.ini";
-		$schedulerConfig = new KSchedulerConfig($iniFile);
+		$schedulerConfig = new HSchedulerConfig($iniFile);
 	
 		$taskConfigs = $schedulerConfig->getTaskConfigList();
 		$config = null;

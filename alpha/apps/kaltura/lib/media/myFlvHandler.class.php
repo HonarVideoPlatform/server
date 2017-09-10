@@ -864,7 +864,7 @@ class myFlvHandler
 			$last_pos = $flv_wrapper->pos;
 		}
 
-		ksort($sorted_tags, SORT_NUMERIC);
+		hsort($sorted_tags, SORT_NUMERIC);
 		
 		$fh = fopen ( $new_file , "wb" );
 		

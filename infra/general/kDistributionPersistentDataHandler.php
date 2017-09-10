@@ -13,7 +13,7 @@ class kDistributionPersistentDataHandler implements \Facebook\PersistentData\Per
 	private $accessURL;
 
 	/**
-	 * expecting http://hostname/api_v3/index.php?service=contentdistribution_distributionprofile&&id=@id&distributionProfile%3AobjectType=KalturaFacebookDistributionProfile&ks=bxgsxvsxs
+	 * expecting http://hostname/api_v3/index.php?service=contentdistribution_distributionprofile&&id=@id&distributionProfile%3AobjectType=KalturaFacebookDistributionProfile&hs=bxgsxvsxs
 	 * @param string $accessURL
 	 * @throws Exception
 	 */

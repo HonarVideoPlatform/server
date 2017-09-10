@@ -68,7 +68,7 @@ class KalturaTrackEntry extends KalturaObject
 	/**
 	 * @var string
 	 */
-	public $ks;
+	public $hs;
 
 	/**
 	 * @var string
@@ -104,7 +104,7 @@ class KalturaTrackEntry extends KalturaObject
 		"paramStr1" => "param1Str",
 		"paramStr2" => "param2Str",
 		"paramStr3" => "param3Str",
-		"ks",
+		"hs",
 		"description",
 		"createdAt",
 		"updatedAt",

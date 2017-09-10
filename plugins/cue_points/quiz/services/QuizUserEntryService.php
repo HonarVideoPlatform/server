@@ -41,7 +41,7 @@ class QuizUserEntryService extends KalturaBaseService{
 		list($score, $numOfCorrectAnswers) = $dbUserEntry->calculateScoreAndCorrectAnswers();
 		$dbUserEntry->setScore($score);
 		$dbUserEntry->setNumOfCorrectAnswers($numOfCorrectAnswers);	
-		if ($kQuiz->getShowGradeAfterSubmission()== KalturaNullableBoolean::TRUE_VALUE || $this->getKs()->isAdmin() == true)
+		if ($kQuiz->getShowGradeAfterSubmission()== KalturaNullableBoolean::TRUE_VALUE || $this->getHs()->isAdmin() == true)
 		{
 			$userEntry->score = $score;
 		}

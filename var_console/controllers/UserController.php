@@ -152,7 +152,7 @@ class UserController extends Zend_Controller_Action
 	}
 	
 	/**
-	 * This action can only be accessed from the admin console, and passes a KS with which it is possible to access the VAR console
+	 * This action can only be accessed from the admin console, and passes a HS with which it is possible to access the VAR console
 	 */
 	public function adminLoginAction ()
 	{
@@ -161,7 +161,7 @@ class UserController extends Zend_Controller_Action
 	    
 	    $adapter = new Kaltura_VarAuthAdapter();
 	    $adapter->setTimezoneOffset($this->_getParam('timezone_offset'));
-	    $adapter->setKS($this->_getParam('ks'));
+	    $adapter->setHS($this->_getParam('hs'));
 		//$adapter = new Zend_Auth_Adapter_DbTable($zendDb);
 	    $auth = Infra_AuthHelper::getAuthInstance();
 		$result = $auth->authenticate($adapter);

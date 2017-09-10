@@ -10,7 +10,7 @@ define ('SEARCH_BY_TAG_FUNCTION_NAME', 'find_confs_by_usage_tag');
 $code = array();
 $kcw_for_editors = array();
 $kdp_for_studio = array();
-$exlude_tags_from_code = array('uploadforkae', 'uploadforkse',);
+$exlude_tags_from_code = array('uploadforkae', 'uploadforhse',);
 
 /** init arguments **/
 $arguments = array();
@@ -85,7 +85,7 @@ foreach($sections as $section)
     if($uiconf)
     {
       $uiconf_id = add_ui_conf($kclient, $uiconf);
-      if($configObj->usage == 'uploadforkae' || $configObj->usage == 'uploadforkse')
+      if($configObj->usage == 'uploadforkae' || $configObj->usage == 'uploadforhse')
       {
 	$kcw_for_editors[$configObj->identifier] = $uiconf_id;
       }
@@ -124,7 +124,7 @@ function getClient($partner_id, $admin_secret, $host)
   $kconf = new KalturaConfiguration($partner_id);
   $kconf->serviceUrl = $host;
   $kclient = new KalturaClient($kconf);
-  $kclient->setKs($kclient->session->startLocal($admin_secret, "", 2));
+  $kclient->setHs($kclient->session->startLocal($admin_secret, "", 2));
   
   return $kclient;
 }

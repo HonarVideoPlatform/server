@@ -39,7 +39,7 @@ class KalturaSourceFileSyncDescriptor extends KalturaFileSyncDescriptor
 	public function toObject($dbObject = null, $skip = array())
 	{
 		if(!$dbObject)
-			$dbObject = new kSourceFileSyncDescriptor();
+			$dbObject = new hSourceFileSyncDescriptor();
 			
 		return parent::toObject($dbObject, $skip);
 	}

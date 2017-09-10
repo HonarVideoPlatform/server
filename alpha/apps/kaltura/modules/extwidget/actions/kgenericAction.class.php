@@ -30,7 +30,7 @@ class kgenericAction extends sfAction
 			die();
 		}	
 		
-		if( kString::beginsWith( $ui_conf_swf_url , "http") )
+		if( hString::beginsWith( $ui_conf_swf_url , "http") )
 		{
 			$swf_url = 	$ui_conf_swf_url; // absolute URL 
 		}

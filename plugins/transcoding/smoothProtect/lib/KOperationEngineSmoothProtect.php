@@ -3,7 +3,7 @@
  * @package plugins.smoothProtect
  * @subpackage lib
  */
-class KOperationEngineSmoothProtect  extends KSingleOutputOperationEngine
+class KOperationEngineSmoothProtect  extends HSingleOutputOperationEngine
 {
 
 	public function __construct($cmd, $outFilePath)

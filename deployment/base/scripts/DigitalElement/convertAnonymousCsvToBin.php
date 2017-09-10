@@ -39,7 +39,7 @@ while(!feof($f))
 
 echo implode(",", array_keys($types))."\n";
 echo implode(",", array_keys($descs))."\n";
-ksort($ips);
+hsort($ips);
 foreach($ips as $k => $v)
 {
         echo $v;

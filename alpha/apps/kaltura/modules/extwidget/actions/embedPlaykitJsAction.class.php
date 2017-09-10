@@ -280,7 +280,7 @@ class embedPlaykitJsAction extends sfAction
 	private function setBundleName()
 	{
 		//sort bundle config by key
-		ksort($this->bundleConfig);
+		hsort($this->bundleConfig);
 		
 		//create base64 bundle name from json config
 		$config_str = json_encode($this->bundleConfig);

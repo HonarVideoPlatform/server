@@ -5,23 +5,23 @@
  * @package Core
  * @subpackage model.data
  */
-class kUserAgentContextField extends kStringField
+class kUserAgentContextField extends hStringField
 {
 	/* (non-PHPdoc)
-	 * @see kStringField::getFieldValue()
+	 * @see hStringField::getFieldValue()
 	 */
-	protected function getFieldValue(kScope $scope = null) 
+	protected function getFieldValue(hScope $scope = null) 
 	{
 		kApiCache::addExtraField(kApiCache::ECF_USER_AGENT);
 
 		if(!$scope)
-			$scope = new kScope();
+			$scope = new hScope();
 			
 		return $scope->getUserAgent();
 	}
 
 	/* (non-PHPdoc)
-	 * @see kStringValue::shouldDisableCache()
+	 * @see hStringValue::shouldDisableCache()
 	 */
 	public function shouldDisableCache($scope)
 	{

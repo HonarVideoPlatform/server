@@ -31,7 +31,7 @@ $html5Version = strip_tags($_GET['playerVersion']);
 	<script type="text/javascript" src="swfobject.js"></script>
 	<script>
 		var partnerId = <?php echo $partnerId; ?>;
-		var ks = null;
+		var hs = null;
 		var lastSyncPointTime = null;
 		var lastSyncPointOffset = null;
 		var lastSyncPointTimestamp = null;
@@ -88,7 +88,7 @@ $html5Version = strip_tags($_GET['playerVersion']);
 						return;
 					}
 						
-					ks = data;
+					hs = data;
 				}
 			});
 		}
@@ -146,7 +146,7 @@ $html5Version = strip_tags($_GET['playerVersion']);
 		}
 		
 		function enableAds(){
-			if(!ks){
+			if(!hs){
 				alert('kaltura API is not enabled');
 				return;
 			}
@@ -159,7 +159,7 @@ $html5Version = strip_tags($_GET['playerVersion']);
 				'/api_v3/index.php/service/liveStream/action/createPeriodicSyncPoints', {
 				data: {
 					format: 1,
-					ks: ks,
+					hs: hs,
 					entryId: entryId,
 					interval: interval,
 					duration: duration
@@ -190,7 +190,7 @@ $html5Version = strip_tags($_GET['playerVersion']);
 						'/api_v3/index.php/service/cuePoint_cuePoint/action/add', {
 						data: {
 							format: 1,
-							ks: ks,
+							hs: hs,
 							'cuePoint:objectType': 'KalturaAdCuePoint',
 							'cuePoint:entryId': entryId,
 							'cuePoint:startTime': startTime,
@@ -221,7 +221,7 @@ $html5Version = strip_tags($_GET['playerVersion']);
 					'/api_v3/index.php/service/cuePoint_cuePoint/action/add', {
 					data: {
 						format: 1,
-						ks: ks,
+						hs: hs,
 						'cuePoint:objectType': 'KalturaAdCuePoint',
 						'cuePoint:entryId': entryId,
 						'cuePoint:triggeredAt': triggeredAt,

@@ -38,7 +38,7 @@ class KAsyncDeleteTest extends PHPUnit_Framework_TestCase
 	public function doTest($objectType, KalturaFilter $filter, $expectedStatus)
 	{
 		$iniFile = "batch_config.ini";
-		$schedulerConfig = new KSchedulerConfig($iniFile);
+		$schedulerConfig = new HSchedulerConfig($iniFile);
 	
 		$taskConfigs = $schedulerConfig->getTaskConfigList();
 		$config = null;

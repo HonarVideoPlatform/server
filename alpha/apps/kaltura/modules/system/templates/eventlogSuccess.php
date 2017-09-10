@@ -65,8 +65,8 @@ $header = array (
 	"action",
 	"ps_version",
 	"is_multi_request",
-	"ks",
-	"ks_type",
+	"hs",
+	"hs_type",
 	"partner_id",
 	"uid",
 	"entry_id",
@@ -95,7 +95,7 @@ $header = array (
 	"entryId",
 	"widgetId",
 	"uiconfId",
-	"ks",
+	"hs",
 	"ip",
 	);	
 }

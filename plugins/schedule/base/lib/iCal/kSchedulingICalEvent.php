@@ -1,9 +1,9 @@
 <?php
 
-class kSchedulingICalEvent extends kSchedulingICalComponent
+class hSchedulingICalEvent extends hSchedulingICalComponent
 {
 	/**
-	 * @var kSchedulingICalRule
+	 * @var hSchedulingICalRule
 	 */
 	private $rule = null;
 
@@ -44,11 +44,11 @@ class kSchedulingICalEvent extends kSchedulingICalComponent
 
 	/**
 	 * {@inheritDoc}
-	 * @see kSchedulingICalComponent::getType()
+	 * @see hSchedulingICalComponent::getType()
 	 */
 	protected function getType()
 	{
-		return kSchedulingICal::TYPE_EVENT;
+		return hSchedulingICal::TYPE_EVENT;
 	}
 
 	public function getUid()
@@ -63,25 +63,25 @@ class kSchedulingICalEvent extends kSchedulingICalComponent
 
 	public function setRRule($rrule)
 	{
-		$this->rule = new kSchedulingICalRule($rrule);
+		$this->rule = new hSchedulingICalRule($rrule);
 	}
 
 	/**
-	 * @return kSchedulingICalRule
+	 * @return hSchedulingICalRule
 	 */
 	public function getRule()
 	{
 		return $this->rule;
 	}
 
-	public function setRule(kSchedulingICalRule $rule)
+	public function setRule(hSchedulingICalRule $rule)
 	{
 		$this->rule = $rule;
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * @see kSchedulingICalComponent::writeBody()
+	 * @see hSchedulingICalComponent::writeBody()
 	 */
 	protected function writeBody()
 	{
@@ -95,7 +95,7 @@ class kSchedulingICalEvent extends kSchedulingICalComponent
 
 	/**
 	 * {@inheritDoc}
-	 * @see kSchedulingICalComponent::toObject()
+	 * @see hSchedulingICalComponent::toObject()
 	 */
 	public function toObject()
 	{
@@ -139,7 +139,7 @@ class kSchedulingICalEvent extends kSchedulingICalComponent
 						$timezoneFormat = $matches[1];
 				}
 			}
-			$val = kSchedulingICal::parseDate($this->getField($field), $timezoneFormat);
+			$val = hSchedulingICal::parseDate($this->getField($field), $timezoneFormat);
 			$event->$date = $val;
 		}
 
@@ -179,11 +179,11 @@ class kSchedulingICalEvent extends kSchedulingICalComponent
 
 	/**
 	 * @param KalturaScheduleEvent $event
-	 * @return kSchedulingICalEvent
+	 * @return hSchedulingICalEvent
 	 */
 	public static function fromObject(KalturaScheduleEvent $event)
 	{
-		$object = new kSchedulingICalEvent();
+		$object = new hSchedulingICalEvent();
 		$resourceIds = array();
 
 		if ($event->referenceId)
@@ -205,7 +205,7 @@ class kSchedulingICalEvent extends kSchedulingICalComponent
 		foreach (self::$dateFields as $date => $field)
 		{
 			if ($event->$date)
-				$object->setField($field, kSchedulingICal::formatDate($event->$date));
+				$object->setField($field, hSchedulingICal::formatDate($event->$date));
 		}
 
 		$classificationTypes = array(
@@ -219,11 +219,11 @@ class kSchedulingICalEvent extends kSchedulingICalComponent
 
 		if ($event->recurrence)
 		{
-			$rule = kSchedulingICalRule::fromObject($event->recurrence);
+			$rule = hSchedulingICalRule::fromObject($event->recurrence);
 			$object->setRule($rule);
 		}
 
-		$object->setField('dtstamp', kSchedulingICal::formatDate($event->updatedAt));
+		$object->setField('dtstamp', hSchedulingICal::formatDate($event->updatedAt));
 		$object->setField('x-kaltura-id', $event->id);
 		$object->setField('x-kaltura-type', $event->getScheduleEventType());
 		$object->setField('x-kaltura-partner-id', $event->partnerId);

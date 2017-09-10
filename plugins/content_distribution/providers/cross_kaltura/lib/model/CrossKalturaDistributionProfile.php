@@ -97,7 +97,7 @@ class CrossKalturaDistributionProfile extends ConfigurableDistributionProfile
 	    {
 		    foreach ($additionalXpaths as $xpathStringValue)
 		    {
-		        /* @var $xpathStringValue kStringValue */
+		        /* @var $xpathStringValue hStringValue */
 		        $updateRequired[] = $xpathStringValue->getValue();
 		    }
 	    }

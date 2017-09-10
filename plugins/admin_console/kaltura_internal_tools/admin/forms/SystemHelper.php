@@ -18,7 +18,7 @@ class Form_SystemHelper extends Infra_Form
 				'base64_decode' => 'Base64 Decode',
 				'base64_3des_encode' => 'Base64 3des Encode key',
 				'base64_3des_decode' => 'Base64 3des Decode ',
-				'ks' => 'KS',
+				'hs' => 'HS',
 				'kwid' =>	'kwid (wiki) secret:',
 				'ip' =>  'ip to country'				
 			),

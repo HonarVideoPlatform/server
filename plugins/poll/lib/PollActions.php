@@ -97,31 +97,31 @@ class PollActions
 		$pollId     = $params[PollActions::POLL_ID_ARG];
 		$ansIds     = $params[PollActions::ANSWER_IDS_ARG];
 		$userId     = $params[PollActions::USER_ID_ARG];
-		$ksUserId   = empty($params['___cache___userId']) ?  null : $params['___cache___userId'];
+		$hsUserId   = empty($params['___cache___userId']) ?  null : $params['___cache___userId'];
 		$instance = new PollActions();
-		$ret = $instance->setVote($pollId, $userId, $ksUserId ,$ansIds);
+		$ret = $instance->setVote($pollId, $userId, $hsUserId ,$ansIds);
 		return $ret;
 	}
 
-	private static function getValidUserId($pollType,$userId,$ksUserId)
+	private static function getValidUserId($pollType,$userId,$hsUserId)
 	{
-		$validUserId = $ksUserId;
+		$validUserId = $hsUserId;
 
-		if(PollType::isAnonymous($pollType) and !$ksUserId)
+		if(PollType::isAnonymous($pollType) and !$hsUserId)
 				$validUserId = $userId;
 
 		return $validUserId;
 	}
 
-	public function setVote($pollId, $userId, $ksUserId, $ansIds)
+	public function setVote($pollId, $userId, $hsUserId, $ansIds)
 	{
 		if ($this->isValidPollIdStructure($pollId))
 		{
 			$pollType = $this->getPollType($pollId);
 			//validate User ID
-			$userId = self::getValidUserId($pollType,$userId,$ksUserId);
+			$userId = self::getValidUserId($pollType,$userId,$hsUserId);
 			if (is_null($userId))
-				return "User ID is invalid -  $ksUserId ";
+				return "User ID is invalid -  $hsUserId ";
 
 			//validate answers
 			$answers = explode(self::ANSWER_SEPARATOR_CHAR, $ansIds);
@@ -163,19 +163,19 @@ class PollActions
 
 		$pollId     = $params[PollActions::POLL_ID_ARG];
 		$userId     = $params[PollActions::USER_ID_ARG];
-		$ksUserId   = empty($params['___cache___userId']) ?  null : $params['___cache___userId'];
+		$hsUserId   = empty($params['___cache___userId']) ?  null : $params['___cache___userId'];
 
 		$instance   = new PollActions();
-		return $instance->doGetVote($pollId,$userId,$ksUserId);
+		return $instance->doGetVote($pollId,$userId,$hsUserId);
 	}
 
 	/* get Vote Actions */
-	public function doGetVote($pollId,$userId,$ksUserId)
+	public function doGetVote($pollId,$userId,$hsUserId)
 	{
 		if ($this->isValidPollIdStructure($pollId))
 		{
 			$pollType = $this->getPollType($pollId);
-			$userId = self::getValidUserId($pollType,$userId,$ksUserId);
+			$userId = self::getValidUserId($pollType,$userId,$hsUserId);
 			$vote = $this->pollsCacheHandler->getCacheVote($userId, $pollId);
 			if ($vote)
 				return json_encode($vote);

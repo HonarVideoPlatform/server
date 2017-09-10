@@ -108,7 +108,7 @@ class playManifestAction extends kalturaAction
 	private $deliveryProfile = null;
 	
 	/**
-	 * @var KSecureEntryHelper
+	 * @var HSecureEntryHelper
 	 */
 	private $secureEntryHelper = null;
 	
@@ -163,16 +163,16 @@ class playManifestAction extends kalturaAction
 		}
 		
 		// initalize the context
-		$ksStr = $this->getRequestParameter("ks");
-		if($ksStr && !$urlToken)
+		$hsStr = $this->getRequestParameter("hs");
+		if($hsStr && !$urlToken)
 		{
 			try 
 			{
-				kCurrentContext::initKsPartnerUser($ksStr);
+				kCurrentContext::initHsPartnerUser($hsStr);
 			}
 			catch (Exception $ex)
 			{
-				KExternalErrors::dieError(KExternalErrors::INVALID_KS);	
+				KExternalErrors::dieError(KExternalErrors::INVALID_HS);	
 			}
 		}
 		else
@@ -231,7 +231,7 @@ class playManifestAction extends kalturaAction
 
 		$context = $this->deliveryAttributes->getFormat() == self::DOWNLOAD ? ContextType::DOWNLOAD : ContextType::PLAY;
 		
-		$this->secureEntryHelper = new KSecureEntryHelper($this->entry, $ksStr, $referrer, $context, $keyValueHashes);
+		$this->secureEntryHelper = new HSecureEntryHelper($this->entry, $hsStr, $referrer, $context, $keyValueHashes);
 		
 		if ($this->secureEntryHelper->shouldPreview())
 		{
@@ -814,7 +814,7 @@ class playManifestAction extends kalturaAction
 		list($fileName, $extension) = kAssetUtils::getFileName($this->entry, $flavorAsset);
 
 		$fileName = str_replace("\n", ' ', $fileName);
-		$fileName = kString::keepOnlyValidUrlChars($fileName);
+		$fileName = hString::keepOnlyValidUrlChars($fileName);
 
 		if ($extension)
 			$fileName .= ".$extension";
@@ -938,7 +938,7 @@ class playManifestAction extends kalturaAction
 	
 	private function serveHDNetwork()
 	{
-		kApiCache::setConditionalCacheExpiry(600);		// the result contains a KS so we shouldn't cache it for a long time
+		kApiCache::setConditionalCacheExpiry(600);		// the result contains a HS so we shouldn't cache it for a long time
 
         	if ($this->deliveryAttributes->getMediaProtocol() == 'https' && kConf::hasParam('cdn_api_host_https'))
         	{
@@ -1231,8 +1231,8 @@ class playManifestAction extends kalturaAction
 		{
 			$canCacheAccessControl = true;			// TODO: reconsider this if/when expired ktokens will be used
 		}
-		else if (!$this->secureEntryHelper->shouldDisableCache() && !$this->secureEntryHelper->isKsAdmin() &&
-			($this->secureEntryHelper->isKsWidget() || !$this->secureEntryHelper->hasRules()))
+		else if (!$this->secureEntryHelper->shouldDisableCache() && !$this->secureEntryHelper->isHsAdmin() &&
+			($this->secureEntryHelper->isHsWidget() || !$this->secureEntryHelper->hasRules()))
 		{
 			$canCacheAccessControl = true;
 		}
@@ -1255,7 +1255,7 @@ class playManifestAction extends kalturaAction
 		// Output the response
 		KExternalErrors::terminateDispatch();
 
-		$renderer->setKsObject(kCurrentContext::$ks_object);
+		$renderer->setHsObject(kCurrentContext::$hs_object);
 		$renderer->setPlaybackContext($playbackContext);
 		$renderer->setDeliveryCode($deliveryCode);
 		

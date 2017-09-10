@@ -88,7 +88,7 @@ class AppTokenService extends KalturaBaseService
 		if(!$dbAppToken)
 			throw new KalturaAPIException(KalturaErrors::APP_TOKEN_ID_NOT_FOUND, $id);
 		
-		$invalidSessionKey = ks::buildSessionIdHash($this->getPartnerId(), $id); 
+		$invalidSessionKey = hs::buildSessionIdHash($this->getPartnerId(), $id); 
 		invalidSessionPeer::invalidateByKey($invalidSessionKey, invalidSession::INVALID_SESSION_TYPE_SESSION_ID, $dbAppToken->getExpiry());
 		$dbAppToken->setStatus(AppTokenStatus::DELETED);
 		$dbAppToken->save();
@@ -136,11 +136,11 @@ class AppTokenService extends KalturaBaseService
 	}
 	
 	/**
-	 * Starts a new KS (kaltura Session) based on application authentication token id
+	 * Starts a new HS (kaltura Session) based on application authentication token id
 	 * 
 	 * @action startSession
 	 * @param string $id application token id
-	 * @param string $tokenHash hashed token, built of sha1 on current KS concatenated with the application token
+	 * @param string $tokenHash hashed token, built of sha1 on current HS concatenated with the application token
 	 * @param string $userId session user id, will be ignored if a different user id already defined on the application token
 	 * @param KalturaSessionType $type session type, will be ignored if a different session type already defined on the application token
 	 * @param int $expiry session expiry (in seconds), could be overwritten by shorter expiry of the application token and the session-expiry that defined on the application token 
@@ -188,24 +188,24 @@ class AppTokenService extends KalturaBaseService
 		$secret = $type == SessionType::ADMIN ? $partner->getAdminSecret() : $partner->getSecret();
 		
 		$privilegesArray = array(
-			ks::PRIVILEGE_SESSION_ID => array($id),
-			ks::PRIVILEGE_APP_TOKEN => array($id)
+			hs::PRIVILEGE_SESSION_ID => array($id),
+			hs::PRIVILEGE_APP_TOKEN => array($id)
 		);
 		if($dbAppToken->getSessionPrivileges())
 		{
-			$privilegesArray = array_merge_recursive($privilegesArray, ks::parsePrivileges($dbAppToken->getSessionPrivileges()));
+			$privilegesArray = array_merge_recursive($privilegesArray, hs::parsePrivileges($dbAppToken->getSessionPrivileges()));
 		}
-		$privileges = ks::buildPrivileges($privilegesArray);
+		$privileges = hs::buildPrivileges($privilegesArray);
 		
-		$ks = kSessionUtils::createKSession($partnerId, $secret, $userId, $expiry, $type, $privileges);
-		if(!$ks)
+		$hs = hSessionUtils::createHSession($partnerId, $secret, $userId, $expiry, $type, $privileges);
+		if(!$hs)
 			throw new KalturaAPIException(APIErrors::START_SESSION_ERROR, $partnerId);
 			
 		$sessionInfo = new KalturaSessionInfo();
-		$sessionInfo->ks = $ks->toSecureString();
+		$sessionInfo->hs = $hs->toSecureString();
 		$sessionInfo->partnerId = $partnerId;
 		$sessionInfo->userId = $userId;
-		$sessionInfo->expiry = $ks->valid_until;
+		$sessionInfo->expiry = $hs->valid_until;
 		$sessionInfo->sessionType = $type;
 		$sessionInfo->privileges = $privileges;
 		

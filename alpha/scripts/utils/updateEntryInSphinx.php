@@ -22,7 +22,7 @@ $dbConf = kConf::getDB();
 DbManager::setConfig($dbConf);
 DbManager::initialize();
 
-$sphinx = new kSphinxSearchManager();
+$sphinx = new hSphinxSearchManager();
 
 call_user_func(array($peerName, 'setUseCriteriaFilter'), false);
 $entry = call_user_func(array($peerName, 'retrieveByPK'), $entryId);

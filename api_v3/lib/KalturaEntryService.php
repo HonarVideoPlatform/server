@@ -25,10 +25,10 @@ class KalturaEntryService extends KalturaBaseService
 	
 	public function initService($serviceId, $serviceName, $actionName)
 	{
-		$ks = kCurrentContext::$ks_object ? kCurrentContext::$ks_object : null;
+		$hs = kCurrentContext::$hs_object ? kCurrentContext::$hs_object : null;
 		
 		if (($actionName == 'list' || $actionName == 'count' || $actionName == 'listByReferenceId') &&
-		  (!$ks || (!$ks->isAdmin() && !$ks->verifyPrivileges(ks::PRIVILEGE_LIST, ks::PRIVILEGE_WILDCARD))))
+		  (!$hs || (!$hs->isAdmin() && !$hs->verifyPrivileges(hs::PRIVILEGE_LIST, hs::PRIVILEGE_WILDCARD))))
 		{			
 			KalturaCriterion::enableTag(KalturaCriterion::TAG_WIDGET_SESSION);
 			entryPeer::setUserContentOnly(true);
@@ -1121,8 +1121,8 @@ class KalturaEntryService extends KalturaBaseService
 		$dbEntry = $this->prepareEntryForInsert($newEntry);
 	  	$dbEntry->setSourceId( $srcEntry->getId() );
 	  	
-	 	$kshow = $this->createDummyKShow();
-		$kshowId = $kshow->getId();
+	 	$hshow = $this->createDummyHShow();
+		$hshowId = $hshow->getId();
 		
 		$msg = null;
 		$flavorAsset = kFlowHelper::createOriginalFlavorAsset($this->getPartnerId(), $dbEntry->getId(), $msg);
@@ -1161,10 +1161,10 @@ class KalturaEntryService extends KalturaBaseService
 		if ($version !== -1)
 			$dbEntry->setDesiredVersion($version);
 
-		$ks = $this->getKs();
+		$hs = $this->getHs();
 		$isAdmin = false;
-		if($ks)
-			$isAdmin = $ks->isAdmin();
+		if($hs)
+			$isAdmin = $hs->isAdmin();
 		
 		$entry = KalturaEntryFactory::getInstanceByType($dbEntry->getType(), $isAdmin);
 		
@@ -1252,16 +1252,16 @@ class KalturaEntryService extends KalturaBaseService
 	/*
 	 	The following table shows the behavior of the checkAndSetValidUser functions:
 	 	
-	 	 otheruser - any user that is not the user specified in the ks
+	 	 otheruser - any user that is not the user specified in the hs
 	  
 	 	Input	 	 											Result	 
-		Action			API entry user		DB entry user		Admin KS			User KS
+		Action			API entry user		DB entry user		Admin HS			User HS
 		----------------------------------------------------------------------------------------
-		entry.add		null / ksuser		N/A					ksuser				ksuser
+		entry.add		null / hsuser		N/A					hsuser				hsuser
  						otheruser			N/A					otheruser			exception
-		entry.update	null / ksuser		ksuser				stays ksuser		stays ksuser
- 						otheruser			ksuser				otheruser			exception
- 						ksuser				otheruser			ksuser				exception
+		entry.update	null / hsuser		hsuser				stays hsuser		stays hsuser
+ 						otheruser			hsuser				otheruser			exception
+ 						hsuser				otheruser			hsuser				exception
  						null / otheruser	otheruser			stays otheruser		if has edit privilege on entry => stays otheruser (checked by checkIfUserAllowedToUpdateEntry), 
  																					otherwise exception
 	 */
@@ -1287,13 +1287,13 @@ class KalturaEntryService extends KalturaBaseService
 			return;
 		}
 		
-		if ((!$this->getKs() || !$this->getKs()->isAdmin()))
+		if ((!$this->getHs() || !$this->getHs()->isAdmin()))
 		{
 			// non admin cannot specify a different user on the entry other than himself
-			$ksPuser = $this->getKuser()->getPuserId();
-			if (strtolower($entry->userId) != strtolower($ksPuser))
+			$hsPuser = $this->getKuser()->getPuserId();
+			if (strtolower($entry->userId) != strtolower($hsPuser))
 			{
-				throw new KalturaAPIException(KalturaErrors::INVALID_KS, "", ks::INVALID_TYPE, ks::getErrorStr(ks::INVALID_TYPE));
+				throw new KalturaAPIException(KalturaErrors::INVALID_HS, "", hs::INVALID_TYPE, hs::getErrorStr(hs::INVALID_TYPE));
 			}
 		}
 
@@ -1327,16 +1327,16 @@ class KalturaEntryService extends KalturaBaseService
 			return;
 		}
 
-		$ks = $this->getKs();
-		if (!$ks ||(!$this->getKs()->isAdmin() && !$ks->verifyPrivileges(ks::PRIVILEGE_EDIT_USER, $entry->userId)))
+		$hs = $this->getHs();
+		if (!$hs ||(!$this->getHs()->isAdmin() && !$hs->verifyPrivileges(hs::PRIVILEGE_EDIT_USER, $entry->userId)))
 		{
 			$entryPuserId = $dbEntry->getPuserId();
 			
 			// non admin cannot change the owner of an existing entry
 			if (strtolower($entry->userId) != strtolower($entryPuserId))
 			{
-				KalturaLog::debug('API entry userId ['.$entry->userId.'], DB entry userId ['.$entryPuserId.'] - change required but KS is not admin');
-				throw new KalturaAPIException(KalturaErrors::INVALID_KS, "", ks::INVALID_TYPE, ks::getErrorStr(ks::INVALID_TYPE));
+				KalturaLog::debug('API entry userId ['.$entry->userId.'], DB entry userId ['.$entryPuserId.'] - change required but HS is not admin');
+				throw new KalturaAPIException(KalturaErrors::INVALID_HS, "", hs::INVALID_TYPE, hs::getErrorStr(hs::INVALID_TYPE));
 			}
 		}
 		
@@ -1355,18 +1355,18 @@ class KalturaEntryService extends KalturaBaseService
    	 */
 	protected function validateEntitledUsersUpdate(KalturaBaseEntry $entry, entry $dbEntry)
 	{	
-		if ((!$this->getKs() || !$this->getKs()->isAdmin()))
+		if ((!$this->getHs() || !$this->getHs()->isAdmin()))
 		{
 			//non owner cannot change entitledUsersEdit and entitledUsersPublish
 			if(!$dbEntry->isOwnerActionsAllowed($this->getKuser()->getId()))
 			{
 				if($entry->entitledUsersEdit !== null && strtolower($entry->entitledUsersEdit) != strtolower($dbEntry->getEntitledPusersEdit())){
-					throw new KalturaAPIException(KalturaErrors::INVALID_KS, "", ks::INVALID_TYPE, ks::getErrorStr(ks::INVALID_TYPE));					
+					throw new KalturaAPIException(KalturaErrors::INVALID_HS, "", hs::INVALID_TYPE, hs::getErrorStr(hs::INVALID_TYPE));					
 					
 				}
 				
 				if($entry->entitledUsersPublish !== null && strtolower($entry->entitledUsersPublish) != strtolower($dbEntry->getEntitledPusersPublish())){
-					throw new KalturaAPIException(KalturaErrors::INVALID_KS, "", ks::INVALID_TYPE, ks::getErrorStr(ks::INVALID_TYPE));					
+					throw new KalturaAPIException(KalturaErrors::INVALID_HS, "", hs::INVALID_TYPE, hs::getErrorStr(hs::INVALID_TYPE));					
 					
 				}
 			}
@@ -1432,7 +1432,7 @@ class KalturaEntryService extends KalturaBaseService
 	 */
 	protected function validateAdminSession($property)
 	{
-		if (!$this->getKs() || !$this->getKs()->isAdmin())
+		if (!$this->getHs() || !$this->getHs()->isAdmin())
 			throw new KalturaAPIException(KalturaErrors::PROPERTY_VALIDATION_ADMIN_PROPERTY, $property);	
 	}
 	
@@ -1485,19 +1485,19 @@ class KalturaEntryService extends KalturaBaseService
 	}
 	
 
-	protected function createDummyKShow()
+	protected function createDummyHShow()
 	{
-		$kshow = new kshow();
-		$kshow->setName(kshow::DUMMY_KSHOW_NAME);
-		$kshow->setProducerId($this->getKuser()->getId());
-		$kshow->setPartnerId($this->getPartnerId());
-		$kshow->setSubpId($this->getPartnerId() * 100);
-		$kshow->setViewPermissions(kshow::KSHOW_PERMISSION_EVERYONE);
-		$kshow->setPermissions(kshow::PERMISSIONS_PUBLIC);
-		$kshow->setAllowQuickEdit(true);
-		$kshow->save();
+		$hshow = new hshow();
+		$hshow->setName(hshow::DUMMY_HSHOW_NAME);
+		$hshow->setProducerId($this->getKuser()->getId());
+		$hshow->setPartnerId($this->getPartnerId());
+		$hshow->setSubpId($this->getPartnerId() * 100);
+		$hshow->setViewPermissions(hshow::HSHOW_PERMISSION_EVERYONE);
+		$hshow->setPermissions(hshow::PERMISSIONS_PUBLIC);
+		$hshow->setAllowQuickEdit(true);
+		$hshow->save();
 		
-		return $kshow;
+		return $hshow;
 	}
 	
 	protected function updateEntry($entryId, KalturaBaseEntry $entry, $entryType = null)
@@ -1566,10 +1566,10 @@ class KalturaEntryService extends KalturaBaseService
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
 			
 		// if session is not admin, we should check that the user that is updating the thumbnail is the one created the entry
-		// FIXME: Temporary disabled because update thumbnail feature (in app studio) is working with anonymous ks
-		/*if (!$this->getKs()->isAdmin())
+		// FIXME: Temporary disabled because update thumbnail feature (in app studio) is working with anonymous hs
+		/*if (!$this->getHs()->isAdmin())
 		{
-			if ($dbEntry->getPuserId() !== $this->getKs()->user)
+			if ($dbEntry->getPuserId() !== $this->getHs()->user)
 			{
 				throw new KalturaAPIException(KalturaErrors::PERMISSION_DENIED_TO_UPDATE_ENTRY);
 			}
@@ -1591,10 +1591,10 @@ class KalturaEntryService extends KalturaBaseService
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
 			
 		// if session is not admin, we should check that the user that is updating the thumbnail is the one created the entry
-		// FIXME: Temporary disabled because update thumbnail feature (in app studio) is working with anonymous ks
-		/*if (!$this->getKs()->isAdmin())
+		// FIXME: Temporary disabled because update thumbnail feature (in app studio) is working with anonymous hs
+		/*if (!$this->getHs()->isAdmin())
 		{
-			if ($dbEntry->getPuserId() !== $this->getKs()->user)
+			if ($dbEntry->getPuserId() !== $this->getHs()->user)
 			{
 				throw new KalturaAPIException(KalturaErrors::PERMISSION_DENIED_TO_UPDATE_ENTRY);
 			}
@@ -1620,9 +1620,9 @@ class KalturaEntryService extends KalturaBaseService
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $sourceDbEntry);
 			
 		// if session is not admin, we should check that the user that is updating the thumbnail is the one created the entry
-		if (!$this->getKs() || !$this->getKs()->isAdmin())
+		if (!$this->getHs() || !$this->getHs()->isAdmin())
 		{
-			if (strtolower($dbEntry->getPuserId()) !== strtolower($this->getKs()->user))
+			if (strtolower($dbEntry->getPuserId()) !== strtolower($this->getHs()->user))
 			{
 				throw new KalturaAPIException(KalturaErrors::PERMISSION_DENIED_TO_UPDATE_ENTRY);
 			}
@@ -1647,10 +1647,10 @@ class KalturaEntryService extends KalturaBaseService
 		
 		myNotificationMgr::createNotification(kNotificationJobData::NOTIFICATION_TYPE_ENTRY_UPDATE_THUMBNAIL, $dbEntry, $dbEntry->getPartnerId(), $dbEntry->getPuserId(), null, null, $entryId);
 
-		$ks = $this->getKs();
+		$hs = $this->getHs();
 		$isAdmin = false;
-		if($ks)
-			$isAdmin = $ks->isAdmin();
+		if($hs)
+			$isAdmin = $hs->isAdmin();
 			
 		$mediaEntry = KalturaEntryFactory::getInstanceByType($dbEntry->getType(), $isAdmin);
 		$mediaEntry->fromObject($dbEntry, $this->getResponseProfile());

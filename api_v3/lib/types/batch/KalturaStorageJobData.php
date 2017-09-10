@@ -80,7 +80,7 @@ class KalturaStorageJobData extends KalturaJobData
 	public function toObject($dbData = null, $props_to_skip = array()) 
 	{
 		if(is_null($dbData))
-			$dbData = new kStorageJobData();
+			$dbData = new hStorageJobData();
 			
 		return parent::toObject($dbData);
 	}

@@ -5,7 +5,7 @@
  * @package Core
  * @subpackage model.data
  */
-class kSshUrlResource extends kUrlResource 
+class hSshUrlResource extends kUrlResource
 {
 	/**
 	 * SSH private key
@@ -84,7 +84,7 @@ class kSshUrlResource extends kUrlResource
      */
 	public function getImportJobData()
 	{
-	    $sshImportJobData = new kSshImportJobData();
+	    $sshImportJobData = new hSshImportJobData();
 	    $sshImportJobData->setSrcFileUrl($this->getUrl());
 	    $sshImportJobData->setPrivateKey($this->getPrivateKey());
 	    $sshImportJobData->setPublicKey($this->getPublicKey());

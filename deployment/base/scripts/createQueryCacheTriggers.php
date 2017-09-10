@@ -27,7 +27,7 @@ $INVALIDATION_KEYS = array(
 	array('table' => "flavor_params", 					'keys' => array(array("'flavorParams:id='", '@OBJ@.id'), array("'flavorParams:partnerId='", '@OBJ@.partner_id')),						'class' => 'assetParams'),
 	array('table' => "flavor_params_conversion_profile",'keys' => array(array("'flavorParamsConversionProfile:flavorParamsId='", '@OBJ@.flavor_params_id', "',conversionProfileId='", '@OBJ@.conversion_profile_id'), array("'flavorParamsConversionProfile:conversionProfileId='", '@OBJ@.conversion_profile_id'))),
 	array('table' => "user_role", 						'keys' => array(array("'userRole:id='", '@OBJ@.id'), array("'userRole:systemName='", '@OBJ@.system_name'))),
-	array('table' => "invalid_session", 				'keys' => array(array("'invalidSession:ks='", '@OBJ@.ks'))),
+	array('table' => "invalid_session", 				'keys' => array(array("'invalidSession:hs='", '@OBJ@.hs'))),
 	array('table' => "upload_token", 					'keys' => array(array("'uploadToken:id='", '@OBJ@.id'))),
 	array('table' => "conversion_profile_2", 			'keys' => array(array("'conversionProfile2:partnerId='", '@OBJ@.partner_id'))),
 	array('table' => "distribution_profile", 			'keys' => array(array("'distributionProfile:id='", '@OBJ@.id')),																		'plugin' => 'content_distribution'),
@@ -47,7 +47,7 @@ $INVALIDATION_KEYS = array(
 $TRIGGER_TYPES = array('INSERT', 'UPDATE', 'DELETE');
 
 $SPECIAL_TRIGGERS = array(
-	"invalid_session/INSERT" => "DO memc_set(concat('invalid_session_', IF(NEW.ks IS NULL, '', NEW.ks)), 1, IF(NEW.ks_valid_until IS NULL, 0, UNIX_TIMESTAMP(NEW.ks_valid_until) + 600));",
+	"invalid_session/INSERT" => "DO memc_set(concat('invalid_session_', IF(NEW.hs IS NULL, '', NEW.hs)), 1, IF(NEW.hs_valid_until IS NULL, 0, UNIX_TIMESTAMP(NEW.hs_valid_until) + 600));",
 	"file_sync/INSERT" => "IF (NEW.original) THEN DO memc_set(concat('fileSyncMaxId-dc', NEW.dc), NEW.id); END IF;",
 );
 

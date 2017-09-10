@@ -76,8 +76,8 @@ class PartnerUsageController extends Zend_Controller_Action
 		$from = $this->_getParam('from_date', $this->getDefaultFromDate());
 		$to = $this->_getParam('to_date', $this->getDefaultToDate());
 		$client = Infra_ClientHelper::getClient();
-		if ($client->getKs() == null) {
-			$client->setKs(self::generateKs());
+		if ($client->getHs() == null) {
+			$client->setHs(self::generateHs());
 		}
 		$form = new Form_PartnerUsageFilter();
 		$form->populate($request->getParams());
@@ -198,15 +198,15 @@ class PartnerUsageController extends Zend_Controller_Action
 		return date("m/d/Y", $ret);
 	}
 	
-	private static function generateKs() {
+	private static function generateHs() {
 		$settings = Zend_Registry::get('config')->settings;
 		$partnerId = $settings->partnerId;
 		$secret = $settings->secret;
 		$sessionExpiry = $settings->sessionExpiry;
-		return self::createKS($partnerId, $secret, Kaltura_Client_Enum_SessionType::ADMIN, $sessionExpiry);
+		return self::createHS($partnerId, $secret, Kaltura_Client_Enum_SessionType::ADMIN, $sessionExpiry);
 	}
 	
-	private static function createKS($partnerId, $adminSecret, $sessionType = Kaltura_Client_Enum_SessionType::ADMIN, $expiry = 7200)
+	private static function createHS($partnerId, $adminSecret, $sessionType = Kaltura_Client_Enum_SessionType::ADMIN, $expiry = 7200)
 	{
 		$puserId = '';
 		$privileges = '';

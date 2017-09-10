@@ -26,7 +26,7 @@ class PartnerService extends KalturaBaseService
 	 * @param int $templatePartnerId
 	 * @param bool $silent
 	 * @return KalturaPartner
-	 * @ksOptional
+	 * @hsOptional
 	 *
 	 * @throws APIErrors::PARTNER_REGISTRATION_ERROR
 	 */
@@ -50,9 +50,9 @@ class PartnerService extends KalturaBaseService
 			
 			$parentPartnerId = null;
 			$isAdminOrVarConsole = false;
-			if ( $this->getKs() && $this->getKs()->isAdmin() )
+			if ( $this->getHs() && $this->getHs()->isAdmin() )
 			{
-				$parentPartnerId = $this->getKs()->partner_id;
+				$parentPartnerId = $this->getHs()->partner_id;
 				if ($parentPartnerId == Partner::ADMIN_CONSOLE_PARTNER_ID) {
 		                    $parentPartnerId = null;
 		                    $isAdminOrVarConsole = true;
@@ -206,7 +206,7 @@ class PartnerService extends KalturaBaseService
 	 * @param string $adminEmail
 	 * @param string $cmsPassword
 	 * @return KalturaPartner
-	 * @ksIgnored
+	 * @hsIgnored
 	 *
 	 * @throws APIErrors::ADMIN_KUSER_NOT_FOUND
 	 */
@@ -229,9 +229,9 @@ class PartnerService extends KalturaBaseService
 		KalturaLog::log( "Admin Kuser found, going to validate password", KalturaLog::INFO );
 		
 		// user logged in - need to re-init kPermissionManager in order to determine current user's permissions
-		$ks = null;
-		kSessionUtils::createKSessionNoValidations ( $partnerId ,  $adminKuser->getPuserId() , $ks , 86400 , $adminKuser->getIsAdmin() , "" , '*' );
-		kCurrentContext::initKsPartnerUser($ks);
+		$hs = null;
+		hSessionUtils::createHSessionNoValidations ( $partnerId ,  $adminKuser->getPuserId() , $hs , 86400 , $adminKuser->getIsAdmin() , "" , '*' );
+		kCurrentContext::initHsPartnerUser($hs);
 		kPermissionManager::init();		
 		
 		$dbPartner = PartnerPeer::retrieveByPK( $partnerId );
@@ -244,7 +244,7 @@ class PartnerService extends KalturaBaseService
 	
 	/**
 	 * Retrieve all info attributed to the partner
-	 * This action expects no parameters. It returns information for the current KS partnerId.
+	 * This action expects no parameters. It returns information for the current HS partnerId.
 	 * 
 	 * @action getInfo
 	 * @return KalturaPartner
@@ -380,11 +380,11 @@ class PartnerService extends KalturaBaseService
 			$partnerId = kCurrentContext::$partner_id;
 		
 		$c = new Criteria();
-		$currentUser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$ks_uid, true);
+		$currentUser = kuserPeer::getKuserByPartnerAndUid($partnerId, kCurrentContext::$hs_uid, true);
 		
 		if(!$currentUser)
 		{
-		    $userId = kCurrentContext::$ks_uid;
+		    $userId = kCurrentContext::$hs_uid;
 		    throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID);
 		}
 		
@@ -415,7 +415,7 @@ class PartnerService extends KalturaBaseService
 
 	/**
 	 * List partners by filter with paging support
-	 * Current implementation will only list the sub partners of the partner initiating the api call (using the current KS).
+	 * Current implementation will only list the sub partners of the partner initiating the api call (using the current HS).
 	 * This action is only partially implemented to support listing sub partners of a VAR partner.
 	 * @action list
 	 * @param KalturaPartnerFilter $filter
@@ -461,8 +461,8 @@ class PartnerService extends KalturaBaseService
 	 */
 	public function listFeatureStatusAction()
 	{
-		if (is_null($this->getKs()) || is_null($this->getPartner()) || !$this->getPartnerId())
-			throw new KalturaAPIException(APIErrors::MISSING_KS);
+		if (is_null($this->getHs()) || is_null($this->getPartner()) || !$this->getPartnerId())
+			throw new KalturaAPIException(APIErrors::MISSING_HS);
 			
 		$dbPartner = $this->getPartner();
 		if ( ! $dbPartner )

@@ -250,7 +250,7 @@ class CaptionSearchPlugin extends KalturaPlugin implements IKalturaPending, IKal
 			foreach ($item['content'] as $curChunk)
 				$content .= $curChunk['text'];
 
-			$content = kString::stripUtf8InvalidChars($content);
+			$content = hString::stripUtf8InvalidChars($content);
 			$content = kXml::stripXMLInvalidChars($content);
 			$content= substr($content, 0 , kElasticSearchManager::MAX_LENGTH);
 			$line['content'] = $content;

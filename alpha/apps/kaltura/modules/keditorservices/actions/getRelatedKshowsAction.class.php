@@ -3,12 +3,12 @@
  * @package    Core
  * @subpackage kEditorServices
  */
-class getRelatedKshowsAction extends kalturaAction
+class getRelatedHshowsAction extends kalturaAction
 {
 	public function execute ( )
 	{ 		
-		$kshow_id = $this->getRequestParameter( 'kshow_id' , '');
-		$this->kshowdataarray = myKshowUtils::getRelatedShowsData( $kshow_id, null, 12 );
+		$hshow_id = $this->getRequestParameter( 'hshow_id' , '');
+		$this->hshowdataarray = myHshowUtils::getRelatedShowsData( $hshow_id, null, 12 );
 		$this->getResponse()->setHttpHeader ( "Content-Type" , "text/xml; charset=utf-8" );
 		$this->getController()->setRenderMode ( sfView::RENDER_CLIENT );
 	}

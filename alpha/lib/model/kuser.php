@@ -26,7 +26,7 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 	
 	const KUSER_ID_THAT_DOES_NOT_EXIST = 0;
 	
-	// different sort orders for browsing kswhos
+	// different sort orders for browsing hswhos
 	const KUSER_SORT_MOST_VIEWED = 1;  
 	const KUSER_SORT_MOST_RECENT = 2;  
 	const KUSER_SORT_NAME = 3;
@@ -36,7 +36,7 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 	const KUSER_SORT_GENDER = 7;
 	const KUSER_SORT_MOST_FANS = 8;
 	const KUSER_SORT_MOST_ENTRIES = 9;
-	const KUSER_SORT_PRODUCED_KSHOWS = 10;
+	const KUSER_SORT_PRODUCED_HSHOWS = 10;
 	
 	const PUSER_ID_REGEXP = '/^[A-Za-z0-9,!#\$%&\'\*\+\?\^_`\{\|}~.@-]{1,320}$/';
 	
@@ -282,13 +282,13 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 	}
 
 	// TODO - PERFORMANCE DB - move to use cache !!
-	// will update the number of produced_kshows of kuser 
-	// should be called every time this kuser publishes a kshow
-	public function incProducedKshows ( $should_save = true )
+	// will update the number of produced_hshows of kuser 
+	// should be called every time this kuser publishes a hshow
+	public function incProducedHshows ( $should_save = true )
 	{
-		$v = $this->getProducedKshows();
+		$v = $this->getProducedHshows();
 		if ( ! is_numeric( $v ) ) $v=0;
-		$this->setProducedKshows( $v + 1 );
+		$this->setProducedHshows( $v + 1 );
 		
 		if ( $should_save) $this->save();
 	}
@@ -382,7 +382,7 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 	
 	public function setHomepageMyspace( $homepage, $myspace )
 	{
-		$this->setUrlList( kString::add_http( $homepage ).'|'. kString::add_http( $myspace) );
+		$this->setUrlList( hString::add_http( $homepage ).'|'. hString::add_http( $myspace) );
 	}
 	
 	public function getIMArray()
@@ -497,17 +497,17 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 		return $this->getCountry();
 	}
 	
-	public function getLastKshowId( )
+	public function getLastHshowId( )
 	{
-		// return the last kshow_id created by this kuser
+		// return the last hshow_id created by this kuser
 		$c = new Criteria();
-		$c->add ( kshowPeer::PRODUCER_ID , $this->getId() );
-		$c->addDescendingOrderByColumn( kshowPeer::ID );
-		$kshow = kshowPeer::doSelectOne();
+		$c->add ( hshowPeer::PRODUCER_ID , $this->getId() );
+		$c->addDescendingOrderByColumn( hshowPeer::ID );
+		$hshow = hshowPeer::doSelectOne();
 
-		if ( $kshow )
+		if ( $hshow )
 		{
-			return $kshow->getId();
+			return $hshow->getId();
 		}
 		else
 		{
@@ -515,19 +515,19 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 		}
 	}
 
-	public function getLastKshowUrl( )
+	public function getLastHshowUrl( )
 	{
-		// return the last kshow_id created by this kuser
+		// return the last hshow_id created by this kuser
 		$c = new Criteria();
-		$c->add ( kshowPeer::PRODUCER_ID , $this->getId() );
-		$c->addDescendingOrderByColumn( kshowPeer::ID );
-		$kshow = kshowPeer::doSelectOne( $c );
+		$c->add ( hshowPeer::PRODUCER_ID , $this->getId() );
+		$c->addDescendingOrderByColumn( hshowPeer::ID );
+		$hshow = hshowPeer::doSelectOne( $c );
 				
 		$host = requestUtils::getHost() . "/";
 		
-		if ( $kshow )
+		if ( $hshow )
 		{
-			return "<a href='" . $host . "/id/" . $kshow->getId() . "'>" . $kshow->getName() . "</a>";
+			return "<a href='" . $host . "/id/" . $hshow->getId() . "'>" . $hshow->getName() . "</a>";
 		}
 		else
 		{
@@ -929,7 +929,7 @@ class kuser extends Basekuser implements IIndexable, IRelatedObject, IElasticInd
 	{
 		// full_name column is deprecated
 		KalturaLog::alert('Field [full_name] on object [kuser] is deprecated');
-		list($firstName, $lastName) = kString::nameSplit($v);
+		list($firstName, $lastName) = hString::nameSplit($v);
 		$this->setFirstName($firstName);
 		$this->setLastName($lastName);
 	}

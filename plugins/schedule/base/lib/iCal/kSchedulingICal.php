@@ -1,6 +1,6 @@
 <?php
 
-class kSchedulingICal
+class hSchedulingICal
 {
 	const TIME_FORMAT = 'Ymd\THis\Z';
 	const TIME_PARSE = '%Y%m%dT%H%i%sZ';
@@ -17,17 +17,17 @@ class kSchedulingICal
 	/**
 	 * @param string $data
 	 * @param KalturaScheduleEventType $eventsType
-	 * @return kSchedulingICalCalendar
+	 * @return hSchedulingICalCalendar
 	 */
 	public static function parse($data, $eventsType)
 	{
-		return new kSchedulingICalCalendar($data, $eventsType);
+		return new hSchedulingICalCalendar($data, $eventsType);
 	}
 
 	/**
 	 * @param string $type
 	 * @param array $lines
-	 * @return kSchedulingICalComponent
+	 * @return hSchedulingICalComponent
 	 * @throws Exception
 	 */
 	public static function parseComponent($type, array &$lines)
@@ -37,11 +37,11 @@ class kSchedulingICal
 		switch ($type)
 		{
 			case self::TYPE_CALENDAR:
-				$component = new kSchedulingICalCalendar();
+				$component = new hSchedulingICalCalendar();
 				break;
 
 			case self::TYPE_EVENT:
-				$component = new kSchedulingICalEvent();
+				$component = new hSchedulingICalEvent();
 				break;
 
 			default:
@@ -60,7 +60,7 @@ class kSchedulingICal
 	{
 		$original = date_default_timezone_get();
 		date_default_timezone_set('UTC');
-		$date = date(kSchedulingICal::TIME_FORMAT, $time);
+		$date = date(hSchedulingICal::TIME_FORMAT, $time);
 		date_default_timezone_set($original);
 		return $date;
 	}

@@ -110,10 +110,10 @@ abstract class BaseAuditTrail extends BaseObject  implements Persistent {
 	protected $data;
 
 	/**
-	 * The value for the ks field.
+	 * The value for the hs field.
 	 * @var        string
 	 */
-	protected $ks;
+	protected $hs;
 
 	/**
 	 * The value for the context field.
@@ -419,13 +419,13 @@ abstract class BaseAuditTrail extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [ks] column value.
+	 * Get the [hs] column value.
 	 * 
 	 * @return     string
 	 */
-	public function getKs()
+	public function getHs()
 	{
-		return $this->ks;
+		return $this->hs;
 	}
 
 	/**
@@ -909,27 +909,27 @@ abstract class BaseAuditTrail extends BaseObject  implements Persistent {
 	} // setData()
 
 	/**
-	 * Set the value of [ks] column.
+	 * Set the value of [hs] column.
 	 * 
 	 * @param      string $v new value
 	 * @return     AuditTrail The current object (for fluent API support)
 	 */
-	public function setKs($v)
+	public function setHs($v)
 	{
-		if(!isset($this->oldColumnsValues[AuditTrailPeer::KS]))
-			$this->oldColumnsValues[AuditTrailPeer::KS] = $this->ks;
+		if(!isset($this->oldColumnsValues[AuditTrailPeer::HS]))
+			$this->oldColumnsValues[AuditTrailPeer::HS] = $this->hs;
 
 		if ($v !== null) {
 			$v = (string) $v;
 		}
 
-		if ($this->ks !== $v) {
-			$this->ks = $v;
-			$this->modifiedColumns[] = AuditTrailPeer::KS;
+		if ($this->hs !== $v) {
+			$this->hs = $v;
+			$this->modifiedColumns[] = AuditTrailPeer::HS;
 		}
 
 		return $this;
-	} // setKs()
+	} // setHs()
 
 	/**
 	 * Set the value of [context] column.
@@ -1162,7 +1162,7 @@ abstract class BaseAuditTrail extends BaseObject  implements Persistent {
 			$this->kuser_id = ($row[$startcol + 12] !== null) ? (int) $row[$startcol + 12] : null;
 			$this->action = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
 			$this->data = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
-			$this->ks = ($row[$startcol + 15] !== null) ? (string) $row[$startcol + 15] : null;
+			$this->hs = ($row[$startcol + 15] !== null) ? (string) $row[$startcol + 15] : null;
 			$this->context = ($row[$startcol + 16] !== null) ? (int) $row[$startcol + 16] : null;
 			$this->entry_point = ($row[$startcol + 17] !== null) ? (string) $row[$startcol + 17] : null;
 			$this->server_name = ($row[$startcol + 18] !== null) ? (string) $row[$startcol + 18] : null;
@@ -1608,7 +1608,7 @@ abstract class BaseAuditTrail extends BaseObject  implements Persistent {
 				return $this->getData();
 				break;
 			case 15:
-				return $this->getKs();
+				return $this->getHs();
 				break;
 			case 16:
 				return $this->getContext();
@@ -1670,7 +1670,7 @@ abstract class BaseAuditTrail extends BaseObject  implements Persistent {
 			$keys[12] => $this->getKuserId(),
 			$keys[13] => $this->getAction(),
 			$keys[14] => $this->getData(),
-			$keys[15] => $this->getKs(),
+			$keys[15] => $this->getHs(),
 			$keys[16] => $this->getContext(),
 			$keys[17] => $this->getEntryPoint(),
 			$keys[18] => $this->getServerName(),
@@ -1707,7 +1707,7 @@ abstract class BaseAuditTrail extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(AuditTrailPeer::KUSER_ID)) $criteria->add(AuditTrailPeer::KUSER_ID, $this->kuser_id);
 		if ($this->isColumnModified(AuditTrailPeer::ACTION)) $criteria->add(AuditTrailPeer::ACTION, $this->action);
 		if ($this->isColumnModified(AuditTrailPeer::DATA)) $criteria->add(AuditTrailPeer::DATA, $this->data);
-		if ($this->isColumnModified(AuditTrailPeer::KS)) $criteria->add(AuditTrailPeer::KS, $this->ks);
+		if ($this->isColumnModified(AuditTrailPeer::HS)) $criteria->add(AuditTrailPeer::HS, $this->hs);
 		if ($this->isColumnModified(AuditTrailPeer::CONTEXT)) $criteria->add(AuditTrailPeer::CONTEXT, $this->context);
 		if ($this->isColumnModified(AuditTrailPeer::ENTRY_POINT)) $criteria->add(AuditTrailPeer::ENTRY_POINT, $this->entry_point);
 		if ($this->isColumnModified(AuditTrailPeer::SERVER_NAME)) $criteria->add(AuditTrailPeer::SERVER_NAME, $this->server_name);
@@ -1798,7 +1798,7 @@ abstract class BaseAuditTrail extends BaseObject  implements Persistent {
 
 		$copyObj->setData($this->data);
 
-		$copyObj->setKs($this->ks);
+		$copyObj->setHs($this->hs);
 
 		$copyObj->setContext($this->context);
 

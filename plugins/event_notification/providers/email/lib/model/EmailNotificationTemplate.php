@@ -41,7 +41,7 @@ class EmailNotificationTemplate extends BatchEventNotificationTemplate implement
 	/* (non-PHPdoc)
 	 * @see BatchEventNotificationTemplate::getJobData()
 	 */
-	protected function getJobData(kScope $scope = null)
+	protected function getJobData(hScope $scope = null)
 	{
 		$jobData = new kEmailNotificationDispatchJobData();
 		$jobData->setTemplateId($this->getId());
@@ -68,7 +68,7 @@ class EmailNotificationTemplate extends BatchEventNotificationTemplate implement
 		{
 			/* @var $contentParameter kEventNotificationParameter */
 			$value = $contentParameter->getValue();
-			if($scope && $value instanceof kStringField)
+			if($scope && $value instanceof hStringField)
 				$value->setScope($scope);
 				
 			$contentParametersValues[$contentParameter->getKey()] = $value->getValue();

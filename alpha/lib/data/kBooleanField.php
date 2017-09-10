@@ -8,16 +8,16 @@
 abstract class kBooleanField extends kBooleanValue implements IScopeField
 {
 	/**
-	 * @var kScope
+	 * @var hScope
 	 */
 	protected $scope = null;
 	
 	/**
 	 * Calculates the value at realtime
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return bool $value
 	 */
-	abstract protected function getFieldValue(kScope $scope = null);
+	abstract protected function getFieldValue(hScope $scope = null);
 	
 	/* (non-PHPdoc)
 	 * @see kBooleanValue::getValue()
@@ -28,9 +28,9 @@ abstract class kBooleanField extends kBooleanValue implements IScopeField
 	}
 	
 	/**
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 */
-	public function setScope(kScope $scope) 
+	public function setScope(hScope $scope) 
 	{
 		$this->scope = $scope;
 	}

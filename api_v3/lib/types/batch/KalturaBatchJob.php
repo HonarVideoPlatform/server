@@ -304,7 +304,7 @@ class KalturaBatchJob extends KalturaObject implements IFilterable
 				$this->data = new KalturaImportJobData();
 				break;
 				
-			case 'kSshImportJobData':
+			case 'hSshImportJobData':
 				$this->data = new KalturaSshImportJobData();
 				break;
 				
@@ -344,7 +344,7 @@ class KalturaBatchJob extends KalturaObject implements IFilterable
 				$this->data = new KalturaConvertCollectionJobData();
 				break;
 				
-			case 'kStorageExportJobData':
+			case 'hStorageExportJobData':
 				$this->data = new KalturaStorageExportJobData();
 				break;
 				
@@ -356,7 +356,7 @@ class KalturaBatchJob extends KalturaObject implements IFilterable
 				$this->data = new KalturaMoveCategoryEntriesJobData();
 				break;
 				
-			case 'kStorageDeleteJobData':
+			case 'hStorageDeleteJobData':
 				$this->data = new KalturaStorageDeleteJobData();
 				break;
 				
@@ -396,7 +396,7 @@ class KalturaBatchJob extends KalturaObject implements IFilterable
 				$this->data = new KalturaCopyPartnerJobData();
 				break;
 				
-			case 'kSyncCategoryPrivacyContextJobData':
+			case 'hSyncCategoryPrivacyContextJobData':
 				$this->data = new KalturaSyncCategoryPrivacyContextJobData();
 				break;
 			
@@ -560,7 +560,7 @@ class KalturaBatchJob extends KalturaObject implements IFilterable
 				break;
 				
 			case KalturaBatchJobType::STORAGE_EXPORT:
-				$dbData = new kStorageExportJobData();
+				$dbData = new hStorageExportJobData();
 				if(is_null($this->data))
 					$this->data = new KalturaStorageExportJobData();
 				break;
@@ -572,7 +572,7 @@ class KalturaBatchJob extends KalturaObject implements IFilterable
 				break;
 				
 			case KalturaBatchJobType::STORAGE_DELETE:
-				$dbData = new kStorageDeleteJobData();
+				$dbData = new hStorageDeleteJobData();
 				if(is_null($this->data))
 					$this->data = new KalturaStorageDeleteJobData();
 				break;

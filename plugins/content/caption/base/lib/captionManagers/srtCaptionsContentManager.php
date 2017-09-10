@@ -10,7 +10,7 @@ class srtCaptionsContentManager extends kCaptionsContentManager
 	 */
 	public function parse($content)
 	{
-		if (kString::beginsWith($content, "\xff\xfe"))
+		if (hString::beginsWith($content, "\xff\xfe"))
 		{
 			$content = iconv('utf-16', 'utf-8', substr($content, 2));
 		}
@@ -61,7 +61,7 @@ class srtCaptionsContentManager extends kCaptionsContentManager
 	 */
 	public function getContent($content)
 	{
-		if (kString::beginsWith($content, "\xff\xfe"))
+		if (hString::beginsWith($content, "\xff\xfe"))
 		{
 			$content = iconv('utf-16', 'utf-8', substr($content, 2));
 		}

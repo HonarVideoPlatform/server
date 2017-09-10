@@ -1751,20 +1751,20 @@ class kFlowHelper
 
 	public static function createBulkUploadLogUrl(BatchJob $dbBatchJob)
 	{
-		$ks = new ks();
-		$ks->valid_until = time() + 86400 ;
-		$ks->type = ks::TYPE_KS;
-		$ks->partner_id = $dbBatchJob->getPartnerId();
-		$ks->master_partner_id = null;
-		$ks->partner_pattern = $dbBatchJob->getPartnerId();
-		$ks->error = 0;
-		$ks->rand = microtime(true);
-		$ks->user = '';
-		$ks->privileges = 'setrole:BULK_LOG_VIEWER';
-		$ks->additional_data = null;
-		$ks_str = $ks->toSecureString();
+		$hs = new hs();
+		$hs->valid_until = time() + 86400 ;
+		$hs->type = hs::TYPE_HS;
+		$hs->partner_id = $dbBatchJob->getPartnerId();
+		$hs->master_partner_id = null;
+		$hs->partner_pattern = $dbBatchJob->getPartnerId();
+		$hs->error = 0;
+		$hs->rand = microtime(true);
+		$hs->user = '';
+		$hs->privileges = 'setrole:BULK_LOG_VIEWER';
+		$hs->additional_data = null;
+		$hs_str = $hs->toSecureString();
 
-		$logFileUrl = kConf::get("apphome_url") . "/api_v3/service/bulkUpload/action/serveLog/id/{$dbBatchJob->getId()}/ks/" . $ks_str;
+		$logFileUrl = kConf::get("apphome_url") . "/api_v3/service/bulkUpload/action/serveLog/id/{$dbBatchJob->getId()}/hs/" . $hs_str;
 		return $logFileUrl;
 	}
 
@@ -1821,10 +1821,10 @@ class kFlowHelper
 
 	/**
 	 * @param BatchJob $dbBatchJob
-	 * @param kStorageExportJobData $data
+	 * @param hStorageExportJobData $data
 	 * @return BatchJob
 	 */
-	public static function handleStorageExportFinished(BatchJob $dbBatchJob, kStorageExportJobData $data)
+	public static function handleStorageExportFinished(BatchJob $dbBatchJob, hStorageExportJobData $data)
 	{
 		$fileSync = FileSyncPeer::retrieveByPK($data->getSrcFileSyncId());
 		if(!$fileSync)
@@ -1980,10 +1980,10 @@ class kFlowHelper
 
 	/**
 	 * @param BatchJob $dbBatchJob
-	 * @param kStorageExportJobData $data
+	 * @param hStorageExportJobData $data
 	 * @return BatchJob
 	 */
-	public static function handleStorageExportFailed(BatchJob $dbBatchJob, kStorageExportJobData $data)
+	public static function handleStorageExportFailed(BatchJob $dbBatchJob, hStorageExportJobData $data)
 	{
 		if ($dbBatchJob->getErrType() == BatchJobErrorTypes::APP && $dbBatchJob->getErrNumber() == BatchJobAppErrors::FILE_ALREADY_EXISTS){
 			KalturaLog::notice("remote file already exists");
@@ -2020,7 +2020,7 @@ class kFlowHelper
 		return $dbBatchJob;
 	}
 
-    public static function handleStorageDeleteFinished (BatchJob $dbBatchJob, kStorageDeleteJobData $data)
+    public static function handleStorageDeleteFinished (BatchJob $dbBatchJob, hStorageDeleteJobData $data)
 	{
 	    $fileSync = FileSyncPeer::retrieveByPK($data->getSrcFileSyncId());
 		if(!$fileSync)
@@ -2715,20 +2715,20 @@ class kFlowHelper
 		$dc = kDataCenterMgr::getCurrentDc();
 		$file_name = $dc['id'] . "_" . $file_name;
 		
-		$ksStr = "";
+		$hsStr = "";
 		$partner = PartnerPeer::retrieveByPK ( $partner_id );
 		$secret = $partner->getSecret ();
-		$privilege = ks::PRIVILEGE_DOWNLOAD . ":" . $file_name;
+		$privilege = hs::PRIVILEGE_DOWNLOAD . ":" . $file_name;
 
-		$ksStr = kSessionBase::generateSession($partner->getKSVersion(), $partner->getAdminSecret(), null, ks::TYPE_KS, $partner_id, $expiry, $privilege);
+		$hsStr = hSessionBase::generateSession($partner->getHSVersion(), $partner->getAdminSecret(), null, hs::TYPE_HS, $partner_id, $expiry, $privilege);
 
 		if ($applicationUrlTemplate) {
-			$url = str_replace("[ks]", $ksStr, $applicationUrlTemplate);
+			$url = str_replace("[hs]", $hsStr, $applicationUrlTemplate);
 			$url = str_replace("[id]", $file_name, $url);
 		}
 		else {
 			//url is built with DC url in order to be directed to the same DC of the saved file
-			$url = kDataCenterMgr::getCurrentDcUrl() . "/api_v3/index.php/service/liveReports/action/serveReport/ks/$ksStr/id/$file_name/$downloadName";
+			$url = kDataCenterMgr::getCurrentDcUrl() . "/api_v3/index.php/service/liveReports/action/serveReport/hs/$hsStr/id/$file_name/$downloadName";
 		}
 		return $url;
 	}

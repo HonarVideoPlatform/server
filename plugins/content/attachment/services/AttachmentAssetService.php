@@ -426,14 +426,14 @@ class AttachmentAssetService extends KalturaAssetService
 	 * @param string $attachmentAssetId
 	 * @param KalturaAttachmentServeOptions $serveOptions
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 *  
 	 * @throws KalturaAttachmentErrors::ATTACHMENT_ASSET_ID_NOT_FOUND
 	 */
 	public function serveAction($attachmentAssetId, KalturaAttachmentServeOptions $serveOptions = null)
 	{
 		$attachmentAsset = null;
-		if (!kCurrentContext::$ks)
+		if (!kCurrentContext::$hs)
 		{	
 			$attachmentAsset = kCurrentContext::initPartnerByAssetId($attachmentAssetId);
 			
@@ -459,7 +459,7 @@ class AttachmentAssetService extends KalturaAssetService
 			throw new KalturaAPIException(KalturaAttachmentErrors::ATTACHMENT_ASSET_ID_NOT_FOUND, $attachmentAssetId);
 		}
 		
-		$securyEntryHelper = new KSecureEntryHelper($entry, kCurrentContext::$ks, null, ContextType::DOWNLOAD);
+		$securyEntryHelper = new HSecureEntryHelper($entry, kCurrentContext::$hs, null, ContextType::DOWNLOAD);
 		$securyEntryHelper->validateForDownload();
 		
 		$ext = $attachmentAsset->getFileExt();

@@ -38,9 +38,9 @@ class KalturaScheduledTaskJobData extends KalturaJobData
 	public function toObject($objectToFill = null, $propsToSkip = array())
 	{
 		if (is_null($objectToFill))
-			$objectToFill = new kScheduledTaskJobData();
+			$objectToFill = new hScheduledTaskJobData();
 
-		/** @var kScheduledTaskJobData $objectToFill */
+		/** @var hScheduledTaskJobData $objectToFill */
 		$objectToFill = parent::toObject($objectToFill, $propsToSkip);
 
 		return $objectToFill;

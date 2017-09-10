@@ -3,7 +3,7 @@
  * @package api
  * @subpackage objects
  */
-class KalturaUrlTokenizerKs extends KalturaUrlTokenizer
+class KalturaUrlTokenizerHs extends KalturaUrlTokenizer
 {
 	/**
 	 * @var bool
@@ -29,7 +29,7 @@ class KalturaUrlTokenizerKs extends KalturaUrlTokenizer
 	public function toObject($dbObject = null, $skip = array())
 	{
 		if (is_null($dbObject))
-			$dbObject = new kKsUrlTokenizer();
+			$dbObject = new kHsUrlTokenizer();
 
 		parent::toObject($dbObject, $skip);
 

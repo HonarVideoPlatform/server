@@ -19,7 +19,7 @@ class KalturaStringValue extends KalturaValue
 	public function toObject($dbObject = null, $skip = array())
 	{
 		if(!$dbObject)
-			$dbObject = new kStringValue();
+			$dbObject = new hStringValue();
 			
 		return parent::toObject($dbObject, $skip);
 	}

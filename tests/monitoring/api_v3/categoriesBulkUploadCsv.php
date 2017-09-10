@@ -18,8 +18,8 @@ class CategoryBulkUploadCsv
 			{
 				$apiCall = 'session.start';
 				$start = microtime(true);
-				$ks = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
-				$client->setKs($ks);
+				$hs = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
+				$client->setHs($hs);
 					
 				$rootCatRefId = uniqid('monitor_root_cat');	
 				$subCatRefId = uniqid('monitor_sub_cat');

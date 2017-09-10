@@ -166,7 +166,7 @@ var current_module = 'content';
 var partner_id = <?php echo $partner_id; ?>;
 var subpid = <?php echo $subp_id; ?>;
 var user_id = '<?php echo $uid; ?>';
-var ks = '<?php echo $ks; ?>';
+var hs = '<?php echo $hs; ?>';
 var screen_name = "<?php echo $screen_name; ?>";
 var email = '<?php echo $email; ?>';
 var next_module = null;
@@ -216,7 +216,7 @@ function playerAdded()
 	jQuery.ajax({
 		url: "<? echo url_for('kmc/getuiconfs'); ?>",
 		type: "POST",
-		data: { "type": "player", "partner_id": partner_id, "ks": ks },
+		data: { "type": "player", "partner_id": partner_id, "hs": hs },
 		dataType: "json",
 		success: function(data) {
 			if (data && data.length) {
@@ -232,7 +232,7 @@ function playlistAdded()
 	jQuery.ajax({
 		url: "<? echo url_for('kmc/getuiconfs'); ?>",
 		type: "POST",
-		data: { "type": "playlist", "partner_id": partner_id, "ks": ks },
+		data: { "type": "playlist", "partner_id": partner_id, "hs": hs },
 		dataType: "json",
 		success: function(data) {
 			if (data && data.length) {
@@ -250,7 +250,7 @@ function expiredF ( )
 function refreshSWF()
 {
 	sub_nav_tab = "";
-	loadModule( current_module, partner_id, subpid,  user_id,  ks, screen_name, email );
+	loadModule( current_module, partner_id, subpid,  user_id,  hs, screen_name, email );
 }
 
 function selectPlaylistContent(playerId,isPlaylist)
@@ -264,7 +264,7 @@ function selectPlaylistContent(playerId,isPlaylist)
 	next_module = "content";
 	$("#kmcHeader ul li a").removeClass('active');
 	$("a#content").addClass('active');
-	loadModule(next_module, partner_id, subpid, user_id, ks, screen_name, email);
+	loadModule(next_module, partner_id, subpid, user_id, hs, screen_name, email);
 }
 
 // load module upon dashboard clicks
@@ -278,23 +278,23 @@ function loadModuleFromDashboard(next_module_name, sub_module)
 		if(sub_module == "uploadKMC")
 		{
 			sub_nav_tab = "Upload";
-			loadModule(next_module_name, partner_id, subpid, user_id, ks, screen_name, email);
-			openCw(ks, '');
+			loadModule(next_module_name, partner_id, subpid, user_id, hs, screen_name, email);
+			openCw(hs, '');
 		}
 		if(sub_module == "upload")
 		{
 			sub_nav_tab = "Upload";
-			loadModule(next_module_name, partner_id, subpid, user_id, ks, screen_name, email);
+			loadModule(next_module_name, partner_id, subpid, user_id, hs, screen_name, email);
 		}
 		if(sub_module == "playlist")
 		{
 			sub_nav_tab = "Playlist";
-			loadModule(next_module_name, partner_id, subpid, user_id, ks, screen_name, email);
+			loadModule(next_module_name, partner_id, subpid, user_id, hs, screen_name, email);
 		}
 		if(sub_module == "entries")
 		{
 			sub_nav_tab = "Entries";
-			loadModule(next_module_name, partner_id, subpid, user_id, ks, screen_name, email);
+			loadModule(next_module_name, partner_id, subpid, user_id, hs, screen_name, email);
 		}
 	}
 	if ( next_module_name == "account" )
@@ -302,23 +302,23 @@ function loadModuleFromDashboard(next_module_name, sub_module)
 		if(sub_module == "accountUpgrade")
 		{
 			sub_nav_tab = "Account Upgrade";
-			loadModule(next_module_name, partner_id, subpid, user_id, ks, screen_name, email);
+			loadModule(next_module_name, partner_id, subpid, user_id, hs, screen_name, email);
 		}
 	}
 	if ( next_module_name == "appstudio" )
 	{
-		loadModule(next_module_name, partner_id, subpid, user_id, ks, screen_name, email);
+		loadModule(next_module_name, partner_id, subpid, user_id, hs, screen_name, email);
 	}
 	if ( next_module_name == "reports" )
 	{
-		loadModule(next_module_name, partner_id, subpid, user_id, ks, screen_name, email);
+		loadModule(next_module_name, partner_id, subpid, user_id, hs, screen_name, email);
 	}
 
 
 
 }
 
-function loadModule ( module_name , partner_id , subp_id ,  uid  ,  ks , screen_name , email )
+function loadModule ( module_name , partner_id , subp_id ,  uid  ,  hs , screen_name , email )
 {
 	if ( module_name == "dashboard" )
 	{
@@ -333,10 +333,10 @@ function loadModule ( module_name , partner_id , subp_id ,  uid  ,  ks , screen_
 				'openCw' : "openCw" ,
 				'srvurl' : 'api_v3/index.php' ,
 				'userName': '<?php echo $screen_name ?>' ,
-				'ks' : ks ,
+				'hs' : hs ,
 				'devFlag' : 'false' ,
 				'entryId' : "-1" ,
-				'kshowId' : '-1',
+				'hshowId' : '-1',
 				'refreshPlayerList' : refreshPlayerList,
 				'refreshPlaylistList' : refreshPlaylistList,
 				'widget_id' : '_' + partner_id ,
@@ -376,10 +376,10 @@ function loadModule ( module_name , partner_id , subp_id ,  uid  ,  ks , screen_
 				'partnerid' : partner_id,
 				'subpid' : subp_id ,
 				'openCw' : "openCw" ,
-				'ks' : ks ,
+				'hs' : hs ,
 				'devFlag' : 'false' ,
 				'entryId' : "-1" ,
-				'kshowId' : '-1',
+				'hshowId' : '-1',
 				'refreshPlayerList' : refreshPlayerList,
 				'refreshPlaylistList' : refreshPlaylistList,
 				'widget_id' : '_' + partner_id ,
@@ -420,10 +420,10 @@ function loadModule ( module_name , partner_id , subp_id ,  uid  ,  ks , screen_
 				'subpid' : subp_id ,
 				'email': email ,
 				'openCw' : "openCw" ,
-				'ks' : ks ,
+				'hs' : hs ,
 				'devFlag' : 'true' ,
 				'entryId' : "-1" ,
-				'kshowId' : '-1',
+				'hshowId' : '-1',
 				'widget_id' : '_' + partner_id ,
 				'subNavTab' : sub_nav_tab,
 				'openPlaylist' : 'openPlaylist',
@@ -458,11 +458,11 @@ function loadModule ( module_name , partner_id , subp_id ,  uid  ,  ks , screen_
 				'subp_id' : subp_id ,
 				'email': email ,
 				'openCw' : "openCw" ,
-				'ks' : ks ,
+				'hs' : hs ,
 				'inapplicationstudio' : 'true' ,
 				'devFlag' : 'true' ,
 				'entryId' : "_KMCLOGO" ,
-				'kshowId' : '-1',
+				'hshowId' : '-1',
 				'widget_id' : '_' + partner_id ,
 				'openPlaylist' : 'openPlaylist',
 				'openPlayer' : 'openPlayer',
@@ -503,7 +503,7 @@ function loadModule ( module_name , partner_id , subp_id ,  uid  ,  ks , screen_
 				'kdpUrl' : "<?php echo $flash_dir ?>/kdp/v2.7.0/kdp.swf",
 				'uiconfId' : '48500' ,
 				'subp_id' : subp_id ,
-				'ks' : ks ,
+				'hs' : hs ,
 				'widget_id' : '_' + partner_id ,
 				'devFlag' : 'false' ,
 				'serverPath' : "<? echo $service_url; ?>"
@@ -557,7 +557,7 @@ function kmcCloseModal() {
 	return false;
 }
 
-function openCw ( ks ,conversion_quality )
+function openCw ( hs ,conversion_quality )
 {
 	// use wrap = 0 to indicate se should be open withou the html & form wrapper
 	modal = kalturaInitModalBox ( null , { width: 700, height: 360 } );
@@ -570,10 +570,10 @@ function openCw ( ks ,conversion_quality )
 		'userId' : "<?php echo $uid ?>",
 		'partnerid' : "<?php echo $partner_id ?>",
 		'subPartnerId' : "<?php echo $subp_id ?>",
-		'sessionId' : ks ,
+		'sessionId' : hs ,
 		'devFlag' : 'true' ,
 		'entryId' : "-1" ,
-		'kshow_id' : '-1',
+		'hshow_id' : '-1',
 		'terms_of_use' : "<?php echo kConf::get('terms_of_use_uri'); ?>",
 		'close' : 'onCloseCw' ,
 		'quick_edit' : 0 , 		// when opening from the KMC - don't add to the roughcut
@@ -756,7 +756,7 @@ function doJwPreviewEmbed(entry_id, jw_skin, jw_width, jw_height, jw_share, jw_f
 	}
 	else {
 		jw_flashvars += 'file=http://<?php echo $cdn_host ?>/index.php/partnerservices2/executeplaylist%3Fuid%3D%26format%3D8%26playlist_id%3D' + entry_id +
-						'%26partner_id%3D' + partner_id + '%26subp_id%3D' + partner_id + '00%26ks%3D%7Bks%7D';
+						'%26partner_id%3D' + partner_id + '%26subp_id%3D' + partner_id + '00%26hs%3D%7Bhs%7D';
 		jw_flashvars += '&playlist=' + jw_playlistType;
 		if(jw_playlistType != "bottom") {
 	      jw_flashvars += '&playlistsize=300';
@@ -778,7 +778,7 @@ function doJwPreviewEmbed(entry_id, jw_skin, jw_width, jw_height, jw_share, jw_f
 			async:		false,
 			url:		"<? echo url_for('kmc/getentryinfo'); ?>",
 			type:		"POST",
-			data:		{ "partner_id": partner_id, "ks": ks, "entryId": entry_id },
+			data:		{ "partner_id": partner_id, "hs": hs, "entryId": entry_id },
 			dataType:	"json",
 			success:	function(data) {
 							if (data) { // && data.length
@@ -1052,13 +1052,13 @@ function logout()
 	document.cookie = "pid=; expires=" + expiry + "; path=/";
 	document.cookie = "subpid=; expires=" + expiry + "; path=/";
 	document.cookie = "uid=; expires=" + expiry + "; path=/";
-	document.cookie = "kmcks=; expires=" + expiry + "; path=/";
+	document.cookie = "kmchs=; expires=" + expiry + "; path=/";
 	document.cookie = "screen_name=; expires=" + expiry + "; path=/";
 	document.cookie = "email=; expires=" + expiry + "; path=/";
 	$.ajax({
 		url: location.protocol + "//" + location.hostname + "/index.php/kmc/logout",
 		type: "POST",
-		data: { "ks": ks },
+		data: { "hs": hs },
 		dataType: "json",
 		complete: function() {
 			window.location = "<?php echo $service_url; ?>/index.php/kmc/kmc?logout=";
@@ -1067,7 +1067,7 @@ function logout()
 }
 
 // will load the content modul by default
-loadModule ( <?php echo "'$module' , '$partner_id' , '$subp_id' , '$uid' , '$ks' ,'$screen_name' , '$email' " ?> );
+loadModule ( <?php echo "'$module' , '$partner_id' , '$subp_id' , '$uid' , '$hs' ,'$screen_name' , '$email' " ?> );
 function showNoMix(checkbox,action) {
 	if(checkbox) {
 		if($(checkbox).is(':checked'))

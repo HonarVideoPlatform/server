@@ -3,7 +3,7 @@
 ?>
 
 <div style="font-family:verdana; font-size: 11px">
-Options for kshow (id=<?php echo $kshow_id ?>)<br> 
+Options for hshow (id=<?php echo $hshow_id ?>)<br>
 add '&debug=true' to the url to see the result in a textarea<br> 
 <a href="./keditorservices/getAllEntries?kshow_id=<?php echo $kshow_id ?>&debug=<?php echo $debug ?>">getAllEntries</a><br>
 <a href="./keditorservices/getKshowInfo?kshow_id=<?php echo $kshow_id ?>&debug=<?php echo $debug ?>">getKshowInfo</a>

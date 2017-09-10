@@ -135,8 +135,8 @@ class PollService extends KalturaBaseService
 		try
 		{
 			$pollActions = new PollActions();
-			$ksUserId = kCurrentContext::$uid;
-			$pollActions->setVote($pollId, $userId,$ksUserId ,$answerIds);
+			$hsUserId = kCurrentContext::$uid;
+			$pollActions->setVote($pollId, $userId,$hsUserId ,$answerIds);
 		}
 		catch (Exception $e)
 		{
@@ -154,9 +154,9 @@ class PollService extends KalturaBaseService
 	public function getVoteAction($pollId, $userId)
 	{
 		KalturaResponseCacher::disableCache();
-		$ksUserId = kCurrentContext::$uid;
+		$hsUserId = kCurrentContext::$uid;
 		$pollActions = new PollActions();
-		return $pollActions->doGetVote($pollId, $userId, $ksUserId);
+		return $pollActions->doGetVote($pollId, $userId, $hsUserId);
 	}
 
 	/**

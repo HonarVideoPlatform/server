@@ -310,8 +310,8 @@ class BaseEntryService extends KalturaEntryService
 		
 	    $dbEntry->save();
 	    
-	    $kshow = $this->createDummyKShow();
-	    $kshowId = $kshow->getId();
+	    $hshow = $this->createDummyHShow();
+	    $hshowId = $hshow->getId();
 	    
 	    // setup the needed params for my insert entry helper
 	    $paramsArray = array (
@@ -324,8 +324,8 @@ class BaseEntryService extends KalturaEntryService
 		    "entry_tags" => $dbEntry->getTags(),
 	    );
 			
-	    $token = $this->getKsUniqueString();
-	    $insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $kshowId, $paramsArray);
+	    $token = $this->getHsUniqueString();
+	    $insert_entry_helper = new myInsertEntryHelper(null , $dbEntry->getKuserId(), $hshowId, $paramsArray);
 	    $insert_entry_helper->setPartnerId($this->getPartnerId(), $this->getPartnerId() * 100);
 	    $insert_entry_helper->insertEntry($token, $dbEntry->getType(), $dbEntry->getId(), $dbEntry->getName(), $dbEntry->getTags(), $dbEntry);
 	    $dbEntry = $insert_entry_helper->getEntry();
@@ -454,10 +454,10 @@ class BaseEntryService extends KalturaEntryService
 	 	$list = entryPeer::retrieveByPKs($entryIdsArray);
 		$newList = array();
 		
-		$ks = $this->getKs();
+		$hs = $this->getHs();
 		$isAdmin = false;
-		if($ks)
-			$isAdmin = $ks->isAdmin();
+		if($hs)
+			$isAdmin = $hs->isAdmin();
 			
 	 	foreach($list as $dbEntry)
 	 	{
@@ -590,12 +590,12 @@ class BaseEntryService extends KalturaEntryService
 	 */
 	function uploadAction($fileData)
 	{
-		$ksUnique = $this->getKsUniqueString();
+		$hsUnique = $this->getHsUniqueString();
 		
 		$uniqueId = substr(base_convert(md5(uniqid(rand(), true)), 16, 36), 1, 20);
 		
 		$ext = pathinfo($fileData["name"], PATHINFO_EXTENSION);
-		$token = $ksUnique."_".$uniqueId.".".$ext;
+		$token = $hsUnique."_".$uniqueId.".".$ext;
 		// filesync ok
 		$res = myUploadUtils::uploadFileByToken($fileData, $token, "", null, true);
 	
@@ -657,7 +657,7 @@ class BaseEntryService extends KalturaEntryService
 	 * @action flag
 	 * @param string $entryId
 	 * @param KalturaModerationFlag $moderationFlag
-	 * @ksOptional
+	 * @hsOptional
 	 *
  	 * @throws KalturaErrors::ENTRY_ID_NOT_FOUND
 	 */
@@ -779,10 +779,10 @@ class BaseEntryService extends KalturaEntryService
 		}
 		
 		$result->isScheduledNow = $dbEntry->isScheduledNow($contextDataParams->time);
-		if (!($result->isScheduledNow) && $this->getKs() ){
-			// in case the sview is defined in the ks simulate schedule now true to allow player to pass verification
-			if ( $this->getKs()->verifyPrivileges(ks::PRIVILEGE_VIEW, ks::PRIVILEGE_WILDCARD) ||
-				$this->getKs()->verifyPrivileges(ks::PRIVILEGE_VIEW, $entryId)) {
+		if (!($result->isScheduledNow) && $this->getHs() ){
+			// in case the sview is defined in the hs simulate schedule now true to allow player to pass verification
+			if ( $this->getHs()->verifyPrivileges(hs::PRIVILEGE_VIEW, hs::PRIVILEGE_WILDCARD) ||
+				$this->getHs()->verifyPrivileges(hs::PRIVILEGE_VIEW, $entryId)) {
 				$result->isScheduledNow = true;
 			}
 		}
@@ -835,7 +835,7 @@ class BaseEntryService extends KalturaEntryService
 
 	    try
 	    {
-	    	kStorageExporter::exportEntry($dbEntry, $dbStorageProfile);
+	    	hStorageExporter::exportEntry($dbEntry, $dbStorageProfile);
 	    }
 	    catch (kCoreException $e)
 	    {
@@ -967,10 +967,10 @@ class BaseEntryService extends KalturaEntryService
 			KalturaResponseCacher::disableCache();
 
 		$isScheduledNow = $dbEntry->isScheduledNow($contextDataParams->time);
-		if (!($isScheduledNow) && $this->getKs() ){
-			// in case the sview is defined in the ks simulate schedule now true to allow player to pass verification
-			if ( $this->getKs()->verifyPrivileges(ks::PRIVILEGE_VIEW, ks::PRIVILEGE_WILDCARD) ||
-				$this->getKs()->verifyPrivileges(ks::PRIVILEGE_VIEW, $entryId)) {
+		if (!($isScheduledNow) && $this->getHs() ){
+			// in case the sview is defined in the hs simulate schedule now true to allow player to pass verification
+			if ( $this->getHs()->verifyPrivileges(hs::PRIVILEGE_VIEW, hs::PRIVILEGE_WILDCARD) ||
+				$this->getHs()->verifyPrivileges(hs::PRIVILEGE_VIEW, $entryId)) {
 				$isScheduledNow = true;
 			}
 		}

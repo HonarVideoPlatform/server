@@ -188,10 +188,10 @@ class DbManager
 	
 	protected static function getStickySessionKey() 
 	{
-		$ksObject = kCurrentContext::$ks_object;
+		$hsObject = kCurrentContext::$hs_object;
 
-		if($ksObject && $ksObject->hasPrivilege(kSessionBase::PRIVILEGE_SESSION_KEY)) 
-			return self::STICKY_SESSION_PREFIX . kCurrentContext::getCurrentPartnerId() . "_" . $ksObject->getPrivilegeValue(kSessionBase::PRIVILEGE_SESSION_KEY);
+		if($hsObject && $hsObject->hasPrivilege(hSessionBase::PRIVILEGE_SESSION_KEY)) 
+			return self::STICKY_SESSION_PREFIX . kCurrentContext::getCurrentPartnerId() . "_" . $hsObject->getPrivilegeValue(hSessionBase::PRIVILEGE_SESSION_KEY);
 		
 		return self::STICKY_SESSION_PREFIX . infraRequestUtils::getRemoteAddress();
 	}

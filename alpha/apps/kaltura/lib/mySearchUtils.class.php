@@ -3,7 +3,7 @@ class mySearchUtils
 {
 	const MODE_KUSER = "KUSER";
 	const MODE_ENTRY = "ENTRY";
-	const MODE_KSHOW = "KSHOW";
+	const MODE_HSHOW = "HSHOW";
 	const MODE_ALL = "ALL";
 
 	const DISPLAY_IN_SEARCH_SYSTEM = EntryDisplayInSearchType::SYSTEM;
@@ -31,11 +31,11 @@ class mySearchUtils
 			$act = new AJAX_getEntriesAction();
 			$pager_name = "entry";
 		}	
-		elseif ( $mode == self::MODE_KSHOW )
+		elseif ( $mode == self::MODE_HSHOW )
 		{
-			$filter = new kshowFilter ();
-			$act = new AJAX_getKshowsAction();
-			$pager_name = "kshow";
+			$filter = new hshowFilter ();
+			$act = new AJAX_getHshowsAction();
+			$pager_name = "hshow";
 		}	
 		else
 		{
@@ -140,14 +140,14 @@ class mySearchUtils
 
 		if ( $featured == "kalturas" )
 		{
-			// in this case it's only about kshows
-			$mode = mySearchUtils::MODE_KSHOW;
+			// in this case it's only about hshows
+			$mode = mySearchUtils::MODE_HSHOW;
 			$id_list = myFeatureUtils::getFeaturedShowsIdList();
 		}
 		elseif( $featured == "teams" )
 		{
-			// in this case it's only about kshows
-			$mode = mySearchUtils::MODE_KSHOW;
+			// in this case it's only about hshows
+			$mode = mySearchUtils::MODE_HSHOW;
 			$id_list = myFeatureUtils::getFeaturedTeamsIdList();
 		}
 		else
@@ -161,7 +161,7 @@ class mySearchUtils
 	
 	/**
 		Will set the 'display_in_search' field according to business-logic per object type
-		// kuser | kshow | entry
+		// kuser | hshow | entry
 		// for objects that are search worthy - search_text will hold text from relevant columns depending on the object type 
 	*/
 	public  static function setDisplayInSearch ( BaseObject $obj , $parent_obj = null )
@@ -185,12 +185,12 @@ class mySearchUtils
 					// if the status is not
 					self::setRes ( $res , $obj->getStatus() == KuserStatus::ACTIVE );
 				}
-				elseif ( $obj instanceof kshow )
+				elseif ( $obj instanceof hshow )
 				{
-					self::setRes ( $res ,  $obj->getViewPermissions() == kshow::KSHOW_PERMISSION_EVERYONE || $obj->getViewPermissions() == null  );
-					// if the viewPermission changed from kshow::KSHOW_PERMISSION_EVERYONE to something else 
+					self::setRes ( $res ,  $obj->getViewPermissions() == hshow::HSHOW_PERMISSION_EVERYONE || $obj->getViewPermissions() == null  );
+					// if the viewPermission changed from hshow::HSHOW_PERMISSION_EVERYONE to something else 
 					// update all entries
-					if ( $res && $obj->isColumnModified( kshowPeer::VIEW_PERMISSIONS  ) )
+					if ( $res && $obj->isColumnModified( hshowPeer::VIEW_PERMISSIONS  ) )
 					{
 						$entries = $obj->getentrys( ) ;
 						foreach ( $entries as $entry )

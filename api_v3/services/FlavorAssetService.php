@@ -230,8 +230,8 @@ class FlavorAssetService extends KalturaAssetService
      	
 		if ($contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA ||
 			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER ||
-			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_KSHOW ||
-			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_KSHOW ||
+			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_HSHOW ||
+			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_HSHOW ||
 			$contentResource->result->searchSource == entry::ENTRY_MEDIA_SOURCE_KALTURA_USER_CLIPS)
 		{
 			$srcFlavorAsset = assetPeer::retrieveOriginalByEntryId($contentResource->result->id); 
@@ -638,14 +638,14 @@ class FlavorAssetService extends KalturaAssetService
 		}
 		else
 			$previewFileSize = null;
-		$ksObj = $this->getKs();
-		$ks = ($ksObj) ? $ksObj->getOriginalString() : null;
+		$hsObj = $this->getHs();
+		$hs = ($hsObj) ? $hsObj->getOriginalString() : null;
 
 		$referrer = null;
 		if($options && $options->referrer)
 			$referrer = $options->referrer;
 
-		$secureEntryHelper = new KSecureEntryHelper($entryDb, $ks, $referrer, ContextType::DOWNLOAD);
+		$secureEntryHelper = new HSecureEntryHelper($entryDb, $hs, $referrer, ContextType::DOWNLOAD);
 
 		if ($secureEntryHelper->shouldPreview())
 		{ 
@@ -726,9 +726,9 @@ class FlavorAssetService extends KalturaAssetService
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $flavorAssetDb->getEntryId());
 		
 		$preview = null;
-		$ksObj = $this->getKs();
-		$ks = ($ksObj) ? $ksObj->getOriginalString() : null;
-		$secureEntryHelper = new KSecureEntryHelper($entryDb, $ks, null, ContextType::DOWNLOAD);
+		$hsObj = $this->getHs();
+		$hs = ($hsObj) ? $hsObj->getOriginalString() : null;
+		$secureEntryHelper = new HSecureEntryHelper($entryDb, $hs, null, ContextType::DOWNLOAD);
 		if ($secureEntryHelper->shouldPreview()) {
 			$preview = $flavorAssetDb->estimateFileSize($entryDb, $secureEntryHelper->getPreviewLength());
 		} else {
