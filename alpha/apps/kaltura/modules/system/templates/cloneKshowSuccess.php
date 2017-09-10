@@ -23,9 +23,9 @@ Will clone hshow
 
 <table border='1px'  style='padding:0;margin:0;font-family:arial;font-size: 11px'>
 <?php echo investigate::printHshowHeader () ;flush();?>
-<tr><td colspan=20 style='color:blue;'>Source (From partner_id [<?php echo $source_kshow->getPartnerId() ?>])</td></tr>
+<tr><td colspan=20 style='color:blue;'>Source (From partner_id [<?php echo $source_hshow->getPartnerId() ?>])</td></tr>
 <?php echo investigate::printHshow ( $source_hshow ) ;flush();?>
-<tr><td colspan=20 style='color:green;'>Target  (To partner_id [<?php echo $target_kshow->getPartnerId() ?>])</td></tr>
+<tr><td colspan=20 style='color:green;'>Target  (To partner_id [<?php echo $target_hshow->getPartnerId() ?>])</td></tr>
 <?php echo investigate::printHshow ( $target_hshow) ;flush();?>
 </table>
 

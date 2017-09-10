@@ -149,7 +149,7 @@ id>=10815  order by hshow.id ;
 		
 		$c = new Criteria();
 		$c->add ( hshowPeer::PRODUCER_ID , $kuser->getId() );
-		if ( $hshow ) $c->add ( kshowPeer::ID , $kshow->getId(), Criteria::NOT_EQUAL );
+		if ( $hshow ) $c->add ( hshowPeer::ID , $hshow->getId(), Criteria::NOT_EQUAL );
 		$other_hshows_by_producer = hshowPeer::doSelect( $c );
 		
 		return $other_hshows_by_producer;

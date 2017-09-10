@@ -11,7 +11,7 @@ batch/batches/convert/engines/KConversionEngine.class.php - $engine = new KConve
 	to add batch/batches/convert/Engines/KConversionEngineQuickTimePlayerTools.class.php
 batch/batches/convert/OperationEngines/KOperationManager.php - return new KOperationEngineQuickTimePlayerTools($taskConfig->params->quickTimePlayerToolsCmd);
 	to add batch/batches/convert/OperationEngines/KOperationEngineQuickTimeTools.php
-	to add quickTimePlayerToolsCmd to taskConfig->params->params/config 
+	to add quickTimePlayerToolsCmd to taskConfig->params->params/config
 batch/batches/convert/KAsyncConvert.class.php - add to supported
 batch/batches/convert/KAsyncConvert.class.php - shorten the length of the tmp filename
 
@@ -29,7 +29,7 @@ fix - KDLWrap: on the cdl2kdl conv copy cmd for flavorParamsOutput as well
 
 2010-09-29
 KDLCommon - new - webm
-KDLflavor - new - webm 
+KDLflavor - new - webm
 KDLTranscodeerComm - new - webm
 KDLWrap - in ConvertMediainfoCdl2FlavorAsset logging
 
@@ -78,12 +78,12 @@ batch\client\KalturaClient.php - reverted - EXPRESSION_ENCODER enum = 55, EXPRES
 
 2010-11-17
 admin_console/configs/lang/en.php - avidemux
-- batch/batches/Convert/KAsyncConvert.class.php - avidemux and fix not used qt 
+- batch/batches/Convert/KAsyncConvert.class.php - avidemux and fix not used qt
 - batch/batches/Convert/Engines/KConversionEngine.class.php - remove plugin-ed engines from 'old type' conv
 - batch/batches/Convert/Engines/KConversionExpEnc.class.php - delete
-- batch/batches/Convert/Engines/KConversionQTP.class.php - delete 
-- batch/batches/Convert/OperationEngines/KSingleOutputOperationEngine.php - config file support
-- batch/batches/client/KalturaClient.php -  
+- batch/batches/Convert/Engines/KConversionQTP.class.php - delete
+- batch/batches/Convert/OperationEngines/HSingleOutputOperationEngine.php - config file support
+- batch/batches/client/KalturaClient.php -
      const EXPRESSION_ENCODER3 = "expressionEncoder.ExpressionEncoder3"; // 55
      const AVIDEMUX = "avidemux"; // 8
 - infra/cdl/kdl/KDLcommon.php - avidemux
@@ -94,7 +94,7 @@ admin_console/configs/lang/en.php - avidemux
 - infra/cdl/kdl/KDLWrap.php - config & avidemux
 - plugins/fast_start/lib/KDLOperatorQTFastStart.php - remove 'extra' param from GenerateCommandLine
 - plugins/quick_time_tools/lib/KDLTranscoderQTPTools.php - remove 'extra' param from GenerateCommandLine, ctor fix
-- plugins/quick_time_tools/lib/KOperationEngineQtTools.php - 
+- plugins/quick_time_tools/lib/KOperationEngineQtTools.php -
 - plugins/exp_enc/lib/KDLOperatorExpressionEncoder.php - config/extra
 - plugins/exp_enc/lib/ismtempl.xml
 - plugins/exp_enc/lib/wmvtempl.xml
@@ -105,7 +105,7 @@ KDLOperationParams::GenerateCommandLine - restore extra
 KDLTranscoderCommand - KDLOperatorWrapper::GenerateCommandLine - restore extra
 KDLFlavor - added extra
    $transcoders[$key]->_cmd = $trPrmObj->_engine->GenerateCommandLine($this, $auxTrg, $trPrmObj->_extra);
-KDLCommon - removed ogv/theora from ffmpeg-aux source blacklist    
+KDLCommon - removed ogv/theora from ffmpeg-aux source blacklist
 KDLTranscoderQTPTools::GenerateCommandLine - restore extra
 KDLOperatorQTFastStart::GenerateCommandLine - restore extra
 KDLOperatorExpressionEncoder::GenerateCommandLine - restore extra
@@ -149,7 +149,6 @@ tr - kConfLocal.php - avidemux + ee
 /infra/cdl/kdl/KDLWrap.php - additional operator params
 plugins/segmenter - new operator
 SaaS/alpha/config/kConfLocal.php - add SegmenterPlugin to  additional plugins
-batch_config.ini - addition to [KAsyncConvert] 
+batch_config.ini - addition to [KAsyncConvert]
    params.useSegmenter		= true;
    params.segmenterCmd		= segmenter;
-

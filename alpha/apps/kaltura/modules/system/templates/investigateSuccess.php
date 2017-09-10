@@ -144,7 +144,7 @@ if ( $hshow ) { ?>
 Hshow:
 <br>
 
-<table border=1 cellspacing=0	<?php echo investigate::printKshowHeader() . " " . investigate::printKshow( $kshow ) ?>></table>
+<table border=1 cellspacing=0	<?php echo investigate::printHshowHeader() . " " . investigate::printHshow( $hshow ) ?>></table>
 
 <br>
 <table border=1 cellspacing=0	>

@@ -25,7 +25,7 @@ function updateEditorWithAllEntries ( request, json )
 </script>
 
 <div>
-<input id="kshowId" name="kshowId" value="10">
+<input id="hshowId" name="hshowId" value="10">
 get all entries <input type="button"
 	onclick="alert ( getAllEntriesAsXml() )" value="Click">
 </div>

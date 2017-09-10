@@ -43,7 +43,7 @@ class addroughcutentryAction extends defPartnerservices2Action
         {
             // see if the partner has some default hshow to add to
             $hshow = myPartnerUtils::getDefaultHshow ( $partner_id, $subp_id , $puser_kuser  );
-            if ( $hshow ) $kshow_id = $kshow->getId();
+            if ( $hshow ) $hshow_id = $hshow->getId();
         }
 		elseif ( $hshow_id == hshow::HSHOW_ID_CREATE_NEW )
         {

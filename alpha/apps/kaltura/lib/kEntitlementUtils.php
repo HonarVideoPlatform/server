@@ -304,7 +304,7 @@ class kEntitlementUtils
 
 		self::$entitlementEnforcement = $partnerDefaultEntitlementEnforcement;
 
-		if ($hs) // for actions with no KS or when creating ks.
+		if ($hs) // for actions with no HS or when creating hs.
 		{
 			$enableEntitlement = $hs->getDisableEntitlement();
 			if ($enableEntitlement)
