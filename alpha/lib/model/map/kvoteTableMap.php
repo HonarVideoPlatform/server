@@ -38,9 +38,9 @@ class kvoteTableMap extends TableMap {
 		$this->setUseIdGenerator(true);
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
-		$this->addForeignKey('KSHOW_ID', 'KshowId', 'VARCHAR', 'kshow', 'ID', false, 20, null);
+		$this->addForeignKey('HSHOW_ID', 'HshowId', 'VARCHAR', 'hshow', 'ID', false, 20, null);
 		$this->addForeignKey('ENTRY_ID', 'EntryId', 'VARCHAR', 'entry', 'ID', false, 20, null);
-		$this->addForeignKey('KUSER_ID', 'KuserId', 'INTEGER', 'kshow', 'ID', false, null, null);
+		$this->addForeignKey('KUSER_ID', 'KuserId', 'INTEGER', 'hshow', 'ID', false, null, null);
 		$this->addColumn('PUSER_ID', 'PuserId', 'VARCHAR', false, 100, null);
 		$this->addColumn('PARTNER_ID', 'PartnerId', 'INTEGER', false, null, null);
 		$this->addColumn('RANK', 'Rank', 'INTEGER', false, null, null);
@@ -56,9 +56,9 @@ class kvoteTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('kshowRelatedByKshowId', 'kshow', RelationMap::MANY_TO_ONE, array('kshow_id' => 'id', ), null, null);
+    $this->addRelation('hshowRelatedByHshowId', 'hshow', RelationMap::MANY_TO_ONE, array('hshow_id' => 'id', ), null, null);
     $this->addRelation('entry', 'entry', RelationMap::MANY_TO_ONE, array('entry_id' => 'id', ), null, null);
-    $this->addRelation('kshowRelatedByKuserId', 'kshow', RelationMap::MANY_TO_ONE, array('kuser_id' => 'id', ), null, null);
+    $this->addRelation('hshowRelatedByKuserId', 'hshow', RelationMap::MANY_TO_ONE, array('kuser_id' => 'id', ), null, null);
 	} // buildRelations()
 
 } // kvoteTableMap

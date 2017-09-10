@@ -454,7 +454,7 @@ class FacebookConstants
 	const FACEBOOK_PROVIDER_ID_REQUEST_PARAM = 'provider_id';
 	const FACEBOOK_PARTNER_ID_REQUEST_PARAM = 'partner_id';
 	const FACEBOOK_NEXT_ACTION_REQUEST_PARAM = 'next_action';
-	const FACEBOOK_KS_REQUEST_PARAM = 'ks';
+	const FACEBOOK_HS_REQUEST_PARAM = 'hs';
 }
 
 class FacebookCaptionsFile extends \Facebook\FileUpload\FacebookFile

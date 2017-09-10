@@ -201,7 +201,7 @@ while(!feof($f))
 		// create event lines for ps3
 		$event = new kEvent ( $vars , "kmcEvent" );
 		
-		$ks = @$vars["ks"];
+		$hs = @$vars["hs"];
 		
 		$eventLine = 
 			$event->clientVer . EVENT_LOG_SEPARATOR 
@@ -214,7 +214,7 @@ while(!feof($f))
 			. $event->entryId  . EVENT_LOG_SEPARATOR
 			. $event->widgetId  . EVENT_LOG_SEPARATOR
 			. $event->uiconfId  . EVENT_LOG_SEPARATOR
-			. $ks . EVENT_LOG_SEPARATOR
+			. $hs . EVENT_LOG_SEPARATOR
 			. $ip  . EVENT_LOG_SEPARATOR
 			. PHP_EOL ;
 		

@@ -80,8 +80,8 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 	const ENTRY_MEDIA_SOURCE_KALTURA_PARTNER = 23;
 	const ENTRY_MEDIA_SOURCE_METACAFE = 24;
 	const ENTRY_MEDIA_SOURCE_KALTURA_QA = 25;
-	const ENTRY_MEDIA_SOURCE_KALTURA_KSHOW = 26;
-	const ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_KSHOW = 27;
+	const ENTRY_MEDIA_SOURCE_KALTURA_HSHOW = 26;
+	const ENTRY_MEDIA_SOURCE_KALTURA_PARTNER_HSHOW = 27;
 	const ENTRY_MEDIA_SOURCE_SEARCH_PROXY = 28;
 	const ENTRY_MEDIA_SOURCE_AKAMAI_LIVE = 29;
 	const ENTRY_MEDIA_SOURCE_MANUAL_LIVE_STREAM = 30;
@@ -208,7 +208,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 		$dc = kDataCenterMgr::getCurrentDc();
 		for ( $i = 0 ; $i < 10 ; ++$i)
 		{
-			$id = $dc["id"].'_'.kString::generateStringId();
+			$id = $dc["id"].'_'.hString::generateStringId();
 			$existing_object = entryPeer::retrieveByPKNoFilter( $id );
 			
 			if ( ! $existing_object ) return $id;
@@ -248,27 +248,27 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 
 		if ( $this->type == entryType::MIX )
 		{
-			// some of the properties should be copied to the kshow
-			$kshow = $this->getkshow();
-			if ( $kshow )
+			// some of the properties should be copied to the hshow
+			$hshow = $this->gethshow();
+			if ( $hshow )
 			{
 				$modified  = false;
-				if ( $kshow->getRank() != $this->getRank() )
+				if ( $hshow->getRank() != $this->getRank() )
 				{
-					$kshow->setRank( $this->getRank() );
+					$hshow->setRank( $this->getRank() );
 					$modified = true;
 				}
-				if ( $kshow->getLengthInMsecs() != $this->getLengthInMsecs() )
+				if ( $hshow->getLengthInMsecs() != $this->getLengthInMsecs() )
 				{
-					$kshow->setLengthInMsecs ( $this->getLengthInMsecs() );
+					$hshow->setLengthInMsecs ( $this->getLengthInMsecs() );
 					$modified = true;
 				}
 
-				if ( $modified ) $kshow->save();
+				if ( $modified ) $hshow->save();
 			}
 			else
 			{
-				$this->log( "entry [" . $this->getId() . "] does not have a real kshow with id [" . $this->getKshowId() . "]", Propel::LOG_WARNING );
+				$this->log( "entry [" . $this->getId() . "] does not have a real hshow with id [" . $this->getHshowId() . "]", Propel::LOG_WARNING );
 			}
 		}
 
@@ -1255,9 +1255,9 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 			$maxCategoriesPerEntry = entry::MAX_CATEGORIES_PER_ENTRY_DISABLE_LIMIT_FEATURE;
 			
 		// When batch move entry between categories it's adding the new category before deleting the old one
-		if(kCurrentContext::$ks_partner_id == Partner::BATCH_PARTNER_ID && kCurrentContext::$ks_object)
+		if(kCurrentContext::$hs_partner_id == Partner::BATCH_PARTNER_ID && kCurrentContext::$hs_object)
 		{
-			$batchJobType = kCurrentContext::$ks_object->getPrivilegeValue(ks::PRIVILEGE_BATCH_JOB_TYPE);
+			$batchJobType = kCurrentContext::$hs_object->getPrivilegeValue(hs::PRIVILEGE_BATCH_JOB_TYPE);
 			if(intval($batchJobType) == BatchJobType::MOVE_CATEGORY_ENTRIES)
 			{
 				$maxCategoriesPerEntry *= 2;
@@ -1408,13 +1408,13 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 	{
 		if ( $this->appears_in == NULL )
 		{
-			if ( $this->getkshow() )
+			if ( $this->gethshow() )
 			{
-				$this->setAppearsIn ( $this->getkshow()->getName() );
+				$this->setAppearsIn ( $this->gethshow()->getName() );
 			}
 			else
 			{
-				return ""; // strange - no kshow ! must be a dangling entry
+				return ""; // strange - no hshow ! must be a dangling entry
 			}
 		}
 
@@ -1482,7 +1482,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 	Returns the number of bytes written to disk
  */
 	// TODO - is this really what should be returned ??
-	public function setMetadata ( $kshow , $content , $override_existing=true , $total_duration = null , $specific_version = null )
+	public function setMetadata ( $hshow , $content , $override_existing=true , $total_duration = null , $specific_version = null )
 	{
 		if ( $this->getMediaType() != entry::ENTRY_MEDIA_TYPE_SHOW )
 		{
@@ -1490,7 +1490,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 		}
 
 		// TODO - better to call this with slight modifications
-		//myMetadataUtils::setMetadata ($content, $kshow, $this , $override_existing );
+		//myMetadataUtils::setMetadata ($content, $hshow, $this , $override_existing );
 		if ( $specific_version == null )
 		{
 			// 	increment the counter of the file
@@ -1519,11 +1519,11 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 			kFileSyncUtils::file_put_contents( $sync_key , $fixed_content , false ); // replaced__setFileContent
 
 			// update the roughcut_entry table
-			if  ( $kshow != null ) $kshow_id = $kshow->getId();
-			else $kshow_id = $this->getKshowId();
+			if  ( $hshow != null ) $hshow_id = $hshow->getId();
+			else $hshow_id = $this->getHshowId();
 
 			$all_entries_for_roughcut = myMetadataUtils::getAllEntries ( $fixed_content );
-			roughcutEntry::updateRoughcut( $this->getId() , $version , $kshow_id  , $all_entries_for_roughcut );
+			roughcutEntry::updateRoughcut( $this->getId() , $version , $hshow_id  , $all_entries_for_roughcut );
 
 			return ;
 		}
@@ -1742,10 +1742,10 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 	public function setModerate ( $should_moderate )	{		$this->putInCustomData ( "moderate" , $should_moderate );	}
 	public function getModerate (  )	{		return $this->getFromCustomData( "moderate" );	}
 	
-	public function resetUpdateWhenReady ( )	{		$this->putInCustomData ( "current_kshow_version" , null );	}
-	public function setUpdateWhenReady ( $current_kshow_version )	{		$this->putInCustomData ( "current_kshow_version" , $current_kshow_version );	}
+	public function resetUpdateWhenReady ( )	{		$this->putInCustomData ( "current_hshow_version" , null );	}
+	public function setUpdateWhenReady ( $current_hshow_version )	{		$this->putInCustomData ( "current_hshow_version" , $current_hshow_version );	}
 
-	public function getUpdateWhenReady (  )	{		return $this->getFromCustomData( "current_kshow_version" );	}
+	public function getUpdateWhenReady (  )	{		return $this->getFromCustomData( "current_hshow_version" );	}
 
 	// will be set if the entry has a real download path (
 	public function setHasDownload ( $v )	{	$this->putInCustomData ( "hasDownload" , $v);	}
@@ -1926,7 +1926,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 				continue;
 			}
 
-			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 			$kuser = kuserPeer::getActiveKuserByPartnerAndUid($partnerId, $puserId);
 			if (!$kuser)
 				throw new kCoreException('Invalid user id', kCoreException::INVALID_USER_ID);
@@ -1987,7 +1987,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 
 	public function setEntitledPusersPublish($v)
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$entitledUserPuserPublish = array();
 	
 		$v = trim($v);
@@ -2559,7 +2559,7 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 		if (!$this->is_categories_modified)
 			return;
 		
-		if(!kEntitlementUtils::getEntitlementEnforcement() || !kEntitlementUtils::isKsPrivacyContextSet())
+		if(!kEntitlementUtils::getEntitlementEnforcement() || !kEntitlementUtils::isHsPrivacyContextSet())
 			categoryEntryPeer::syncEntriesCategories($this, $this->is_categories_names_modified);
 		
 		parent::save ();
@@ -2728,8 +2728,8 @@ class entry extends Baseentry implements ISyncableFile, IIndexable, IOwnable, IR
 	
 	public function getRoughcutId()
 	{
-		$kshow = $this->getKshow();
-		return $kshow ? $kshow->getShowEntryId() : null;
+		$hshow = $this->getHshow();
+		return $hshow ? $hshow->getShowEntryId() : null;
 	}
 	
 	// get all related roughcuts where this entry appears
@@ -3556,9 +3556,9 @@ public function copyTemplate($copyPartnerId = false, $template)
 		$copyObj->setPartnerSortValue($this->getPartnerSortValue());
 	}
 	
-	public function getkshow(PropelPDO $con = null)
+	public function gethshow(PropelPDO $con = null)
 	{
-		return kshowPeer::retrieveByPK($this->kshow_id, $con);
+		return hshowPeer::retrieveByPK($this->hshow_id, $con);
 	}
 	
 	public function getconversionProfile2(PropelPDO $con = null)

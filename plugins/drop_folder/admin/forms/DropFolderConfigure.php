@@ -201,8 +201,8 @@ class Form_DropFolderConfigure extends Infra_Form
 			'filters'		=> array('StringTrim'),
 		));
 		
-		$this->addElement('checkbox', 'shouldValidateKS', array(
-			'label'			=> 'Validate KS',
+		$this->addElement('checkbox', 'shouldValidateHS', array(
+			'label'			=> 'Validate HS',
 			'decorators' => array('ViewHelper', array('Label', array('placement' => 'append')), array('HtmlTag',  array('tag' => 'div', 'class' => 'rememeber')))
 		));
 		

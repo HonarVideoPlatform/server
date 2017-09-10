@@ -25,7 +25,7 @@ DbManager::setConfig($dbConf);
 DbManager::initialize();
 myDbHelper::$use_alternative_con = myDbHelper::DB_HELPER_CONN_PROPEL2;
 
-$sphinx = new kSphinxSearchManager();
+$sphinx = new hSphinxSearchManager();
 
 $lastCreatedAt = null;
 

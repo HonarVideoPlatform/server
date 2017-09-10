@@ -14,7 +14,7 @@ class ComcastMrssService extends ContentDistributionServiceBase
 	 * @param int $distributionProfileId
 	 * @param string $hash
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 */
 	public function getFeedAction($distributionProfileId, $hash)
 	{

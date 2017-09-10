@@ -3,7 +3,7 @@
  * @package plugins.vlc
  * @subpackage lib
  */
-class KOperationEngineVlc  extends KSingleOutputOperationEngine
+class KOperationEngineVlc  extends HSingleOutputOperationEngine
 {
 
 	public function __construct($cmd, $outFilePath)

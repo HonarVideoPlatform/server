@@ -58,7 +58,7 @@ class getwidgetAction extends defPartnerservices2Action
 		}
 		else
 		{
-			// check if this widget is public - if so , create a ks for viewing the related kshow
+			// check if this widget is public - if so , create a hs for viewing the related hshow
 			if ( $uiconf_id )
 				$widget->overrideUiConfId ( $uiconf_id );
 
@@ -67,7 +67,7 @@ class getwidgetAction extends defPartnerservices2Action
 			$widget->getWidgetHtml();
 			
 			// TODO - call
-//$result = kSessionUtils::startKSession ( $partner_id , $this->getP ( "secret" ) , $puser_id , $ks , $expiry , $admin , "" , $privileges );
+//$result = hSessionUtils::startHSession ( $partner_id , $this->getP ( "secret" ) , $puser_id , $hs , $expiry , $admin , "" , $privileges );
 			$level = ( $detailed ? objectWrapperBase::DETAIL_LEVEL_DETAILED : objectWrapperBase::DETAIL_LEVEL_REGULAR );
 			$this->addMsg ( "widget" , objectWrapperBase::getWrapperClass( $widget , $level ) );
 		}

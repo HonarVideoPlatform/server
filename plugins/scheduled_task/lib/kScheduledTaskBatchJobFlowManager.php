@@ -3,7 +3,7 @@
  * @package plugins.scheduledTask
  * @subpackage lib
  */
-class kScheduledTaskBatchJobFlowManager implements kBatchJobStatusEventConsumer
+class hScheduledTaskBatchJobFlowManager implements kBatchJobStatusEventConsumer
 {
 	/**
 	 * @param BatchJob $dbBatchJob
@@ -34,7 +34,7 @@ class kScheduledTaskBatchJobFlowManager implements kBatchJobStatusEventConsumer
 		}
 	}
 
-	public static function handleJobFinished(BatchJob $job, kScheduledTaskJobData $data)
+	public static function handleJobFinished(BatchJob $job, hScheduledTaskJobData $data)
 	{
 		$resultFilePath = $data->getResultsFilePath();
 		if (!file_exists($resultFilePath))

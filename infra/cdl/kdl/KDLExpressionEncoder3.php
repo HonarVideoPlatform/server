@@ -451,7 +451,7 @@ KalturaLog::log("transcoder==>\n".print_r($transcoderParams,true)."\n<--");
 			/*
 			 * Sort the flavors that participate in collection 
 			 */
-		$rv=ksort($flavorInColl);
+		$rv=hsort($flavorInColl);
 		
 			/*
 			 * Buidl a combined SmoothSteaming preset XML

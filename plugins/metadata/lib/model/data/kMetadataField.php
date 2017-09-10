@@ -3,7 +3,7 @@
  * @package plugins.metadata
  * @subpackage model.data
  */
-class kMetadataField extends kStringField
+class kMetadataField extends hStringField
 {
 	/**
 	 * May contain the full xpath to the field in two formats
@@ -28,7 +28,7 @@ class kMetadataField extends kStringField
 	/* (non-PHPdoc)
 	 * @see kIntegerField::getFieldValue()
 	 */
-	protected function getFieldValue(kScope $scope = null)
+	protected function getFieldValue(hScope $scope = null)
 	{
 		if(!$scope || (is_null($this->profileId) && is_null($this->profileSystemName)))
 			return null;
@@ -48,7 +48,7 @@ class kMetadataField extends kStringField
 		}
 		
 		$metadata = null;
-		if($scope instanceof accessControlScope || $scope instanceof kStorageProfileScope)
+		if($scope instanceof accessControlScope || $scope instanceof hStorageProfileScope)
 		{
 			$metadata = MetadataPeer::retrieveByObject($profileId, MetadataObjectType::ENTRY, $scope->getEntryId());
 		}

@@ -83,7 +83,7 @@ class kMetadataMrssManager implements IKalturaMrssContributor
 			}
 			else
 			{
-				$metadataObject->addChild($metadataField, kString::stringToSafeXml($metadataValue));
+				$metadataObject->addChild($metadataField, hString::stringToSafeXml($metadataValue));
 			}					
 		}				
 	}

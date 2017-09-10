@@ -107,8 +107,8 @@ class KalturaFeedRenderer extends SyndicationFeedRenderer{
 			}
 
 			$hrefLink = $host . "/api_v3/getFeed.php?partnerId=$partnerId&feedId=$id";
-			if(kCurrentContext::$ks)
-				$hrefLink .= "&ks=" . kCurrentContext::$ks;
+			if(kCurrentContext::$hs)
+				$hrefLink .= "&hs=" . kCurrentContext::$hs;
 			$hrefLink .= "&state=" . $this->state;
 
 			$nextLink = $mrss->addChild('link');

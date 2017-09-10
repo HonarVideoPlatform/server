@@ -9,21 +9,21 @@ abstract class BatchEventNotificationTemplate extends EventNotificationTemplate
 {
 	/**
 	 * Returns job data for dispatching the event notification
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @return kEventNotificationDispatchJobData
 	 */
-	abstract protected function getJobData(kScope $scope = null);
+	abstract protected function getJobData(hScope $scope = null);
 	
 	/* (non-PHPdoc)
 	 * @see EventNotificationTemplate::dispatch()
 	 */
-	public function dispatch(kScope $scope)
+	public function dispatch(hScope $scope)
 	{
 		$jobData = $this->getJobData($scope);
 		return $this->dispatchJob($scope, $jobData);
 	}
 	
-	protected function dispatchJob(kScope $scope, kEventNotificationDispatchJobData $jobData, $eventNotificationType = null)
+	protected function dispatchJob(hScope $scope, kEventNotificationDispatchJobData $jobData, $eventNotificationType = null)
 	{
 		$entryId = null;
 		$parentJob = null;

@@ -36,7 +36,7 @@ class CaptionAsset extends asset
 	public function setParentId($v)     {$this->putInCustomData(self::CUSTOM_DATA_PARENT_ID, $v);}
 	public function setAccuracy($v)     {$this->putInCustomData(self::CUSTOM_DATA_ACCURACY, $v);}
 	
-	public function getFinalDownloadUrlPathWithoutKs()
+	public function getFinalDownloadUrlPathWithoutHs()
 	{
 		$finalPath = '/api_v3/index.php/service/caption_captionAsset/action/serve';
 		$finalPath .= '/captionAssetId/' . $this->getId();

@@ -31,7 +31,7 @@ $html5Version = strip_tags($_GET['playerVersion']);
 	<script type="text/javascript" src="swfobject.js"></script>
 	<script>
 		var partnerId = <?php echo $partnerId; ?>;
-		var ks = null;
+		var hs = null;
 		var currentTime = null;
 
 		function loadPlayer(){
@@ -65,7 +65,7 @@ $html5Version = strip_tags($_GET['playerVersion']);
 						return;
 					}
 						
-					ks = data;
+					hs = data;
 				}
 			});
 		}
@@ -132,7 +132,7 @@ $html5Version = strip_tags($_GET['playerVersion']);
 				'/api_v3/index.php/service/cuePoint_cuePoint/action/add', {
 				data: {
 					format: 1,
-					ks: ks,
+					hs: hs,
 					'cuePoint:objectType': 'KalturaAdCuePoint',
 					'cuePoint:entryId': entryId,
 					'cuePoint:startTime': startTime,

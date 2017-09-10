@@ -5,26 +5,26 @@
  * @package api
  * @subpackage ps2
  */
-class deletekshowAction extends defPartnerservices2Action
+class deletehshowAction extends defPartnerservices2Action
 {
 	public function describe()
 	{
 		return 
 			array (
-				"display_name" => "deleteKShow",
+				"display_name" => "deleteHShow",
 				"desc" => "" ,
 				"in" => array (
 					"mandatory" => array ( 
-						"kshow_id" => array ("type" => "string", "desc" => "")
+						"hshow_id" => array ("type" => "string", "desc" => "")
 						),
 					"optional" => array (
 						)
 					),
 				"out" => array (
-					"deleted_kshow" => array ("type" => "kshow", "desc" => "")
+					"deleted_hshow" => array ("type" => "hshow", "desc" => "")
 					),
 				"errors" => array (
-					APIErrors::INVALID_KSHOW_ID ,
+					APIErrors::INVALID_HSHOW_ID ,
 				)
 			); 
 	}
@@ -35,21 +35,21 @@ class deletekshowAction extends defPartnerservices2Action
 	
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
-		$kshow_id_to_delete = $this->getPM ( "kshow_id" );
+		$hshow_id_to_delete = $this->getPM ( "hshow_id" );
 		
-		$kshow_to_delete = kshowPeer::retrieveByPK( $kshow_id_to_delete );
+		$hshow_to_delete = hshowPeer::retrieveByPK( $hshow_id_to_delete );
 		
-		if ( ! $kshow_to_delete )
+		if ( ! $hshow_to_delete )
 		{
-			$this->addError( APIErrors::INVALID_KSHOW_ID , $kshow_id_to_delete );
+			$this->addError( APIErrors::INVALID_HSHOW_ID , $hshow_id_to_delete );
 			return;		
 		}
 
-		$kshow_to_delete->delete();
+		$hshow_to_delete->delete();
 
-		myNotificationMgr::createNotification( kNotificationJobData::NOTIFICATION_TYPE_KSHOW_DELETE , $kshow_to_delete );
+		myNotificationMgr::createNotification( kNotificationJobData::NOTIFICATION_TYPE_HSHOW_DELETE , $hshow_to_delete );
 		
-		$this->addMsg ( "deleted_kshow" , objectWrapperBase::getWrapperClass( $kshow_to_delete , objectWrapperBase::DETAIL_LEVEL_REGULAR) );
+		$this->addMsg ( "deleted_hshow" , objectWrapperBase::getWrapperClass( $hshow_to_delete , objectWrapperBase::DETAIL_LEVEL_REGULAR) );
 	}
 }
 ?>

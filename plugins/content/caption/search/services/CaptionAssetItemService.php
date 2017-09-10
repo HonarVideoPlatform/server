@@ -15,10 +15,10 @@ class CaptionAssetItemService extends KalturaBaseService
 	
 	public function initService($serviceId, $serviceName, $actionName)
 	{
-		$ks = kCurrentContext::$ks_object ? kCurrentContext::$ks_object : null;
+		$hs = kCurrentContext::$hs_object ? kCurrentContext::$hs_object : null;
 		
 		if (($actionName == 'search') &&
-		  (!$ks || (!$ks->isAdmin() && !$ks->verifyPrivileges(ks::PRIVILEGE_LIST, ks::PRIVILEGE_WILDCARD))))
+		  (!$hs || (!$hs->isAdmin() && !$hs->verifyPrivileges(hs::PRIVILEGE_LIST, hs::PRIVILEGE_WILDCARD))))
 		{
 			KalturaCriterion::enableTag(KalturaCriterion::TAG_WIDGET_SESSION);
 			entryPeer::setUserContentOnly(true);
@@ -82,7 +82,7 @@ class CaptionAssetItemService extends KalturaBaseService
     			$content .= $curChunk['text'];
     			
     		//Make sure there are no invalid chars in the caption asset items to avoid braking the search request by providing invalid XML
-    		$content = kString::stripUtf8InvalidChars($content);
+    		$content = hString::stripUtf8InvalidChars($content);
     		$content = kXml::stripXMLInvalidChars($content);
     		
     		$item->setContent($content);

@@ -10,7 +10,7 @@ class APIErrors
 	 * if given) and return a response array containing the message and the given error code and args.
 	 * 
 	 * Sample usage:
-	 *     $errorData = APIErrors::getErrorData( APIErrors::INVALID_KS, array( 'KSID', 'ERR_CODE', 'ERR_DESC' ) );
+	 *     $errorData = APIErrors::getErrorData( APIErrors::INVALID_HS, array( 'HSID', 'ERR_CODE', 'ERR_DESC' ) );
 	 *     
 	 * Sample usage from a generic function (e.g. from KalturaAPIError):
 	 *     function KalturaAPIException( $errorString )
@@ -23,7 +23,7 @@ class APIErrors
 	 * @param string $errorString
 	 * @return array(
 	 * 	   <br>'code'    => The given error code (e.g. 'INTERNAL_SERVERL_ERROR'),
-	 *     <br>'args'    => A map between the error's params and the given values from $errorArgs, e.g. array( 'KSID' => '1234' ), or an empty array in case of no params 
+	 *     <br>'args'    => A map between the error's params and the given values from $errorArgs, e.g. array( 'HSID' => '1234' ), or an empty array in case of no params 
 	 * 	   <br>'message' => Composed English message. Any placeholedrs will be replaced with the supplied args.
 	 *   <br>)
 	 */
@@ -78,9 +78,9 @@ class APIErrors
 	
 	const SERVERL_ERROR = "SERVERL_ERROR;ERR_TEXT;Server error @ERR_TEXT@";
 	
-	const MISSING_KS ="MISSING_KS;;Missing KS. Session not established";
-	// KS - the ks string, ERR_CODE - error code , ERR_DESC - error description
-	const INVALID_KS ="INVALID_KS;KSID,ERR_CODE,ERR_DESC;Invalid KS [@KSID@]. Error [@ERR_CODE@,@ERR_DESC@]";
+	const MISSING_HS ="MISSING_HS;;Missing HS. Session not established";
+	// HS - the hs string, ERR_CODE - error code , ERR_DESC - error description
+	const INVALID_HS ="INVALID_HS;HSID,ERR_CODE,ERR_DESC;Invalid HS [@HSID@]. Error [@ERR_CODE@,@ERR_DESC@]";
 	
 	// PID - partner_id
 	const START_SESSION_ERROR = "START_SESSION_ERROR;PID;Error while starting session for partner [@PID@]";
@@ -98,7 +98,7 @@ class APIErrors
 	
 	const NO_ENTRIES_ADDED = "NO_ENTRIES_ADDED;;Added 0 entries";
 	
-	const KSHOW_DOES_NOT_EXISTS = "KSHOW_DOES_NOT_EXISTS;;Kshow doesn't exist";
+	const HSHOW_DOES_NOT_EXISTS = "HSHOW_DOES_NOT_EXISTS;;Hshow doesn't exist";
 	
 	const MODERATION_OBJECT_NOT_EXISTS = "MODERATION_OBJECT_NOT_EXISTS;OBJ_TYPE;Object to moderate [@OBJ_TYPE@] does not exist in system";
 	
@@ -128,14 +128,14 @@ class APIErrors
 	// OBJ_TYPE - the type of the object forwhich to sent the notification
 	const ERROR_CREATING_NOTIFICATION = "ERROR_CREATING_NOTIFICATION;OBJ_TYPE;Cannot find object of type [@OBJ_TYPE@].";
 	
-	// KSHOW_ID - kshow_id
-	const INVALID_KSHOW_ID = "INVALID_KSHOW_ID;KSHOW_ID;Unknown kshow [@KSHOW_ID@]" ;
+	// HSHOW_ID - hshow_id
+	const INVALID_HSHOW_ID = "INVALID_HSHOW_ID;HSHOW_ID;Unknown hshow [@HSHOW_ID@]" ;
 	
-	// KSHOW_NAME - kshow name
-	const DUPLICATE_KSHOW_BY_NAME = "DUPLICATE_KSHOW_BY_NAME;KSHOW_NAME;Kshow with name [@KSHOW_NAME@] already exists in system " ;
+	// HSHOW_NAME - hshow name
+	const DUPLICATE_HSHOW_BY_NAME = "DUPLICATE_HSHOW_BY_NAME;HSHOW_NAME;Hshow with name [@HSHOW_NAME@] already exists in system " ;
 	
-	// KSHOW_ID - kshow_id , VERSION - $desired_version
-	const ERROR_KSHOW_ROLLBACK = "ERROR_KSOHW_ROLLBACK;KSHOW_ID,VERSION;Error while rollbacking kshow [@KSHOW_ID@] to version [@VERSION@]";
+	// HSHOW_ID - hshow_id , VERSION - $desired_version
+	const ERROR_HSHOW_ROLLBACK = "ERROR_HSOHW_ROLLBACK;HSHOW_ID,VERSION;Error while rollbacking hshow [@HSHOW_ID@] to version [@VERSION@]";
 	
 	const ENTRY_ID_NOT_FOUND = "ENTRY_ID_NOT_FOUND;ENTRY_ID;Entry id \"@ENTRY_ID@\" not found";
 	
@@ -156,7 +156,7 @@ class APIErrors
 	
 	const INVALID_ENTRY_VERSION = "INVALID_ENTRY_VERSION;ENTRY_TYPE,ENTRY_ID,VERSION;Unknown @ENTRY_TYPE@ [@ENTRY_ID@] [@VERSION@]" ;
 	
-	const INVALID_KSHOW_AND_ENTRY_PAIR = "INVALID_KSHOW_AND_ENTRY_PAIR;KSHOW_ID,ENTRY_ID;Unknown Kshow [@KSHOW_ID@] and Entry [@ENTRY_ID@]" ;
+	const INVALID_HSHOW_AND_ENTRY_PAIR = "INVALID_HSHOW_AND_ENTRY_PAIR;HSHOW_ID,ENTRY_ID;Unknown Hshow [@HSHOW_ID@] and Entry [@ENTRY_ID@]" ;
 	
 	const NO_FIELDS_SET_FOR_GENERIC_ENTRY = "NO_FIELDS_SET_FOR_GENERIC_ENTRY;ENTRY_TYPE;Missing fiedls when adding entry of type @ENTRY_TYPE@ " ;
 	
@@ -164,11 +164,11 @@ class APIErrors
 	
 	const NO_FIELDS_SET_FOR_WIDGET = "NO_FIELDS_SET_FOR_WIDGET;;Missing fiedls when adding widget" ;
 	
-	// KSHOW_ID - kshow_id
-	const KSHOW_CLONE_FAILED = "KSHOW_CLONE_FAILED;KSHOW_ID;clone failed for kshow [@KSHOW_ID@]";
+	// HSHOW_ID - hshow_id
+	const HSHOW_CLONE_FAILED = "HSHOW_CLONE_FAILED;HSHOW_ID;clone failed for hshow [@HSHOW_ID@]";
 	
-	// ENTRY_ID - entry_id_to_delete , KSHOW_ID - kshow_id
-	const CANNOT_DELETE_ENTRY = "CANNOT_DELETE_ENTRY;ENTRY_ID,KSHOW_ID;Entry [@ENTRY_ID@] does not belong to kshow_id [@KSHOW_ID@] and will not be deleted";
+	// ENTRY_ID - entry_id_to_delete , HSHOW_ID - hshow_id
+	const CANNOT_DELETE_ENTRY = "CANNOT_DELETE_ENTRY;ENTRY_ID,HSHOW_ID;Entry [@ENTRY_ID@] does not belong to hshow_id [@HSHOW_ID@] and will not be deleted";
 	
 	// FILE_NAME - file name
 	const INVALID_FILE_NAME = "INVALID_FILE_NAME;FILE_NAME;Cannot find file @FILE_NAME@";
@@ -192,8 +192,8 @@ class APIErrors
 	// RANK - rank
 	const INVALID_RANK = "INVALID_RANK;RANK;Bad rank [@RANK@]";
 	
-	// USER_ID - user_id , KSHOW_ID - kshow_id
-	const USER_ALREADY_RANKED_KSHOW = "USER_ALREADY_RANKED_KSHOW;USER_ID,KSHOW_ID;User [@USER_ID@] alreay voted for kshow [@KSHOW_ID@]";
+	// USER_ID - user_id , HSHOW_ID - hshow_id
+	const USER_ALREADY_RANKED_HSHOW = "USER_ALREADY_RANKED_HSHOW;USER_ID,HSHOW_ID;User [@USER_ID@] alreay voted for hshow [@HSHOW_ID@]";
 	
 	const USER_ALREADY_EXISTS_BY_SCREEN_NAME = "USER_ALREADY_EXISTS_BY_SCREEN_NAME;SCREEN_NAME;User with screenName [@SCREEN_NAME@] already exists in system.";
 	

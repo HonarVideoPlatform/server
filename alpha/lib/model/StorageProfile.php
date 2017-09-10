@@ -37,7 +37,7 @@ class StorageProfile extends BaseStorageProfile implements IBaseObject
 	const CUSTOM_DATA_SHOULD_EXPORT_THUMBS ='should_export_thumbs';
 
 	/**
-	 * @var kStorageProfileScope
+	 * @var hStorageProfileScope
 	 */
 	protected $scope;
 	
@@ -256,9 +256,9 @@ class StorageProfile extends BaseStorageProfile implements IBaseObject
 	/**
 	 * Validate if the entry should be exported to the remote storage according to the defined export rules
 	 * 
-	 * @param kStorageProfileScope $scope
+	 * @param hStorageProfileScope $scope
 	 */
-	public function fulfillsRules(kStorageProfileScope $scope)
+	public function fulfillsRules(hStorageProfileScope $scope)
 	{
 		if(!PermissionPeer::isValidForPartner(PermissionName::FEATURE_REMOTE_STORAGE_RULE, $this->getPartnerId()))
 			return true;
@@ -267,14 +267,14 @@ class StorageProfile extends BaseStorageProfile implements IBaseObject
 			return true;
 			
 		$context = null;
-		if(!array_key_exists($this->getId(), kStorageExporter::$entryContextDataResult))
+		if(!array_key_exists($this->getId(), hStorageExporter::$entryContextDataResult))
 		{
-			kStorageExporter::$entryContextDataResult[$this->getId()] = array();
+			hStorageExporter::$entryContextDataResult[$this->getId()] = array();
 		}
 		
-		if(array_key_exists($scope->getEntryId(), kStorageExporter::$entryContextDataResult[$this->getId()]))
+		if(array_key_exists($scope->getEntryId(), hStorageExporter::$entryContextDataResult[$this->getId()]))
 		{
-			$context = kStorageExporter::$entryContextDataResult[$this->getId()][$scope->getEntryId()];
+			$context = hStorageExporter::$entryContextDataResult[$this->getId()][$scope->getEntryId()];
 		}
 		else
 		{	
@@ -288,7 +288,7 @@ class StorageProfile extends BaseStorageProfile implements IBaseObject
 				if($fulfilled && $rule->getStopProcessing())
 					break;
 			}
-			kStorageExporter::$entryContextDataResult[$this->getId()][$scope->getEntryId()] = $context;
+			hStorageExporter::$entryContextDataResult[$this->getId()][$scope->getEntryId()] = $context;
 		}
 		
 		foreach ($context->getActions() as $action) 
@@ -388,13 +388,13 @@ class StorageProfile extends BaseStorageProfile implements IBaseObject
 	/**
 	 * Get the storage profile scope
 	 * 
-	 * @return kStorageProfileScope
+	 * @return hStorageProfileScope
 	 */
 	public function &getScope()
 	{
 		if (!$this->scope)
 		{
-			$this->scope = new kStorageProfileScope();
+			$this->scope = new hStorageProfileScope();
 			$this->scope->setStorageProfileId($this->getId());
 		}
 			
@@ -402,11 +402,11 @@ class StorageProfile extends BaseStorageProfile implements IBaseObject
 	}
 	
 	/**
-	 * Set the kStorageProfileScope, called internally only
+	 * Set the hStorageProfileScope, called internally only
 	 * 
 	 * @param $scope
 	 */
-	protected function setScope(kStorageProfileScope $scope)
+	protected function setScope(hStorageProfileScope $scope)
 	{
 		$this->scope = $scope;
 	}

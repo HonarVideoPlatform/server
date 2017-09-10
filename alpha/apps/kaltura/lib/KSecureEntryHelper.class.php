@@ -4,123 +4,123 @@
  * @subpackage utils
  *
  */
-class KSecureEntryHelper
+class HSecureEntryHelper
 {
 	/**
-	 * 
+	 *
 	 * @var entry
 	 */
 	private $entry;
-	
+
 	/**
-	 * 
+	 *
 	 * @var string
 	 */
-	private $ksStr;
-	
+	private $hsStr;
+
 	/**
-	 * 
-	 * @var ks
+	 *
+	 * @var hs
 	 */
-	private $ks;
-	
+	private $hs;
+
 	/**
-	 * 
+	 *
 	 * @var string
 	 */
 	private $referrer;
-	
+
 	/**
-	 * Indicates what contexts should be tested 
+	 * Indicates what contexts should be tested
 	 * No contexts means any context
-	 * 
+	 *
 	 * @var array of ContextType
 	 */
 	private $contexts;
-	
+
 	/**
 	 * Indicates that access control need to be checked every request and therefore can't be cached
-	 * 
+	 *
 	 * @var bool
 	 */
 	private $disableCache;
-	
+
 	/**
 	 * @var array
 	 */
 	private $hashes;
-	
+
 	/**
 	 * the result of applyContext
 	 * @var kEntryContextDataResult
 	 */
 	private $contextResult;
-	
+
 	/**
 	 * access control actions lists keyed by RuleActionType
 	 * @var array
 	 */
 	private $actionLists = array();
-	
+
 	/**
-	 * 
+	 *
 	 * @param entry $entry
 	 */
-	public function __construct(entry $entry, $ksStr, $referrer, $contexts = array(), $hashes = array())
+	public function __construct(entry $entry, $hsStr, $referrer, $contexts = array(), $hashes = array())
 	{
 		if(!is_array($contexts))
 			$contexts = array($contexts);
-			
+
 		if($entry->getSecurityParentId())
 		{
 			$entry = $entry->getParentEntry();
 			if(!$entry)
 				KExternalErrors::dieError(KExternalErrors::PARENT_ENTRY_ID_NOT_FOUND, "Entry is configured with parent entry, but parent entry was not found");
 		}
-			
+
 		$this->entry = $entry;
-		$this->ksStr = $ksStr;
+		$this->hsStr = $hsStr;
 		$this->referrer = $referrer;
 		$this->contexts = $contexts;
 		$this->hashes = $hashes;
-		
-		$this->validateKs();
+
+		$this->validateHs();
 		$this->applyContext();
 	}
-	
+
 	public function hasRules($contextType = null)
 	{
 		$accessControl = $this->entry->getAccessControl();
 		if ($accessControl)
 			return $accessControl->hasRules($contextType);
-			
+
 		return false;
 	}
-	
+
 	public function shouldPreview()
 	{
-		if ($this->isKsAdmin())
+		if ($this->isHsAdmin())
 			return false;
-		
+
 		if ($this->isEntryInModeration()) // don't preview when entry is in moderation
 			return false;
-			
+
 		// should preview only when the access control is valid, but the preview and session restrictions exists
 		if ($this->contextResult)
 		{
 			if ($this->shouldBlock())
 				return false;
-					
+
 			return $this->getActionList(RuleActionType::PREVIEW);
 		}
 		return false;
 	}
-	
+
 	public function getPreviewLength()
 	{
 		$preview = null;
 		if ($this->contextResult && $this->getActionList(RuleActionType::PREVIEW))
-		{			
+		{
 			$actions = $this->getActionList(RuleActionType::PREVIEW);
 			foreach($actions as $action)
 			{
@@ -141,10 +141,10 @@ class KSecureEntryHelper
 	{
 	    if ($this->contexts != array(ContextType::THUMBNAIL))
         {
-            if ( ! ($this->ks &&
-                   ($this->isKsAdmin() ||
-                    $this->ks->verifyPrivileges(ks::PRIVILEGE_VIEW, ks::PRIVILEGE_WILDCARD) ||
-                    $this->ks->verifyPrivileges(ks::PRIVILEGE_VIEW, $this->entry->getId()) ))){
+            if ( ! ($this->hs &&
+                   ($this->isHsAdmin() ||
+                    $this->hs->verifyPrivileges(hs::PRIVILEGE_VIEW, hs::PRIVILEGE_WILDCARD) ||
+                    $this->hs->verifyPrivileges(hs::PRIVILEGE_VIEW, $this->entry->getId()) ))){
                 $this->validateModeration();
                 $this->validateScheduling();
             }
@@ -152,45 +152,45 @@ class KSecureEntryHelper
 
         $this->validateAccessControl($performApiAccessCheck);
 	}
-	
+
 	public function validateForDownload()
 	{
 		$this->validateApiAccessControl();
-		
-		if ($this->ks)
+
+		if ($this->hs)
 		{
-			if ($this->isKsAdmin()) // no need to validate when ks is admin
+			if ($this->isHsAdmin()) // no need to validate when hs is admin
 				return;
-			
-			if ($this->ks->verifyPrivileges(ks::PRIVILEGE_DOWNLOAD, ks::PRIVILEGE_WILDCARD)) // no need to validate when we have wildcard download privilege
+
+			if ($this->hs->verifyPrivileges(hs::PRIVILEGE_DOWNLOAD, hs::PRIVILEGE_WILDCARD)) // no need to validate when we have wildcard download privilege
 				return;
-				
-			if ($this->ks->verifyPrivileges(ks::PRIVILEGE_DOWNLOAD, $this->entry->getId())) // no need to validate when we have specific entry download privilege
+
+			if ($this->hs->verifyPrivileges(hs::PRIVILEGE_DOWNLOAD, $this->entry->getId())) // no need to validate when we have specific entry download privilege
 				return;
-		}	
-			
+		}
+
 		$this->validateForPlay(false);
 	}
-	
+
 	protected function validateModeration()
 	{
-		if ($this->isKsAdmin()) // no need to validate when ks is admin
+		if ($this->isHsAdmin()) // no need to validate when hs is admin
 			return;
-			
+
 		if ($this->isEntryInModeration())
 			KExternalErrors::dieError(KExternalErrors::ENTRY_MODERATION_ERROR);
 	}
-	
+
 	public function validateAccessControl($performApiAccessCheck = true)
 	{
 		if ($performApiAccessCheck)
 		{
 			$this->validateApiAccessControl();
 		}
-		
+
 		if(!$this->contextResult)
 			return;
-			
+
 		if(count($this->contextResult->getMessages()))
 		{
 			foreach($this->contextResult->getMessages() as $msg)
@@ -207,10 +207,10 @@ class KSecureEntryHelper
 	{
 		if (!isset($this->actionLists[$actionType]))
 			return null;
-		
-		return $this->actionLists[$actionType]; 
+
+		return $this->actionLists[$actionType];
 	}
-	
+
 	public function filterAllowedFlavorParams(array $flavorParamsIds)
 	{
 		$actionList = $this->getActionList(RuleActionType::LIMIT_FLAVORS);
@@ -218,43 +218,43 @@ class KSecureEntryHelper
 		{
 			// take only the first LIMIT_FLAVORS action
 			$action = reset($actionList);
-		
+
 			$actionflavorParamsIds = explode(',', $action->getFlavorParamsIds());
 			$flavorParamsIds = $action->getIsBlockedList() ? array_diff($flavorParamsIds, $actionflavorParamsIds) :	array_intersect($flavorParamsIds, $actionflavorParamsIds);
 		}
-		
+
 		return $flavorParamsIds;
 	}
-	
+
 	public function isAssetAllowed(asset $asset)
 	{
-		if ($this->ks && $this->ks->verifyPrivileges(ks::PRIVILEGE_DOWNLOAD_ASSET, $asset->getId()))
+		if ($this->hs && $this->hs->verifyPrivileges(hs::PRIVILEGE_DOWNLOAD_ASSET, $asset->getId()))
 			return true;
 
-		return $this->isFlavorParamsAllowed($asset->getFlavorParamsId());		
+		return $this->isFlavorParamsAllowed($asset->getFlavorParamsId());
 	}
-	
+
 	public function shouldBlock()
 	{
-		return $this->getActionList(RuleActionType::BLOCK);		
+		return $this->getActionList(RuleActionType::BLOCK);
 	}
-	
+
 	public function shouldServeFromServerNode()
 	{
 		$actionsList = $this->getActionList(RuleActionType::SERVE_FROM_REMOTE_SERVER);
 		if(!$actionsList)
 			return null;
-		
+
 		/* @var $action kAccessControlServeRemoteEdgeServerAction */
 		$action = reset($actionsList);
 		$activeServerNodes =  $action->getRegiteredNodeServers();
-		
+
 		if(!count($activeServerNodes))
 			return null;
-		
+
 		return $activeServerNodes[0];
 	}
-	
+
 	protected function isFlavorParamsAllowed($flavorParamsId)
 	{
 		$actionList = $this->getActionList(RuleActionType::LIMIT_FLAVORS);
@@ -266,7 +266,7 @@ class KSecureEntryHelper
 			$exists = in_array($flavorParamsId, $flavorParamsIds);
 			if($action->getIsBlockedList())
 				return !$exists;
-			else 
+			else
 				return $exists;
 		}
 		return true;
@@ -281,21 +281,21 @@ class KSecureEntryHelper
 			{
 				if($action->applyDeliveryProfileDynamicAttributes($deliveryAttributes))
 					break;
-			}	
+			}
 		}
 	}
-	
+
 	protected function applyContext()
 	{
 		$this->contextResult = null;
 		$accessControl = $this->entry->getAccessControl();
 		if(!$accessControl)
 			return;
-			
+
 		$this->contextResult = new kEntryContextDataResult();
 		$scope = $this->getAccessControlScope();
 		$this->disableCache = $accessControl->applyContext($this->contextResult, $scope);
-		
+
 		if (count ( $this->contextResult->getActions () )) {
 			foreach ( $this->contextResult->getActions () as $action )
 			{
@@ -306,83 +306,83 @@ class KSecureEntryHelper
 			}
 		}
 	}
-	
+
 	protected function validateScheduling()
 	{
-		if (!$this->entry->isScheduledNow() && !$this->isKsAdmin())
+		if (!$this->entry->isScheduledNow() && !$this->isHsAdmin())
 		{
 			KExternalErrors::dieError(KExternalErrors::NOT_SCHEDULED_NOW);
 		}
 	}
-	
-	protected function validateKs()
+
+	protected function validateHs()
 	{
-		if ($this->ksStr)
+		if ($this->hsStr)
 		{
 			try
 			{
 				// todo need to check if partner is within a partner group
-				$ks = kSessionUtils::crackKs($this->ksStr);
-				// if entry is "display_in_search=2" validate partner ID from the KS
+				$hs = hSessionUtils::crackHs($this->hsStr);
+				// if entry is "display_in_search=2" validate partner ID from the HS
 				// => meaning it will alwasy pass on partner_id
 				if($this->entry->getDisplayInSearch() != mySearchUtils::DISPLAY_IN_SEARCH_KALTURA_NETWORK)
 				{
-					$valid = $ks->isValidForPartner($this->entry->getPartnerId());
+					$valid = $hs->isValidForPartner($this->entry->getPartnerId());
 				}
 				else
 				{
-					$valid = $ks->isValidForPartner($ks->partner_id);
+					$valid = $hs->isValidForPartner($hs->partner_id);
 				}
-				if ($valid === ks::EXPIRED)
-					KExternalErrors::dieError(KExternalErrors::KS_EXPIRED, "This URL is expired");
-				else if ($valid === ks::INVALID_PARTNER)
+				if ($valid === hs::EXPIRED)
+					KExternalErrors::dieError(KExternalErrors::HS_EXPIRED, "This URL is expired");
+				else if ($valid === hs::INVALID_PARTNER)
 				{
 					if ($this->hasRules()) // TODO - for now if the entry doesnt have restrictions any way disregard a partner group check
 						KExternalErrors::dieError(KExternalErrors::INVALID_PARTNER, "Invalid session [".$valid."]");
 				}
-				else if ($valid === ks::EXCEEDED_RESTRICTED_IP)
+				else if ($valid === hs::EXCEEDED_RESTRICTED_IP)
 				{
 					KExternalErrors::dieError(KExternalErrors::EXCEEDED_RESTRICTED_IP);
 				}
-				else if ($valid !== ks::OK)
+				else if ($valid !== hs::OK)
 				{
-					KExternalErrors::dieError(KExternalErrors::INVALID_KS, "Invalid session [".$valid."]");
+					KExternalErrors::dieError(KExternalErrors::INVALID_HS, "Invalid session [".$valid."]");
 				}
-				
-				if ($ks->partner_id != $this->entry->getPartnerId() && $ks->partner_id != Partner::BATCH_PARTNER_ID)
+
+				if ($hs->partner_id != $this->entry->getPartnerId() && $hs->partner_id != Partner::BATCH_PARTNER_ID)
 				{
 					return;
 				}
-					
-				$this->ks = $ks;	
+
+				$this->hs = $hs;
 			}
 			catch(Exception $ex)
 			{
-				KExternalErrors::dieError(KExternalErrors::INVALID_KS_SRT);
+				KExternalErrors::dieError(KExternalErrors::INVALID_HS_SRT);
 			}
 		}
 	}
-	
-	public function isKsAdmin()
+
+	public function isHsAdmin()
 	{
-		 return ($this->ks && $this->ks->isAdmin());
+		 return ($this->hs && $this->hs->isAdmin());
 	}
-	
-	public function isKsWidget()
+
+	public function isHsWidget()
 	{
-		 return (!$this->ksStr || ($this->ks && $this->ks->isWidgetSession()));
+		 return (!$this->hsStr || ($this->hs && $this->hs->isWidgetSession()));
 	}
-	
+
 	/**
-	 * Indicates that the KS user is the owner of the entry
+	 * Indicates that the HS user is the owner of the entry
 	 * @return bool
 	 */
-	protected function isKsUserOwnsEntry()
+	protected function isHsUserOwnsEntry()
 	{
-		return (!$this->isKsWidget() && $this->ks && $this->entry && $this->entry->getKuserId() == $this->ks->getKuserId());
+		return (!$this->isHsWidget() && $this->hs && $this->entry && $this->entry->getKuserId() == $this->hs->getKuserId());
 	}
-	
-	
+
+
 	/**
 	 * Indicates that the entry is not approved
 	 * @return bool
@@ -392,19 +392,19 @@ class KSecureEntryHelper
 		$entry = $this->entry;
 		$moderationStatus = $entry->getModerationStatus();
 		$invalidModerationStatuses = array(
-			entry::ENTRY_MODERATION_STATUS_PENDING_MODERATION, 
+			entry::ENTRY_MODERATION_STATUS_PENDING_MODERATION,
 			entry::ENTRY_MODERATION_STATUS_REJECTED
 		);
-		
+
 		if(!in_array($moderationStatus, $invalidModerationStatuses))
 			return false;
-			
-		if($this->isKsAdmin() || $this->isKsUserOwnsEntry())
+
+		if($this->isHsAdmin() || $this->isHsUserOwnsEntry())
 			return false;
-			
+
 		return true;
 	}
-	
+
 	/**
 	 * Access control need to be checked every request and therefore request can't be cached
 	 * @return boolean
@@ -413,17 +413,17 @@ class KSecureEntryHelper
 	{
 		return $this->disableCache;
 	}
-	
+
 	private function getAccessControlScope()
 	{
 		$accessControlScope = new accessControlScope();
 		if ($this->referrer)
 			$accessControlScope->setReferrer($this->referrer);
-		$accessControlScope->setKs($this->ks);
+		$accessControlScope->setHs($this->hs);
 		$accessControlScope->setEntryId($this->entry->getId());
 		$accessControlScope->setContexts($this->contexts);
 		$accessControlScope->setHashes($this->hashes);
-		
+
 		return $accessControlScope;
 	}
 
@@ -435,7 +435,7 @@ class KSecureEntryHelper
 	{
 		return $this->contextResult;
 	}
-	
+
 	public function validateForServe($flavorParamsId)
 	{
 		if (!$this->isFlavorParamsAllowed($flavorParamsId))

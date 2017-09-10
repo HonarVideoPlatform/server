@@ -39,9 +39,9 @@ class MixingService extends KalturaEntryService
 		$this->validateAccessControlId($mixEntry);
 		$this->validateEntryScheduleDates($mixEntry, $dbEntry);
 		
-		$kshow = $this->createDummyKShow();
+		$hshow = $this->createDummyHShow();
 
-		$dbEntry->setKshowId($kshow->getId());
+		$dbEntry->setHshowId($hshow->getId());
 		$dbEntry->setPartnerId($this->getPartnerId());
 		$dbEntry->setSubpId($this->getPartnerId() * 100);
 		$dbEntry->setStatus(KalturaEntryStatus::READY);
@@ -72,8 +72,8 @@ class MixingService extends KalturaEntryService
 		$trackEntry->setDescription(__METHOD__ . ":" . __LINE__ . "::ENTRY_MIX");
 		TrackEntry::addTrackEntry($trackEntry);
 		
-		$kshow->setShowEntry($dbEntry);
-		$kshow->save();
+		$hshow->setShowEntry($dbEntry);
+		$hshow->save();
 		$mixEntry->fromObject($dbEntry, $this->getResponseProfile());
 		
 		myNotificationMgr::createNotification(kNotificationJobData::NOTIFICATION_TYPE_ENTRY_ADD, $dbEntry);
@@ -209,23 +209,23 @@ class MixingService extends KalturaEntryService
 		if (!$dbEntry || $dbEntry->getType() != KalturaEntryType::MIX)
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
 			
-		$kshowId = $dbEntry->getKshowId();
-		$kshow = $dbEntry->getKshow();
+		$hshowId = $dbEntry->getHshowId();
+		$hshow = $dbEntry->getHshow();
 		
-		if (!$kshow)
+		if (!$hshow)
 		{
-			KalturaLog::CRIT("Kshow was not found for mix id [".$entryId."]");
+			KalturaLog::CRIT("Hshow was not found for mix id [".$entryId."]");
 			throw new KalturaAPIException(KalturaErrors::INTERNAL_SERVERL_ERROR);
 		}
 		
-		$newKshow = myKshowUtils::shalowCloneById($kshowId, $this->getKuser()->getId());
+		$newHshow = myHshowUtils::shalowCloneById($hshowId, $this->getKuser()->getId());
 	
-		if (!$newKshow)
+		if (!$newHshow)
 		{
-			KalturaLog::ERR("Failed to clone kshow for mix id [".$entryId."]");
+			KalturaLog::ERR("Failed to clone hshow for mix id [".$entryId."]");
 			throw new KalturaAPIException(KalturaErrors::INTERNAL_SERVERL_ERROR);
 		}
-		$newEntry = $newKshow->getShowEntry();
+		$newEntry = $newHshow->getShowEntry();
 		
 		$newMixEntry = new KalturaMixEntry();
 		$newMixEntry->fromObject($newEntry, $this->getResponseProfile());
@@ -255,34 +255,34 @@ class MixingService extends KalturaEntryService
 		if (!$dbMediaEntry || $dbMediaEntry->getType() != KalturaEntryType::MEDIA_CLIP)
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $mediaEntryId);
 			
-		$kshow = $dbMixEntry->getkshow();		
-		if (!$kshow)
+		$hshow = $dbMixEntry->gethshow();		
+		if (!$hshow)
 		{
-			KalturaLog::CRIT("Kshow was not found for mix id [".$mixEntryId."]");
+			KalturaLog::CRIT("Hshow was not found for mix id [".$mixEntryId."]");
 			throw new KalturaAPIException(KalturaErrors::INTERNAL_SERVERL_ERROR);
 		}
 		
-		// FIXME: temp hack  - when kshow doesn't have a roughcut, and the media entry is not ready, it cannob be queued for append upon import/conversion completion 
+		// FIXME: temp hack  - when hshow doesn't have a roughcut, and the media entry is not ready, it cannob be queued for append upon import/conversion completion 
 		if ($dbMediaEntry->getStatus() != entryStatus::READY)
 		{
-			$kshow->setShowEntryId($mixEntryId);
-			$kshow->save();
-			$dbMediaEntry->setKshowId($kshow->getId());
+			$hshow->setShowEntryId($mixEntryId);
+			$hshow->save();
+			$dbMediaEntry->setHshowId($hshow->getId());
 			$dbMediaEntry->save();
 		}
 		
-		$metadata = $kshow->getMetadata();
+		$metadata = $hshow->getMetadata();
 		
-		$relevantKshowVersion = 1 + $kshow->getVersion(); // the next metadata will be the first relevant version for this new entry
+		$relevantHshowVersion = 1 + $hshow->getVersion(); // the next metadata will be the first relevant version for this new entry
 		
-		$newMetadata = myMetadataUtils::addEntryToMetadata($metadata, $dbMediaEntry, $relevantKshowVersion, array());
+		$newMetadata = myMetadataUtils::addEntryToMetadata($metadata, $dbMediaEntry, $relevantHshowVersion, array());
 		
 		$dbMediaEntry->save(); // FIXME: should be removed, needed for the prev hack
 		
 		if ($newMetadata)
 		{
 			// TODO - add thumbnail only for entries that are worthy - check they are not moderated !
-			$thumbModified = myKshowUtils::updateThumbnail($kshow, $dbMediaEntry, false);
+			$thumbModified = myHshowUtils::updateThumbnail($hshow, $dbMediaEntry, false);
 			
 			if ($thumbModified)
 			{
@@ -292,14 +292,14 @@ class MixingService extends KalturaEntryService
 			// it is very important to increment the version count because even if the entry is deferred
 			// it will be added on the next version
 			
-			if (!$kshow->getHasRoughcut())
+			if (!$hshow->getHasRoughcut())
 			{
-				// make sure the kshow now does have a roughcut
-				$kshow->setHasRoughcut(true);	
-				$kshow->save();
+				// make sure the hshow now does have a roughcut
+				$hshow->setHasRoughcut(true);	
+				$hshow->save();
 			}
 	
-			$kshow->setMetadata($newMetadata, true);
+			$hshow->setMetadata($newMetadata, true);
 		}
 		
 		$mixEntry = new KalturaMixEntry();

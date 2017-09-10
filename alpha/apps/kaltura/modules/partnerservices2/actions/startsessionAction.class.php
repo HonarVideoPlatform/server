@@ -22,7 +22,7 @@ class startsessionAction extends defPartnerservices2Action
 						)
 					),
 				"out" => array (
-					"ks" => array ("type" => "string", "desc" => ""),
+					"hs" => array ("type" => "string", "desc" => ""),
 					"partner_id" => array ("type" => "string", "desc" => ""),
 					"subp_id" => array ("type" => "string", "desc" => ""),
 					"uid" => array ("type" => "string", "desc" => "")
@@ -50,16 +50,16 @@ class startsessionAction extends defPartnerservices2Action
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
 		// make sure the secret fits the one in the partner's table
-		$ks = "";
+		$hs = "";
 		$expiry = $this->getP ( "expiry" , 86400 );
 		$admin = $this->getP ( "admin" , false);
 		$privileges = $this->getP ( "privileges" , null );
 
-		$result = kSessionUtils::startKSession ( $partner_id , $this->getPM ( "secret" ) , $puser_id , $ks , $expiry , $admin , "" , $privileges );
+		$result = hSessionUtils::startHSession ( $partner_id , $this->getPM ( "secret" ) , $puser_id , $hs , $expiry , $admin , "" , $privileges );
 
 		if ( $result >= 0 )
 		{
-			$this->addMsg ( "ks" , $ks );
+			$this->addMsg ( "hs" , $hs );
 			$this->addMsg ( "partner_id" , $partner_id );
 			$this->addMsg ( "subp_id" , $subp_id );
 			$this->addMsg ( "uid" , $puser_id );

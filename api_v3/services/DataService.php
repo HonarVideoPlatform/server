@@ -151,9 +151,9 @@ class DataService extends KalturaEntryService
 		if (!$dbEntry || $dbEntry->getType() != KalturaEntryType::DATA)
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
 
-		$ksObj = $this->getKs();
-		$ks = ($ksObj) ? $ksObj->getOriginalString() : null;
-		$securyEntryHelper = new KSecureEntryHelper($dbEntry, $ks, null, ContextType::DOWNLOAD);
+		$hsObj = $this->getHs();
+		$hs = ($hsObj) ? $hsObj->getOriginalString() : null;
+		$securyEntryHelper = new HSecureEntryHelper($dbEntry, $hs, null, ContextType::DOWNLOAD);
 		$securyEntryHelper->validateForDownload();	
 		
 		if ( ! $version || $version == -1 ) $version = null;

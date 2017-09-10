@@ -133,7 +133,7 @@ abstract class KalturaAssetService extends KalturaBaseService
 	    	throw new KalturaAPIException(KalturaErrors::STORAGE_PROFILE_RULES_NOT_FULFILLED, $storageProfileId);
 	    }
 	    
-	    $exported = kStorageExporter::exportFlavorAsset($dbAsset, $dbStorageProfile);
+	    $exported = hStorageExporter::exportFlavorAsset($dbAsset, $dbStorageProfile);
 	    
 	    if ($exported !== true)
 	    {

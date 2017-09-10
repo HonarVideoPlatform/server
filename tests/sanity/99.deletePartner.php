@@ -13,7 +13,7 @@ echo "Test started [" . __FILE__ . "]\n";
  * Start a new session
  */
 $adminSecretForSigning = $config['adminConsoleSession']['adminSecret'];
-$client->setKs($client->generateSessionV2($adminSecretForSigning, null, KalturaSessionType::ADMIN, -2, 86400, ''));
+$client->setHs($client->generateSessionV2($adminSecretForSigning, null, KalturaSessionType::ADMIN, -2, 86400, ''));
 echo "Admin console session started\n";
 
 

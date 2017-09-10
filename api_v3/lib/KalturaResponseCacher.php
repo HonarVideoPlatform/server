@@ -83,52 +83,52 @@ class KalturaResponseCacher extends kApiCache
 		return true;
 	}
 
-	protected function getKs()
+	protected function getHs()
 	{
-		$ks = parent::getKs();
+		$hs = parent::getHs();
 		
 		foreach($this->_params as $key => $value)
 		{
-			if (is_numeric($key) && is_array($value) && array_key_exists('ks', $value))
+			if (is_numeric($key) && is_array($value) && array_key_exists('hs', $value))
 			{
-				$curKs = $value['ks'];
-				if (strpos($curKs, ':result') !== false)
-					continue;				// the ks is the result of some sub request
+				$curHs = $value['hs'];
+				if (strpos($curHs, ':result') !== false)
+					continue;				// the hs is the result of some sub request
 				
-				if ($ks && $ks != $curKs)
-					return false;			// several different ks's in a multirequest - don't use cache
+				if ($hs && $hs != $curHs)
+					return false;			// several different hs's in a multirequest - don't use cache
 				
-				$ks = $curKs;
-				unset($this->_params[$key]['ks']);
+				$hs = $curHs;
+				unset($this->_params[$key]['hs']);
 				continue;
 			}
 			
-			if(!preg_match('/[\d]+:ks/', $key))
-				continue;				// not a ks
+			if(!preg_match('/[\d]+:hs/', $key))
+				continue;				// not a hs
 
 			if (strpos($value, ':result') !== false)
-				continue;				// the ks is the result of some sub request
+				continue;				// the hs is the result of some sub request
 
-			if ($ks && $ks != $value)
-				return false;			// several different ks's in a multirequest - don't use cache
+			if ($hs && $hs != $value)
+				return false;			// several different hs's in a multirequest - don't use cache
 
-			$ks = $value;
+			$hs = $value;
 			unset($this->_params[$key]);
 		}
 		
-		return $ks;
+		return $hs;
 	}
 
 	protected function sendCachingHeaders($usingCache, $lastModified = null)
 	{
 		header("Access-Control-Allow-Origin:*"); // avoid html5 xss issues
 
-		// we should never return caching headers for non widget sessions since the KS can be ended and the CDN won't know
-		$isAnonymous = $this->isAnonymous($this->_ksObj);
-		$partnerId = $this->_ksObj ? $this->_ksObj->partner_id : 0;
+		// we should never return caching headers for non widget sessions since the HS can be ended and the CDN won't know
+		$isAnonymous = $this->isAnonymous($this->_hsObj);
+		$partnerId = $this->_hsObj ? $this->_hsObj->partner_id : 0;
 		
 		$forceCachingHeaders = false;
-		if ($this->_ksObj && kConf::hasParam("force_caching_headers") && in_array($partnerId, kConf::get("force_caching_headers")))
+		if ($this->_hsObj && kConf::hasParam("force_caching_headers") && in_array($partnerId, kConf::get("force_caching_headers")))
 			$forceCachingHeaders = true;
 
 		// for GET requests with kalsig (signature of call params) return cdn/browser caching headers
@@ -268,33 +268,33 @@ class KalturaResponseCacher extends kApiCache
 			if (kConf::hasParam("v3cache_expiry"))
 			{
 				$expiryArr = kConf::get("v3cache_expiry");
-				if (array_key_exists($this->_ksPartnerId, $expiryArr))
-					return $expiryArr[$this->_ksPartnerId];
+				if (array_key_exists($this->_hsPartnerId, $expiryArr))
+					return $expiryArr[$this->_hsPartnerId];
 			}
 		}
 		
 		return $this->_expiry;
 	}
 	
-	protected function isAnonymous($ks)
+	protected function isAnonymous($hs)
 	{
-		if (parent::isAnonymous($ks))
+		if (parent::isAnonymous($hs))
 			return true;
-		else if(!$ks)
+		else if(!$hs)
 			return false;
 			
 		if($this->clientTag && strpos($this->clientTag, 'kmc') === 0)
 			return false;
         
-		// force caching of actions listed in kConf even if admin ks is used
-		if(!kConf::hasParam('v3cache_ignore_admin_ks'))
+		// force caching of actions listed in kConf even if admin hs is used
+		if(!kConf::hasParam('v3cache_ignore_admin_hs'))
 			return false;
 			
-		$v3cacheIgnoreAdminKS = kConf::get('v3cache_ignore_admin_ks');
-		if(!isset($v3cacheIgnoreAdminKS[$ks->partner_id]))
+		$v3cacheIgnoreAdminHS = kConf::get('v3cache_ignore_admin_hs');
+		if(!isset($v3cacheIgnoreAdminHS[$hs->partner_id]))
 			return false;
 			
-		$actions = explode(',', $v3cacheIgnoreAdminKS[$ks->partner_id]);
+		$actions = explode(',', $v3cacheIgnoreAdminHS[$hs->partner_id]);
 		foreach($actions as $action)
 		{
 			list($serviceId, $actionId) = explode('.', $action);
@@ -386,12 +386,12 @@ class KalturaResponseCacher extends kApiCache
 		$type = (int)$type;
 		
 		$partnerId = $params['partnerId'];
-		$secrets = kSessionBase::getSecretsFromCache($partnerId);
+		$secrets = hSessionBase::getSecretsFromCache($partnerId);
 		if (!$secrets)
 		{
 			return;			// can't find the secrets of the partner in the cache
 		}
-		list($adminSecret, $userSecret, $ksVersion) = $secrets;				
+		list($adminSecret, $userSecret, $hsVersion) = $secrets;				
 		$paramSecret = $params['secret'];
 		if ($paramSecret !== $adminSecret &&
 			($type || $paramSecret !== $userSecret))
@@ -405,7 +405,7 @@ class KalturaResponseCacher extends kApiCache
 		$expiry = isset($params['expiry']) ? $params['expiry'] : 86400;
 		$privileges = isset($params['privileges']) ? $params['privileges'] : null;
 		
-		$result = kSessionBase::generateSession($ksVersion, $adminSecret, $userId, $type, $partnerId, $expiry, $privileges);
+		$result = hSessionBase::generateSession($hsVersion, $adminSecret, $userId, $type, $partnerId, $expiry, $privileges);
 		
 		$processingTime = microtime(true) - $startTime;
 		$cacheKey = md5("{$partnerId}_{$userId}_{$type}_{$expiry}_{$privileges}");

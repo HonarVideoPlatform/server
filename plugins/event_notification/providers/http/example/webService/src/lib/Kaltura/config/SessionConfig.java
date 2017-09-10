@@ -34,8 +34,8 @@ public class SessionConfig {
 		config.setEndpoint(KALTURA_SERVICE_URL);
 		KalturaClient client = new KalturaClient(config);
 		
-		// Generate KS string locally, without calling the API
-		String ks = client.generateSession(
+		// Generate HS string locally, without calling the API
+		String hs = client.generateSession(
 			KALTURA_ADMIN_SECRET,
 			userId,
 			sessionType,
@@ -43,7 +43,7 @@ public class SessionConfig {
 			sessionExpiry,
 			sessionPrivileges
 		);
-		client.setSessionId(ks);
+		client.setSessionId(hs);
 		
 		// Returns the KalturaClient object
 		return client;

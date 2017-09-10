@@ -275,7 +275,7 @@ class KalturaUser extends KalturaObject implements IRelatedFilterable
 		// full name is deprecated and was split to firstName + lastName
 		// this is for backward compatibility with older clients
 		if ($this->fullName && !$this->firstName) {
-			list($firstName, $lastName) = kString::nameSplit($this->fullName);
+			list($firstName, $lastName) = hString::nameSplit($this->fullName);
 			$dbObject->setFirstName($firstName);
 			$dbObject->setLastName($lastName);
 		}

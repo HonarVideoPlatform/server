@@ -166,9 +166,9 @@ class ScheduledTaskProfileService extends KalturaBaseService
 		if (!in_array($dbScheduledTaskProfile->getStatus(), array(KalturaScheduledTaskProfileStatus::ACTIVE, KalturaScheduledTaskProfileStatus::DRY_RUN_ONLY)))
 			throw new KalturaAPIException(KalturaScheduledTaskErrors::SCHEDULED_TASK_DRY_RUN_NOT_ALLOWED, $scheduledTaskProfileId);
 
-		$jobData = new kScheduledTaskJobData();
+		$jobData = new hScheduledTaskJobData();
 		$jobData->setMaxResults($maxResults);
-		$referenceTime = kCurrentContext::$ks_object->getPrivilegeValue(ks::PRIVILEGE_REFERENCE_TIME);
+		$referenceTime = kCurrentContext::$hs_object->getPrivilegeValue(hs::PRIVILEGE_REFERENCE_TIME);
 		if ($referenceTime)
 			$jobData->setReferenceTime($referenceTime);
 		$batchJob = $this->createScheduledTaskJob($dbScheduledTaskProfile, $jobData);
@@ -207,10 +207,10 @@ class ScheduledTaskProfileService extends KalturaBaseService
 
 	/**
 	 * @param ScheduledTaskProfile $scheduledTaskProfile
-	 * @param kScheduledTaskJobData $jobData
+	 * @param hScheduledTaskJobData $jobData
 	 * @return BatchJob
 	 */
-	protected function createScheduledTaskJob(ScheduledTaskProfile $scheduledTaskProfile, kScheduledTaskJobData $jobData)
+	protected function createScheduledTaskJob(ScheduledTaskProfile $scheduledTaskProfile, hScheduledTaskJobData $jobData)
 	{
 		$scheduledTaskProfileId = $scheduledTaskProfile->getId();
 		$jobType = ScheduledTaskPlugin::getBatchJobTypeCoreValue(ScheduledTaskBatchType::SCHEDULED_TASK);

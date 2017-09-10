@@ -69,7 +69,7 @@ class PlaylistService extends KalturaEntryService
 		
 		$dbPlaylist->setPartnerId ( $this->getPartnerId() );
 		$dbPlaylist->setStatus ( entryStatus::READY );
-		$dbPlaylist->setKshowId ( null ); // this is brave !!
+		$dbPlaylist->setHshowId ( null ); // this is brave !!
 		$dbPlaylist->setType ( entryType::PLAYLIST );
 		
 		myPlaylistUtils::validatePlaylist( $dbPlaylist );
@@ -291,7 +291,7 @@ class PlaylistService extends KalturaEntryService
 	 * @param KalturaMediaEntryFilterForPlaylist $filter
 	 * @param KalturaFilterPager $pager
 	 * @return KalturaBaseEntryArray
-	 * @ksOptional
+	 * @hsOptional
 	 */
 	function executeAction( $id , $detailed = false, KalturaContext $playlistContext = null, $filter = null, $pager = null )
 	{
@@ -312,8 +312,8 @@ class PlaylistService extends KalturaEntryService
 			$entryFilter = $coreFilter;
 		}
 			
-		if ($this->getKs() && is_object($this->getKs()) && $this->getKs()->isAdmin())
-			myPlaylistUtils::setIsAdminKs(true);
+		if ($this->getHs() && is_object($this->getHs()) && $this->getHs()->isAdmin())
+			myPlaylistUtils::setIsAdminHs(true);
 
 	    $corePlaylistContext = null;
 	    if ($playlistContext)
@@ -356,8 +356,8 @@ class PlaylistService extends KalturaEntryService
 	{
 	    myDbHelper::$use_alternative_con = myDbHelper::DB_HELPER_CONN_PROPEL3;
 	    
-		if ($this->getKs() && is_object($this->getKs()) && $this->getKs()->isAdmin())
-			myPlaylistUtils::setIsAdminKs(true);
+		if ($this->getHs() && is_object($this->getHs()) && $this->getHs()->isAdmin())
+			myPlaylistUtils::setIsAdminHs(true);
 
 		$entryList = array();
 		if ($playlistType == KalturaPlaylistType::DYNAMIC)

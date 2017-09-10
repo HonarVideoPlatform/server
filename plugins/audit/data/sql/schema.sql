@@ -27,7 +27,7 @@ CREATE TABLE `audit_trail`
 	`kuser_id` INTEGER,
 	`action` VARCHAR(31),
 	`data` TEXT,
-	`ks` VARCHAR(511),
+	`hs` VARCHAR(511),
 	`context` TINYINT,
 	`entry_point` VARCHAR(127),
 	`server_name` VARCHAR(63),

@@ -176,7 +176,7 @@ class AuditTrail extends BaseAuditTrail implements IBaseObject
 			$this->setPuserId(kCurrentContext::$uid);
 			
 			if (kCurrentContext::$uid == '')
-				$this->setPuserId(kCurrentContext::$ks_uid);
+				$this->setPuserId(kCurrentContext::$hs_uid);
 		}
 	
 		if(is_null($this->getClientTag()))
@@ -184,7 +184,7 @@ class AuditTrail extends BaseAuditTrail implements IBaseObject
 		
 		$this->setRequestId(new UniqueId());
 		$this->setMasterPartnerId(kCurrentContext::$master_partner_id);
-		$this->setKs(kCurrentContext::$ks);
+		$this->setHs(kCurrentContext::$hs);
 		$this->setIpAddress(kCurrentContext::$user_ip);
 		$this->setServerName(kCurrentContext::$host);
 		$this->setEntryPoint(kCurrentContext::getEntryPoint());

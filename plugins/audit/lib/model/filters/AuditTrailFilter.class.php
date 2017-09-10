@@ -45,7 +45,7 @@ class AuditTrailFilter extends baseObjectFilter
 				"_in_server_name",
 				"_eq_ip_address",
 				"_in_ip_address",
-				"_eq_ks", 
+				"_eq_hs", 
 				"_eq_client_tag", 
 			) , NULL );
 

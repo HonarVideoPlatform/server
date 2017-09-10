@@ -27,7 +27,7 @@ class kRegExTokenMapper
 	public function tokenToKey( $matches )
 	{
 		$token = $matches[0];
-		$key = "@K" . kString::generateStringId() . "K@";
+		$key = "@K" . hString::generateStringId() . "K@";
 
 		$this->tokensMap[$key] = $token;
 		return $key;

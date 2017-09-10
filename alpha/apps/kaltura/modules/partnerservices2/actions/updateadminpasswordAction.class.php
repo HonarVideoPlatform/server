@@ -43,7 +43,7 @@ class updateadminpasswordAction extends defPartnerservices2Action
 		
 		if ( $new_email )
 		{
-			if(!kString::isEmailString($new_email))
+			if(!hString::isEmailString($new_email))
 			{
 				$f_name = "new_email";
 				$this->addException( APIErrors::INVALID_FIELD_VALUE, $f_name );

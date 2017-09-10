@@ -11,7 +11,7 @@ interface IKalturaEventNotificationContentEditor extends IKalturaBase
 	 * {metadata:[metadataProfileSystemName]:[metadataProfileFieldSystemName]}
 	 * 
 	 * @param array $sweepFieldValues
-	 * @param kScope $scope
+	 * @param hScope $scope
 	 * @param int $objecType
 	 * @return array
 	 */

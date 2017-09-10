@@ -9,13 +9,13 @@ require_once( __DIR__ . '/AJAX_getObjectsAction.class.php');
  * @package Core
  * @subpackage ajax
  */ 
-class AJAX_getKshowsAction extends AJAX_getObjectsAction
+class AJAX_getHshowsAction extends AJAX_getObjectsAction
 {
-	public function getPagerName( ) 		{ return "kshow" ; }
-	public function getFiler () 			{ return new kshowFilter() ;	}
-	public function getComlumnNames () 		{ return kshow::getColumnNames() ; } // alter table kshow add FULLTEXT ( name , description , tags );
-	public function getSearchableColumnName () 		{ return kshow::getSearchableColumnName(); } //  alter table entry add FULLTEXT ( name , tags );
-	public function getFilterPrefix ( ) 	{ return "kshow_filter_" ; }
+	public function getPagerName( ) 		{ return "hshow" ; }
+	public function getFiler () 			{ return new hshowFilter() ;	}
+	public function getComlumnNames () 		{ return hshow::getColumnNames() ; } // alter table hshow add FULLTEXT ( name , description , tags );
+	public function getSearchableColumnName () 		{ return hshow::getSearchableColumnName(); } //  alter table entry add FULLTEXT ( name , tags );
+	public function getFilterPrefix ( ) 	{ return "hshow_filter_" ; }
 	public function getPeerMethod ()		{ return "doSelectJoinkuser" ; }
 	public function getPeerCountMethod () 	{ return "doCountWithLimit" ; } //"doCountJoinkuser" ; }
 
@@ -26,7 +26,7 @@ class AJAX_getKshowsAction extends AJAX_getObjectsAction
 		{
 			if ( $this->category != NULL && $this->category >= 0  )
 			{
-				$res =  $c->getNewCriterion ( kshowPeer::TYPE , $this->category );
+				$res =  $c->getNewCriterion ( hshowPeer::TYPE , $this->category );
 			}
 		}
 		
@@ -35,20 +35,20 @@ class AJAX_getKshowsAction extends AJAX_getObjectsAction
 
 	public function modifyCriteria ( Criteria $c )
 	{
-//		$c->addJoin( kshowPeer::PRODUCER_ID , kuserPeer::ID , Criteria::JOIN);
-		$c->addJoin( kshowPeer::PRODUCER_ID , kuserPeer::ID , Criteria::LEFT_JOIN);
+//		$c->addJoin( hshowPeer::PRODUCER_ID , kuserPeer::ID , Criteria::JOIN);
+		$c->addJoin( hshowPeer::PRODUCER_ID , kuserPeer::ID , Criteria::LEFT_JOIN);
 
 		if ( !$this->or_category ) // use the category with AND with tagword-complex-criteria
 		{
 			if ( $this->category != NULL && $this->category >= 0  )
 			{
-				$c->add ( kshowPeer::TYPE , $this->category );
+				$c->add ( hshowPeer::TYPE , $this->category );
 			}
 		}
 /*
 		// always filter out all those partner_ids that are not public
-		$c->addAnd ( kshowPeer::ID , kshow::MINIMUM_ID_TO_DISPLAY , Criteria::GREATER_THAN );
-		$c->addAnd ( kshowPeer::PARTNER_ID, myPartnerUtils::PUBLIC_PARTNER_INDEX , Criteria::LESS_EQUAL );
+		$c->addAnd ( hshowPeer::ID , hshow::MINIMUM_ID_TO_DISPLAY , Criteria::GREATER_THAN );
+		$c->addAnd ( hshowPeer::PARTNER_ID, myPartnerUtils::PUBLIC_PARTNER_INDEX , Criteria::LESS_EQUAL );
 */
 	}
 
@@ -73,7 +73,7 @@ class AJAX_getKshowsAction extends AJAX_getObjectsAction
 /*
 	public function getTopImpl ()
 	{
-		return kshowPeer::getTopKshows();
+		return hshowPeer::getTopHshows();
 	}
 */
 }

@@ -61,7 +61,7 @@ class KalturaUserEntryFilter extends KalturaUserEntryBaseFilter
 	public function getListResponse(KalturaFilterPager $pager, KalturaDetachedResponseProfile $responseProfile = null)
 	{
 		$response = new KalturaUserEntryListResponse();
-		if ( in_array(kCurrentContext::getCurrentSessionType(), array(kSessionBase::SESSION_TYPE_NONE,kSessionBase::SESSION_TYPE_WIDGET)) )
+		if ( in_array(kCurrentContext::getCurrentSessionType(), array(hSessionBase::SESSION_TYPE_NONE,hSessionBase::SESSION_TYPE_WIDGET)) )
 		{
 			$response->totalCount = 0;
 			return $response;
@@ -96,7 +96,7 @@ class KalturaUserEntryFilter extends KalturaUserEntryBaseFilter
 
 	public function toObject ($object_to_fill = null, $props_to_skip = array())
 	{
-		if (kCurrentContext::$ks_partner_id != Partner::BATCH_PARTNER_ID)
+		if (kCurrentContext::$hs_partner_id != Partner::BATCH_PARTNER_ID)
 		{
 			if (!is_null($this->privacyContextEqual) || !is_null($this->privacyContextIn))
 			{
@@ -106,7 +106,7 @@ class KalturaUserEntryFilter extends KalturaUserEntryBaseFilter
 		
 		if (!is_null($this->userIdEqualCurrent) && $this->userIdEqualCurrent)
 		{
-			$this->userIdEqual = kCurrentContext::getCurrentKsKuserId();
+			$this->userIdEqual = kCurrentContext::getCurrentHsKuserId();
 		}
 		else
 		{
@@ -120,7 +120,7 @@ class KalturaUserEntryFilter extends KalturaUserEntryBaseFilter
 	{
 		/* @var $srcObj UserEntryFilter */
 		parent::doFromObject($srcObj, $responseProfile);
-		if (kCurrentContext::$ks_partner_id == Partner::BATCH_PARTNER_ID) //batch should be able to get userEntry objects of deleted users.
+		if (kCurrentContext::$hs_partner_id == Partner::BATCH_PARTNER_ID) //batch should be able to get userEntry objects of deleted users.
 				kuserPeer::setUseCriteriaFilter(false);
 		
 		if ($srcObj->get('_eq_user_id'))
@@ -146,7 +146,7 @@ class KalturaUserEntryFilter extends KalturaUserEntryBaseFilter
 	{
 		if ($this->userIdEqual !== null)
 		{
-			if (kCurrentContext::$ks_partner_id == Partner::BATCH_PARTNER_ID) //batch should be able to get userEntry objects of deleted users.
+			if (kCurrentContext::$hs_partner_id == Partner::BATCH_PARTNER_ID) //batch should be able to get userEntry objects of deleted users.
 				kuserPeer::setUseCriteriaFilter(false);
 
 			$kuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::getCurrentPartnerId(), $this->userIdEqual);

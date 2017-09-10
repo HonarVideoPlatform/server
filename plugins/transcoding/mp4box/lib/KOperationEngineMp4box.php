@@ -3,7 +3,7 @@
  * @package plugins.mp4box
  * @subpackage lib
  */
-class KOperationEngineMp4box  extends KSingleOutputOperationEngine
+class KOperationEngineMp4box  extends HSingleOutputOperationEngine
 {
 	public function __construct($cmd, $outFilePath)
 	{

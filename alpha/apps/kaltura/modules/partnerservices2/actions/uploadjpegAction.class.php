@@ -39,7 +39,7 @@ class uploadjpegAction extends defPartnerservices2Action
 		$hash = $this->getP('hash');
   		
   		// strip the filename from invalid characters
-		$token = $this->getKsUniqueString();
+		$token = $this->getHsUniqueString();
 
 		if(isset($HTTP_RAW_POST_DATA))
 			$data = $HTTP_RAW_POST_DATA;

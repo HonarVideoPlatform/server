@@ -7,7 +7,7 @@ class kFieldMatchCondition extends kMatchCondition
 {
 	/**
 	 * The field to evaluate against the values
-	 * @var kStringField
+	 * @var hStringField
 	 */
 	private $field;
 
@@ -23,14 +23,14 @@ class kFieldMatchCondition extends kMatchCondition
 	/* (non-PHPdoc)
 	 * @see kMatchCondition::getFieldValue()
 	 */
-	public function getFieldValue(kScope $scope)
+	public function getFieldValue(hScope $scope)
 	{
 		$this->field->setScope($scope);
 		return $this->field->getValue();
 	}
 	
 	/**
-	 * @return kStringField
+	 * @return hStringField
 	 */
 	public function getField() 
 	{
@@ -38,9 +38,9 @@ class kFieldMatchCondition extends kMatchCondition
 	}
 
 	/**
-	 * @param kStringField $field
+	 * @param hStringField $field
 	 */
-	public function setField(kStringField $field) 
+	public function setField(hStringField $field) 
 	{
 		$this->field = $field;
 	}

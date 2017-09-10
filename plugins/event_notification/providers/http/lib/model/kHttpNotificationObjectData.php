@@ -40,7 +40,7 @@ class kHttpNotificationObjectData extends kHttpNotificationData
 	/* (non-PHPdoc)
 	 * @see kHttpNotificationData::setScope()
 	 */
-	public function setScope(kScope $scope) 
+	public function setScope(hScope $scope) 
 	{
 		if(strpos($this->code, ';') !== false)
 			throw new kCoreException("Evaluated code may be simple value only");

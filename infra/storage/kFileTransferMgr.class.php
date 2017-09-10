@@ -304,7 +304,7 @@ abstract class kFileTransferMgr
 			$last_error = error_get_last();
 			throw new kFileTransferMgrException ( "Can't authenticate [$user] - " . $last_error['message'], kFileTransferMgrException::cantAuthenticate);
 		}
-		$this->start_dir = kString::removeNewLine($this->doPwd());
+		$this->start_dir = hString::removeNewLine($this->doPwd());
 	}
 
 
@@ -341,7 +341,7 @@ abstract class kFileTransferMgr
 			$last_error = error_get_last();
 			throw new kFileTransferMgrException ( "Can't authenticate [$user] - " . $last_error['message'], kFileTransferMgrException::cantAuthenticate);
 		}
-		$this->start_dir = kString::removeNewLine($this->doPwd());
+		$this->start_dir = hString::removeNewLine($this->doPwd());
 	}
 
 

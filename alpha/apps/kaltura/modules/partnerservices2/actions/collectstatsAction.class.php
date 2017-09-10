@@ -22,7 +22,7 @@ class collectstatsAction extends defPartnerservices2Action
 						"extra_info" => array ("type" => "string", "desc" => ""),
 						),
 					"optional" => array (
-						"kshow_id" => array ("type" => "string", "desc" => "")
+						"hshow_id" => array ("type" => "string", "desc" => "")
 						)
 					),
 				"out" => array (
@@ -68,18 +68,18 @@ class collectstatsAction extends defPartnerservices2Action
 				myStatisticsMgr::incEntryPlays( $entry );
 			}
 		}
-		elseif ( $obj_type == "kshow" )
+		elseif ( $obj_type == "hshow" )
 		{
-			$kshow = kshowPeer::retrieveByPK( $obj_id );
+			$hshow = hshowPeer::retrieveByPK( $obj_id );
 			if ( $command == "view" )
 			{
 				PartnerActivity::incrementActivity($partner_id, PartnerActivity::PARTNER_ACTIVITY_KDP, PartnerActivity::PARTNER_SUB_ACTIVITY_KDP_VIEWS);
-				myStatisticsMgr::incKshowViews( $kshow );
+				myStatisticsMgr::incHshowViews( $hshow );
 			}
 			elseif ( $command == "play" )
 			{
 				PartnerActivity::incrementActivity($partner_id, PartnerActivity::PARTNER_ACTIVITY_KDP, PartnerActivity::PARTNER_SUB_ACTIVITY_KDP_PLAYS);
-				myStatisticsMgr::incKshowPlays( $kshow );
+				myStatisticsMgr::incHshowPlays( $hshow );
 			}
 		}	
 

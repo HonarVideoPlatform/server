@@ -4,7 +4,7 @@
  *
  */
 
-class KSchedulerConfig extends Zend_Config_Ini
+class HSchedulerConfig extends Zend_Config_Ini
 {
     const EXTENSION_SEPARATOR = '@';
 
@@ -29,7 +29,7 @@ class KSchedulerConfig extends Zend_Config_Ini
 	private $configTimestamp;
 
 	/**
-	 * @var array<KSchedularTaskConfig>
+	 * @var array<HSchedularTaskConfig>
 	 */
 	private $taskConfigList = array();
 
@@ -66,7 +66,7 @@ class KSchedulerConfig extends Zend_Config_Ini
 			if(!$maxInstances)
 				continue;
 
-			$task = new KSchedularTaskConfig($configFileName, $workerName, $maxInstances);
+			$task = new HSchedularTaskConfig($configFileName, $workerName, $maxInstances);
 			$task->setPartnerId($this->getPartnerId());
 			$task->setSecret($this->getSecret());
 			$task->setCurlTimeout($this->getCurlTimeout());
@@ -344,7 +344,7 @@ class KSchedulerConfig extends Zend_Config_Ini
 
 	/**
 	 * @param string $name
-	 * @return KSchedularTaskConfig
+	 * @return HSchedularTaskConfig
 	 */
 	public function getTaskConfig($name)
 	{

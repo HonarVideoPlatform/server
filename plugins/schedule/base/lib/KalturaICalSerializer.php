@@ -6,7 +6,7 @@ class KalturaICalSerializer extends KalturaSerializer
 	
 	public function __construct()
 	{
-		$this->calendar = new kSchedulingICalCalendar();
+		$this->calendar = new hSchedulingICalCalendar();
 	}
 	/**
 	 * {@inheritDoc}
@@ -35,7 +35,7 @@ class KalturaICalSerializer extends KalturaSerializer
 	{
 		if($object instanceof KalturaScheduleEvent)
 		{
-			$event = kSchedulingICalEvent::fromObject($object);
+			$event = hSchedulingICalEvent::fromObject($object);
 			return $event->write();
 		}
 		elseif($object instanceof KalturaScheduleEventArray)

@@ -189,7 +189,7 @@ class myPhotobucketServices extends myBaseMediaSource implements IMediaSource
 		$paramsMerged = array_merge($baseParams, $extraParams);
 		
 		// sort
-		ksort($paramsMerged);
+		hsort($paramsMerged);
 		
 		// url encode
 		$params = array();

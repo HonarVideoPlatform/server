@@ -115,7 +115,7 @@ abstract class myBaseObject implements Iterator
 
 				// TODO - should add a reg-exp array rather than this hard-coded logic in the base class !!
 				// dont' fill the properties ending with backgroundImage (the avlues are WRONG!)
-				if ( kString::endsWith( $param_name , "Image" ) )
+				if ( hString::endsWith( $param_name , "Image" ) )
 				{
 					continue;
 				}
@@ -236,7 +236,7 @@ abstract class myBaseObject implements Iterator
 
 			// TODO - should add a reg-exp array rather than this hard-coded logic in the base class !!
 			// dont' fill the properties ending with backgroundImage (the avlues are WRONG!)
-			if ( kString::endsWith( $param_name , "Image" ) )
+			if ( hString::endsWith( $param_name , "Image" ) )
 			{
 				continue;
 			}

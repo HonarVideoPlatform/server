@@ -109,7 +109,7 @@ class UserLoginDataPeer extends BaseUserLoginDataPeer implements IRelatedObjectP
 		}
 		
 		// check if the email string is a valid email
-		if ($newLoginEmail && !kString::isEmailString($newLoginEmail)) {
+		if ($newLoginEmail && !hString::isEmailString($newLoginEmail)) {
 			throw new kUserException('', kUserException::INVALID_EMAIL);
 		}
 		
@@ -354,31 +354,31 @@ class UserLoginDataPeer extends BaseUserLoginDataPeer implements IRelatedObjectP
 		return self::userLogin($loginData, $password, $partnerId, true, $otp);
 	}
 	
-	// user login by ks
-	public static function userLoginByKs($ks, $requestedPartnerId, $useOwnerIfNoUser = false)
+	// user login by hs
+	public static function userLoginByHs($hs, $requestedPartnerId, $useOwnerIfNoUser = false)
 	{
-		$ksObj = kSessionUtils::crackKs($ks);
+		$hsObj = hSessionUtils::crackHs($hs);
 		
-		$ksUserId = $ksObj->user;
-		$ksPartnerId = $ksObj->partner_id;
+		$hsUserId = $hsObj->user;
+		$hsPartnerId = $hsObj->partner_id;
 		$kuser = null;
 		
-		if ((is_null($ksUserId) || $ksUserId === '') && $useOwnerIfNoUser)
+		if ((is_null($hsUserId) || $hsUserId === '') && $useOwnerIfNoUser)
 		{
-			$partner = PartnerPeer::retrieveByPK($ksPartnerId);
+			$partner = PartnerPeer::retrieveByPK($hsPartnerId);
 			if (!$partner) {
-				throw new kUserException('Invalid partner id ['.$ksPartnerId.']', kUserException::INVALID_PARTNER);
+				throw new kUserException('Invalid partner id ['.$hsPartnerId.']', kUserException::INVALID_PARTNER);
 			}
-			$ksUserId = $partner->getAccountOwnerKuserId();
-			$kuser = kuserPeer::retrieveByPK($ksUserId);
+			$hsUserId = $partner->getAccountOwnerKuserId();
+			$kuser = kuserPeer::retrieveByPK($hsUserId);
 		}
 		
 		if (!$kuser) {
-			$kuser = kuserPeer::getKuserByPartnerAndUid($ksPartnerId, $ksUserId, true);
+			$kuser = kuserPeer::getKuserByPartnerAndUid($hsPartnerId, $hsUserId, true);
 		}
 		if (!$kuser)
 		{
-			throw new kUserException('User with id ['.$ksUserId.'] was not found for partner with id ['.$ksPartnerId.']', kUserException::USER_NOT_FOUND);
+			throw new kUserException('User with id ['.$hsUserId.'] was not found for partner with id ['.$hsPartnerId.']', kUserException::USER_NOT_FOUND);
 		}
 			
 		return self::userLogin($kuser->getLoginData(), null, $requestedPartnerId, false);  // don't validate password		
@@ -553,7 +553,7 @@ class UserLoginDataPeer extends BaseUserLoginDataPeer implements IRelatedObjectP
 	 */
 	public static function addLoginData($loginEmail, $password, $partnerId, $firstName, $lastName, $isAdminUser, $checkPasswordStructure = true, &$alreadyExisted = null)
 	{
-		if (!kString::isEmailString($loginEmail)) {
+		if (!hString::isEmailString($loginEmail)) {
 			throw new kUserException('', kUserException::INVALID_EMAIL);
 		}
 			

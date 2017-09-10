@@ -374,9 +374,9 @@ public static function updateEntry($entryId, $status)
 			return $entry;
 		
 		// backward compatibility 
-		// if entry has kshow, and this is the first entry in the mix, 
+		// if entry has hshow, and this is the first entry in the mix, 
 		// the thumbnail of the entry should be copied into the mix entry  
-		if ($status == entryStatus::READY && $entry->getKshowId())
+		if ($status == entryStatus::READY && $entry->getHshowId())
 			myEntryUtils::createRoughcutThumbnailFromEntry($entry, false);
 			
 		// entry status is ready and above, not changing status through batch job

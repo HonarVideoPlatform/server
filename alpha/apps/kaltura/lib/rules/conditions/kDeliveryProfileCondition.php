@@ -40,7 +40,7 @@ class kDeliveryProfileCondition extends kCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::internalFulfilled()
 	 */
-	protected function internalFulfilled(kScope $scope)
+	protected function internalFulfilled(hScope $scope)
 	{
 		$profileIds = array();
 		foreach ($this->deliveryProfileIds as $profileId)

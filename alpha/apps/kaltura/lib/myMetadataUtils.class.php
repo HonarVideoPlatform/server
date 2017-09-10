@@ -63,10 +63,10 @@ class myMetadataUtils
 		return array($vidassets, $overlays);
 	}
 
-	static public function getExtData($kshow_id, $partner_id)
+	static public function getExtData($hshow_id, $partner_id)
 	{
-		$kshow = kshowPeer::retrieveByPK( $kshow_id );
-		$show_entry_id = $kshow->getShowEntryId();
+		$hshow = hshowPeer::retrieveByPK( $hshow_id );
+		$show_entry_id = $hshow->getShowEntryId();
 		$show_entry = entryPeer::retrieveByPK( $show_entry_id );
 
 		$show_entry_data_key = $show_entry->getSyncKey(entry::FILE_SYNC_ENTRY_SUB_TYPE_DATA);
@@ -96,7 +96,7 @@ class myMetadataUtils
 		return array($xml_doc, $node);
 	}
 
-	static public function setMetadata($content, $kshow, $show_entry , $ignore_current = false, $version_info = null )
+	static public function setMetadata($content, $hshow, $show_entry , $ignore_current = false, $version_info = null )
 	{
 		$xml_content = "";
 
@@ -105,7 +105,7 @@ class myMetadataUtils
 		$current_content = ($show_entry->getMediaType() != entry::ENTRY_MEDIA_TYPE_SHOW) ? "" : kFileSyncUtils::file_get_contents( $show_entry_data_key );
 		if ( $ignore_current ) $current_content = "";
 
-		$update_kshow = false;
+		$update_hshow = false;
 
 		// compare the content and store only if different
 		if ( $content != $current_content )
@@ -143,12 +143,12 @@ class myMetadataUtils
 			
 			$xml_content = kFileSyncUtils::file_get_contents( $show_entry_data_key ); // replaced__getFileContent
 			
-			$update_kshow = true;
+			$update_hshow = true;
 
 			$show_entry_id = $show_entry->getId();
 			// update the roughcut_entry table
 			$all_entries_for_roughcut = self::getAllEntries ( $content );
-			roughcutEntry::updateRoughcut( $show_entry->getId(), $show_entry->getVersion(), $show_entry->getKshowId()  , $all_entries_for_roughcut );
+			roughcutEntry::updateRoughcut( $show_entry->getId(), $show_entry->getVersion(), $show_entry->getHshowId()  , $all_entries_for_roughcut );
 
 			$xml_content = $content;
 		}
@@ -158,16 +158,16 @@ class myMetadataUtils
 			$comments = "old and new files are the same";
 		}
 
-		if ( ! $kshow->getHasRoughcut() && $kshow->getIntroId() != $show_entry->getId())
+		if ( ! $hshow->getHasRoughcut() && $hshow->getIntroId() != $show_entry->getId())
 		{
-			$kshow->setHasRoughcut( true );
-			$update_kshow = true;
+			$hshow->setHasRoughcut( true );
+			$update_hshow = true;
 		}
 
-		myStatisticsMgr::incKshowUpdates( $kshow );
-		$kshow->save();
+		myStatisticsMgr::incHshowUpdates( $hshow );
+		$hshow->save();
 
-		return array($xml_content, $comments, $update_kshow);
+		return array($xml_content, $comments, $update_hshow);
 	}
 
 	public static function getAllEntries ( $content_or_doc )
@@ -219,7 +219,7 @@ class myMetadataUtils
 	
 	// ASSUME : NO MULTIPLE ROUGHCUT !!!!
 	// the entry will be added to the current $content !
-	static public function addEntryToMetadata ( $content, $entry , $current_kshow_version = null, $version_info = null )
+	static public function addEntryToMetadata ( $content, $entry , $current_hshow_version = null, $version_info = null )
 	{
 		if ( !$entry)
 		{
@@ -318,9 +318,9 @@ class myMetadataUtils
 		if ( $entry->getStatus() == entryStatus::ERROR_CONVERTING )
 		{
 			// return the XML - new if modified and the original if not
-			if ( $current_kshow_version != null)
+			if ( $current_hshow_version != null)
 			{
-//				$entry->setUpdateWhenReady ( $current_kshow_version );
+//				$entry->setUpdateWhenReady ( $current_hshow_version );
 				$should_save = self::updatePending ( $xml_doc , $entry_id , false );
 				// increment the count on the show entry
 			}
@@ -333,12 +333,12 @@ class myMetadataUtils
 		if ( $entry->getStatus() != entryStatus::READY )
 		{
 			// return the XML - new if modified and the original if not
-			if ( $current_kshow_version != null)
+			if ( $current_hshow_version != null)
 			{
-				$entry->setUpdateWhenReady ( $current_kshow_version );
+				$entry->setUpdateWhenReady ( $current_hshow_version );
 				$should_save = self::updatePending ( $xml_doc , $entry_id , true );
 				// increment the count on the show entry
-				$show_entry = $entry->getKshow()->getShowEntry();
+				$show_entry = $entry->getHshow()->getShowEntry();
 				if($show_entry)
 				{
 					$show_entry->incInCustomData ( "pending_entries" );
@@ -410,7 +410,7 @@ class myMetadataUtils
 
 		$transition_type = "dissolve"; // the dissolve transition is from the cross family. It should not be used with the simple editor
 		
-		$fixed_media_name = kString::xmlEncode($media_name);
+		$fixed_media_name = hString::xmlEncode($media_name);
 		$newVidasset = "\n" .
 		'		<vidAsset k_id="'.$entry_id.'" type="'.$media_type_str.'" name="'.$fixed_media_name.'" url="'.$media_url.'">'. "\n".
 		'			<StreamInfo file_name="'.$relMedia_url.'" start_time="'.$startTime.'" len_time="'.$lenTime.'"
@@ -459,12 +459,12 @@ KalturaLog::log ( "Will append to xml\n{$newVidasset}" );
       public static function updateAllMetadataVersionsRelevantForEntry ( $entry )
       {
             // TODO - null entry
-            $kshow = $entry->getKshow();
+            $hshow = $entry->getHshow();
             
-            if ( ! $kshow ) return null;
+            if ( ! $hshow ) return null;
             
-            // TODO - null kshow
-            $show_entry = $kshow->getShowEntry();
+            // TODO - null hshow
+            $show_entry = $hshow->getShowEntry();
             
             if ( ! $show_entry ) return null;
             

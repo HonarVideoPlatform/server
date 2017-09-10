@@ -1,6 +1,6 @@
 <?php
 
-class kKsUrlTokenizer extends kUrlTokenizer
+class kHsUrlTokenizer extends kUrlTokenizer
 {
 	/**
 	 * @var bool
@@ -51,11 +51,11 @@ class kKsUrlTokenizer extends kUrlTokenizer
 	 */
 	public function tokenizeSingleUrl($url, $urlPrefix = null)
 	{
-		if (!$this->ksObject || !$this->ksObject->user)
+		if (!$this->hsObject || !$this->hsObject->user)
 		{
 			require_once(__DIR__ . '/../../KExternalErrors.class.php');
 			
-			KExternalErrors::dieError(KExternalErrors::MISSING_PARAMETER, 'ks user');
+			KExternalErrors::dieError(KExternalErrors::MISSING_PARAMETER, 'hs user');
 		}
 		
 		$uriRestrict = explode(',', $url);		// cannot contain commas, since it's used as the privileges delimiter
@@ -66,18 +66,18 @@ class kKsUrlTokenizer extends kUrlTokenizer
 			$uriRestrict .= '|' . $this->additionalUris;
 		}
 		
-		$privileges = kSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $this->entryId;
-		$privileges .= ',' . kSessionBase::PRIVILEGE_VIEW . ':' . $this->entryId;
-		$privileges .= ',' . kSessionBase::PRIVILEGE_URI_RESTRICTION . ':' . $uriRestrict;
+		$privileges = hSessionBase::PRIVILEGE_DISABLE_ENTITLEMENT_FOR_ENTRY . ':' . $this->entryId;
+		$privileges .= ',' . hSessionBase::PRIVILEGE_VIEW . ':' . $this->entryId;
+		$privileges .= ',' . hSessionBase::PRIVILEGE_URI_RESTRICTION . ':' . $uriRestrict;
 		if ($this->limitIpAddress)
 		{
-			$privileges .= ',' . kSessionBase::PRIVILEGE_IP_RESTRICTION . ':' . infraRequestUtils::getRemoteAddress();
+			$privileges .= ',' . hSessionBase::PRIVILEGE_IP_RESTRICTION . ':' . infraRequestUtils::getRemoteAddress();
 		}
 
-		$ks = kSessionBase::generateKsV2(
+		$hs = hSessionBase::generateHsV2(
 			$this->key, 
-			$this->ksObject->user, 
-			kSessionBase::SESSION_TYPE_USER, 
+			$this->hsObject->user, 
+			hSessionBase::SESSION_TYPE_USER, 
 			$this->partnerId, 
 			$this->window, 
 			$privileges, 
@@ -89,9 +89,9 @@ class kKsUrlTokenizer extends kUrlTokenizer
 			$insertPos = strpos($url, '/name/');
 			if ($insertPos !== false)
 			{
-				return substr($url, 0, $insertPos) . '/ks/' . $ks . substr($url, $insertPos);
+				return substr($url, 0, $insertPos) . '/hs/' . $hs . substr($url, $insertPos);
 			}
 		}
-		return $url . '?ks=' . $ks;
+		return $url . '?hs=' . $hs;
 	}
 }

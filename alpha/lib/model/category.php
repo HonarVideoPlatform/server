@@ -93,7 +93,7 @@ class category extends Basecategory implements IIndexable, IRelatedObject, IElas
 	{
 		if ($this->isNew())
 		{
-			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 				
 			if (!PermissionPeer::isValidForPartner(PermissionName::DYNAMIC_FLAG_KMC_CHUNKED_CATEGORY_LOAD, $partnerId))
 			{
@@ -505,7 +505,7 @@ class category extends Basecategory implements IIndexable, IRelatedObject, IElas
 		$fullName = categoryPeer::getParsedFullName($fullName);
 		
 		$partnerId = null;
-		if($this->getPartnerId() != kCurrentContext::$ks_partner_id)
+		if($this->getPartnerId() != kCurrentContext::$hs_partner_id)
 			$partnerId = $this->getPartnerId();
 		
 		KalturaCriterion::disableTag(KalturaCriterion::TAG_ENTITLEMENT_CATEGORY);
@@ -1308,7 +1308,7 @@ class category extends Basecategory implements IIndexable, IRelatedObject, IElas
 			return;
 		}
 			
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$kuser = kuserPeer::getKuserByPartnerAndUid($partnerId, $puserId);
 		if (!$kuser)
 			throw new kCoreException('Invalid user id', kCoreException::INVALID_USER_ID);
@@ -1684,7 +1684,7 @@ class category extends Basecategory implements IIndexable, IRelatedObject, IElas
 	
 	public function reSetDirectSubCategoriesCount()
 	{
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		
 		$c = KalturaCriteria::create(categoryPeer::OM_CLASS);
 		$c->add (categoryPeer::STATUS, array(CategoryStatus::DELETED, CategoryStatus::PURGED), Criteria::NOT_IN);

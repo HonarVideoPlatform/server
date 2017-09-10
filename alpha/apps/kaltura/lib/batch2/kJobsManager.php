@@ -308,7 +308,7 @@ class kJobsManager
 	{		
 		list($fileSync, $local) = kFileSyncUtils::getReadyFileSyncForKey($srcSyncKey, true, false);
 		
-		$srcFileSyncDescriptor = new kSourceFileSyncDescriptor();
+		$srcFileSyncDescriptor = new hSourceFileSyncDescriptor();
 		if($fileSync)
 		{
 			if($fileSync->getFileType() != FileSync::FILE_SYNC_FILE_TYPE_URL)			
@@ -466,7 +466,7 @@ class kJobsManager
 		
 		foreach ($srcSyncKeys as $srcSyncKey) 
 		{		
-			$srcFileSyncDescriptor = new kSourceFileSyncDescriptor();
+			$srcFileSyncDescriptor = new hSourceFileSyncDescriptor();
 			$addImportJob = false;
 				
 			$fileSync = self::getFileSyncForKey($srcSyncKey, $flavor, $flavorAsset, $partner, $addImportJob);
@@ -1115,18 +1115,18 @@ class kJobsManager
 	/**
 	 * @param int $partnerId
 	 * @param string $protocol http or https
-	 * @param SessionType $ksType
+	 * @param SessionType $hsType
 	 * @param array $userRoles
 	 * @param string $objectType class name
 	 * @param string $objectId
 	 * @param string $startObjectKey
 	 * @param string $endObjectKey
 	 */
-	public static function addRecalculateResponseProfileCacheJob($partnerId, $protocol, $ksType, array $userRoles, $objectType, $objectId = null, $startObjectKey = null, $endObjectKey = null)
+	public static function addRecalculateResponseProfileCacheJob($partnerId, $protocol, $hsType, array $userRoles, $objectType, $objectId = null, $startObjectKey = null, $endObjectKey = null)
 	{
 	    $jobData = new kRecalculateResponseProfileCacheJobData();
  		$jobData->setProtocol($protocol);
- 		$jobData->setKsType($ksType);
+ 		$jobData->setHsType($hsType);
  		$jobData->setUserRoles($userRoles);
  		$jobData->setObjectType($objectType);
  		$jobData->setObjectId($objectId);
@@ -1384,7 +1384,7 @@ class kJobsManager
 	 */
 	public static function addStorageExportJob(BatchJob $parentJob = null, $entryId, $partnerId, StorageProfile $externalStorage, FileSync $fileSync, $srcFileSyncLocalPath, $force = false, $dc = null)
 	{
-		$netStorageExportData = kStorageExportJobData::getInstance($externalStorage->getProtocol());
+		$netStorageExportData = hStorageExportJobData::getInstance($externalStorage->getProtocol());
 		$netStorageExportData->setStorageExportJobData($externalStorage, $fileSync, $srcFileSyncLocalPath);
 				
 		$batchJob = null;
@@ -1448,7 +1448,7 @@ class kJobsManager
 	 */
 	public static function addSyncCategoryPrivacyContextJob(BatchJob $parentJob = null, $partnerId, $categoryId)
 	{
-		$syncPrivacyContextData = new kSyncCategoryPrivacyContextJobData();
+		$syncPrivacyContextData = new hSyncCategoryPrivacyContextJobData();
 	    $syncPrivacyContextData->setCategoryId($categoryId);
 		
 		$batchJob = null;
@@ -1468,7 +1468,7 @@ class kJobsManager
 	
 	public static function addStorageDeleteJob(BatchJob $parentJob = null, $entryId = null, StorageProfile $storage, FileSync $fileSync)
 	{
-		$netStorageDeleteData = kStorageDeleteJobData::getInstance($storage->getProtocol());
+		$netStorageDeleteData = hStorageDeleteJobData::getInstance($storage->getProtocol());
         $netStorageDeleteData->setJobData($storage, $fileSync);
         
 		if ($parentJob)
@@ -1532,7 +1532,7 @@ class kJobsManager
 			$mediaInfoEngine = $profile->getMediaParserType();
 		
 		$extractMediaData = new kExtractMediaJobData();
-		$srcFileSyncDescriptor = new kSourceFileSyncDescriptor();
+		$srcFileSyncDescriptor = new hSourceFileSyncDescriptor();
 		$srcFileSyncDescriptor->setFileSyncLocalPath($inputFileSyncLocalPath);
 		$extractMediaData->setSrcFileSyncs(array($srcFileSyncDescriptor));
 		$extractMediaData->setFlavorAssetId($flavorAssetId);

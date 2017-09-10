@@ -251,7 +251,7 @@ class KalturaBaseEntryFilter extends KalturaBaseEntryBaseFilter
 			&&	!$this->referenceIdIn 
 			&&	!$this->parentEntryIdEqual)
 		{
-			if(kCurrentContext::$ks_object->privileges === ks::PATTERN_WILDCARD || kCurrentContext::$ks_object->getPrivilegeValue(ks::PRIVILEGE_LIST) === ks::PATTERN_WILDCARD)
+			if(kCurrentContext::$hs_object->privileges === hs::PATTERN_WILDCARD || kCurrentContext::$hs_object->getPrivilegeValue(hs::PRIVILEGE_LIST) === hs::PATTERN_WILDCARD)
 			{
 				return;
 			}
@@ -262,7 +262,7 @@ class KalturaBaseEntryFilter extends KalturaBaseEntryBaseFilter
 				return;
 			}
 			
-			throw new KalturaAPIException(KalturaErrors::USER_KS_CANNOT_LIST_RELATED_ENTRIES, get_class($this));
+			throw new KalturaAPIException(KalturaErrors::USER_HS_CANNOT_LIST_RELATED_ENTRIES, get_class($this));
 		}
 	}
 }

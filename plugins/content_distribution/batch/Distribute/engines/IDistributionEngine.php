@@ -6,7 +6,7 @@
 interface IDistributionEngine
 {
 	/**
-	 * @param KSchedularTaskConfig $taskConfig
+	 * @param HSchedularTaskConfig $taskConfig
 	 */
 	public function configure();
 	

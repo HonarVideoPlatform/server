@@ -308,7 +308,7 @@ if(isset($inXml->session))
 
 	if ($secret)
 	{
-		$ks = generateSession($secret, $userId, $sessionType, $partnerId, $expiry, $privileges);
+		$hs = generateSession($secret, $userId, $sessionType, $partnerId, $expiry, $privileges);
 	}
 	else
 	{
@@ -325,9 +325,9 @@ if(isset($inXml->session))
 		    $partnerId = askForUserParameter('Partner ID:');
 		}
 		    
-		$ks = $client->user->loginByLoginId($email, $password, $partnerId);
+		$hs = $client->user->loginByLoginId($email, $password, $partnerId);
 	}
-	$client->setKs($ks);
+	$client->setHs($hs);
 }
 
 $results = array();

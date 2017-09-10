@@ -314,7 +314,7 @@ class CuePointPlugin extends KalturaPlugin implements IKalturaServices, IKaltura
 			$offset += $handledObjectsCount;
 		} 
 		while ($handledObjectsCount == self::CUE_POINT_FETCH_LIMIT && //In case cue point was deleted during index execution than offset will not reach count so break when count is 0
-					$contributedDataSize < kSphinxSearchManager::MAX_SIZE_FOR_PLUGIN_SEARCH_DATA);
+					$contributedDataSize < hSphinxSearchManager::MAX_SIZE_FOR_PLUGIN_SEARCH_DATA);
 		
 		
 		$dataField  = CuePointPlugin::getSearchFieldName(CuePointPlugin::SEARCH_FIELD_DATA);

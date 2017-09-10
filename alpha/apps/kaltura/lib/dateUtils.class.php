@@ -72,7 +72,7 @@ class dateUtils
 			$date = call_user_func_array ( $f , $params );
 			 
 			// now - we'll format it our way
-			return kString::formatDate( $date );
+			return hString::formatDate( $date );
 		}
 		else if ( $format == self::MODEL_DEFAULT_FORMAT )
 		{

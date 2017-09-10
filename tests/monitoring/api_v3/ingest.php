@@ -42,8 +42,8 @@ try
 	elseif(isset($options['conversion-profile-system-name']))
 	{
 		$apiCall = 'session.start';
-		$ks = $client->session->start($config['monitor-partner']['adminSecret'], 'monitor-user', KalturaSessionType::ADMIN, $config['monitor-partner']['id']);
-		$client->setKs($ks);
+		$hs = $client->session->start($config['monitor-partner']['adminSecret'], 'monitor-user', KalturaSessionType::ADMIN, $config['monitor-partner']['id']);
+		$client->setHs($hs);
 			
 		$conversionProfileFilter = new KalturaConversionProfileFilter();
 		$conversionProfileFilter->systemNameEqual = $options['conversion-profile-system-name'];
@@ -60,8 +60,8 @@ try
 	}
 
 	$apiCall = 'session.start';
-	$ks = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
-	$client->setKs($ks);
+	$hs = $client->session->start($config['monitor-partner']['secret'], 'monitor-user', KalturaSessionType::USER, $config['monitor-partner']['id']);
+	$client->setHs($hs);
 	
 	$flavors = array(
 		0 => __DIR__ . '/media/source.mp4',

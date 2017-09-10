@@ -41,7 +41,7 @@ class kGeoDistanceCondition extends kMatchCondition
 	/* (non-PHPdoc)
 	 * @see kCondition::getFieldValue()
 	 */
-	public function getFieldValue(kScope $scope)
+	public function getFieldValue(hScope $scope)
 	{
 		kApiCache::addExtraField(array("type" => kApiCache::ECF_COORDINATES,
 			kApiCache::ECFD_GEO_CODER_TYPE => $this->getGeoCoderType()),

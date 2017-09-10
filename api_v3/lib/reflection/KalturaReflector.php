@@ -5,5 +5,5 @@
  */
 class KalturaReflector
 {
-    protected  $_reservedKeys = array("service", "action", "format", "ks", "callback");
+    protected  $_reservedKeys = array("service", "action", "format", "hs", "callback");
 }

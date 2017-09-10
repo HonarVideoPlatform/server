@@ -24,7 +24,7 @@ class cloneroughcutAction extends defPartnerservices2Action
 					),
 				"errors" => array (
 					APIErrors::INVALID_ENTRY_ID,
-					APIErrors::KSHOW_CLONE_FAILED ,
+					APIErrors::HSHOW_CLONE_FAILED ,
 				)
 			); 
 	}
@@ -63,24 +63,24 @@ class cloneroughcutAction extends defPartnerservices2Action
 		}
 		else
 		{
-			$kshow_id = $entry->getKshowId();
-			$kshow = $entry->getKshow();
+			$hshow_id = $entry->getHshowId();
+			$hshow = $entry->getHshow();
 		
-			if ( ! $kshow )
+			if ( ! $hshow )
 			{
-				$this->addError ( APIErrors::INVALID_KSHOW_ID , $kshow_id );
+				$this->addError ( APIErrors::INVALID_HSHOW_ID , $hshow_id );
 			}
 			else
 			{
-				$newKshow = myKshowUtils::shalowCloneById( $kshow_id , $puser_kuser->getKuserId() );
+				$newHshow = myHshowUtils::shalowCloneById( $hshow_id , $puser_kuser->getKuserId() );
 				
-				if (!$newKshow)
+				if (!$newHshow)
 				{
-					$this->addError ( APIErrors::KSHOW_CLONE_FAILED , $kshow_id );
+					$this->addError ( APIErrors::HSHOW_CLONE_FAILED , $hshow_id );
 				}
 				else
 				{
-					$newEntry = $newKshow->getShowEntry();
+					$newEntry = $newHshow->getShowEntry();
 					
 					$level = ( $detailed ? objectWrapperBase::DETAIL_LEVEL_DETAILED : objectWrapperBase::DETAIL_LEVEL_REGULAR );
 					$wrapper = objectWrapperBase::getWrapperClass( $newEntry , $level );

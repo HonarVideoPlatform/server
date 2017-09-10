@@ -3,7 +3,7 @@
  * @package plugins.sphinxSearch
  * @subpackage lib
  */
-class kSphinxSearchManager implements kObjectUpdatedEventConsumer, kObjectAddedEventConsumer, kObjectReadyForIndexEventConsumer, kObjectErasedEventConsumer
+class hSphinxSearchManager implements kObjectUpdatedEventConsumer, kObjectAddedEventConsumer, kObjectReadyForIndexEventConsumer, kObjectErasedEventConsumer
 {
 	const SPHINX_INDEX_NAME = 'kaltura';
 
@@ -331,7 +331,7 @@ class kSphinxSearchManager implements kObjectUpdatedEventConsumer, kObjectAddedE
 			$data[$key] = "'" . $valueStr . "'";
 		}
 		
-		$index = kSphinxSearchManager::getSphinxIndexName($objectIndexClass::getObjectIndexName());
+		$index = hSphinxSearchManager::getSphinxIndexName($objectIndexClass::getObjectIndexName());
 
 		$placeHolders = isset($options["placeHolders"]) ? $options["placeHolders"] : false;
 
@@ -418,7 +418,7 @@ class kSphinxSearchManager implements kObjectUpdatedEventConsumer, kObjectAddedE
 			$objectUpdatedAt = $object->getUpdatedAt(null);
 			if ($objectUpdatedAt < $now)
 			{
-				KalturaLog::log('sphinx update for non-updated object '.($now - $objectUpdatedAt).' '.get_class($object).' '.$object->getId().' '.kCurrentContext::$ks_partner_id.' '.kCurrentContext::$service.' '.kCurrentContext::$action);
+				KalturaLog::log('sphinx update for non-updated object '.($now - $objectUpdatedAt).' '.get_class($object).' '.$object->getId().' '.kCurrentContext::$hs_partner_id.' '.kCurrentContext::$service.' '.kCurrentContext::$action);
 			}
 		}
 		
@@ -433,7 +433,7 @@ class kSphinxSearchManager implements kObjectUpdatedEventConsumer, kObjectAddedE
 		$sphinxLog->setType(SphinxLogType::SPHINX);
 		$sphinxLog->save(myDbHelper::getConnection(myDbHelper::DB_HELPER_CONN_SPHINX_LOG));
 
-		kSphinxQueryCache::invalidateQueryCache($object);
+		hSphinxQueryCache::invalidateQueryCache($object);
 
 		if(!kConf::get('exec_sphinx', 'local', 0))
 			return true;
@@ -481,7 +481,7 @@ class kSphinxSearchManager implements kObjectUpdatedEventConsumer, kObjectAddedE
 	public function deleteFromSphinx(IIndexable $object)
 	{
 		$objectIndexClass = $object->getIndexObjectName();
-		$index = kSphinxSearchManager::getSphinxIndexName($objectIndexClass::getObjectIndexName());
+		$index = hSphinxSearchManager::getSphinxIndexName($objectIndexClass::getObjectIndexName());
 		$id = $object->getIntId();
 		
 		KalturaLog::debug('Deleting sphinx document for object [' . get_class($object) . '] [' . $object->getId() . ']');

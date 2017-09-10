@@ -2030,7 +2030,7 @@ class KalturaSessionService extends KalturaServiceBase
 
 	function startLocal($secret, $userId = "", $type = 0, $partnerId = -1, $expiry = 86400, $privileges = null)
 	{
-		return $this->client->KalturaCreateKS($type, $userId, $privileges, $secret, $expiry);
+		return $this->client->KalturaCreateHS($type, $userId, $privileges, $secret, $expiry);
 	}
 	
 	function start($secret, $userId = "", $type = 0, $partnerId = -1, $expiry = 86400, $privileges = null)

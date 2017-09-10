@@ -115,7 +115,7 @@ class KalturaScheduleEventFilter extends KalturaScheduleEventBaseFilter
 
 		if ($this->ownerIdEqual)
 		{
-			$dbKuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$ks_partner_id, $this->ownerIdEqual);
+			$dbKuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$hs_partner_id, $this->ownerIdEqual);
 			if (!$dbKuser)
 			{
 				throw new KalturaAPIException (KalturaErrors::INVALID_USER_ID);
@@ -125,7 +125,7 @@ class KalturaScheduleEventFilter extends KalturaScheduleEventBaseFilter
 		if ($this->ownerIdIn)
 		{
 			$userIds = explode(",", $this->ownerIdIn);
-			$dbKusers = kuserPeer::getKuserByPartnerAndUids(kCurrentContext::$ks_partner_id, $userIds);
+			$dbKusers = kuserPeer::getKuserByPartnerAndUids(kCurrentContext::$hs_partner_id, $userIds);
 			if (count($dbKusers) < count($userIds))
 			{
 				throw new KalturaAPIException (KalturaErrors::INVALID_USER_ID);

@@ -125,7 +125,7 @@ switch($serviceAction)
 		exit(-1);
 }
 
-$kscheduler = new KGenericScheduler($phpPath, $iniDir);
+$hscheduler = new KGenericScheduler($phpPath, $iniDir);
 while(1)
 {
 	//Handle Windows Service Request 
@@ -153,7 +153,7 @@ while(1)
 		}
 	}
 	
-	$kscheduler->loop();
+	$hscheduler->loop();
 }
 
 //Exit 

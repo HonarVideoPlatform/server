@@ -20,7 +20,7 @@ class LikeService extends KalturaBaseService
 		    throw new KalturaAPIException(KalturaErrors::FEATURE_FORBIDDEN, LikePlugin::PLUGIN_NAME);
 		}	
 		
-		if ((!kCurrentContext::$ks_uid || kCurrentContext::$ks_uid == "") && $actionName != "list")
+		if ((!kCurrentContext::$hs_uid || kCurrentContext::$hs_uid == "") && $actionName != "list")
 		{
 		    throw new KalturaAPIException(KalturaErrors::INVALID_USER_ID);
 		}
@@ -42,7 +42,7 @@ class LikeService extends KalturaBaseService
 	    }
 	    
 	    //Check if a kvote for current entryId and kuser already exists. If it does - throw exception
-	    $existingKVote = kvotePeer::doSelectByEntryIdAndPuserId($entryId, $this->getPartnerId(), kCurrentContext::$ks_uid);
+	    $existingKVote = kvotePeer::doSelectByEntryIdAndPuserId($entryId, $this->getPartnerId(), kCurrentContext::$hs_uid);
 	    if ($existingKVote)
 	    {
 	        throw new KalturaAPIException(KalturaLikeErrors::USER_LIKE_FOR_ENTRY_ALREADY_EXISTS);
@@ -52,12 +52,12 @@ class LikeService extends KalturaBaseService
 		if (!$dbEntry)
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
 			
-		if (kvotePeer::enableExistingKVote($entryId, $this->getPartnerId(), kCurrentContext::$ks_uid))
+		if (kvotePeer::enableExistingKVote($entryId, $this->getPartnerId(), kCurrentContext::$hs_uid))
 		{
 		    return true;
 		}
 		
-		kvotePeer::createKvote($entryId, $this->getPartnerId(), kCurrentContext::$ks_uid, self::KVOTE_LIKE_RANK_VALUE, KVoteType::LIKE);
+		kvotePeer::createKvote($entryId, $this->getPartnerId(), kCurrentContext::$hs_uid, self::KVOTE_LIKE_RANK_VALUE, KVoteType::LIKE);
 	    
 	    return true;
     }
@@ -75,7 +75,7 @@ class LikeService extends KalturaBaseService
 	        throw new KalturaAPIException(KalturaErrors::MISSING_MANDATORY_PARAMETER, "entryId");
 	    }
 	    
-	    $existingKVote = kvotePeer::doSelectByEntryIdAndPuserId($entryId, $this->getPartnerId(), kCurrentContext::$ks_uid);
+	    $existingKVote = kvotePeer::doSelectByEntryIdAndPuserId($entryId, $this->getPartnerId(), kCurrentContext::$hs_uid);
 	    if (!$existingKVote)
 	    {
 	        throw new KalturaAPIException(KalturaLikeErrors::USER_LIKE_FOR_ENTRY_NOT_FOUND);
@@ -85,7 +85,7 @@ class LikeService extends KalturaBaseService
 		if (!$dbEntry)
 			throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $entryId);
         
-		if (kvotePeer::disableExistingKVote($entryId, $this->getPartnerId(), kCurrentContext::$ks_uid))
+		if (kvotePeer::disableExistingKVote($entryId, $this->getPartnerId(), kCurrentContext::$hs_uid))
 		    return true;
 		
 		return false;
@@ -108,7 +108,7 @@ class LikeService extends KalturaBaseService
         
 	    if (!$userId)
 	    {
-	        $userId = kCurrentContext::$ks_uid;
+	        $userId = kCurrentContext::$hs_uid;
 	    }
 	    
 	    $existingKVote = kvotePeer::doSelectByEntryIdAndPuserId($entryId, $this->getPartnerId(), $userId);
@@ -135,7 +135,7 @@ class LikeService extends KalturaBaseService
 		{			
 			if($filter->entryIdEqual && !entryPeer::retrieveByPK($filter->entryIdEqual))			
 				throw new KalturaAPIException(KalturaErrors::ENTRY_ID_NOT_FOUND, $filter->entryIdEqual);			
-			if($filter->userIdEqual && !kuserPeer::getActiveKuserByPartnerAndUid(kCurrentContext::$ks_partner_id, $filter->userIdEqual))
+			if($filter->userIdEqual && !kuserPeer::getActiveKuserByPartnerAndUid(kCurrentContext::$hs_partner_id, $filter->userIdEqual))
 				throw new KalturaAPIException(KalturaErrors::USER_NOT_FOUND);			
 		}
 		

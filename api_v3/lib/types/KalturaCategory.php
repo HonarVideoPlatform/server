@@ -507,7 +507,7 @@ class KalturaCategory extends KalturaObject implements IRelatedFilterable
 		
 		if (!is_null($sourceObject))
 		{
-			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 			$partner = PartnerPeer::retrieveByPK($partnerId);
 			if (!$partner || $partner->getFeaturesStatusByType(IndexObjectType::LOCK_CATEGORY))
 				throw new KalturaAPIException(KalturaErrors::CATEGORIES_LOCKED);		
@@ -518,7 +518,7 @@ class KalturaCategory extends KalturaObject implements IRelatedFilterable
 			if(!preg_match(kuser::PUSER_ID_REGEXP, $this->owner))
 				throw new KalturaAPIException(KalturaErrors::CANNOT_SET_OWNER_FIELD_WITH_USER_ID, $this->owner);
 		
-			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+			$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 			kuserPeer::createKuserForPartner($partnerId, $this->owner);
 		}
 		
@@ -571,8 +571,8 @@ class KalturaCategory extends KalturaObject implements IRelatedFilterable
 		{
 			if (!$this->owner && $this->inheritanceType != KalturaInheritanceType::INHERIT)
 			{
-				if (kCurrentContext::getCurrentKsKuser())
-					$this->owner = kCurrentContext::getCurrentKsKuser()->getPuserId();
+				if (kCurrentContext::getCurrentHsKuser())
+					$this->owner = kCurrentContext::getCurrentHsKuser()->getPuserId();
 			}
 		}
 		

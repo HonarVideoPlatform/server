@@ -32,7 +32,7 @@ class kCaptureSpaceVersionManager{
 			$sections = array($version => self::$config[$version]);
 		}
 		else {
-			uksort(self::$config, 'version_compare');
+			uhsort(self::$config, 'version_compare');
 			$sections = array_reverse(self::$config, true);
 		}
 		

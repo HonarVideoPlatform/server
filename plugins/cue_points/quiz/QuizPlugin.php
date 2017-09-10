@@ -828,7 +828,7 @@ class QuizPlugin extends KalturaPlugin implements IKalturaCuePoint, IKalturaServ
 		$kuserIds = array();
 		foreach ($userIds as $userId)
 		{
-			$kuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$ks_partner_id, $userId);
+			$kuser = kuserPeer::getKuserByPartnerAndUid(kCurrentContext::$hs_partner_id, $userId);
 			if ($kuser)
 			{
 				$kuserIds[] = $kuser->getKuserId();

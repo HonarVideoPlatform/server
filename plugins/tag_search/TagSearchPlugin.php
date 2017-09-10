@@ -31,7 +31,7 @@ class TagSearchPlugin extends KalturaPlugin implements  IKalturaCriteriaFactory,
 	public static function getSphinxSchema ()
 	{
 	    return array(
-			kSphinxSearchManager::getSphinxIndexName(self::INDEX_NAME) => array (	
+			hSphinxSearchManager::getSphinxIndexName(self::INDEX_NAME) => array (	
 				'path'		=> '/sphinx/kaltura_tag_rt',
 				'fields'	=> self::getSphinxSchemaFields(),
 			    'dict'      => 'keywords',

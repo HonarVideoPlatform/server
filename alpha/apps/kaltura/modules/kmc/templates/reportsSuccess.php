@@ -24,7 +24,7 @@ var flashVars = {
 		'kdpUrl' : "<?php echo $flash_dir ?>/kdp/v2.5.2.30792/kdp.swf",
 	    'uiconfId' : '48500' ,
 		'subp_id' : "<?php echo htmlspecialchars($subp_id) ?>" ,
-		'ks' : "<?php echo htmlspecialchars($ks) ?>" ,
+		'hs' : "<?php echo htmlspecialchars($hs) ?>" ,
 		'widget_id' : "_<?php echo htmlspecialchars($partner_id) ?>" ,
 		'devFlag' : 'false' ,
 		'serverPath' : "<?php echo $service_url; ?>"

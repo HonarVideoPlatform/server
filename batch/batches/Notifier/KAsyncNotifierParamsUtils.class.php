@@ -20,8 +20,8 @@ class KAsyncNotifierParamsUtils
 			case KalturaNotificationObjectType::ENTRY:
 				$params["entry_id"] = $data->objectId;
 				break;
-			case KalturaNotificationObjectType::KSHOW:
-				$params["kshow_id"] = $data->objectId;
+			case KalturaNotificationObjectType::HSHOW:
+				$params["hshow_id"] = $data->objectId;
 				break;
 			case KalturaNotificationObjectType::BATCH_JOB:
 				$params["job_id"] = $data->objectId;
@@ -96,7 +96,7 @@ class KAsyncNotifierParamsUtils
 	 */
 	private static function signature($signature_key, $params)
 	{
-		ksort($params);
+		hsort($params);
 		$str = "";
 		foreach($params as $k => $v)
 		{

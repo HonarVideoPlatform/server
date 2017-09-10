@@ -115,7 +115,7 @@ class LiveChannelService extends KalturaLiveEntryService
 	 * @action isLive
 	 * @param string $id ID of the live channel
 	 * @return bool
-	 * @ksOptional
+	 * @hsOptional
 	 * 
 	 * @throws KalturaErrors::ENTRY_ID_NOT_FOUND
 	 */

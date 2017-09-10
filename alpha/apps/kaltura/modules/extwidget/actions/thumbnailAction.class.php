@@ -233,12 +233,12 @@ class thumbnailAction extends sfAction
 				KExternalErrors::dieError(KExternalErrors::ENTRY_AND_WIDGET_NOT_FOUND);
 			}
 			
-			// get the kshow
-			$kshow_id= $widget->getKshowId();
-			$kshow = kshowPeer::retrieveByPK($kshow_id);
-			if ( $kshow )
+			// get the hshow
+			$hshow_id= $widget->getHshowId();
+			$hshow = hshowPeer::retrieveByPK($hshow_id);
+			if ( $hshow )
 			{
-				$entry_id = $kshow->getShowEntryId();
+				$entry_id = $hshow->getShowEntryId();
 			}
 			else
 			{
@@ -283,15 +283,15 @@ class thumbnailAction extends sfAction
 
 		$partner = $entry->getPartner();
 		
-		//checks whether the thumbnail display should be restricted by KS
+		//checks whether the thumbnail display should be restricted by HS
 		$base64Referrer = $this->getRequestParameter("referrer");
 		$referrer = base64_decode($base64Referrer);
 		if (!is_string($referrer))
 			$referrer = ""; // base64_decode can return binary data
 		if (!$referrer)
 			$referrer = kApiCache::getHttpReferrer();
-		$ksStr = $this->getRequestParameter("ks");
-		$secureEntryHelper = new KSecureEntryHelper($entry, $ksStr, $referrer, ContextType::THUMBNAIL);
+		$hsStr = $this->getRequestParameter("hs");
+		$secureEntryHelper = new HSecureEntryHelper($entry, $hsStr, $referrer, ContextType::THUMBNAIL);
 		$secureEntryHelper->validateForPlay();
 		
 		// not allow capturing frames if the partner has FEATURE_DISALLOW_FRAME_CAPTURE permission
@@ -449,7 +449,7 @@ class thumbnailAction extends sfAction
 		
 		$nocache = false;
 		if ($secureEntryHelper->shouldDisableCache() || kApiCache::hasExtraFields() ||
-			(!$secureEntryHelper->isKsWidget() && $secureEntryHelper->hasRules(ContextType::THUMBNAIL)))
+			(!$secureEntryHelper->isHsWidget() && $secureEntryHelper->hasRules(ContextType::THUMBNAIL)))
 			$nocache = true;
 
 		$cache = null;

@@ -89,7 +89,7 @@ class XmlClientGenerator extends ClientGeneratorFromPhp
 			{
 				$serviceElement->setAttribute("plugin", $plugin);
 			}
-			ksort($serviceActionItem->actionMap);
+			hsort($serviceActionItem->actionMap);
 			foreach($serviceActionItem->actionMap as $actionId => $actionReflector)
 			{
 				/* @var $actionReflector KalturaActionReflector */
@@ -564,7 +564,7 @@ class XmlClientGenerator extends ClientGeneratorFromPhp
 
 		$description = $actionInfo->description;
 		$description = $this->fixDescription($description);
-		$actionElement->setAttribute("description", kString::stripUtf8InvalidChars($description));
+		$actionElement->setAttribute("description", hString::stripUtf8InvalidChars($description));
 		$actionElement->setAttribute("enableInMultiRequest", ($outputType === 'file' ? "0" : "1"));
 
 		$actionElement->appendChild($resultElement);
@@ -588,7 +588,7 @@ class XmlClientGenerator extends ClientGeneratorFromPhp
 			$actionElement->appendChild($throws);
 		}
 
-		$actionElement->setAttribute('sessionRequired', ($actionInfo->ksNeeded ? 'always' : (is_null($actionInfo->ksNeeded) ? 'optional' : 'none')));
+		$actionElement->setAttribute('sessionRequired', ($actionInfo->hsNeeded ? 'always' : (is_null($actionInfo->hsNeeded) ? 'optional' : 'none')));
 		
 		return $actionElement;
 	}

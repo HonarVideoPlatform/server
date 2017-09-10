@@ -96,7 +96,7 @@ class adddownloadAction extends defPartnerservices2Action
 					'file_format' => $file_format,
 					'conversion_quality' => $conversion_quality,
 					'force_download' => $force_download,
-					'ks' => $this->ks->toSecureString(),
+					'hs' => $this->hs->toSecureString(),
 					'partner_id' => $partner_id,
 					'subp_id' => $subp_id,
 					'format' => $this->response_type,

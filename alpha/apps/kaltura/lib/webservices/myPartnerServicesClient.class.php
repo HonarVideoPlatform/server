@@ -1,6 +1,6 @@
 <?php
 require_once ( MODULES . "/partnerservices2/actions/startsessionAction.class.php" );
-require_once ( MODULES . "/partnerservices2/actions/addkshowAction.class.php" );
+require_once ( MODULES . "/partnerservices2/actions/addhshowAction.class.php" );
 class myPartnerServicesClient
 {
 	public static function createKalturaSession ( $uid, $privileges = null)
@@ -15,27 +15,27 @@ class myPartnerServicesClient
 		
 		$kaltura_services->setInputParams( $params );
 		$result = $kaltura_services->internalExecute () ;
-		return @$result["result"]["ks"];		
+		return @$result["result"]["hs"];		
 	}
 	
-	public static function createKshow ( $ks , $uid , $name , $partner_id = 0 , $subp_id = 100, $extra_params = null )
+	public static function createHshow ( $hs , $uid , $name , $partner_id = 0 , $subp_id = 100, $extra_params = null )
 	{
-		$kaltura_services = new addkshowAction();
+		$kaltura_services = new addhshowAction();
 		
 		$params = array ( "format" => kalturaWebserviceRenderer::RESPONSE_TYPE_RAW , 
-			"partner_id" => $partner_id , "subp_id" => $subp_id , "uid" => $uid , "ks" => $ks , "kshow_name" => $name ,
+			"partner_id" => $partner_id , "subp_id" => $subp_id , "uid" => $uid , "hs" => $hs , "hshow_name" => $name ,
 			"allow_duplicate_names" => "1" ) ;
 		if ( $extra_params ) $params = array_merge( $params , $extra_params );
 		
 		$kaltura_services->setInputParams( $params );
 		$result = $kaltura_services->internalExecute ( ) ;
 		
-		$kshow_wrapper = @$result["result"]["kshow"];
+		$hshow_wrapper = @$result["result"]["hshow"];
 		
-		if ( $kshow_wrapper )
+		if ( $hshow_wrapper )
 		{
-			$kshow = $kshow_wrapper->getWrappedObj();
-			return 	$kshow	;
+			$hshow = $hshow_wrapper->getWrappedObj();
+			return 	$hshow	;
 		}
 		else
 		{

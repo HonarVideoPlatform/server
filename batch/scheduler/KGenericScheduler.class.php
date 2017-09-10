@@ -1,7 +1,7 @@
 <?php
 /**
  * Will schedual execution of external commands
- * Copied base functionality from KScheduler
+ * Copied base functionality from HScheduler
  *
  * @package Scheduler
  */
@@ -13,7 +13,7 @@ class KGenericScheduler
 	private $enableDebug = true;
 
 	/**
-	 * @var KSchedulerConfig
+	 * @var HSchedulerConfig
 	 */
 	private $schedulerConfig = null;
 
@@ -85,7 +85,7 @@ class KGenericScheduler
 		$firstLoad = is_null($this->schedulerConfig);
 		if($firstLoad)
 		{
-			$this->schedulerConfig = new KSchedulerConfig($configFileName);
+			$this->schedulerConfig = new HSchedulerConfig($configFileName);
 			date_default_timezone_set($this->schedulerConfig->getTimezone());
 
 			$pid = $this->schedulerConfig->getPidFileDir() . '/batch.pid';
@@ -109,7 +109,7 @@ class KGenericScheduler
 			$this->schedulerConfig->load();
 		}
 
-		KScheduleHelperManager::clearFilters();
+		HScheduleHelperManager::clearFilters();
 		$this->queueSizes = array();
 
 		KalturaLog::info("Loading configuration file at: " . date('Y-m-d H:i'));
@@ -127,7 +127,7 @@ class KGenericScheduler
 		$taskConfigsValidations = array();
 		foreach($taskConfigs as $taskConfig)
 		{
-			/* @var $taskConfig KSchedularTaskConfig */
+			/* @var $taskConfig HSchedularTaskConfig */
 
 			if(is_null($taskConfig->type)) // is the scheduler itself
 				continue;
@@ -150,14 +150,14 @@ class KGenericScheduler
 			$subConfigItems = $this->createConfigItem($taskConfig->toArray(), $taskConfig->id, $taskConfig->name);
 			$configItems = array_merge($configItems, $subConfigItems);
 		}
-		KScheduleHelperManager::saveConfigItems($configItems);
+		HScheduleHelperManager::saveConfigItems($configItems);
 	}
 	
 	/**
 	 * Initializes a single worker, and register it in runningTasks
-	 * @param KSchedularTaskConfig $taskConfig
+	 * @param HSchedularTaskConfig $taskConfig
 	 */
-	private function initSingleWorker(KSchedularTaskConfig $taskConfig)
+	private function initSingleWorker(HSchedularTaskConfig $taskConfig)
 	{
 		$taskIndex = $this->getNextAvailableIndex($taskConfig->name, $taskConfig->maxInstances);
 		if(is_null($taskIndex))
@@ -235,7 +235,7 @@ class KGenericScheduler
 	 * Otherwise - Cleanup the process. 
 	 */
 	private function handleRunningBatches($indexedTaskConfigs) {
-		$runningBatches = KScheduleHelperManager::loadRunningBatches();
+		$runningBatches = HScheduleHelperManager::loadRunningBatches();
 		
 		foreach($this->runningTasks as $taskName => &$tasks)
 		{
@@ -311,16 +311,16 @@ class KGenericScheduler
 			$statuses[] = $this->createSchedulerStatus(KalturaSchedulerStatusType::RUNNING_BATCHES_IS_RUNNING, 1);
 		
 		if(count($statuses))
-			KScheduleHelperManager::saveStatuses($statuses);
+			HScheduleHelperManager::saveStatuses($statuses);
 		
 		return $indexedTaskConfigs;
 	}
 	
 	/**
-	 * @param KSchedularTaskConfig $taskConfig
+	 * @param HSchedularTaskConfig $taskConfig
 	 * @return boolean
 	 */
-	private function shouldExecute(KSchedularTaskConfig $taskConfig)
+	private function shouldExecute(HSchedularTaskConfig $taskConfig)
 	{
 		$runningBatches = $this->numberOfRunningTasks($taskConfig->name);
 
@@ -363,7 +363,7 @@ class KGenericScheduler
 		return $this->lastRunTime[$taskName];
 	}
 	
-	private function isInitialized(KSchedularTaskConfig $taskConfig)
+	private function isInitialized(HSchedularTaskConfig $taskConfig)
 	{
 		$isJobHandlerWorker = is_subclass_of($taskConfig->type, 'KJobHandlerWorker');
 		
@@ -371,10 +371,10 @@ class KGenericScheduler
 		if(!$isJobHandlerWorker)
 			return true;
 		
-		return KScheduleHelperManager::checkForFilter($taskConfig->name);
+		return HScheduleHelperManager::checkForFilter($taskConfig->name);
 	}
 	
-	private function spawn(KSchedularTaskConfig $taskConfig)
+	private function spawn(HSchedularTaskConfig $taskConfig)
 	{
 		$taskIndex = $this->getNextAvailableIndex($taskConfig->name, $taskConfig->maxInstances);
 		$taskIndex = intval($taskIndex);
@@ -446,12 +446,12 @@ class KGenericScheduler
 	}
 
 	/**
-	 * @param KSchedularTaskConfig $taskConfig
+	 * @param HSchedularTaskConfig $taskConfig
 	 * @param int $type
 	 * @param int $value
 	 * @return KalturaSchedulerStatus
 	 */
-	private function createStatus(KSchedularTaskConfig $taskConfig, $type, $value)
+	private function createStatus(HSchedularTaskConfig $taskConfig, $type, $value)
 	{
 		$clazz = $taskConfig->type;
 
@@ -549,7 +549,7 @@ class KGenericScheduler
 	
 	private function loadRunningTasks() {
 		$taskConfigs = $this->schedulerConfig->getTaskConfigList();
-		$runningBatches = KScheduleHelperManager::loadRunningBatches();
+		$runningBatches = HScheduleHelperManager::loadRunningBatches();
 		
 		foreach($runningBatches as $workerName => $indexes)
 		{
@@ -571,7 +571,7 @@ class KGenericScheduler
 
 	private function loadCommands()
 	{
-		$commands = KScheduleHelperManager::loadCommands();
+		$commands = HScheduleHelperManager::loadCommands();
 		if(!$commands || !is_array($commands) || !count($commands))
 			return;
 
@@ -599,7 +599,7 @@ class KGenericScheduler
 		if($cnt)
 		{
 			KalturaLog::info("Sending $cnt command results to the server");
-			KScheduleHelperManager::saveCommandsResults($command_results);
+			HScheduleHelperManager::saveCommandsResults($command_results);
 		}
 	}
 
@@ -708,7 +708,7 @@ class KGenericScheduler
 		return true;
 	}
 
-	protected function onQueueEvent(KSchedularTaskConfig $taskConfig, $queueSize)
+	protected function onQueueEvent(HSchedularTaskConfig $taskConfig, $queueSize)
 	{
 		$event = new KBatchEvent();
 		$event->batch_event_type_id = KBatchEvent::EVENT_BATCH_QUEUE;
@@ -717,7 +717,7 @@ class KGenericScheduler
 		self::onEvent($event, $taskConfig);
 	}
 
-	protected function onRunningInstancesEvent(KSchedularTaskConfig $taskConfig, $runningInstances)
+	protected function onRunningInstancesEvent(HSchedularTaskConfig $taskConfig, $runningInstances)
 	{
 		$event = new KBatchEvent();
 		$event->batch_event_type_id = KBatchEvent::EVENT_BATCH_RUNNING;
@@ -726,7 +726,7 @@ class KGenericScheduler
 		self::onEvent($event, $taskConfig);
 	}
 
-	protected function onEvent(KBatchEvent $event, KSchedularTaskConfig $taskConfig)
+	protected function onEvent(KBatchEvent $event, HSchedularTaskConfig $taskConfig)
 	{
 		$event->batch_client_version = "1.0";
 		$event->batch_event_time = time();

@@ -3,7 +3,7 @@
  * @package plugins.scheduledTask
  * @subpackage Scheduler
  */
-class KScheduledTaskRunner extends KPeriodicWorker
+class HScheduledTaskRunner extends KPeriodicWorker
 {
 	/**
 	 * @var array

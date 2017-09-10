@@ -7,7 +7,7 @@ class reportsAction extends kalturaAction
 {
 	public function execute ( ) 
 	{
-		$this->ks = $this->getP ( "ks" );
+		$this->hs = $this->getP ( "hs" );
 		$this->partner_id = $this->getP ( "partner_id" );
 				
 		$this->subp_id = $this->getP ( "subp_id" );

@@ -9,7 +9,7 @@ class createmixAction extends kalturaAction
 	{
 		require_once(SF_ROOT_DIR . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "api_v3" . DIRECTORY_SEPARATOR . "bootstrap.php");
 		
-		$ks = $this->getP("ks");
+		$hs = $this->getP("hs");
 		$userId = $this->getP("user_id");
 		$entryId = $this->getP("entry_id");
 		$entryName = $this->getP("entry_name");
@@ -28,7 +28,7 @@ class createmixAction extends kalturaAction
 		$dispatcher = KalturaDispatcher::getInstance();
 		
 			$params = array(
-				"ks"=> $ks, 
+				"hs"=> $hs, 
 				"mixEntry:name" => $entryName,
 				"mixEntry:editorType" => $editorType,
 				"userId" => $userId,
@@ -42,7 +42,7 @@ class createmixAction extends kalturaAction
 			}
 			
 			$params = array(
-				"ks"=> $ks, 
+				"hs"=> $hs, 
 				"mixEntryId" => $mix->id,
 				"mediaEntryId" => $entryId
 			);

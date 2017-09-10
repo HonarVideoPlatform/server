@@ -17,7 +17,7 @@ class BusinessProcessSignalNotificationTemplate extends BusinessProcessNotificat
 	/* (non-PHPdoc)
 	 * @see BatchEventNotificationTemplate::dispatch()
 	 */
-	public function dispatch(kScope $scope)
+	public function dispatch(hScope $scope)
 	{
 		$jobData = $this->getJobData($scope);
 		/* @var $jobData kBusinessProcessNotificationDispatchJobData */

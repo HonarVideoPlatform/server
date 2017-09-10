@@ -34,10 +34,10 @@ abstract class kAccessControlRestriction extends kRule
 			ContextType::PLAY, 
 			ContextType::DOWNLOAD, 
 		);
-		$partnerId = $accessControl ? $accessControl->getPartnerId() : kCurrentContext::$ks_partner_id;
+		$partnerId = $accessControl ? $accessControl->getPartnerId() : kCurrentContext::$hs_partner_id;
 		$partner = PartnerPeer::retrieveByPK($partnerId);
 		if($partner) {
-			if($partner->getRestrictThumbnailByKs())
+			if($partner->getRestrictThumbnailByHs())
 				$contexts[] = ContextType::THUMBNAIL;
 			if($partner->getShouldApplyAccessControlOnEntryMetadata())
 				$contexts[] = ContextType::METADATA;

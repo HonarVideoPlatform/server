@@ -3,9 +3,9 @@
  * @package Core
  * @subpackage ExternalServices
  */
-class myKalturaKshowServices extends myBaseMediaSource implements IMediaSource
+class myKalturaHshowServices extends myBaseMediaSource implements IMediaSource
 {
-	const KALTURA_SERVICE_CRITERIA_FROM_KSHOW = 1;
+	const KALTURA_SERVICE_CRITERIA_FROM_HSHOW = 1;
 	const KALTURA_SERVICE_CRITERIA_FROM_ROUGHCUT = 2;
 	
 	static $s_default_count_limit = 100;
@@ -20,13 +20,13 @@ class myKalturaKshowServices extends myBaseMediaSource implements IMediaSource
 	protected $auth_method = array ( self::AUTH_METHOD_PUBLIC );//, self::AUTH_METHOD_USER_PASS);
 	protected $search_in_user = true; 
 	protected $logo = "http://www.kaltura.com/images/wizard/logo_kaltura.gif";
-	protected $id = entry::ENTRY_MEDIA_SOURCE_KALTURA_KSHOW;
+	protected $id = entry::ENTRY_MEDIA_SOURCE_KALTURA_HSHOW;
 	
 	private static $NEED_MEDIA_INFO = "0";
 	
-	protected function getKshowFilter ( $extraData )
+	protected function getHshowFilter ( $extraData )
 	{
-		return new kshowFilter ();	
+		return new hshowFilter ();	
 	}
 
 	/**
@@ -47,16 +47,16 @@ class myKalturaKshowServices extends myBaseMediaSource implements IMediaSource
 					'description' 
 					'id' - unique id to be passed to getMediaInfo 
 
-		this service will first return the relevant kshows, then find the relevant roughcuts and finally fetch the entries
+		this service will first return the relevant hshows, then find the relevant roughcuts and finally fetch the entries
 	*/
 	public function searchMedia( $media_type , $searchText, $page, $pageSize, $authData = null , $extraData = null)
 	{
 		myDbHelper::$use_alternative_con = myDbHelper::DB_HELPER_CONN_PROPEL2;
 
 		// this bellow will bypass the partner filter - at the end of the code the filter will return to be as was before
-		$kshow_criteria = kshowPeer::getCriteriaFilter()->getFilter();		
-		$original_kshow_partner_to_filter = $kshow_criteria->get( kshowPeer::PARTNER_ID );
-		$kshow_criteria->remove (kshowPeer::PARTNER_ID  );
+		$hshow_criteria = hshowPeer::getCriteriaFilter()->getFilter();		
+		$original_hshow_partner_to_filter = $hshow_criteria->get( hshowPeer::PARTNER_ID );
+		$hshow_criteria->remove (hshowPeer::PARTNER_ID  );
 		
 		$entry_criteria = entryPeer::getCriteriaFilter()->getFilter();		
 		$original_entry_partner_to_filter = $entry_criteria->get( entryPeer::PARTNER_ID );
@@ -67,7 +67,7 @@ class myKalturaKshowServices extends myBaseMediaSource implements IMediaSource
 		$status = "ok";
 		$message = '';
 
-		$kshow_filter = $this->getKshowFilter( $extraData );
+		$hshow_filter = $this->getHshowFilter( $extraData );
 
 		$limit = $pageSize;
 		$offset = $pageSize * ($page-1); // $page starts from 1
@@ -75,40 +75,40 @@ class myKalturaKshowServices extends myBaseMediaSource implements IMediaSource
 //		$keywords_array = mySearchUtils::getKeywordsFromStr ( $searchText );
 
 		// TODO_ change mechanism !
-		//$search_mechanism = self::KALTURA_SERVICE_CRITERIA_FROM_KSHOW;
+		//$search_mechanism = self::KALTURA_SERVICE_CRITERIA_FROM_HSHOW;
 		$search_mechanism = self::KALTURA_SERVICE_CRITERIA_FROM_ROUGHCUT;
 		
 		// TODO - optimize the first part of the entry_id search
-		// cache once we know the kshow_ids / roughcuts - this will make paginating much faster
-		$kshow_crit = new Criteria();
-		$kshow_crit->clearSelectColumns()->clearOrderByColumns();
-		$kshow_crit->addSelectColumn(kshowPeer::ID);
-		$kshow_crit->addSelectColumn(kshowPeer::SHOW_ENTRY_ID);
-		$kshow_crit->setLimit( self::$s_default_count_limit );
-		$kshow_filter->addSearchMatchToCriteria( $kshow_crit , $searchText , kshow::getSearchableColumnName() );
+		// cache once we know the hshow_ids / roughcuts - this will make paginating much faster
+		$hshow_crit = new Criteria();
+		$hshow_crit->clearSelectColumns()->clearOrderByColumns();
+		$hshow_crit->addSelectColumn(hshowPeer::ID);
+		$hshow_crit->addSelectColumn(hshowPeer::SHOW_ENTRY_ID);
+		$hshow_crit->setLimit( self::$s_default_count_limit );
+		$hshow_filter->addSearchMatchToCriteria( $hshow_crit , $searchText , hshow::getSearchableColumnName() );
 		
-		if( $search_mechanism == self::KALTURA_SERVICE_CRITERIA_FROM_KSHOW )
+		if( $search_mechanism == self::KALTURA_SERVICE_CRITERIA_FROM_HSHOW )
 		{
-			$kshow_crit->add ( kshowPeer::ENTRIES , 1 , Criteria::GREATER_EQUAL ) ;
+			$hshow_crit->add ( hshowPeer::ENTRIES , 1 , Criteria::GREATER_EQUAL ) ;
 		}						
 		
-		$rs = kshowPeer::doSelectStmt( $kshow_crit );
+		$rs = hshowPeer::doSelectStmt( $hshow_crit );
 		
 		
-		$kshow_arr = array();
+		$hshow_arr = array();
 		$roughcut_arr = array(); 
 	
 		$res = $rs->fetchAll();
 		foreach($res as $record) 
 		{
-			$kshow_arr[] = $record[0];
+			$hshow_arr[] = $record[0];
 			$roughcut_arr[] = $record[1];
 		}
 		
 //		// old code from doSelectRs
 //		while($rs->next())
 //		{
-//			$kshow_arr[] = $rs->getString(1);
+//			$hshow_arr[] = $rs->getString(1);
 //			$roughcut_arr[] = $rs->getString(2);
 //		}
 			
@@ -118,9 +118,9 @@ class myKalturaKshowServices extends myBaseMediaSource implements IMediaSource
 		$crit->setLimit( $limit );
 		$crit->add ( entryPeer::TYPE ,  entryType::MEDIA_CLIP );
 		$crit->add ( entryPeer::MEDIA_TYPE , $media_type );
-		if( $search_mechanism == self::KALTURA_SERVICE_CRITERIA_FROM_KSHOW )
+		if( $search_mechanism == self::KALTURA_SERVICE_CRITERIA_FROM_HSHOW )
 		{
-			$crit->add ( entryPeer::KSHOW_ID , $kshow_arr , Criteria::IN );
+			$crit->add ( entryPeer::HSHOW_ID , $hshow_arr , Criteria::IN );
 			$entry_results = entryPeer::doSelect ( $crit );
 		}
 		elseif (  $search_mechanism == self::KALTURA_SERVICE_CRITERIA_FROM_ROUGHCUT )
@@ -133,7 +133,7 @@ class myKalturaKshowServices extends myBaseMediaSource implements IMediaSource
 		
 		// after the query - return the filter to what it was before
 		$entry_criteria->addAnd ( entryPeer::PARTNER_ID , $original_entry_partner_to_filter );
-		$kshow_criteria->addAnd ( kshowPeer::PARTNER_ID , $original_kshow_partner_to_filter );
+		$hshow_criteria->addAnd ( hshowPeer::PARTNER_ID , $original_hshow_partner_to_filter );
 		
 		
 		$objects = array();
@@ -142,7 +142,7 @@ class myKalturaKshowServices extends myBaseMediaSource implements IMediaSource
 		$should_add_thumbs = $media_type != entry::ENTRY_MEDIA_TYPE_AUDIO;
 		foreach ( $entry_results as $obj )
 		{
-			if ( $search_mechanism == self::KALTURA_SERVICE_CRITERIA_FROM_KSHOW )
+			if ( $search_mechanism == self::KALTURA_SERVICE_CRITERIA_FROM_HSHOW )
 			{
 				$entry = $obj;
 			}
@@ -202,7 +202,7 @@ class myKalturaKshowServices extends myBaseMediaSource implements IMediaSource
 
 	private static function createHashString ( $kuser_id )	
 	{
-		$hash = kString::expiryHash($kuser_id , self::AUTH_SALT  , self::AUTH_INTERVAL  ) ;
+		$hash = hString::expiryHash($kuser_id , self::AUTH_SALT  , self::AUTH_INTERVAL  ) ;
 		$authData= $kuser_id . "I" . $hash;
 		return $authData;
 	}

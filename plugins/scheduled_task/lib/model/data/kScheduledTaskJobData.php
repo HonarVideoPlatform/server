@@ -3,7 +3,7 @@
  * @package plugins.scheduledTask
  * @subpackage model.data
  */
-class kScheduledTaskJobData extends kJobData
+class hScheduledTaskJobData extends kJobData
 {
 	/**
 	 * @var int

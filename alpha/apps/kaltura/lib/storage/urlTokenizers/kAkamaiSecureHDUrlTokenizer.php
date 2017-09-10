@@ -255,9 +255,9 @@ class kAkamaiSecureHDUrlTokenizer extends kUrlTokenizer
 	 */
 	protected function getAcl(array $urls)
 	{
-		require_once( dirname(__FILE__). '/../../../../../../infra/general/kString.class.php');
+		require_once( dirname(__FILE__). '/../../../../../../infra/general/hString.class.php');
 		
-		$acl = kString::getCommonPrefix($urls);
+		$acl = hString::getCommonPrefix($urls);
 		
 		// the first comma in csmil denotes the beginning of the non-common URL part
 		$commaPos = strpos($acl, ',');

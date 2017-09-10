@@ -698,7 +698,7 @@ class kFile
 		if($realPath)
 		{
 			$fileBrief = shell_exec('file -b ' . $realPath);
-			if(kString::beginsWith($fileBrief,self::MO_PATTERN))
+			if(hString::beginsWith($fileBrief,self::MO_PATTERN))
 				$fileType = 'application/mo';
 		}
 

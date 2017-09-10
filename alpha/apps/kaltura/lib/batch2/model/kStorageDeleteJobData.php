@@ -3,19 +3,19 @@
  * @package Core
  * @subpackage model.data
  */
-class kStorageDeleteJobData extends kStorageJobData
+class hStorageDeleteJobData extends hStorageJobData
 {
     /**
-     * @return kStorageDeleteJobData
+     * @return hStorageDeleteJobData
      */
     public static function getInstance($protocol)
     {
         $data = null;
 
-        $data = KalturaPluginManager::loadObject('kStorageDeleteJobData', $protocol);
+        $data = KalturaPluginManager::loadObject('hStorageDeleteJobData', $protocol);
         
         if (!$data)
-            $data = new kStorageDeleteJobData();
+            $data = new hStorageDeleteJobData();
         
         return $data;
     }

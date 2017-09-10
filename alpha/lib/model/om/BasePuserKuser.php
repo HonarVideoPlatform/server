@@ -1745,7 +1745,7 @@ abstract class BasePuserKuser extends BaseObject  implements Persistent {
 	 * api reasonable.  You can provide public methods for those you
 	 * actually need in PuserKuser.
 	 */
-	public function getPuserRolesRelatedByPartnerIdJoinkshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getPuserRolesRelatedByPartnerIdJoinhshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(PuserKuserPeer::DATABASE_NAME);
@@ -1762,7 +1762,7 @@ abstract class BasePuserKuser extends BaseObject  implements Persistent {
 
 				$criteria->add(PuserRolePeer::PARTNER_ID, $this->partner_id);
 
-				$this->collPuserRolesRelatedByPartnerId = PuserRolePeer::doSelectJoinkshow($criteria, $con, $join_behavior);
+				$this->collPuserRolesRelatedByPartnerId = PuserRolePeer::doSelectJoinhshow($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
@@ -1772,7 +1772,7 @@ abstract class BasePuserKuser extends BaseObject  implements Persistent {
 			$criteria->add(PuserRolePeer::PARTNER_ID, $this->partner_id);
 
 			if (!isset($this->lastPuserRoleRelatedByPartnerIdCriteria) || !$this->lastPuserRoleRelatedByPartnerIdCriteria->equals($criteria)) {
-				$this->collPuserRolesRelatedByPartnerId = PuserRolePeer::doSelectJoinkshow($criteria, $con, $join_behavior);
+				$this->collPuserRolesRelatedByPartnerId = PuserRolePeer::doSelectJoinhshow($criteria, $con, $join_behavior);
 			}
 		}
 		$this->lastPuserRoleRelatedByPartnerIdCriteria = $criteria;
@@ -1946,7 +1946,7 @@ abstract class BasePuserKuser extends BaseObject  implements Persistent {
 	 * api reasonable.  You can provide public methods for those you
 	 * actually need in PuserKuser.
 	 */
-	public function getPuserRolesRelatedByPuserIdJoinkshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getPuserRolesRelatedByPuserIdJoinhshow($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		if ($criteria === null) {
 			$criteria = new Criteria(PuserKuserPeer::DATABASE_NAME);
@@ -1963,7 +1963,7 @@ abstract class BasePuserKuser extends BaseObject  implements Persistent {
 
 				$criteria->add(PuserRolePeer::PUSER_ID, $this->puser_id);
 
-				$this->collPuserRolesRelatedByPuserId = PuserRolePeer::doSelectJoinkshow($criteria, $con, $join_behavior);
+				$this->collPuserRolesRelatedByPuserId = PuserRolePeer::doSelectJoinhshow($criteria, $con, $join_behavior);
 			}
 		} else {
 			// the following code is to determine if a new query is
@@ -1973,7 +1973,7 @@ abstract class BasePuserKuser extends BaseObject  implements Persistent {
 			$criteria->add(PuserRolePeer::PUSER_ID, $this->puser_id);
 
 			if (!isset($this->lastPuserRoleRelatedByPuserIdCriteria) || !$this->lastPuserRoleRelatedByPuserIdCriteria->equals($criteria)) {
-				$this->collPuserRolesRelatedByPuserId = PuserRolePeer::doSelectJoinkshow($criteria, $con, $join_behavior);
+				$this->collPuserRolesRelatedByPuserId = PuserRolePeer::doSelectJoinhshow($criteria, $con, $join_behavior);
 			}
 		}
 		$this->lastPuserRoleRelatedByPuserIdCriteria = $criteria;

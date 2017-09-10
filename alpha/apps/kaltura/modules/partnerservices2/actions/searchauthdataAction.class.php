@@ -62,7 +62,7 @@ class searchauthdataAction extends defPartnerservices2Action
 		if ( $media_source_provider )
 		{
 			//$res = call_user_func (  array ( $media_source , "searchMedia" ) , array ( $media_type , $searchText, $page, $pageSize, $kuserId ) ) ;
-			$res = $media_source_provider->getAuthData($kuserId, $username, $password, "");//$this->ks->toSecureString());
+			$res = $media_source_provider->getAuthData($kuserId, $username, $password, "");//$this->hs->toSecureString());
 			$this->addMsg( "authdata" , $res );
 		}		
 		else

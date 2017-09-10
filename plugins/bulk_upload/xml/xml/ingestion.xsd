@@ -4,9 +4,9 @@
 	<xs:complexType name="T_mrss">
 		<xs:sequence>
 		
-			<xs:element maxOccurs="1" minOccurs="0" name="ks" type="xs:string">
+			<xs:element maxOccurs="1" minOccurs="0" name="hs" type="xs:string">
 				<xs:annotation>
-					<xs:documentation>KS of the user ingesting the content</xs:documentation>
+					<xs:documentation>HS of the user ingesting the content</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			

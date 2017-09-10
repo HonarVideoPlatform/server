@@ -17,7 +17,7 @@ class KAsyncCopyPartnerTest extends PHPUnit_Framework_TestCase
 	public function testCopyPartner()
 	{
 		$iniFile = realpath(__DIR__ . "/../../../configurations/batch" );
-		$schedulerConfig = new KSchedulerConfig($iniFile);
+		$schedulerConfig = new HSchedulerConfig($iniFile);
 	
 		$taskConfigs = $schedulerConfig->getTaskConfigList();
 		$config = null;

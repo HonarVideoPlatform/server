@@ -156,7 +156,7 @@ class kContextDataHelper
 	{
 		$this->streamerType = $streamerType;
 		$this->mediaProtocol = $mediaProtocol;
-		$this->isAdmin = $scope->getKs() ? $scope->getKs()->isAdmin() : false;
+		$this->isAdmin = $scope->getHs() ? $scope->getHs()->isAdmin() : false;
 		$this->contextDataResult = new kEntryContextDataResult();
 
 		$this->contextDataResult->setShouldHandleRuleCodes($shouldHandleRuleCodes);

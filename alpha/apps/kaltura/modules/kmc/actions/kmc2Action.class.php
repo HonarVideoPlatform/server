@@ -18,18 +18,18 @@ class kmc2Action extends kalturaAction
 		$this->partner_id = $this->getP ( "pid" );
 		$this->subp_id = $this->getP ( "subpid", ((int)$this->partner_id)*100 );
 		$this->uid = $this->getP ( "uid" );
-		$this->ks = $this->getP ( "kmcks" );
-		if(!$this->ks)
+		$this->hs = $this->getP ( "kmchs" );
+		if(!$this->hs)
 		{
-			// if kmcks from cookie doesn't exist, try ks from REQUEST
-			$this->ks = $this->getP('ks');
+			// if kmchs from cookie doesn't exist, try hs from REQUEST
+			$this->hs = $this->getP('hs');
 		}
 		$this->screen_name = $this->getP ( "screen_name" );
 		$this->email = $this->getP ( "email" );
 
 		$this->allow_reports = false;
 
-		if (!$this->ks)
+		if (!$this->hs)
 		{
 			$this->redirect( "kmc/kmc" );
 			die();
@@ -58,7 +58,7 @@ class kmc2Action extends kalturaAction
 		if ($this->partner_id !== NULL)
 		{
 			$this->partner = $partner = PartnerPeer::retrieveByPK($this->partner_id);
-			kmcUtils::redirectPartnerToCorrectKmc($partner, $this->ks, $this->uid, $this->screen_name, $this->email, 2);
+			kmcUtils::redirectPartnerToCorrectKmc($partner, $this->hs, $this->uid, $this->screen_name, $this->email, 2);
 			$this->templatePartnerId = $this->partner ? $this->partner->getTemplatePartnerId() : 0;
 		}
 		
@@ -169,7 +169,7 @@ class kmc2Action extends kalturaAction
 		$c->addAnd( uiConfPeer::DISPLAY_IN_SEARCH , mySearchUtils::DISPLAY_IN_SEARCH_KALTURA_NETWORK , Criteria::GREATER_EQUAL );
 		$c->addAnd ( uiConfPeer::STATUS , uiConf::UI_CONF_STATUS_READY );
 		$c->addAnd ( uiConfPeer::OBJ_TYPE , uiConf::UI_CONF_TYPE_EDITOR );
-		$c->addAnd ( uiConfPeer::TAGS, 'andromeda_kse_for_kmc', Criteria::LIKE);
+		$c->addAnd ( uiConfPeer::TAGS, 'andromeda_hse_for_kmc', Criteria::LIKE);
 		$c->addAscendingOrderByColumn(uiConfPeer::ID);
 
 		$uiConf = uiConfPeer::doSelectOne($c);

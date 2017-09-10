@@ -317,7 +317,7 @@ class UserController extends Zend_Controller_Action
 		if ($form->isValid($formData))
 		{
 			$client = Infra_ClientHelper::getClient();
-			$client->setKs(null);
+			$client->setHs(null);
 			$auth = Infra_AuthHelper::getAuthInstance();
 			$identity = $auth->getIdentity();
 			
@@ -330,14 +330,14 @@ class UserController extends Zend_Controller_Action
 					$request->getPost('new_password')
 				);
 				
-				$ks = $client->user->loginByLoginId($request->getPost('email_address'), $request->getPost('new_password'), Infra_ClientHelper::getPartnerId(), null, null, null);
-				$client->setKs($ks);
+				$hs = $client->user->loginByLoginId($request->getPost('email_address'), $request->getPost('new_password'), Infra_ClientHelper::getPartnerId(), null, null, null);
+				$client->setHs($hs);
 				$user = $client->user->getByLoginId($request->getPost('email_address'), Infra_ClientHelper::getPartnerId());
 				if ($user->partnerId != Infra_ClientHelper::getPartnerId()) {
 					throw new Exception('', 'LOGIN_DATA_NOT_FOUND');
 				}
 				
-				$identity = new Kaltura_AdminUserIdentity($user, $ks);
+				$identity = new Kaltura_AdminUserIdentity($user, $hs);
 				$auth->getStorage()->write($identity); // new identity (email could be updated)
 				
 				$this->view->done = true;
@@ -535,7 +535,7 @@ class UserController extends Zend_Controller_Action
 				$newPassword = $userId = $request->getParam('newPassword');
 				
 				$client = Infra_ClientHelper::getClient();
-				$client->setKs(null);
+				$client->setHs(null);
 				$client->user->setInitialPassword($token, $newPassword);
 				
 				$this->_helper->redirector('index');

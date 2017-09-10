@@ -261,7 +261,7 @@ abstract class DeliveryProfile extends BaseDeliveryProfile implements IBaseObjec
 			$formatMapping = array(
 					'f4m' => 	'kF4MManifestRenderer',
 					'f4mv2' => 	'kF4Mv2ManifestRenderer',
-					'smil' => 	'kSmilManifestRenderer',
+					'smil' => 	'hSmilManifestRenderer',
 					'm3u8' => 	'kM3U8ManifestRenderer',
 					'jsonp' => 	'kJSONPManifestRenderer',
 					'json' => 	'kJSONManifestRenderer',

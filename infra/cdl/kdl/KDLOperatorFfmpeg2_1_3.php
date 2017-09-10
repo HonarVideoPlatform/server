@@ -262,8 +262,8 @@ class KDLOperatorFfmpeg2_1_3 extends KDLOperatorFfmpeg1_1_1 {
 							 * Sample style json - {"Alignment":1,"FontSize":20,"MarginL":65}}
 							 */ 
 						$styleArr = array();
-						foreach ($fld as $kStl=>$style){
-							$styleArr[] = "$kStl=$style";
+						foreach ($fld as $hstl=>$style){
+							$styleArr[] = "$hstl=$style";
 						}
 						$params[] = "$k=".implode('\,', $styleArr);
 						break;
@@ -805,8 +805,8 @@ ffmpeg -threads 1 -i VIDEO -i WM1.jpg -loop 1 -t 30 -i WM2.jpg
 			 */
 		$targetMacroBlocks = round($targetVid->_width/16)*round($targetVid->_height/16);
 		
-		foreach ($H264LevelMacroBlocks as $level=>$mBlks){
-			if($mBlks>$targetMacroBlocks){
+		foreach ($H264LevelMacroBlocks as $level=>$mBlhs){
+			if($mBlhs>$targetMacroBlocks){
 				if($cmdValsArr[$key+1]<10)
 					$currentLevel = round($cmdValsArr[$key+1]*10);
 				else

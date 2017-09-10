@@ -71,7 +71,7 @@ require_once(__DIR__ . "/model/ktagword.class.php");
 			$range = ($count_high - $count_low) / (count($this->a_tag_styles) - 1); // ASSUME - can never be 0 !!
 			
 			// sort the tags alphabetically
-			ksort($this->a_tc_data);
+			hsort($this->a_tc_data);
 			
 			
 			$searchUrl = "/index.php/search?keywords=";

@@ -73,7 +73,7 @@ class KAsyncCaptureThumbTest extends PHPUnit_Framework_TestCase
 			unlink($finalPath);
 				
 		$iniFile = "batch_config.ini";
-		$schedulerConfig = new KSchedulerConfig($iniFile);
+		$schedulerConfig = new HSchedulerConfig($iniFile);
 	
 		$taskConfigs = $schedulerConfig->getTaskConfigList();
 		$config = null;

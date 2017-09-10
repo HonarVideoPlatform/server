@@ -28,9 +28,9 @@ class investigateAction extends kalturaSystemAction
 		$fast = ( $this->getRequestParameter("fast", "") != "" );
 	 	$this->fast = $fast;
 	 	
-		$kshow_id = $this->getRequestParameter("kshow_id");
-		$this->kshow_id = $kshow_id;
-		$this->kshow = NULL;
+		$hshow_id = $this->getRequestParameter("hshow_id");
+		$this->hshow_id = $hshow_id;
+		$this->hshow = NULL;
 		
 		$entry_id = $this->getRequestParameter("entry_id");
 		$this->entry_id = $entry_id;
@@ -40,33 +40,33 @@ class investigateAction extends kalturaSystemAction
 		
 		$this->bg_entry = NULL;
 		
-		if ( !empty ( $kshow_id ))
+		if ( !empty ( $hshow_id ))
 		{
 			
 			$c = new Criteria();
-			$c->add ( kshowPeer::ID , $kshow_id );
-			$kshows = kshowPeer::doSelect ( $c );
+			$c->add ( hshowPeer::ID , $hshow_id );
+			$hshows = hshowPeer::doSelect ( $c );
 			
-			$kshow = new kshow();
+			$hshow = new hshow();
 			
-			if ( ! $kshows )
+			if ( ! $hshows )
 			{
-				$this->result = "No kshow [$kshow_id] in DB";
+				$this->result = "No hshow [$hshow_id] in DB";
 				return;
 			}
 	
-			$kshow_original = $kshows[0];
-			$kshow_original->getShowEntry() ; // pre fetch
-			$kshow_original->getIntro(); // pre fetch
+			$hshow_original = $hshows[0];
+			$hshow_original->getShowEntry() ; // pre fetch
+			$hshow_original->getIntro(); // pre fetch
 
-			$this->kshow_original =$kshows[0];
-			$this->kshow =  new genericObjectWrapper ($this->kshow_original , true );
+			$this->hshow_original =$hshows[0];
+			$this->hshow =  new genericObjectWrapper ($this->hshow_original , true );
 
 			$alredy_exist_entries = array ( );
-			$alredy_exist_entries[] = $kshow_original->getShowEntryId();
-			if( $kshow_original->getIntroId()) $alredy_exist_entries[] = $kshow_original->getIntroId();
+			$alredy_exist_entries[] = $hshow_original->getShowEntryId();
+			if( $hshow_original->getIntroId()) $alredy_exist_entries[] = $hshow_original->getIntroId();
 			
-			$skin_obj = $this->kshow_original->getSkinObj();
+			$skin_obj = $this->hshow_original->getSkinObj();
 			$bg_entry_id = $skin_obj->get ( "bg_entry_id");
 			if ( $bg_entry_id )
 			{
@@ -77,10 +77,10 @@ class investigateAction extends kalturaSystemAction
 			$c = new Criteria();
 			$c->add ( entryPeer::ID , $alredy_exist_entries  , Criteria::NOT_IN );
 			$c->setLimit ( 100 );
-			$this->kshow_entries = $this->kshow_original->getEntrysJoinKuser( $c );
+			$this->hshow_entries = $this->hshow_original->getEntrysJoinKuser( $c );
 			
 			return;
-			//return "KshowSuccess";
+			//return "HshowSuccess";
 		}
 		
 		if ( empty ( $entry_id ))

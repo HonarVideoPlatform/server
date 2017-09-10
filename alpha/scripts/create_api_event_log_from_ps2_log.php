@@ -40,8 +40,8 @@ service
 action
 ps_version
 is_multi_request
-ks
-ks_type
+hs
+hs_type
 partner_id
 uid
 entry_id
@@ -75,8 +75,8 @@ class kApiEvent
 		$this->action . EVENT_LOG_SEPARATOR .
 		$this->ps_version . EVENT_LOG_SEPARATOR .
 		$this->is_multi_request . EVENT_LOG_SEPARATOR .
-		$this->ks . EVENT_LOG_SEPARATOR .
-		$this->ks_type . EVENT_LOG_SEPARATOR .
+		$this->hs . EVENT_LOG_SEPARATOR .
+		$this->hs_type . EVENT_LOG_SEPARATOR .
 		$this->partner_id . EVENT_LOG_SEPARATOR .
 		$this->uid . EVENT_LOG_SEPARATOR .
 		$this->entry_id . EVENT_LOG_SEPARATOR .
@@ -174,7 +174,7 @@ while(!feof($f))
 	// once flushed to disk - the api_event is removed from the array.
 	
 
-	// 125965956955.03, Dec 01 04:26:09 symfony [info] {sfRequest} request parameters array (  'entry_id' => '-1',  'kshow_id' => '292688',  'kdata' => 'YTo0OntzOjQ6ImJhc2UiO3M6MzQ6Imh0dHA6Ly93aWtpZWR1Y2F0b3Iub3JnL2luZGV4LnBocC8iO3M6MzoiYWRkIjtzOjQ5OiJTcGVjaWFsOkthbHR1cmFDb250cmlidXRpb25XaXphcmQ|02a3Nob3dfaWQ9MjkyNjg4IjtzOjQ6ImVkaXQiO3M6NDI6IlNwZWNpYWw6S2FsdHVyYVZpZGVvRWRpdG9yP2tzaG93X2lkPTI5MjY4OCI7czo1OiJzaGFyZSI7czo0NzoiaHR0cDovL3dpa2llZHVjYXRvci5vcmcvTGVzc29uXzg6X0Zvb2RfU3BvaWxhZ2UiO30=',  'referer' => 'http://wikieducator.org/Lesson_8:_Food_Spoilage',  'widget_type' => '3',  'module' => 'keditorservices',  'action' => 'getEntryInfo',)
+	// 125965956955.03, Dec 01 04:26:09 symfony [info] {sfRequest} request parameters array (  'entry_id' => '-1',  'hshow_id' => '292688',  'kdata' => 'YTo0OntzOjQ6ImJhc2UiO3M6MzQ6Imh0dHA6Ly93aWtpZWR1Y2F0b3Iub3JnL2luZGV4LnBocC8iO3M6MzoiYWRkIjtzOjQ5OiJTcGVjaWFsOkthbHR1cmFDb250cmlidXRpb25XaXphcmQ|02a3Nob3dfaWQ9MjkyNjg4IjtzOjQ6ImVkaXQiO3M6NDI6IlNwZWNpYWw6S2FsdHVyYVZpZGVvRWRpdG9yP2tzaG93X2lkPTI5MjY4OCI7czo1OiJzaGFyZSI7czo0NzoiaHR0cDovL3dpa2llZHVjYXRvci5vcmcvTGVzc29uXzg6X0Zvb2RfU3BvaWxhZ2UiO30=',  'referer' => 'http://wikieducator.org/Lesson_8:_Food_Spoilage',  'widget_type' => '3',  'module' => 'keditorservices',  'action' => 'getEntryInfo',)
 	// 2009-11-30 07:52:11
 	if ( preg_match ( "/([\d\.]*), ([a-zA-Z\d\- \:]*) symfony.*request parameters (.*)/" , $s , $matches ) )
 	{
@@ -231,16 +231,16 @@ while(!feof($f))
 			}
 	
 			// complete the array and break
-		 	$api_e->ks = $kargs->ks;
+		 	$api_e->hs = $kargs->hs;
 	
-		 	$str = base64_decode( $api_e->ks , true ) ; // encode this string
+		 	$str = base64_decode( $api_e->hs , true ) ; // encode this string
 			@list ( $hash , $real_str) = @explode ( "|" , $str , 2 );
 					
 			$a = ""; // just a dummy to store stuff in 
-			@list ( $api_e->partner_id , $a , $a , $api_e->ks_type , $a , $api_e->uid , $a) =
+			@list ( $api_e->partner_id , $a , $a , $api_e->hs_type , $a , $api_e->uid , $a) =
 					@explode ( ";" , $real_str );
 						
-			$api_e->ks_type = 0 + $api_e->ks_type;
+			$api_e->hs_type = 0 + $api_e->hs_type;
 	
 			if ( ! $api_e->partner_id )
 			{

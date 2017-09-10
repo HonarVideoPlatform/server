@@ -47,21 +47,21 @@ class CategoryEntryService extends KalturaBaseService
 		//validate user is entiteld to assign entry to this category 
 		if (kEntitlementUtils::getEntitlementEnforcement() && $category->getContributionPolicy() != ContributionPolicyType::ALL)
 		{
-			$categoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryEntry->categoryId, kCurrentContext::getCurrentKsKuserId());
+			$categoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryEntry->categoryId, kCurrentContext::getCurrentHsKuserId());
 			if(!$categoryKuser)
 			{
-				KalturaLog::err("User [" . kCurrentContext::getCurrentKsKuserId() . "] is not a member of the category [{$categoryEntry->categoryId}]");
+				KalturaLog::err("User [" . kCurrentContext::getCurrentHsKuserId() . "] is not a member of the category [{$categoryEntry->categoryId}]");
 				throw new KalturaAPIException(KalturaErrors::CANNOT_ASSIGN_ENTRY_TO_CATEGORY);
 			}
 			if($categoryKuser->getPermissionLevel() == CategoryKuserPermissionLevel::MEMBER)
 			{
-				KalturaLog::err("User [" . kCurrentContext::getCurrentKsKuserId() . "] permission level [" . $categoryKuser->getPermissionLevel() . "] on category [{$categoryEntry->categoryId}] is not member [" . CategoryKuserPermissionLevel::MEMBER . "]");
+				KalturaLog::err("User [" . kCurrentContext::getCurrentHsKuserId() . "] permission level [" . $categoryKuser->getPermissionLevel() . "] on category [{$categoryEntry->categoryId}] is not member [" . CategoryKuserPermissionLevel::MEMBER . "]");
 				throw new KalturaAPIException(KalturaErrors::CANNOT_ASSIGN_ENTRY_TO_CATEGORY);
 			}
 				
 			if(!$categoryKuser->hasPermission(PermissionName::CATEGORY_EDIT) && !$categoryKuser->hasPermission(PermissionName::CATEGORY_CONTRIBUTE) &&
-				!$entry->isEntitledKuserEdit(kCurrentContext::getCurrentKsKuserId()) &&
-				$entry->getCreatorKuserId() != kCurrentContext::getCurrentKsKuserId())
+				!$entry->isEntitledKuserEdit(kCurrentContext::getCurrentHsKuserId()) &&
+				$entry->getCreatorKuserId() != kCurrentContext::getCurrentHsKuserId())
 				throw new KalturaAPIException(KalturaErrors::CANNOT_ASSIGN_ENTRY_TO_CATEGORY);				
 		}
 		
@@ -85,7 +85,7 @@ class CategoryEntryService extends KalturaBaseService
 		
 		if (kEntitlementUtils::getEntitlementEnforcement() && $category->getModeration())
 		{
-			$categoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryEntry->categoryId, kCurrentContext::getCurrentKsKuserId());
+			$categoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryEntry->categoryId, kCurrentContext::getCurrentHsKuserId());
 			if(!$categoryKuser ||
 				($categoryKuser->getPermissionLevel() != CategoryKuserPermissionLevel::MANAGER && 
 				$categoryKuser->getPermissionLevel() != CategoryKuserPermissionLevel::MODERATOR))
@@ -98,10 +98,10 @@ class CategoryEntryService extends KalturaBaseService
 			$dbCategoryEntry->setStatus(CategoryEntryStatus::PENDING);
 		}
 		
-		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id;
+		$partnerId = kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id;
 		$dbCategoryEntry->setPartnerId($partnerId);
 		
-		$kuser = kCurrentContext::getCurrentKsKuser();
+		$kuser = kCurrentContext::getCurrentHsKuser();
 		
 		if ($kuser)
 		{
@@ -149,11 +149,11 @@ class CategoryEntryService extends KalturaBaseService
 
 		//validate user is entitled to remove entry from category
 		if(kEntitlementUtils::getEntitlementEnforcement() &&
-			!$entry->isEntitledKuserEdit(kCurrentContext::getCurrentKsKuserId()) &&
-			$entry->getCreatorKuserId() != kCurrentContext::getCurrentKsKuserId())
+			!$entry->isEntitledKuserEdit(kCurrentContext::getCurrentHsKuserId()) &&
+			$entry->getCreatorKuserId() != kCurrentContext::getCurrentHsKuserId())
 		{
 			$kuserIsEntitled = false;
-			$kuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryId, kCurrentContext::getCurrentKsKuserId());
+			$kuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryId, kCurrentContext::getCurrentHsKuserId());
 
 			// First pass: check if kuser is a manager
 			if ( $kuser )
@@ -165,7 +165,7 @@ class CategoryEntryService extends KalturaBaseService
 			}
 			else
 			{
-				$kuser = kuserPeer::retrieveByPK( kCurrentContext::getCurrentKsKuserId() );
+				$kuser = kuserPeer::retrieveByPK( kCurrentContext::getCurrentHsKuserId() );
 			}
 
 			// Second pass: check if kuser is a co-publisher
@@ -307,7 +307,7 @@ class CategoryEntryService extends KalturaBaseService
 		//validate user is entiteld to activate entry from category 
 		if(kEntitlementUtils::getEntitlementEnforcement())
 		{
-			$categoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryId, kCurrentContext::getCurrentKsKuserId());
+			$categoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryId, kCurrentContext::getCurrentHsKuserId());
 			if(!$categoryKuser || 
 				($categoryKuser->getPermissionLevel() != CategoryKuserPermissionLevel::MANAGER && 
 				 $categoryKuser->getPermissionLevel() != CategoryKuserPermissionLevel::MODERATOR))
@@ -315,7 +315,7 @@ class CategoryEntryService extends KalturaBaseService
 					
 		}
 		
-		if (kCurrentContext::getCurrentKsKuserId() == $dbCategoryEntry->getCreatorKuserId() &&
+		if (kCurrentContext::getCurrentHsKuserId() == $dbCategoryEntry->getCreatorKuserId() &&
 			$this->getPartner()->getEnabledService(KalturaPermissionName::FEATURE_BLOCK_CATEGORY_MODERATION_SELF_APPROVE))
 		{
 			throw new KalturaAPIException(KalturaErrors::CANNOT_ACTIVATE_CATEGORY_ENTRY);
@@ -356,7 +356,7 @@ class CategoryEntryService extends KalturaBaseService
 		//validate user is entiteld to reject entry from category 
 		if(kEntitlementUtils::getEntitlementEnforcement())
 		{
-			$categoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryId, kCurrentContext::getCurrentKsKuserId());
+			$categoryKuser = categoryKuserPeer::retrievePermittedKuserInCategory($categoryId, kCurrentContext::getCurrentHsKuserId());
 			if(!$categoryKuser || 
 				($categoryKuser->getPermissionLevel() != CategoryKuserPermissionLevel::MANAGER && 
 				 $categoryKuser->getPermissionLevel() != CategoryKuserPermissionLevel::MODERATOR))
@@ -364,7 +364,7 @@ class CategoryEntryService extends KalturaBaseService
 					
 		}
 			
-		if (kCurrentContext::getCurrentKsKuserId() == $dbCategoryEntry->getCreatorKuserId() &&
+		if (kCurrentContext::getCurrentHsKuserId() == $dbCategoryEntry->getCreatorKuserId() &&
 			$this->getPartner()->getEnabledService(KalturaPermissionName::FEATURE_BLOCK_CATEGORY_MODERATION_SELF_APPROVE))
 		{
 			throw new KalturaAPIException(KalturaErrors::CANNOT_REJECT_CATEGORY_ENTRY);

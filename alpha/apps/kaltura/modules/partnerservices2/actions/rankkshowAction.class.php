@@ -5,17 +5,17 @@
  * @package api
  * @subpackage ps2
  */
-class rankkshowAction extends defPartnerservices2Action
+class rankhshowAction extends defPartnerservices2Action
 {
 	public function describe()
 	{
 		return 	
 			array (
-				"display_name" => "rankKShow",
+				"display_name" => "rankHShow",
 				"desc" => "" ,
 				"in" => array (
 					"mandatory" => array ( 
-						"kshow_id" => array ("type" => "string", "desc" => ""),
+						"hshow_id" => array ("type" => "string", "desc" => ""),
 						"rank" => array ("type" => "integer", "desc" => "")
 						),
 					"optional" => array ()
@@ -25,8 +25,8 @@ class rankkshowAction extends defPartnerservices2Action
 					),
 				"errors" => array (
 					APIErrors::INVALID_RANK ,
-					APIErrors::INVALID_KSHOW_ID , 
-					APIErrors::USER_ALREADY_RANKED_KSHOW , 
+					APIErrors::INVALID_HSHOW_ID , 
+					APIErrors::USER_ALREADY_RANKED_HSHOW , 
 					
 				)
 			); 
@@ -38,14 +38,14 @@ class rankkshowAction extends defPartnerservices2Action
 	
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
-		$kshow_id = $this->getPM ( "kshow_id" );
+		$hshow_id = $this->getPM ( "hshow_id" );
 		$rank = $this->getPM ( "rank" );
 		
-		$kshow = kshowPeer::retrieveByPK( $kshow_id );
+		$hshow = hshowPeer::retrieveByPK( $hshow_id );
 		
-		if ( ! $kshow )
+		if ( ! $hshow )
 		{
-			$this->addError( APIErrors::INVALID_KSHOW_ID , $kshow_id  );
+			$this->addError( APIErrors::INVALID_HSHOW_ID , $hshow_id  );
 			return;		
 		}
 		
@@ -56,7 +56,7 @@ class rankkshowAction extends defPartnerservices2Action
 		}
 
 		$kuser_id = $puser_kuser->getKuserId();
-		$entry_id = $kshow->getShowEntryId();
+		$entry_id = $hshow->getShowEntryId();
 		
 		$partner = PartnerPeer::retrieveByPK($partner_id);
 
@@ -66,36 +66,36 @@ class rankkshowAction extends defPartnerservices2Action
 			$c = new Criteria ();
 			$c->add ( kvotePeer::KUSER_ID , $kuser_id);
 			$c->add ( kvotePeer::ENTRY_ID , $entry_id);
-			$c->add ( kvotePeer::KSHOW_ID , $kshow_id);
+			$c->add ( kvotePeer::HSHOW_ID , $hshow_id);
 			
 			$kvote = kvotePeer::doSelectOne( $c );
 			if ( $kvote != NULL )
 			{
-				$this->addError( APIErrors::USER_ALREADY_RANKED_KSHOW , $puser_id  , $kshow_id );
+				$this->addError( APIErrors::USER_ALREADY_RANKED_HSHOW , $puser_id  , $hshow_id );
 				return;						
 			}
 		}
 		
 		$kvote = new kvote();
-		$kvote->setKshowId($kshow_id);
+		$kvote->setHshowId($hshow_id);
 		$kvote->setEntryId($entry_id);
 		$kvote->setKuserId($kuser_id);
 		$kvote->setRank($rank);
 		$kvote->save();
 
 		$statistics_results = $kvote->getStatisticsResults();
-		$updated_kshow = @$statistics_results["kshow"];
+		$updated_hshow = @$statistics_results["hshow"];
 		
-		if ( $updated_kshow )
+		if ( $updated_hshow )
 		{
-			myNotificationMgr::createNotification( kNotificationJobData::NOTIFICATION_TYPE_KSHOW_RANK , $updated_kshow );
+			myNotificationMgr::createNotification( kNotificationJobData::NOTIFICATION_TYPE_HSHOW_RANK , $updated_hshow );
 			
-			$data = array ( "kshow_id" => $kshow_id , 
+			$data = array ( "hshow_id" => $hshow_id , 
 				"uid" => $puser_id ,
-				"rank" => $updated_kshow->getRank() ,
-				"votes" => $updated_kshow->getVotes() );
+				"rank" => $updated_hshow->getRank() ,
+				"votes" => $updated_hshow->getVotes() );
 				
-			//$this->addMsg ( "kshow" , objectWrapperBase::getWrapperClass( $updated_kshow , objectWrapperBase::DETAIL_LEVEL_DETAILED) );
+			//$this->addMsg ( "hshow" , objectWrapperBase::getWrapperClass( $updated_hshow , objectWrapperBase::DETAIL_LEVEL_DETAILED) );
 			$this->addMsg ( "rank" , $data ); 
 		}
 

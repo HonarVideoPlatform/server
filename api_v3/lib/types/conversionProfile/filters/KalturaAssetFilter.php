@@ -41,7 +41,7 @@ class KalturaAssetFilter extends KalturaAssetBaseFilter
 		
 	    myDbHelper::$use_alternative_con = myDbHelper::DB_HELPER_CONN_PROPEL2;
 	    
-		// verify access to the relevant entries - either same partner as the KS or kaltura network
+		// verify access to the relevant entries - either same partner as the HS or kaltura network
 		if ($this->entryIdEqual)
 		{
 			$entryIds = array($this->entryIdEqual);

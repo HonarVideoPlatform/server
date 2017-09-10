@@ -34,7 +34,7 @@ class KAsyncConvertCloserTest extends PHPUnit_Framework_TestCase
 	private function doTest($engineType, $remoteMediaId, $remoteUrl, $expectedStatus)
 	{
 		$iniFile = "batch_config.ini";
-		$schedulerConfig = new KSchedulerConfig($iniFile);
+		$schedulerConfig = new HSchedulerConfig($iniFile);
 	
 		$taskConfigs = $schedulerConfig->getTaskConfigList();
 		$config = null;

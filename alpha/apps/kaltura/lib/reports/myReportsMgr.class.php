@@ -571,23 +571,23 @@ class myReportsMgr
 
 	private static function createUrl ($partner_id, $file_name)
 	{
-		$ksStr = "";
+		$hsStr = "";
 		$partner = PartnerPeer::retrieveByPK ( $partner_id );
 		$secret = $partner->getSecret ();
-		$privilege = ks::PRIVILEGE_DOWNLOAD . ":" . $file_name;
+		$privilege = hs::PRIVILEGE_DOWNLOAD . ":" . $file_name;
 		
 		$maxExpiry = 86400;
-		$expiry = $partner->getKsMaxExpiryInSeconds();
+		$expiry = $partner->getHsMaxExpiryInSeconds();
 		if(!$expiry || ($expiry > $maxExpiry))
 			$expiry = $maxExpiry;
 		
-		$result = kSessionUtils::startKSession ( $partner_id, $secret, null, $ksStr, $expiry, false, "", $privilege );
+		$result = hSessionUtils::startHSession ( $partner_id, $secret, null, $hsStr, $expiry, false, "", $privilege );
 		
 		if ($result < 0)
 			throw new Exception ( "Failed to generate session for asset [" . $this->getId () . "] of type " . $this->getType () );
 			
 		//url is built with DC url in order to be directed to the same DC of the saved file
-		$url = kDataCenterMgr::getCurrentDcUrl() . "/api_v3/index.php/service/report/action/serve/ks/$ksStr/id/$file_name/report.csv";
+		$url = kDataCenterMgr::getCurrentDcUrl() . "/api_v3/index.php/service/report/action/serve/hs/$hsStr/id/$file_name/report.csv";
 		return $url;
 	}
 	

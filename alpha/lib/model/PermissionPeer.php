@@ -98,7 +98,7 @@ class PermissionPeer extends BasePermissionPeer
 	public static function enableForPartner($permissionName, $permissionType, $partnerId = null, $friendlyName = null, $description = null)
 	{
 		if(is_null($partnerId))
-			$partnerId = (kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$ks_partner_id);
+			$partnerId = (kCurrentContext::$partner_id ? kCurrentContext::$partner_id : kCurrentContext::$hs_partner_id);
 			
 		$permission = new Permission();
 		$permission->setName($permissionName);
@@ -236,10 +236,10 @@ class PermissionPeer extends BasePermissionPeer
 
 	public static function preFetchPermissions($permissionsNamesArray)
 	{
-		$preFetchPermissions = PermissionPeer::getByNamesAndPartner($permissionsNamesArray , array(kCurrentContext::$ks_partner_id, PartnerPeer::GLOBAL_PARTNER));
+		$preFetchPermissions = PermissionPeer::getByNamesAndPartner($permissionsNamesArray , array(kCurrentContext::$hs_partner_id, PartnerPeer::GLOBAL_PARTNER));
 		foreach ($preFetchPermissions as $permission)
 		{
-			PermissionPeer::validatePermission($permission->getName(), kCurrentContext::$ks_partner_id, true ,$permission);
+			PermissionPeer::validatePermission($permission->getName(), kCurrentContext::$hs_partner_id, true ,$permission);
 		}
 	}
 	

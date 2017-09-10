@@ -21,7 +21,7 @@ class KalturaMonitorClient
 	const FIELD_PARTNER_ID = 		'p';
 	const FIELD_ACTION = 			'a';
 	const FIELD_CACHED = 			'c';
-	const FIELD_KS_TYPE = 			'k';
+	const FIELD_HS_TYPE = 			'k';
 	const FIELD_CLIENT_TAG = 		'l';
 	const FIELD_MULTIREQUEST = 		'm';
 	const FIELD_EXECUTION_TIME = 	'x';
@@ -151,7 +151,7 @@ class KalturaMonitorClient
 		
 		self::$basicApiInfo = array(
 			self::FIELD_CACHED			=> $cached,
-			self::FIELD_KS_TYPE			=> $sessionType,
+			self::FIELD_HS_TYPE			=> $sessionType,
 			self::FIELD_MULTIREQUEST 	=> $isInMultiRequest,
 		);
 		
@@ -182,7 +182,7 @@ class KalturaMonitorClient
 			return;
 		
 		// strip the comment
-		if (kString::beginsWith($sql, '/*'))
+		if (hString::beginsWith($sql, '/*'))
 		{
 			$eventType = self::EVENT_DATABASE;
 			$commentEndPos = strpos($sql, '*/') + 2;
@@ -199,7 +199,7 @@ class KalturaMonitorClient
 		$queryType = null;
 		foreach (self::$queryTypes as $prefix => $curQueryType)
 		{
-			if (kString::beginsWith($sql, $prefix))
+			if (hString::beginsWith($sql, $prefix))
 			{
 				$sql = substr($sql, strlen($prefix));
 				$queryType = $curQueryType;

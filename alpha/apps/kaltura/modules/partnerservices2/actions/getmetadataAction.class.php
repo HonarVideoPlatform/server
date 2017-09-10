@@ -14,7 +14,7 @@ class getmetadataAction extends defPartnerservices2Action
 				"in" => array (
 					"mandatory" => array ( 
 						"entry_id" => array ("type" => "string", "desc" => ""),
-						"kshow_id" => array ("type" => "string", "desc" => ""),
+						"hshow_id" => array ("type" => "string", "desc" => ""),
 						"version"  => array ("type" => "string", "desc" => "")
 						),
 					"optional" => array (
@@ -24,7 +24,7 @@ class getmetadataAction extends defPartnerservices2Action
 					"metadata" => array ("type" => "xml", "desc" => "")
 					),
 				"errors" => array (
-					APIErrors::INVALID_KSHOW_ID , 
+					APIErrors::INVALID_HSHOW_ID , 
 					APIErrors::INVALID_ENTRY_ID ,
 					APIErrors::INVALID_FILE_NAME , 
 				)
@@ -36,13 +36,13 @@ class getmetadataAction extends defPartnerservices2Action
 	public function executeImpl ( $partner_id , $subp_id , $puser_id , $partner_prefix , $puser_kuser )
 	{
 		$entry_id = $this->getP ( "entry_id" );
-		$kshow_id =  $this->getP ( "kshow_id" );
+		$hshow_id =  $this->getP ( "hshow_id" );
 		
 		// Make sure the request is for a ready roughcut
 		$c = entryPeer::getCriteriaFilter()->getFilter();
 		$c->addAnd ( entryPeer::STATUS, entryStatus::READY , Criteria::EQUAL);
 				
-		list ( $kshow , $entry , $error , $error_obj ) = myKshowUtils::getKshowAndEntry( $kshow_id  , $entry_id );
+		list ( $hshow , $entry , $error , $error_obj ) = myHshowUtils::getHshowAndEntry( $hshow_id  , $entry_id );
 
 		if ( $error_obj )
 		{
@@ -51,7 +51,7 @@ class getmetadataAction extends defPartnerservices2Action
 		}
 
 		$version = $this->getP ( "version" ); // it's a path on the disk
-		if ( kString::beginsWith( $version , "." ) )
+		if ( hString::beginsWith( $version , "." ) )
 		{
 			// someone is trying to hack in the system 
 			return sfView::ERROR;	
@@ -70,7 +70,7 @@ class getmetadataAction extends defPartnerservices2Action
 		$file_name = kFileSyncUtils::getReadyLocalFilePathForKey( $sync_key , false );
 			
 		// fetch content of file from disk - it should hold the XML
-		if ( kString::endsWith( $file_name  , "xml" ))
+		if ( hString::endsWith( $file_name  , "xml" ))
 		{
 			$xml_content = kFileSyncUtils::file_get_contents( $sync_key , false  , false );
 			if ( ! $xml_content)
