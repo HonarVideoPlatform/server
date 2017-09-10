@@ -16,52 +16,52 @@ abstract class kManifestRenderer
 	 * @var int
 	 */
 	public $duration = null;
-	
+
 	/**
 	 * @var kUrlTokenizer
 	 */
 	public $tokenizer = null;
-	
+
 	/**
 	 * @var int
 	 */
 	public $cachingHeadersAge = 0;
-	
+
 	/**
 	 * @var bool
 	 */
 	public $forceCachingHeaders = false;
-	
+
 	/**
 	 * @var int
 	 */
 	public $lastModified = null;
-	
+
 	/**
 	 * @var string
 	 */
 	public $deliveryCode = '';
-	
+
 	/**
 	 * @var string
 	 */
 	public $defaultDeliveryCode = '';
-	
+
 	/**
 	 * @var hSessionBase
 	 */
 	protected $hsObject = null;
-	
+
 	/**
 	 * Array of classes required for load into the renderer scope in order to expand the manifest
 	 * @var array
 	 */
 	public $contributors;
-	
+
 	protected function prepareFlavors()
 	{
 	}
-	
+
 	/**
 	 * @return array<string>
 	 */
@@ -69,7 +69,7 @@ abstract class kManifestRenderer
 	{
 		return array();
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -77,7 +77,7 @@ abstract class kManifestRenderer
 	{
 		return '';
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -85,7 +85,7 @@ abstract class kManifestRenderer
 	{
 		return '';
 	}
-	
+
 	/**
 	 * @return array
 	 */
@@ -93,7 +93,7 @@ abstract class kManifestRenderer
 	{
 		return array();
 	}
-	
+
 	protected function getSeparator ()
 	{
 		return "\n";
@@ -103,9 +103,9 @@ abstract class kManifestRenderer
 	// a publisher with a rtmpUrl set to {deliveryCode}.example.com/ondemand will be able to use different
 	// cdn configuration for different sub publishers by passing a different deliveryCode to the KDP
 	abstract protected function replaceDeliveryCode();
-	
+
 	abstract protected function tokenizeUrls();
-	
+
 	abstract protected function applyDomainPrefix();
 
 	abstract protected function replacePlayServerSessionId();
@@ -121,7 +121,7 @@ abstract class kManifestRenderer
 			$this->tokenizer->setHsObject($hsObject);
 		}
 	}
-	
+
 	/**
 	 * @param string $playbackContext
 	 */
@@ -132,7 +132,7 @@ abstract class kManifestRenderer
 			$this->tokenizer->setPlaybackContext($playbackContext);
 		}
 	}
-	
+
 	/**
 	 * @param string $deliveryCode
 	 */
@@ -159,7 +159,7 @@ abstract class kManifestRenderer
 			'format' => 'deliveryType',
 			'uiConfId' => 'uiConfId',
 			'playSessionId' => 'sessionId',
-			'clientTag' => 'clientTag', 
+			'clientTag' => 'clientTag',
 		);
 		foreach ($mapping as $src => $dest)
 		{
@@ -212,19 +212,19 @@ abstract class kManifestRenderer
 		fwrite($fp, $out);
 		fclose($fp);
 	}
-	
+
 	final public function output()
 	{
 		$this->prepareFlavors();
-		
+
 		if ($this->deliveryCode)
 			$this->replaceDeliveryCode();
 
 		$this->replacePlayServerSessionId();
-		
+
 		$this->tokenizeUrls();
 		$this->applyDomainPrefix();
-	
+
 		$headers = $this->getHeaders();
 		$headers[] = "Access-Control-Allow-Origin:*";
 		$headers[] = "Access-Control-Expose-Headers: Server,range,Content-Length,Content-Range";
@@ -232,10 +232,10 @@ abstract class kManifestRenderer
 		{
 			header($header);
 		}
-		
+
 		if (kApiCache::hasExtraFields() && !$this->forceCachingHeaders)
 			$this->cachingHeadersAge = 0;
-		
+
 		infraRequestUtils::sendCachingHeaders($this->cachingHeadersAge, true, $this->lastModified);
 
 		$header = $this->getManifestHeader();
@@ -248,9 +248,9 @@ abstract class kManifestRenderer
 			$footer = $contributorInstance->editManifestFooter ($footer);
 			$flavors = $contributorInstance->editManifestFlavors($flavors);
 		}
-		
+
 		$separator = $this->getSeparator();
-		
+
 		$content = $header;
 		if ($content)
 		{
@@ -258,22 +258,22 @@ abstract class kManifestRenderer
 		}
 		$content .= implode($separator, $flavors);
 		$content .= $separator . $footer;
-		
+
 		header('Content-Length: ' . strlen($content));		// avoid chunked encoding
-		
+
 		echo $content;
-		
+
 		if (kConf::hasParam('internal_analytics_host'))
 		{
 			$statsHost = explode(':', kConf::get('internal_analytics_host'));
 			$this->sendAnalyticsBeacon(
-				$statsHost[0], 
+				$statsHost[0],
 				isset($statsHost[1]) ? $statsHost[1] : 80);
 		}
 
 		die;
 	}
-	
+
 	public function getRequiredFiles()
 	{
 		$result = array(__file__);
@@ -285,17 +285,17 @@ abstract class kManifestRenderer
 			$tokenizerClass = new ReflectionClass(get_class($this->tokenizer));
 			$result[] = $tokenizerClass->getFileName();
 		}
-		
+
 		foreach ($this->contributors as $contributor)
 		{
 			$result[] = dirname(__FILE__) . '/manifest/BaseManifestEditor.php';
 			$contributorClass = new ReflectionClass(get_class($contributor));
 			$result[] = $contributorClass->getFileName();
 		}
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * @param string $part1
 	 * @param string $part2
@@ -317,8 +317,8 @@ abstract class kManifestRenderer
 	{
 		if(!isset($flavor['urlPrefix']) || !$flavor['urlPrefix'])
 			return;
-			
-		$urlPrefix = $flavor['urlPrefix'];		
+
+		$urlPrefix = $flavor['urlPrefix'];
 		$urlPrefixPath = parse_url($urlPrefix, PHP_URL_PATH);
 		if (!$urlPrefixPath || substr($urlPrefix, -strlen($urlPrefixPath)) != $urlPrefixPath)
 			return;
@@ -333,25 +333,25 @@ abstract class kManifestRenderer
 	}
 }
 
-class kSingleUrlManifestRenderer extends kManifestRenderer
+class hSingleUrlManifestRenderer extends kManifestRenderer
 {
 	/**
 	 * @var array
 	 */
 	public $flavor = null;
-	
-	function __construct($flavors, $entryId = null) 
+
+	function __construct($flavors, $entryId = null)
 	{
-		$this->flavor = reset($flavors);	
+		$this->flavor = reset($flavors);
 		$this->entryId = $entryId;
 	}
-	
+
 	protected function replaceDeliveryCode()
 	{
 		$this->flavor['url'] = str_replace("{deliveryCode}", $this->deliveryCode, $this->flavor['url']);
 		$this->flavor['urlPrefix'] = str_replace("{deliveryCode}", $this->deliveryCode, $this->flavor['urlPrefix']);
  	}
-	
+
 	protected function tokenizeUrls()
 	{
 		self::normalizeUrlPrefix($this->flavor);
@@ -361,26 +361,26 @@ class kSingleUrlManifestRenderer extends kManifestRenderer
 		{
 			$url = $this->tokenizer->tokenizeSingleUrl($url, $urlPrefix);
 		}
-		
+
 		if($urlPrefix !== null)
 		{
 			$url = self::urlJoin($urlPrefix, $url);
 			unset($this->flavor['urlPrefix']);	// no longer need the prefix
 		}
-		
+
 		$this->flavor['url'] = $url;
 	}
-	
+
 	protected function applyDomainPrefix()
 	{
 		$domainPrefix = isset($this->flavor['domainPrefix']) ? $this->flavor['domainPrefix'] : null;
-		
+
 		if($domainPrefix)
 		{
 			$urlParts = explode("://", $this->flavor['url']);
 			$this->flavor['url'] = $urlParts[0] . "://" . $domainPrefix . $urlParts[1];
 		}
-		
+
 		unset($this->flavor['domainPrefix']);
 	}
 
@@ -396,23 +396,23 @@ class kMultiFlavorManifestRenderer extends kManifestRenderer
 	 * @var array
 	 */
 	public $flavors = array();
-	
+
 	/**
 	 * @var string
 	 */
 	public $baseUrl = '';
-	
+
 	function __construct($flavors, $entryId = null, $baseUrl = '')
 	{
 		$this->flavors = $flavors;
 		$this->entryId = $entryId;
 		$this->baseUrl = $baseUrl;
 	}
-	
+
 	protected function replaceDeliveryCode()
 	{
 		$this->baseUrl = str_replace("{deliveryCode}", $this->deliveryCode, $this->baseUrl);
-		
+
 		foreach ($this->flavors as &$flavor)
 		{
 			$flavor['url'] = str_replace("{deliveryCode}", $this->deliveryCode, $flavor['url']);
@@ -420,7 +420,7 @@ class kMultiFlavorManifestRenderer extends kManifestRenderer
 				$flavor['urlPrefix'] = str_replace("{deliveryCode}", $this->deliveryCode, $flavor['urlPrefix']);
 		}
 	}
-	
+
 	protected function tokenizeUrls()
 	{
 		if ($this->baseUrl)
@@ -443,7 +443,7 @@ class kMultiFlavorManifestRenderer extends kManifestRenderer
 			}
 			$prefixes[$flavor['urlPrefix']] = true;
 		}
-		
+
 		if (count($prefixes) == 1)
 		{
 			reset($prefixes);
@@ -459,7 +459,7 @@ class kMultiFlavorManifestRenderer extends kManifestRenderer
 			}
 			return;
 		}
-		
+
 		foreach ($this->flavors as &$flavor)
 		{
 			$url = $flavor['url'];
@@ -468,29 +468,29 @@ class kMultiFlavorManifestRenderer extends kManifestRenderer
 			{
 				$url = $this->tokenizer->tokenizeSingleUrl($url, $urlPrefix);
 			}
-			
+
 			if($urlPrefix !== null)
 			{
 				$url = self::urlJoin($urlPrefix, $url);
 				unset($flavor['urlPrefix']);		// no longer need the prefix
 			}
-			
+
 			$flavor['url'] = $url;
 		}
 	}
-	
+
 	protected function applyDomainPrefix()
 	{
 		foreach ($this->flavors as &$flavor)
 		{
 			$domainPrefix = isset($flavor['domainPrefix']) ? $flavor['domainPrefix'] : null;
-			
+
 			if($domainPrefix)
 			{
 				$urlParts = explode("://", $flavor['url']);
 				$flavor['url'] = $urlParts[0] . "://" . $domainPrefix . $urlParts[1];
 			}
-			
+
 			unset($flavor['domainPrefix']);
 		}
 	}
@@ -532,14 +532,14 @@ class kF4MManifestRenderer extends kMultiFlavorManifestRenderer
 	 * @var int
 	 */
 	public $dvrWindow = null;
-	
+
 	function __construct($flavor, $entryId = null, $baseUrl = '') {
 		parent::__construct($flavor, $entryId, $baseUrl);
-		
+
 		$entry = entryPeer::retrieveByPK($this->entryId);
 		$this->setMimeType($entry);
 	}
-	
+
 	/**
 	 * @return array<string>
 	 */
@@ -563,7 +563,7 @@ class kF4MManifestRenderer extends kMultiFlavorManifestRenderer
 		{
 			$deliveryCodeStr = '?deliveryCode='.$this->deliveryCode;
 		}
-		
+
 		foreach($this->flavors as $flavor)
 		{
 			$url = $flavor['url'];
@@ -571,9 +571,9 @@ class kF4MManifestRenderer extends kMultiFlavorManifestRenderer
 			$width				= isset($flavor['width'])			? $flavor['width']				: 0;
 			$height				= isset($flavor['height'])			? $flavor['height']				: 0;
 			$bootstrapInfoId	= isset($flavor['bootstrapInfoId'])	? $flavor['bootstrapInfoId']	: '';
-			
+
 			$url = htmlspecialchars($url . $deliveryCodeStr);
-			
+
 			$mediaElement = "<media url=\"$url\" bitrate=\"$bitrate\" width=\"$width\" height=\"$height\"";
 			if(isset($flavor['bootstrapInfoId']) && isset($this->bootstrapInfos[$flavor['bootstrapInfoId']]))
 			{
@@ -582,30 +582,30 @@ class kF4MManifestRenderer extends kMultiFlavorManifestRenderer
 				$mediaElement = $bootstrapInfoElement . $mediaElement . ' bootstrapInfoId="' . $flavor['bootstrapInfoId'] . '"';
 			}
 			$mediaElement .= ' />';
-			
+
 			$flavorsArray[] = $mediaElement;
-		}		
-		
+		}
+
 		return $flavorsArray;
 	}
-	
+
 	protected function getManifestHeader()
 	{
 		$durationXml = ($this->duration ? "<duration>{$this->duration}</duration>" : '');
 		$baseUrlXml = ($this->baseUrl ? "<baseURL>".htmlspecialchars($this->baseUrl)."</baseURL>" : '');
 		$dvrXml = ($this->dvrWindow ? "<dvrInfo windowDuration=\"{$this->dvrWindow}\"></dvrInfo>" : '');
-		
-		return 
+
+		return
 	"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 	<manifest xmlns=\"http://ns.adobe.com/f4m/1.0\">
 		<id>{$this->entryId}</id>
 		<mimeType>{$this->mimeType}</mimeType>
-		<streamType>{$this->streamType}</streamType>		
-		{$dvrXml}					
-		{$durationXml}		
+		<streamType>{$this->streamType}</streamType>
+		{$dvrXml}
+		{$durationXml}
 		{$baseUrlXml}";
 	}
-	
+
 	protected function getManifestFooter()
 	{
 		$mediaUrl = '';
@@ -616,7 +616,7 @@ class kF4MManifestRenderer extends kMultiFlavorManifestRenderer
 		return "{$mediaUrl}
 			</manifest>";
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestFlavors()
 	 */
@@ -624,7 +624,7 @@ class kF4MManifestRenderer extends kMultiFlavorManifestRenderer
 	{
 		return $this->buildFlavorsArray();
 	}
-	
+
 	/**
 	 * @param array $flavors
 	 * @return string
@@ -639,17 +639,17 @@ class kF4MManifestRenderer extends kMultiFlavorManifestRenderer
 				if (!isset($flavor['ext']) || strtolower($flavor['ext']) != 'mp3')
 					$isMp3 = false;
 			}
-	
+
 			if ($isMp3) {
 				$this->mimeType = 'audio/mpeg';
 				return;
 			}
 		}
-	
+
 		$this->mimeType = 'video/x-flv';
 	}
 }
-	
+
 class kF4Mv2ManifestRenderer extends kMultiFlavorManifestRenderer
 {
 	/**
@@ -662,7 +662,7 @@ class kF4Mv2ManifestRenderer extends kMultiFlavorManifestRenderer
 			"Content-Disposition: inline; filename=manifest.xml",
 			);
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestFlavors()
 	 */
@@ -670,7 +670,7 @@ class kF4Mv2ManifestRenderer extends kMultiFlavorManifestRenderer
 	{
 		return $this->buildFlavorsArray();
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestFooter()
 	 */
@@ -678,14 +678,14 @@ class kF4Mv2ManifestRenderer extends kMultiFlavorManifestRenderer
 	{
 		return "</manifest>";
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestHeader()
 	 */
 	protected function getManifestHeader()
 	{
 		$durationXml = ($this->duration ? "<duration>{$this->duration}</duration>" : '');
-		
+
 		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 		<manifest xmlns=\"http://ns.adobe.com/f4m/2.0\">
 			<id>{$this->entryId}</id>
@@ -705,16 +705,16 @@ class kF4Mv2ManifestRenderer extends kMultiFlavorManifestRenderer
 			$bitrate	= isset($flavor['bitrate'])	? $flavor['bitrate']	: 0;
 			$width		= isset($flavor['width'])	? $flavor['width']		: 0;
 			$height		= isset($flavor['height'])	? $flavor['height']		: 0;
-			
+
 			$flavorsArray[] = "<media href=\"$url\" bitrate=\"$bitrate\" width=\"$width\" height=\"$height\"/>";
-		}		
-		
+		}
+
 		return $flavorsArray;
 	}
 
 }
-	
-class hSilverLightManifestRenderer extends kSingleUrlManifestRenderer
+
+class hSilverLightManifestRenderer extends hSingleUrlManifestRenderer
 {
 	/**
 	 * @var string
@@ -731,16 +731,16 @@ class hSilverLightManifestRenderer extends kSingleUrlManifestRenderer
 			"Content-Disposition: inline; filename=manifest.xml",
 			);
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestHeader()
 	 */
 	protected function getManifestHeader()
 	{
-		$manifestUrl = htmlspecialchars($this->flavor['url']);		
+		$manifestUrl = htmlspecialchars($this->flavor['url']);
 		$durationXml = ($this->duration ? "<duration>{$this->duration}</duration>" : '');
 
-		return 
+		return
 			"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 			<manifest url=\"{$manifestUrl}\">
 				<id>{$this->entryId}</id>
@@ -762,7 +762,7 @@ class hSmilManifestRenderer extends kMultiFlavorManifestRenderer
 			"Content-Disposition: inline; filename=manifest.xml",
 			);
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestFlavors()
 	 */
@@ -776,12 +776,12 @@ class hSmilManifestRenderer extends kMultiFlavorManifestRenderer
 			$url = $flavor['url'];
 			$url = parse_url($url, PHP_URL_PATH);
 			$url = htmlspecialchars($url);
-			$flavorsArr[] = "<video src=\"{$url}\" system-bitrate=\"".($bitrate * 1000)."\"/>"; 
+			$flavorsArr[] = "<video src=\"{$url}\" system-bitrate=\"".($bitrate * 1000)."\"/>";
 		}
-		
+
 		return $flavorsArr;
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestHeader()
 	 */
@@ -793,7 +793,7 @@ class hSmilManifestRenderer extends kMultiFlavorManifestRenderer
 			$url = $flavor['url'];
 			$domain = parse_url($url, PHP_URL_SCHEME)."://".parse_url($url, PHP_URL_HOST);
 		}
-		
+
 		return '<?xml version="1.0"?>
 				<!DOCTYPE smil PUBLIC "-//W3C//DTD SMIL 2.0//EN" "http://www.w3.org/2001/SMIL20/SMIL20.dtd">
 				<smil xmlns="http://www.w3.org/2001/SMIL20/Language">
@@ -805,7 +805,7 @@ class hSmilManifestRenderer extends kMultiFlavorManifestRenderer
 					<body>
 						<switch id="video">';
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestFooter()
 	 */
@@ -824,11 +824,11 @@ class kM3U8ManifestRenderer extends kMultiFlavorManifestRenderer
 	* @var bool
 	*/
 	protected $hasAudioFlavors = false;
-	
-	function __construct($flavors, $entryId = null, $baseUrl = '') 
+
+	function __construct($flavors, $entryId = null, $baseUrl = '')
 	{
 		parent::__construct($flavors, $entryId, $baseUrl);
-		
+
 		// check if audio flavors exist
 		foreach($this->flavors as $flavor) {
 			if (isset($flavor['audioLanguage'])) {
@@ -837,7 +837,7 @@ class kM3U8ManifestRenderer extends kMultiFlavorManifestRenderer
 			}
 		}
 	}
-    
+
 	/**
 	 * @return array<string>
 	 */
@@ -845,18 +845,18 @@ class kM3U8ManifestRenderer extends kMultiFlavorManifestRenderer
 	{
 		return array("Content-Type: application/x-mpegurl");
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestFlavors()
 	 */
 	protected function getManifestFlavors()
 	{
-		$audioFlavorsArr = array(); 
+		$audioFlavorsArr = array();
 		$audio = null;
 		if ($this->hasAudioFlavors) {
 			$audio = ",AUDIO=\"audio\"";
 		}
-		
+
 		$flavorsArr = array();
 		foreach($this->flavors as $flavor)
 		{
@@ -865,7 +865,7 @@ class kM3U8ManifestRenderer extends kMultiFlavorManifestRenderer
 				$isFirstAudioStream = (count($audioFlavorsArr) == 0) ? "YES" : "NO";
 				$language = (isset($flavor['audioLanguage'])) ? $flavor['audioLanguage'] : 'und';
 				$languageName = (isset($flavor['audioLabel'])) ? $flavor['audioLabel'] : $flavor['audioLanguageName'];
-				$content = "#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio\",LANGUAGE=\"{$language}\",NAME=\"{$languageName}\"" . 
+				$content = "#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio\",LANGUAGE=\"{$language}\",NAME=\"{$languageName}\"" .
 						",AUTOSELECT=$isFirstAudioStream,DEFAULT=$isFirstAudioStream,URI=\"{$flavor['url']}\"";
 				$audioFlavorsArr[] = $content;
 			}
@@ -894,10 +894,10 @@ class kM3U8ManifestRenderer extends kMultiFlavorManifestRenderer
 		}
 		if (count($audioFlavorsArr) > 0) {
 			return array_merge($audioFlavorsArr, array(''), $flavorsArr);
-		}		
+		}
 		return $flavorsArr;
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestHeader()
 	 */
@@ -908,7 +908,7 @@ class kM3U8ManifestRenderer extends kMultiFlavorManifestRenderer
 
 }
 
-class kRtspManifestRenderer extends kSingleUrlManifestRenderer
+class kRtspManifestRenderer extends hSingleUrlManifestRenderer
 {
 	/**
 	 * @return array<string>
@@ -917,7 +917,7 @@ class kRtspManifestRenderer extends kSingleUrlManifestRenderer
 	{
 		return array("Content-Type: text/html; charset=UTF-8");
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestHeader()
 	 */
@@ -925,7 +925,7 @@ class kRtspManifestRenderer extends kSingleUrlManifestRenderer
 	{
 		return '<html><head><meta http-equiv="refresh" content="0;url=' . htmlspecialchars($this->flavor['url']) . '"></head></html>';
 	}
-	
+
 }
 
 class kDashBaseManifestRenderer extends kMultiFlavorManifestRenderer
@@ -952,7 +952,7 @@ class kDashBaseManifestRenderer extends kMultiFlavorManifestRenderer
      xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd"
      minimumUpdatePeriod="PT0S">';
 	}
-	
+
 	/* (non-PHPdoc)
 	 * @see kManifestRenderer::getManifestFooter()
 	 */
@@ -977,7 +977,7 @@ class kDashRedirectManifestRenderer extends kDashBaseManifestRenderer
 	}
 }
 
-class kRedirectManifestRenderer extends kSingleUrlManifestRenderer
+class kRedirectManifestRenderer extends hSingleUrlManifestRenderer
 {
 	/**
 	 * @return array<string>
@@ -1000,7 +1000,7 @@ class kJSONManifestRenderer extends kMultiFlavorManifestRenderer
 				header("Content-Type: application/json"),
 		);
 	}
-	
+
 	protected function buildFlavorsArray()
 	{
 		return array(
@@ -1034,7 +1034,7 @@ class kJSONPManifestRenderer extends kJSONManifestRenderer
 		// check for a valid callback, prevent xss
 		if (is_null($callback) || !preg_match($ALLOWED_REGEX, $callback))
 			die("Expecting \"callback\" parameter for jsonp format");
-		
+
 		$result = $this->buildFlavorsArray();
 		return array($callback . '(' . json_encode($result) . ')');
 	}

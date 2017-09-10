@@ -399,7 +399,7 @@ class HSecureEntryHelper
 		if(!in_array($moderationStatus, $invalidModerationStatuses))
 			return false;
 
-		if($this->isHsAdmin() || $this->isKsUserOwnsEntry())
+		if($this->isHsAdmin() || $this->isHsUserOwnsEntry())
 			return false;
 
 		return true;

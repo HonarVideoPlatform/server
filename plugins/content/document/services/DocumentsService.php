@@ -318,12 +318,12 @@ class DocumentsService extends KalturaEntryService
 	 */
 	function uploadAction($fileData)
 	{
-		$ksUnique = $this->getHsUniqueString();
+		$hsUnique = $this->getHsUniqueString();
 
 		$uniqueId = substr(base_convert(md5(uniqid(rand(), true)), 16, 36), 1, 20);
 
 		$ext = pathinfo($fileData["name"], PATHINFO_EXTENSION);
-		$token = $ksUnique."_".$uniqueId.".".$ext;
+		$token = $hsUnique."_".$uniqueId.".".$ext;
 
 		$res = myUploadUtils::uploadFileByToken($fileData, $token, "", null, true);
 
@@ -390,7 +390,7 @@ class DocumentsService extends KalturaEntryService
 	 * @param string $flavorAssetId Flavor asset id
 	 * @param bool $forceProxy force to get the content without redirect
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 *
 	 * @throws KalturaErrors::ENTRY_ID_NOT_FOUND
 	 * @throws KalturaErrors::FLAVOR_ASSET_IS_NOT_READY
@@ -442,7 +442,7 @@ class DocumentsService extends KalturaEntryService
 	 * @param string $flavorParamsId Flavor params id
 	 * @param bool $forceProxy force to get the content without redirect
 	 * @return file
-	 * @ksOptional
+	 * @hsOptional
 	 *
 	 * @throws KalturaErrors::ENTRY_ID_NOT_FOUND
 	 * @throws KalturaErrors::FLAVOR_ASSET_IS_NOT_READY
@@ -468,7 +468,7 @@ class DocumentsService extends KalturaEntryService
 
 		$hsObj = $this->getHs();
 		$hs = ($hsObj) ? $hsObj->getOriginalString() : null;
-		$securyEntryHelper = new KSecureEntryHelper($dbEntry, $hs, $referrer, ContextType::DOWNLOAD);
+		$securyEntryHelper = new HSecureEntryHelper($dbEntry, $hs, $referrer, ContextType::DOWNLOAD);
 		$securyEntryHelper->validateForDownload();
 
 		$flavorAsset = null;

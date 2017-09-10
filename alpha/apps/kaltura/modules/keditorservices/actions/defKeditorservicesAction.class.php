@@ -10,7 +10,7 @@ class defKeditorservicesAction extends kalturaAction
 	// the objects bellow are actually the user's session
 	protected $partner_id;
 	protected $subp_id;
-	protected $ks_str;
+	protected $hs_str;
 	protected $uid;
 
 	protected function fetchHshow()

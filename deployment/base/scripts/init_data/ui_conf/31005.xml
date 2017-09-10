@@ -12,37 +12,37 @@
             width="100%" k_theme_change="true"
             text="{myKplayer.kalturaEntry.entryName}" />
           </HBox>
-			<Canvas height="100%" id="PlayerHolder" 
+			<Canvas height="100%" id="PlayerHolder"
 				styleName="PlayerBackground" width="100%">
 
-				<Module height="0" id="stats" 
+				<Module height="0" id="stats"
 					k_path="stats/KalturaStatsModule.swf" width="0"/>
-				<KplayerModule height="100%" id="myKplayer" 
-					k_path="kplayer/KplayerModule.swf" styleName="centered" 
+				<KplayerModule height="100%" id="myKplayer"
+					k_path="kplayer/KplayerModule.swf" styleName="centered"
 					width="100%" />
-				<screens height="100%" id="screens" styleName="centered" 
-					width="100%" k_path="screens/Screens.swf" 
-					k_end_screen_id="endScreen" 
-					k_end_screen_over_id="endScreen" 
-					k_pause_screen_id="pauseScreen" 
-					k_pause_screen_over_id="pauseScreen" 
-					k_play_screen_id="emptyScreen" 
-					k_play_screen_over_id="playScreen" 
-					k_start_screen_id="startScreen" 
+				<screens height="100%" id="screens" styleName="centered"
+					width="100%" k_path="screens/Screens.swf"
+					k_end_screen_id="endScreen"
+					k_end_screen_over_id="endScreen"
+					k_pause_screen_id="pauseScreen"
+					k_pause_screen_over_id="pauseScreen"
+					k_play_screen_id="emptyScreen"
+					k_play_screen_over_id="playScreen"
+					k_start_screen_id="startScreen"
 					k_start_screen_over_id="startScreen" />
-				<plymedia height="100%" id="plyMedia" 
-					k_path="addons/PlyMediaModule.swf‬" styleName="centered" 
+				<plymedia height="100%" id="plyMedia"
+					k_path="addons/PlyMediaModule.swf‬" styleName="centered"
 					width="100%"/>
-				<waterMark height="100%" id="watermark" 
-					k_path="watermarks/WaterMarkLoader.swf" 
-					k_watermark_path="http://www.kaltura.com/content/uiconf/kaltura/generic/kaltura_watermark.png" 
-					k_watermark_position="bottomLeft" styleName="centered" 
+				<waterMark height="100%" id="watermark"
+					k_path="watermarks/WaterMarkLoader.swf"
+					k_watermark_path="http://www.kaltura.com/content/uiconf/kaltura/generic/kaltura_watermark.png"
+					k_watermark_position="bottomLeft" styleName="centered"
 					width="100%" k_watermark_padding="0" />
-				<adapTv id="adapTv" height="100%" width="100%" 
-					k_adaptv_categories="" k_adaptv_key="" 
-					k_pre_listen_to="doPlay" k_pre_dispatch="endPreSession" 
-					k_post_listen_to="playerPlayEnd" 
-					k_post_dispatch="endPostSession" k_adaptv_zone="default" 
+				<adapTv id="adapTv" height="100%" width="100%"
+					k_adaptv_categories="" k_adaptv_key=""
+					k_pre_listen_to="doPlay" k_pre_dispatch="endPreSession"
+					k_post_listen_to="playerPlayEnd"
+					k_post_dispatch="endPostSession" k_adaptv_zone="default"
 					k_path="adapTv/KdpAdapTvModule.swf" styleName="centered" />
 			</Canvas>
           <HBox id="ControllerScreen" width="100%" height="35"
@@ -78,21 +78,21 @@
               width="autoSize" height="autoSize" label="fullscreen"
               styleName="fullScreenBtn"
               tooltip="Toggle fullscreen" />
-              
+
 				<Button id="editBtnControllerScreen"
               k_buttonType="buttonIconControllerArea"
               width="autoSize" height="autoSize"
               k_click="jsCall('gotoEditorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
               label="Edit" styleName="editBtn" k_stats_id="edit"
               tooltip="Remix this video" />
-              
+
 				<Button id="uploadBtnControllerScreen"
               width="autoSize" height="autoSize"
               k_buttonType="buttonIconControllerArea"
               k_click="jsCall('gotoContributorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
               label="upload" styleName="uploadBtn"  k_stats_id="upload"
               tooltip="Add additional videos, images or audio files to this video" />
-              
+
 				<Button id="shareBtnControllerScreen"
               k_buttonType="buttonIconControllerArea"
               command="gigyaButton" label="Share"
@@ -221,16 +221,16 @@
             height="autoSize" labelPlacement="top"
             label="fullscreen" styleName="fullScreenBtn"
             tooltip="Toggle fullscreen" />
-            
+
 				<Button id="editBtnStartScreen" labelPlacement="top"
             minWidth="75" minHeight="75"
             k_buttonType="buttonVideoArea" width="autoSize"
-            height="autoSize" 
+            height="autoSize"
             k_click="jsCall('gotoEditorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
             label="Edit" styleName="editBtn" k_stats_id="edit"
             tooltip="Remix this video" />
 
-            
+
 				<Button id="uploadBtnStartScreen" width="autoSize"
             labelPlacement="top" height="autoSize"
             k_buttonType="buttonVideoArea" minWidth="75"
@@ -238,7 +238,7 @@
             k_click="jsCall('gotoContributorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
             label="upload" styleName="uploadBtn"
             tooltip="Add additional videos, images or audio files to this video" />
-            
+
 				<Button id="flagBtnStartScreen" labelPlacement="top"
             minWidth="75" minHeight="75"
             k_buttonType="buttonVideoArea" width="autoSize"
@@ -338,21 +338,21 @@
             width="autoSize" height="autoSize" label="fullscreen"
             styleName="fullScreenBtn"
             tooltip="Toggle fullscreen" />
-            
+
 				<Button id="editBtnPauseScreen" minWidth="75"
             minHeight="75" k_buttonType="buttonVideoArea"
             width="autoSize" height="autoSize" labelPlacement="top"
             k_click="jsCall('gotoEditorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
             label="Edit" styleName="editBtn" k_stats_id="edit"
             tooltip="Remix this video" />
-            
+
 				<Button id="uploadBtnPauseScreen" width="autoSize"
             labelPlacement="top" minWidth="75" minHeight="75"
             height="autoSize" k_buttonType="buttonVideoArea"
             k_click="jsCall('gotoContributorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
             label="upload" styleName="uploadBtn" k_stats_id="upload"
             tooltip="Add additional videos, images or audio files to this video" />
-            
+
 				<Button id="flagBtnPauseScreen" minWidth="75"
             labelPlacement="top" minHeight="75"
             k_buttonType="buttonVideoArea" width="autoSize"
@@ -449,21 +449,21 @@
             width="autoSize" height="autoSize" label="fullscreen"
             styleName="fullScreenBtn"
             tooltip="Toggle fullscreen" />
-            
+
 				<Button id="editBtnPlayScreen" minWidth="75"
             minHeight="75" k_buttonType="buttonVideoArea"
             width="autoSize" height="autoSize" labelPlacement="top"
             k_click="jsCall('gotoEditorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
             label="Edit" styleName="editBtn" k_stats_id="edit"
             tooltip="Remix this video" />
-            
+
 				<Button id="uploadBtnPlayScreen" width="autoSize"
             minWidth="75" minHeight="75" labelPlacement="top"
             height="autoSize" k_buttonType="buttonVideoArea"
             k_click="jsCall('gotoContributorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
             label="Upload" styleName="uploadBtn" k_stats_id="upload"
             tooltip="Add additional videos, images or audio files to this video" />
-            
+
 				<Button id="flagBtnPlayScreen" minWidth="75"
             minHeight="75" k_buttonType="buttonVideoArea"
             width="autoSize" height="autoSize" label="flag"
@@ -552,103 +552,103 @@
           <Spacer height="100%" />
 			<Tile styleName="TileContainer">
 
-				<Button id="shareBtnEndScreen" width="autoSize" minWidth="75" 
-					minHeight="75" height="autoSize" 
-					k_buttonType="buttonVideoArea" labelPlacement="top" 
-					command="gigyaButton" label="Share" styleName="shareBtn" 
+				<Button id="shareBtnEndScreen" width="autoSize" minWidth="75"
+					minHeight="75" height="autoSize"
+					k_buttonType="buttonVideoArea" labelPlacement="top"
+					command="gigyaButton" label="Share" styleName="shareBtn"
 					tooltip="share with friends" />
-				<Button id="fullScreenBtnEndScreen" minWidth="75" 
-					minHeight="75" command="fullScreen" 
-					k_buttonType="buttonVideoArea" width="autoSize" 
-					height="autoSize" labelPlacement="top" label="fullscreen" 
+				<Button id="fullScreenBtnEndScreen" minWidth="75"
+					minHeight="75" command="fullScreen"
+					k_buttonType="buttonVideoArea" width="autoSize"
+					height="autoSize" labelPlacement="top" label="fullscreen"
 					styleName="fullScreenBtn" tooltip="Toggle fullscreen" />
-				<Button id="editBtnEndScreen" minWidth="75" minHeight="75" 
-					k_buttonType="buttonVideoArea" width="autoSize" 
-					height="autoSize" k_stats_id="edit" 
-					k_click="jsCall('gotoEditorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()" 
-					labelPlacement="top" label="Edit" styleName="editBtn" 
+				<Button id="editBtnEndScreen" minWidth="75" minHeight="75"
+					k_buttonType="buttonVideoArea" width="autoSize"
+					height="autoSize" k_stats_id="edit"
+					k_click="jsCall('gotoEditorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
+					labelPlacement="top" label="Edit" styleName="editBtn"
 					tooltip="Remix this video" />
-				<Button id="uploadBtnEndScreen" width="autoSize" minWidth="75" 
-					minHeight="75" height="autoSize" 
-					k_buttonType="buttonVideoArea" labelPlacement="top" 
-					k_click="jsCall('gotoContributorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()" 
-					label="Upload" styleName="uploadBtn" k_stats_id="upload" 
-					tooltip="Add additional videos, images or audio files to this video" 
+				<Button id="uploadBtnEndScreen" width="autoSize" minWidth="75"
+					minHeight="75" height="autoSize"
+					k_buttonType="buttonVideoArea" labelPlacement="top"
+					k_click="jsCall('gotoContributorWindow',myKplayer.kalturaEntry.entryId);pauseMedia()"
+					label="Upload" styleName="uploadBtn" k_stats_id="upload"
+					tooltip="Add additional videos, images or audio files to this video"
 					/>
-				<Button id="flagBtnEndScreen" minWidth="75" minHeight="75" 
-					k_buttonType="buttonVideoArea" width="" 
-					labelPlacement="top" height="autoSize" label="flag" 
-					k_click="popup('report')" styleName="flagBtn" 
+				<Button id="flagBtnEndScreen" minWidth="75" minHeight="75"
+					k_buttonType="buttonVideoArea" width=""
+					labelPlacement="top" height="autoSize" label="flag"
+					k_click="popup('report')" styleName="flagBtn"
 					tooltip="Report this content as inappropriate" />
-				<Button id="creditsBtnEndScreen" minWidth="75" minHeight="75" 
-					k_buttonType="buttonVideoArea" width="autoSize" 
-					labelPlacement="top" height="autoSize" label="credits" 
-					k_click="popup('credits')" styleName="creditsBtn" 
+				<Button id="creditsBtnEndScreen" minWidth="75" minHeight="75"
+					k_buttonType="buttonVideoArea" width="autoSize"
+					labelPlacement="top" height="autoSize" label="credits"
+					k_click="popup('credits')" styleName="creditsBtn"
 					tooltip="Users who contributed to this mix" />
-				<Button id="custom1BtnEndScreen" minWidth="75" minHeight="75" 
-					k_buttonType="buttonVideoArea" width="autoSize" 
-					labelPlacement="top" height="autoSize" 
-					k_click="jsCall('customFunc1',myKplayer.kalturaEntry.entryId)" 
-					label="custom1" styleName="customBtn" 
+				<Button id="custom1BtnEndScreen" minWidth="75" minHeight="75"
+					k_buttonType="buttonVideoArea" width="autoSize"
+					labelPlacement="top" height="autoSize"
+					k_click="jsCall('customFunc1',myKplayer.kalturaEntry.entryId)"
+					label="custom1" styleName="customBtn"
 					tooltip="Custom1 tooltip" />
-				<Button id="custom2BtnEndScreen" minWidth="75" minHeight="75" 
-					k_buttonType="buttonVideoArea" width="autoSize" 
-					labelPlacement="top" height="autoSize" 
-					k_click="jsCall('customFunc2',myKplayer.kalturaEntry.entryId)" 
-					label="custom2" styleName="customBtn" 
+				<Button id="custom2BtnEndScreen" minWidth="75" minHeight="75"
+					k_buttonType="buttonVideoArea" width="autoSize"
+					labelPlacement="top" height="autoSize"
+					k_click="jsCall('customFunc2',myKplayer.kalturaEntry.entryId)"
+					label="custom2" styleName="customBtn"
 					tooltip="Custom2 tooltip" />
-				<Button id="custom3BtnEndScreen" minWidth="75" minHeight="75" 
-					k_buttonType="buttonVideoArea" width="autoSize" 
-					labelPlacement="top" height="autoSize" 
-					k_click="jsCall('customFunc3',myKplayer.kalturaEntry.entryId)" 
-					label="custom3" styleName="customBtn" 
+				<Button id="custom3BtnEndScreen" minWidth="75" minHeight="75"
+					k_buttonType="buttonVideoArea" width="autoSize"
+					labelPlacement="top" height="autoSize"
+					k_click="jsCall('customFunc3',myKplayer.kalturaEntry.entryId)"
+					label="custom3" styleName="customBtn"
 					tooltip="Custom3 tooltip" />
 
-				<Button id="custom4BtnEndScreen" minWidth="75" minHeight="75" 
-					k_buttonType="buttonVideoArea" width="autoSize" 
-					labelPlacement="top" height="autoSize" 
-					k_click="jsCall('customFunc4',myKplayer.kalturaEntry.entryId)" 
-					label="custom4" styleName="customBtn" 
+				<Button id="custom4BtnEndScreen" minWidth="75" minHeight="75"
+					k_buttonType="buttonVideoArea" width="autoSize"
+					labelPlacement="top" height="autoSize"
+					k_click="jsCall('customFunc4',myKplayer.kalturaEntry.entryId)"
+					label="custom4" styleName="customBtn"
 					tooltip="Custom4 tooltip" />
-				<Button id="custom5BtnEndScreen" minWidth="75" minHeight="75" 
-					k_buttonType="buttonVideoArea" width="autoSize" 
-					labelPlacement="top" height="autoSize" 
-					k_click="jsCall('customFunc5',myKplayer.kalturaEntry.entryId)" 
-					label="custom5" styleName="customBtn" 
+				<Button id="custom5BtnEndScreen" minWidth="75" minHeight="75"
+					k_buttonType="buttonVideoArea" width="autoSize"
+					labelPlacement="top" height="autoSize"
+					k_click="jsCall('customFunc5',myKplayer.kalturaEntry.entryId)"
+					label="custom5" styleName="customBtn"
 					tooltip="Custom5 tooltip" />
-				<Button id="thumbnailBtnEndScreen" command="createThumbnail" 
-					labelPlacement="top" width="autoSize" height="autoSize" 
-					minWidth="75" minHeight="75" k_buttonType="buttonVideoArea" 
-					label="Thumb" styleName="thumbnailBtn" 
+				<Button id="thumbnailBtnEndScreen" command="createThumbnail"
+					labelPlacement="top" width="autoSize" height="autoSize"
+					minWidth="75" minHeight="75" k_buttonType="buttonVideoArea"
+					label="Thumb" styleName="thumbnailBtn"
 					tooltip="Use current frame as the video thumbnail" />
-				<Button id="ffwx2BtnEndScreen" command="ffwx2" minWidth="75" 
-					minHeight="75" k_buttonType="buttonVideoArea" 
-					width="autoSize" labelPlacement="top" height="autoSize" 
-					label="fast forward" styleName="ffwx2Btn" 
+				<Button id="ffwx2BtnEndScreen" command="ffwx2" minWidth="75"
+					minHeight="75" k_buttonType="buttonVideoArea"
+					width="autoSize" labelPlacement="top" height="autoSize"
+					label="fast forward" styleName="ffwx2Btn"
 					tooltip="fast forward X2" />
-				<Button id="ffwx4BtnEndScreen" command="ffwx4" minWidth="75" 
-					minHeight="75" k_buttonType="buttonVideoArea" 
-					width="autoSize" labelPlacement="top" height="autoSize" 
-					label="fast forward" styleName="ffwx4Btn" 
+				<Button id="ffwx4BtnEndScreen" command="ffwx4" minWidth="75"
+					minHeight="75" k_buttonType="buttonVideoArea"
+					width="autoSize" labelPlacement="top" height="autoSize"
+					label="fast forward" styleName="ffwx4Btn"
 					tooltip="fast forward X4" />
-				<Button id="ffwx8BtnEndScreen" command="ffwx8" minWidth="75" 
-					minHeight="75" k_buttonType="buttonVideoArea" 
-					width="autoSize" labelPlacement="top" height="autoSize" 
-					label="fast forward" styleName="ffwx8Btn" 
+				<Button id="ffwx8BtnEndScreen" command="ffwx8" minWidth="75"
+					minHeight="75" k_buttonType="buttonVideoArea"
+					width="autoSize" labelPlacement="top" height="autoSize"
+					label="fast forward" styleName="ffwx8Btn"
 					tooltip="fast forward X8" />
-				<Button id="replayBtnEndScreen" command="replay" minWidth="75" 
-					minHeight="75" k_buttonType="buttonVideoArea" 
-					width="autoSize" labelPlacement="top" height="autoSize" 
+				<Button id="replayBtnEndScreen" command="replay" minWidth="75"
+					minHeight="75" k_buttonType="buttonVideoArea"
+					width="autoSize" labelPlacement="top" height="autoSize"
 					label="replay" styleName="replayBtn" tooltip="replay" />
-				<Button id="downloadBtnEndScreen" minWidth="75" minHeight="75" 
-					k_buttonType="buttonVideoArea" width="autoSize" 
-					height="autoSize" label="download" command="download" 
-					labelPlacement="top" styleName="downloadBtn" 
+				<Button id="downloadBtnEndScreen" minWidth="75" minHeight="75"
+					k_buttonType="buttonVideoArea" width="autoSize"
+					height="autoSize" label="download" command="download"
+					labelPlacement="top" styleName="downloadBtn"
 					tooltip="download video" />
-				<Button id="unmuteBtnEndScreen" command="unMute" minWidth="75" 
-					minHeight="75" width="autoSize" height="autoSize" 
-					label="unmute" labelPlacement="top" 
-					k_buttonType="buttonVideoArea" styleName="unMuteBtn" 
+				<Button id="unmuteBtnEndScreen" command="unMute" minWidth="75"
+					minHeight="75" width="autoSize" height="autoSize"
+					label="unmute" labelPlacement="top"
+					k_buttonType="buttonVideoArea" styleName="unMuteBtn"
 					tooltip="unmute sound" />
 
 			</Tile>
@@ -958,7 +958,7 @@
 
       <var key="k_pl_0_name" value="playlist1" />
       <var key="k_pl_0_url"
-      value="http%3A%2F%2Fwww.kaltura.com%2Findex.php%2Fpartnerservices2%2Fexecuteplaylist%3Fuid%3D%26partner_id%3D0%26subp_id%3D0%26format%3D8%26ks%3D%7Bks%7D%26playlist_id%3Dsj4ynh57ki" />
+      value="http%3A%2F%2Fwww.kaltura.com%2Findex.php%2Fpartnerservices2%2Fexecuteplaylist%3Fuid%3D%26partner_id%3D0%26subp_id%3D0%26format%3D8%26hs%3D%7Bhs%7D%26playlist_id%3Dsj4ynh57ki" />
     </uiVars>
   </layout>
 </layouts>
